@@ -18,9 +18,9 @@ module.exports = {
     },
     colors: {
       backgroundColor: {
-        300: "#00B37E",
-        500: "#222222",
-        900: "#1A1A1A",
+        300: "#FFFFFF",
+        500: "#222BF3",
+        900: "#181FC7",
       },
       textColor: {
         500: "#FFFFFF",
@@ -30,8 +30,9 @@ module.exports = {
         500: "#FFFD00",
         600: '#FFC700',
       },
-      borderColor: {
-        500: "#4F4E4E",
+      buttonSecondaryColor: {
+        500: "#F8F8F8",
+        600: "#E1E1E6",
       },
       primaryColor: {
         100: "#E1E1E6",

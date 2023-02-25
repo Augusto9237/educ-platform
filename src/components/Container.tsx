@@ -5,6 +5,6 @@ interface ContainerProps {
 }
 export function Container({children} : ContainerProps) {
     return (
-      <main className="flex w-full max-sm:p-5 max-w-[1160px] h-screen text-textColor-500">{children}</main>
+      <main className="flex w-full  max-w-[1160px] h-screen text-textColor-500">{children}</main>
     )
   }

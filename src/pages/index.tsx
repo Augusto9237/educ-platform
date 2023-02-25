@@ -1,5 +1,8 @@
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
+import { AiFillGoogleCircle } from "react-icons/ai";
+import Link from "next/link";
+import { ButtonSecondary } from "../components/ButtonSecondary";
 
 export default function Home() {
   return (
@@ -10,9 +13,12 @@ export default function Home() {
           <div>
             <span>Sua Logo</span>
           </div>
-          <Button>
-            <strong>Let’s Get Started</strong>
-          </Button>
+          <Link href='/profile' className="w-full">
+          <ButtonSecondary>
+            <strong className="mr-1">Entrar com o </strong><AiFillGoogleCircle size={20}/>
+          </ButtonSecondary>
+          </Link>
+    
         </div>
       </Container>
     </>
