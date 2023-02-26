@@ -1,7 +1,7 @@
 
 import { BottomBar } from "../components/BottomBar";
-import { Button } from "../components/Button";
 import { Container } from "../components/Container";
+import { StudentAvatar } from "../components/StudentAvatar";
 
 export default function Profile() {
     return (
@@ -9,6 +9,7 @@ export default function Profile() {
             <Container>
                 <div className="flex max-sm:flex-col w-full max-sm:">
                     <div className="flex flex-1 flex-col items-center">
+                        <StudentAvatar width="80px" height="80px"/>
                         <strong className="text-textColor-500 text-2xl">Benjamin Tayson</strong>
                     </div>
                     <div className="flex flex-col items-center">
