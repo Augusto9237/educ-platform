@@ -49,7 +49,7 @@ export function Calendar({ month, year }:CalendarProps) {
         </div>
       );
     });
-    return <div className="grid grid-cols-7 gap-2 ml-4 -mr-4">{daysToRender}</div>;
+    return <div className="grid grid-cols-7 gap-2 ml-4 -mr-3">{daysToRender}</div>;
   };
 
   return (
