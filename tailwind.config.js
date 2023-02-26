@@ -18,13 +18,14 @@ module.exports = {
     },
     colors: {
       backgroundColor: {
-        300: "#FFFFFF",
+        300: "#F7F7F7",
         500: "#222BF3",
-        900: "#181FC7",
+        900: "#140169",
       },
-      textColor: {
-        500: "#FFFFFF",
-        900: "#09090A",
+      gradientColor: {
+        300: "#A49DFF",
+        500: "#6E63FF",
+        900: "#2817FF",
       },
       buttonColor: {
         500: "#FFFD00",
@@ -34,7 +35,7 @@ module.exports = {
         500: "#F8F8F8",
         600: "#E1E1E6",
       },
-      primaryColor: {
+      textColor: {
         100: "#E1E1E6",
         200: "#C4C4CC",
         300: "#8D8D99",

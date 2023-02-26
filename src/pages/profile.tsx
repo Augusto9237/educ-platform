@@ -9,9 +9,6 @@ export default function Profile() {
             <Container>
                 <div className="flex max-sm:flex-col w-full max-sm:">
                     <div className="flex flex-1 flex-col items-center">
-                        <div className="w-[80px] h-[80px] rounded-full object-cover overflow-hidden mb-2">
-                            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/5620880-livro-de-design-moderno-de-aluno-icone-avatar-segurando-vetor.jpg" alt="" />
-                        </div>
                         <strong className="text-textColor-500 text-2xl">Benjamin Tayson</strong>
                     </div>
                     <div className="flex flex-col items-center">
@@ -22,7 +19,7 @@ export default function Profile() {
                     </section>
                 </div>
             </Container>
-            <BottomBar/>
+            <BottomBar />
         </>
     )
 }

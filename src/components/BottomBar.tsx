@@ -1,31 +1,34 @@
 import Link from "next/link"
-import { RiHome3Fill, RiMenuFill, RiUserFill } from "react-icons/ri";
+import { RiBarChartBoxFill, RiCalendarCheckFill, RiHome3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export function BottomBar() {
     return (
-        <footer className="fixed bottom-0 flex w-full h-16 bg-primaryColor-100">
-            <div className="flex flex-1 p-3 items-center justify-around gap-2">
-                
-                <Link href='/' className="flex flex-col items-center">
-                    <button className="flex text-backgroundColor-900 text-2xl items-center">
-                        <RiHome3Fill/>
+        <footer className="fixed bottom-0 flex w-full bg-backgroundColor-900">
+            <div className="flex flex-1 p-4 items-center justify-around gap-2">
+
+                <Link href='/home' className="flex flex-col items-center text-textColor-100 hover:text-buttonColor-600">
+                    <button className="flex  text-2xl items-center">
+                        <RiHome3Fill />
                     </button>
-                    <span className="text-primaryColor-300">Home</span>
                 </Link>
 
-                 
-                <Link href='/' className="flex flex-col items-center">
-                    <button className="flex text-backgroundColor-900 text-2xl items-center">
-                        <RiMenuFill/>
+
+                <Link href='/frequency' className="flex flex-col items-center text-textColor-100">
+                    <button className="flex text-2xl items-center">
+                        <RiCalendarCheckFill />
                     </button>
-                    <span className="text-primaryColor-300">Home</span>
                 </Link>
 
-                <Link href='/profile' className="flex flex-col items-center">
-                    <button className="flex text-backgroundColor-900 text-2xl items-center">
-                        <RiUserFill/>
+                <Link href='/profile' className="flex flex-col items-center text-textColor-100">
+                    <button className="flex  text-2xl items-center">
+                        <RiBarChartBoxFill />
                     </button>
-                    <span className="text-primaryColor-300">Perfil</span>
+                </Link>
+
+                <Link href='/payments' className="flex flex-col items-center text-textColor-100">
+                    <button className="flex  text-2xl items-center">
+                        <RiMoneyDollarCircleFill />
+                    </button>
                 </Link>
             </div>
         </footer>

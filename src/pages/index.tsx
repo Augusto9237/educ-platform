@@ -4,13 +4,13 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import Link from "next/link";
 import { ButtonSecondary } from "../components/ButtonSecondary";
 
-export default function Home() {
+export default function Login() {
   return (
     <>
       <Container>
-        <div className="flex w-full h-full max-sm:flex-col max-sm:items-center justify-between">
+        <div className="flex flex-1 w-full h-[90vh] max-sm:flex-col max-sm:items-center justify-between">
           <div/>
-          <div>
+          <div >
             <span>Sua Logo</span>
           </div>
           <Link href='/profile' className="w-full">
