@@ -16,23 +16,23 @@ export default function Frequency() {
                 <section className="flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
                     <Dialog.Root>
                         <Dialog.Trigger>
-                            <CardMonth/>
+                            <CardMonth month="Janeiro"/>
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardMonth/>
+                            <CardMonth month="Fevereiro"/>
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardMonth/>
+                            <CardMonth month="Março"/>
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardMonth/>
+                            <CardMonth month="Abril"/>
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardMonth/>
+                            <CardMonth month="Maio"/>
                         </Dialog.Trigger>
                         <Dialog.Portal>
                             <Dialog.Overlay className='w-screen h-sreen bg-textColor-900/80 fixed inset-0'>
-                                <Dialog.Content className='absolute p-4 bg-backgroundColor-300 rounded-2xl w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                                     <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                         X
                                     </Dialog.Close>
