@@ -19,7 +19,7 @@ export function BottomBar() {
                     </button>
                 </Link>
 
-                <Link href='/profile' className="flex flex-col items-center text-textColor-100 hover:text-buttonColor-500">
+                <Link href='/assessments' className="flex flex-col items-center text-textColor-100 hover:text-buttonColor-500">
                     <button className="flex  text-2xl items-center">
                         <RiBarChartBoxFill />
                     </button>

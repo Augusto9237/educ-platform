@@ -28,6 +28,7 @@ export default function Profile() {
                             <span className="text-lg font-semibold">(91) 999999</span>
                         </div>
                     </div>
+
                 </div>
             </Container>
             <BottomBar />

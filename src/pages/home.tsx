@@ -12,7 +12,7 @@ export default function Home() {
         <>
             <Header titleRoutes='Home' />
             <Container>
-                <section className="flex flex-1 max-sm:flex-col gap-6 max-sm:justify-start justify-between jus max-sm:pb-14 ">
+                <section className="w-full max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid grid-cols-3 gap-6 max-sm:justify-start  max-sm:pb-14 ">
                     <div className="flex flex-col gap-4">
                         <span className="text-base font-bold">Avaliações</span>
                         <CardAssessment />
