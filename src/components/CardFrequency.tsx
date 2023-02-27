@@ -18,9 +18,9 @@ export function CardFrequency() {
                 </div>
             </div>
 
-            <div className="flex  gap-8">
-                <span className="flex items-center gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />20 presenças</span>
-                <span className="flex items-center gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill/>5 faltas</span>
+            <div className="flex  gap-4">
+                <span className="flex items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />20 presenças</span>
+                <span className="flex items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill/>5 faltas</span>
             </div>
         </div>
     )

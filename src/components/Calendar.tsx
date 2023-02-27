@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 
 type CalendarProps = {
   month: number;
   year: number;
 };
 
-export function Calendar({ month, year }:CalendarProps) {
+export function Calendar({ month, year }: CalendarProps) {
   const [selectedDate, setSelectedDate] = useState<Date>();
 
   const daysInMonth = new Date(year, month + 1, 0).getDate(); // Obter o número de dias no mês
@@ -40,16 +41,15 @@ export function Calendar({ month, year }:CalendarProps) {
       daysToRender.push(
         <div
           key={day.toString()}
-          className={`h-6 w-6 flex items-center justify-center cursor-pointer ${
-            selectedDate?.getDate() === day.getDate() ? 'bg-buttonColor-500-500 text-white' : ''
-          }`}
+          className={`h-6 w-6 flex items-center justify-center cursor-pointer rounded-full p-1 ${selectedDate?.getDate() === day.getDate() ? 'bg-textSecondaryColor-300/95 text-textSecondaryColor-600' : ''
+            }`}
           onClick={() => setSelectedDate(day)}
         >
           {day.getDate()}
         </div>
       );
     });
-    return <div className="grid grid-cols-7 gap-2 ml-4 -mr-3">{daysToRender}</div>;
+    return <div className="grid grid-cols-7 gap-2 ml-4 -mr-1">{daysToRender}</div>;
   };
 
   return (
@@ -62,6 +62,11 @@ export function Calendar({ month, year }:CalendarProps) {
       </h1>
       {renderDaysOfWeek()}
       {renderDaysOfMonth()}
+
+      <div className="flex flex-col gap-4 mt-8">
+        <span className="flex  items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />2 presenças</span>
+        <span className="flex items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill />2 faltas</span>
+      </div>
     </div>
   );
 };
