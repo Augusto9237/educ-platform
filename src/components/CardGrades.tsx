@@ -8,7 +8,7 @@ export function CardGrades() {
                     <span>1ª</span>
                     <h1 className="text-xl font-semibold">900</h1>
                 </div>
-                <div className="w-1 h-full bg-textColor-200"/>
+                <div className="w-1 h-full bg-textColor-200 rounded-sm"/>
 
                 <div className="flex flex-1 flex-col items-center">
                     <span>2ª</span>
