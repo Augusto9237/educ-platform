@@ -13,7 +13,7 @@ export function CardAssessment() {
                     <RiBarChartBoxFill />
                 </div>
                 <div>
-                    <h1 className="text-textSecondaryColor-600 text-3xl font-bold">90%</h1>
+                    <h1 className="text-textSecondaryColor-600 text-2xl font-bold">90%</h1>
                     <span className="text-textColor-300">Janeiro</span>
                 </div>
             </div>

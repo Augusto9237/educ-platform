@@ -13,7 +13,7 @@ export function CardFrequency() {
                 <RiCalendarCheckFill/>
                 </div>
                 <div>
-                    <h1 className="text-textSecondaryColor-600 text-3xl font-bold">30 dias</h1>
+                    <h1 className="text-textSecondaryColor-600 text-2xl  font-bold">30 dias</h1>
                     <span className="text-textColor-300">Janeiro</span>
                 </div>
             </div>
