@@ -6,7 +6,6 @@ interface HeaderProps {
 }
 export function Header({ titleRoutes }: HeaderProps) {
     const dataAtual = new Date();
-    console.log(dataAtual);
     const meses = [
         "janeiro", "fevereiro", "março", "abril", "maio", "junho",
         "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"

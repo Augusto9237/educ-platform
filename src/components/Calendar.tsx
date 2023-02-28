@@ -54,7 +54,7 @@ export function Calendar({ month, year }: CalendarProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold px-2 mb-2 ">
+      <h1 className="first-line:uppercase text-lg font-bold px-2 mb-2 ">
         {new Date(year, month).toLocaleDateString('pt-BR', {
           month: 'long',
           year: 'numeric',

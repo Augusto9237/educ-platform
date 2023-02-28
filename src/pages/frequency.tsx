@@ -16,19 +16,19 @@ export default function Frequency() {
                 <section className="flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
                     <Dialog.Root>
                         <Dialog.Trigger onClick={() => setMonth(1)}>
-                            <CardMonth month="Janeiro" />
+                            <CardMonth month="JAN" />
                         </Dialog.Trigger>
                         <Dialog.Trigger onClick={() => setMonth(2)}>
-                            <CardMonth month="Fevereiro" />
+                            <CardMonth month="FEV" />
                         </Dialog.Trigger>
                         <Dialog.Trigger onClick={() => setMonth(3)}>
-                            <CardMonth month="Março" />
+                            <CardMonth month="MAR" />
                         </Dialog.Trigger>
                         <Dialog.Trigger onClick={() => setMonth(4)}>
-                            <CardMonth month="Abril" />
+                            <CardMonth month="ABR" />
                         </Dialog.Trigger>
                         <Dialog.Trigger onClick={() => setMonth(5)}>
-                            <CardMonth month="Maio" />
+                            <CardMonth month="MAI" />
                         </Dialog.Trigger>
                         <Dialog.Portal>
                             <Dialog.Overlay className='w-screen h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
