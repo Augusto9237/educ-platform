@@ -6,7 +6,7 @@ interface ContainerProps {
 }
 export function CardFrequency() {
     return (
-        <div className="relative flex flex-1 flex-col p-3 pl-6 justify-center gap-3 w-full rounded-xl shadow-lg  bg-backgroundColor-100 overflow-hidden">
+        <div className="relative flex flex-1 flex-col p-3 pl-6 justify-center gap-4 w-full rounded-xl shadow-lg  bg-backgroundColor-100 overflow-hidden">
             <div className="absolute bg-buttonColor-500 w-3 h-full left-0" />
             <div className="flex flex-row gap-2">
                 <div className="flex items-center text-4xl rounded-full p-3 text-buttonColor-600/90 bg-buttonColor-500/30">
