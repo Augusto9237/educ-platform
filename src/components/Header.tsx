@@ -17,7 +17,7 @@ export function Header({ titleRoutes }: HeaderProps) {
     const dataFormatada = `${dia} de ${mesNome} de ${ano}`;
 
     return (
-        <header className="flex flex-col w-full max-h-[114px] rounded-b-2xl text-textColor-100 p-4 bg-backgroundColor-900">
+        <header className="flex flex-col w-full max-h-[114px] max-md:rounded-b-2xl text-textColor-100 p-4 bg-backgroundColor-900">
             <div className="flex max-sm:flex-col gap-3">
                 <div className="flex  flex-row w-full max-h-8 justify-between items-center gap-4 overflow-hidden">
                     <span className="flex flex-1">Bem-vindo(a)</span>

@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
+import clsx from 'clsx';
 
 type CalendarProps = {
   month: number;
   year: number;
 };
 
-export function Calendar({ month, year }: CalendarProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>();
+type SelectedDate = Date | undefined;
 
-  const daysInMonth = new Date(year, month + 1, 0).getDate(); // Obter o número de dias no mês
-  const firstDayOfMonth = new Date(year, month, 1).getDay(); // Obter o dia da semana do primeiro dia do mês
+export function Calendar({ month, year }: CalendarProps) {
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>();
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
 
   const days: Date[] = [];
   for (let i = 1; i <= daysInMonth; i++) {
@@ -31,24 +34,25 @@ export function Calendar({ month, year }: CalendarProps) {
   };
 
   const renderDaysOfMonth = () => {
-    const daysToRender = [];
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      daysToRender.push(
-        <div key={`empty-${i}`} className=" h-6 w-6"></div>
-      );
-    }
-    days.forEach((day) => {
-      daysToRender.push(
+    const daysToRender = Array(firstDayOfMonth).fill(null).map((_, index) => (
+      <div key={`empty-${index}`} className="h-6 w-6"></div>
+    ));
+    daysToRender.push(
+      ...days.map((day) => (
         <div
           key={day.toString()}
-          className={`h-6 w-6 flex items-center justify-center cursor-pointer rounded-full p-1 ${selectedDate?.getDate() === day.getDate() ? 'bg-textSecondaryColor-300/95 text-textSecondaryColor-600' : ''
-            }`}
+          className={clsx(
+            'h-6 w-6 flex items-center justify-center cursor-pointer rounded-full p-1',
+            {
+              'bg-textSecondaryColor-300/95 text-textSecondaryColor-600': selectedDate?.getDate() === day.getDate(),
+            }
+          )}
           onClick={() => setSelectedDate(day)}
         >
           {day.getDate()}
         </div>
-      );
-    });
+      ))
+    );
     return <div className="grid grid-cols-7 gap-2 ml-4 -mr-1">{daysToRender}</div>;
   };
 

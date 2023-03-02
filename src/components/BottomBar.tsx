@@ -3,7 +3,7 @@ import { RiBarChartBoxFill, RiCalendarCheckFill, RiHome3Fill, RiMoneyDollarCircl
 
 export function BottomBar() {
     return (
-        <footer className="fixed bottom-0 flex w-full bg-backgroundColor-900">
+        <footer className="fixed bottom-0 flex w-full bg-backgroundColor-900 lg:hidden">
             <div className="flex flex-1 p-4 items-center justify-around gap-2">
 
                 <Link href='/home' className="flex flex-col items-center text-textColor-100 hover:text-buttonColor-500">
