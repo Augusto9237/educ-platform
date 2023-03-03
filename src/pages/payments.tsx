@@ -3,12 +3,14 @@ import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 import { BottomBar } from "../components/BottomBar";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
 
 export default function Frequency() {
 
     return (
         <>
             <Header titleRoutes='Pagamentos' />
+            <Sidebar/>
             <Container>
                 <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100">
                     <h1 className="mx-auto text-lg font-semibold">Mensalidades</h1>

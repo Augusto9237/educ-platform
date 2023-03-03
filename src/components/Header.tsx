@@ -18,7 +18,7 @@ export function Header({ titleRoutes }: HeaderProps) {
 
     return (
         <header className="flex flex-col w-full max-h-[114px] max-md:rounded-b-2xl text-textColor-100 p-4 bg-backgroundColor-900">
-            <div className="flex max-sm:flex-col gap-3">
+            <div className="flex flex-col gap-3">
                 <div className="flex  flex-row w-full max-h-8 justify-between items-center gap-4 overflow-hidden">
                     <span className="flex flex-1">Bem-vindo(a)</span>
                     <Link href='/profile' className="flex flex-row flex-1 justify-end items-center overflow-hidden gap-2">

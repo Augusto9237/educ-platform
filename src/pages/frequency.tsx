@@ -6,12 +6,14 @@ import { Calendar } from '../components/Calendar';
 import { CardMonth } from '../components/CardMonth';
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Sidebar } from '../components/Sidebar';
 
 export default function Frequency() {
     const [month, setMonth] = useState(0)
     return (
         <>
             <Header titleRoutes='Frequência' />
+            <Sidebar/>
             <Container>
                 <section className="flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
                     <Dialog.Root>
