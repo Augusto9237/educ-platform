@@ -10,7 +10,7 @@ export default function Login() {
     <>
       <Background />
       <Container>
-        <div className="max-sm:flex-col max-sm:flex max-sm:flex-1 w-full max-sm:h-[96vh] sm:h-[98vh] sm:grid sm:grid-cols-2 items-center justify-between">
+        <div className="max-sm:flex-col max-sm:flex max-sm:flex-1 w-full max-sm:h-[96vh] sm:h-[96vh] sm:grid sm:grid-cols-2 items-center justify-between">
           <div className="max-sm:my-auto sm:flex sm:flex-1">
             <Logo/>
           </div>

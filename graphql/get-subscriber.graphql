@@ -1,0 +1,8 @@
+query GetSubscriberLogin($email: String! = "") {
+  subscriber(where: { email: $email }, stage: DRAFT) {
+    email
+    id
+    name
+    payment
+  }
+}

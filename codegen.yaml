@@ -1,0 +1,15 @@
+schema: https://api-sa-east-1.hygraph.com/v2/clehxlq7c2iud01upb4227mwd/master
+documents: graphql/**/*.graphql
+extensions:
+  codegen:
+    overwrite: true
+    generates:
+      graphql/api.ts:
+        plugins:
+          - typescript
+          - typescript-operations
+          - typescript-react-apollo
+          - typescript-apollo-client-helpers
+      ./graphql.schema.json:
+        plugins:
+          - introspection
