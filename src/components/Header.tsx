@@ -1,10 +1,15 @@
+import { useGetSubscriberLoginQuery } from "graphql/api";
 import Link from "next/link";
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import { StudentAvatar } from "./StudentAvatar"
 
 interface HeaderProps {
     titleRoutes: string
 }
 export function Header({ titleRoutes }: HeaderProps) {
+   const {user} = useContext(GlobalContext)
+      
     const dataAtual = new Date();
     const meses = [
         "janeiro", "fevereiro", "março", "abril", "maio", "junho",
@@ -22,8 +27,8 @@ export function Header({ titleRoutes }: HeaderProps) {
                 <div className="flex  flex-row w-full max-h-8 justify-between items-center gap-4 overflow-hidden">
                     <span className="flex flex-1">Bem-vindo(a)</span>
                     <Link href='/profile' className="flex flex-row flex-1 justify-end items-center overflow-hidden gap-2">
-                        <strong className="text-base">Aluno Teste</strong>
-                        <StudentAvatar width="30px" height="30px" />
+                        <strong className="text-base">{user?.subscriber?.name}</strong>
+                        <StudentAvatar width="30px" height="30px" url={user?.subscriber?.pictureUrl} />
                     </Link>
                 </div>
                 <div className="flex flex-row justify-between">

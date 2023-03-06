@@ -1,4 +1,4 @@
-schema: https://demo.saleor.io/graphql/
+schema: https://api-sa-east-1.hygraph.com/v2/clehxlq7c2iud01upb4227mwd/master
 documents: graphql/**/*.graphql
 extensions:
   codegen:

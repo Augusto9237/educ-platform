@@ -1,10 +1,12 @@
-/* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,18 +14,13 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar. */
   Date: any;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-timeformat outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representationof dates and times using the Gregorian calendar. */
   DateTime: any;
   Hex: any;
-  /** Raw JSON value */
   Json: any;
-  /** The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1. */
   Long: any;
   RGBAHue: any;
   RGBATransparency: any;
-  /** Slate-compatible RichText AST */
   RichTextAST: any;
 };
 
@@ -1716,13 +1713,14 @@ export type Frequency = Node & {
   createdAt: Scalars['DateTime'];
   /** User that created this document */
   createdBy?: Maybe<User>;
-  dayTime?: Maybe<Scalars['DateTime']>;
+  dataHora?: Maybe<Scalars['DateTime']>;
   /** Get the document in other stages */
   documentInStages: Array<Frequency>;
   /** List of Frequency versions */
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
+  presence: Array<FrequencypresenceUnion>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -1754,6 +1752,17 @@ export type FrequencyHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type FrequencyPresenceArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1799,7 +1808,8 @@ export type FrequencyConnection = {
 
 export type FrequencyCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  dayTime?: InputMaybe<Scalars['DateTime']>;
+  dataHora?: InputMaybe<Scalars['DateTime']>;
+  presence?: InputMaybe<FrequencypresenceUnionCreateManyInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1852,21 +1862,21 @@ export type FrequencyManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
-  dayTime?: InputMaybe<Scalars['DateTime']>;
+  dataHora?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
-  dayTime_gt?: InputMaybe<Scalars['DateTime']>;
+  dataHora_gt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
-  dayTime_gte?: InputMaybe<Scalars['DateTime']>;
+  dataHora_gte?: InputMaybe<Scalars['DateTime']>;
   /** All values that are contained in given list. */
-  dayTime_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  dataHora_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   /** All values less than the given value. */
-  dayTime_lt?: InputMaybe<Scalars['DateTime']>;
+  dataHora_lt?: InputMaybe<Scalars['DateTime']>;
   /** All values less than or equal the given value. */
-  dayTime_lte?: InputMaybe<Scalars['DateTime']>;
+  dataHora_lte?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
-  dayTime_not?: InputMaybe<Scalars['DateTime']>;
+  dataHora_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
-  dayTime_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  dataHora_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   documentInStages_every?: InputMaybe<FrequencyWhereStageInput>;
   documentInStages_none?: InputMaybe<FrequencyWhereStageInput>;
   documentInStages_some?: InputMaybe<FrequencyWhereStageInput>;
@@ -1929,8 +1939,8 @@ export type FrequencyManyWhereInput = {
 export enum FrequencyOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
-  DayTimeAsc = 'dayTime_ASC',
-  DayTimeDesc = 'dayTime_DESC',
+  DataHoraAsc = 'dataHora_ASC',
+  DataHoraDesc = 'dataHora_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
@@ -1940,7 +1950,8 @@ export enum FrequencyOrderByInput {
 }
 
 export type FrequencyUpdateInput = {
-  dayTime?: InputMaybe<Scalars['DateTime']>;
+  dataHora?: InputMaybe<Scalars['DateTime']>;
+  presence?: InputMaybe<FrequencypresenceUnionUpdateManyInlineInput>;
 };
 
 export type FrequencyUpdateManyInlineInput = {
@@ -1961,7 +1972,7 @@ export type FrequencyUpdateManyInlineInput = {
 };
 
 export type FrequencyUpdateManyInput = {
-  dayTime?: InputMaybe<Scalars['DateTime']>;
+  dataHora?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type FrequencyUpdateManyWithNestedWhereInput = {
@@ -2039,21 +2050,21 @@ export type FrequencyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
-  dayTime?: InputMaybe<Scalars['DateTime']>;
+  dataHora?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
-  dayTime_gt?: InputMaybe<Scalars['DateTime']>;
+  dataHora_gt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than or equal the given value. */
-  dayTime_gte?: InputMaybe<Scalars['DateTime']>;
+  dataHora_gte?: InputMaybe<Scalars['DateTime']>;
   /** All values that are contained in given list. */
-  dayTime_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  dataHora_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   /** All values less than the given value. */
-  dayTime_lt?: InputMaybe<Scalars['DateTime']>;
+  dataHora_lt?: InputMaybe<Scalars['DateTime']>;
   /** All values less than or equal the given value. */
-  dayTime_lte?: InputMaybe<Scalars['DateTime']>;
+  dataHora_lte?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not equal to given value. */
-  dayTime_not?: InputMaybe<Scalars['DateTime']>;
+  dataHora_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
-  dayTime_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  dataHora_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   documentInStages_every?: InputMaybe<FrequencyWhereStageInput>;
   documentInStages_none?: InputMaybe<FrequencyWhereStageInput>;
   documentInStages_some?: InputMaybe<FrequencyWhereStageInput>;
@@ -2130,6 +2141,84 @@ export type FrequencyWhereStageInput = {
 /** References Frequency record uniquely */
 export type FrequencyWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
+};
+
+export type FrequencypresenceUnion = Presence;
+
+export type FrequencypresenceUnionConnectInput = {
+  Presence?: InputMaybe<PresenceConnectInput>;
+};
+
+export type FrequencypresenceUnionCreateInput = {
+  Presence?: InputMaybe<PresenceCreateInput>;
+};
+
+export type FrequencypresenceUnionCreateManyInlineInput = {
+  /** Create and connect multiple existing FrequencypresenceUnion documents */
+  create?: InputMaybe<Array<FrequencypresenceUnionCreateInput>>;
+};
+
+export type FrequencypresenceUnionCreateOneInlineInput = {
+  /** Create and connect one FrequencypresenceUnion document */
+  create?: InputMaybe<FrequencypresenceUnionCreateInput>;
+};
+
+export type FrequencypresenceUnionCreateWithPositionInput = {
+  Presence?: InputMaybe<PresenceCreateWithPositionInput>;
+};
+
+export type FrequencypresenceUnionUpdateInput = {
+  Presence?: InputMaybe<PresenceUpdateInput>;
+};
+
+export type FrequencypresenceUnionUpdateManyInlineInput = {
+  /** Create and connect multiple FrequencypresenceUnion component instances */
+  create?: InputMaybe<Array<FrequencypresenceUnionCreateWithPositionInput>>;
+  /** Delete multiple FrequencypresenceUnion documents */
+  delete?: InputMaybe<Array<FrequencypresenceUnionWhereUniqueInput>>;
+  /** Update multiple FrequencypresenceUnion component instances */
+  update?: InputMaybe<Array<FrequencypresenceUnionUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FrequencypresenceUnion component instances */
+  upsert?: InputMaybe<Array<FrequencypresenceUnionUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FrequencypresenceUnionUpdateManyWithNestedWhereInput = {
+  Presence?: InputMaybe<PresenceUpdateManyWithNestedWhereInput>;
+};
+
+export type FrequencypresenceUnionUpdateOneInlineInput = {
+  /** Create and connect one FrequencypresenceUnion document */
+  create?: InputMaybe<FrequencypresenceUnionCreateInput>;
+  /** Delete currently connected FrequencypresenceUnion document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FrequencypresenceUnion document */
+  update?: InputMaybe<FrequencypresenceUnionUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FrequencypresenceUnion document */
+  upsert?: InputMaybe<FrequencypresenceUnionUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FrequencypresenceUnionUpdateWithNestedWhereUniqueAndPositionInput = {
+  Presence?: InputMaybe<PresenceUpdateWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FrequencypresenceUnionUpdateWithNestedWhereUniqueInput = {
+  Presence?: InputMaybe<PresenceUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FrequencypresenceUnionUpsertWithNestedWhereUniqueAndPositionInput = {
+  Presence?: InputMaybe<PresenceUpsertWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FrequencypresenceUnionUpsertWithNestedWhereUniqueInput = {
+  Presence?: InputMaybe<PresenceUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FrequencypresenceUnionWhereInput = {
+  Presence?: InputMaybe<PresenceWhereInput>;
+};
+
+export type FrequencypresenceUnionWhereUniqueInput = {
+  Presence?: InputMaybe<PresenceWhereUniqueInput>;
 };
 
 export enum ImageFit {
@@ -4203,6 +4292,309 @@ export type PageInfo = {
   pageSize?: Maybe<Scalars['Int']>;
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']>;
+};
+
+export type Presence = {
+  __typename?: 'Presence';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  prensente?: Maybe<Scalars['Boolean']>;
+  /** System stage field */
+  stage: Stage;
+  subscriber?: Maybe<Subscriber>;
+};
+
+
+export type PresenceSubscriberArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type PresenceConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: PresenceWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type PresenceConnection = {
+  __typename?: 'PresenceConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<PresenceEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type PresenceCreateInput = {
+  prensente?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberCreateOneInlineInput>;
+};
+
+export type PresenceCreateManyInlineInput = {
+  /** Create and connect multiple existing Presence documents */
+  create?: InputMaybe<Array<PresenceCreateInput>>;
+};
+
+export type PresenceCreateOneInlineInput = {
+  /** Create and connect one Presence document */
+  create?: InputMaybe<PresenceCreateInput>;
+};
+
+export type PresenceCreateWithPositionInput = {
+  /** Document to create */
+  data: PresenceCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type PresenceEdge = {
+  __typename?: 'PresenceEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Presence;
+};
+
+/** Identifies documents */
+export type PresenceManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  prensente?: InputMaybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  prensente_not?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberWhereInput>;
+};
+
+export enum PresenceOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PrensenteAsc = 'prensente_ASC',
+  PrensenteDesc = 'prensente_DESC'
+}
+
+export type PresenceParent = Frequency;
+
+export type PresenceParentConnectInput = {
+  Frequency?: InputMaybe<FrequencyConnectInput>;
+};
+
+export type PresenceParentCreateInput = {
+  Frequency?: InputMaybe<FrequencyCreateInput>;
+};
+
+export type PresenceParentCreateManyInlineInput = {
+  /** Connect multiple existing PresenceParent documents */
+  connect?: InputMaybe<Array<PresenceParentWhereUniqueInput>>;
+  /** Create and connect multiple existing PresenceParent documents */
+  create?: InputMaybe<Array<PresenceParentCreateInput>>;
+};
+
+export type PresenceParentCreateOneInlineInput = {
+  /** Connect one existing PresenceParent document */
+  connect?: InputMaybe<PresenceParentWhereUniqueInput>;
+  /** Create and connect one PresenceParent document */
+  create?: InputMaybe<PresenceParentCreateInput>;
+};
+
+export type PresenceParentUpdateInput = {
+  Frequency?: InputMaybe<FrequencyUpdateInput>;
+};
+
+export type PresenceParentUpdateManyInlineInput = {
+  /** Connect multiple existing PresenceParent documents */
+  connect?: InputMaybe<Array<PresenceParentConnectInput>>;
+  /** Create and connect multiple PresenceParent documents */
+  create?: InputMaybe<Array<PresenceParentCreateInput>>;
+  /** Delete multiple PresenceParent documents */
+  delete?: InputMaybe<Array<PresenceParentWhereUniqueInput>>;
+  /** Disconnect multiple PresenceParent documents */
+  disconnect?: InputMaybe<Array<PresenceParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing PresenceParent documents */
+  set?: InputMaybe<Array<PresenceParentWhereUniqueInput>>;
+  /** Update multiple PresenceParent documents */
+  update?: InputMaybe<Array<PresenceParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple PresenceParent documents */
+  upsert?: InputMaybe<Array<PresenceParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type PresenceParentUpdateManyWithNestedWhereInput = {
+  Frequency?: InputMaybe<FrequencyUpdateManyWithNestedWhereInput>;
+};
+
+export type PresenceParentUpdateOneInlineInput = {
+  /** Connect existing PresenceParent document */
+  connect?: InputMaybe<PresenceParentWhereUniqueInput>;
+  /** Create and connect one PresenceParent document */
+  create?: InputMaybe<PresenceParentCreateInput>;
+  /** Delete currently connected PresenceParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected PresenceParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single PresenceParent document */
+  update?: InputMaybe<PresenceParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single PresenceParent document */
+  upsert?: InputMaybe<PresenceParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type PresenceParentUpdateWithNestedWhereUniqueInput = {
+  Frequency?: InputMaybe<FrequencyUpdateWithNestedWhereUniqueInput>;
+};
+
+export type PresenceParentUpsertWithNestedWhereUniqueInput = {
+  Frequency?: InputMaybe<FrequencyUpsertWithNestedWhereUniqueInput>;
+};
+
+export type PresenceParentWhereInput = {
+  Frequency?: InputMaybe<FrequencyWhereInput>;
+};
+
+export type PresenceParentWhereUniqueInput = {
+  Frequency?: InputMaybe<FrequencyWhereUniqueInput>;
+};
+
+export type PresenceUpdateInput = {
+  prensente?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
+};
+
+export type PresenceUpdateManyInlineInput = {
+  /** Create and connect multiple Presence component instances */
+  create?: InputMaybe<Array<PresenceCreateWithPositionInput>>;
+  /** Delete multiple Presence documents */
+  delete?: InputMaybe<Array<PresenceWhereUniqueInput>>;
+  /** Update multiple Presence component instances */
+  update?: InputMaybe<Array<PresenceUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple Presence component instances */
+  upsert?: InputMaybe<Array<PresenceUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type PresenceUpdateManyInput = {
+  prensente?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type PresenceUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: PresenceUpdateManyInput;
+  /** Document search */
+  where: PresenceWhereInput;
+};
+
+export type PresenceUpdateOneInlineInput = {
+  /** Create and connect one Presence document */
+  create?: InputMaybe<PresenceCreateInput>;
+  /** Delete currently connected Presence document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Presence document */
+  update?: InputMaybe<PresenceUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Presence document */
+  upsert?: InputMaybe<PresenceUpsertWithNestedWhereUniqueInput>;
+};
+
+export type PresenceUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<PresenceUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: PresenceWhereUniqueInput;
+};
+
+export type PresenceUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: PresenceUpdateInput;
+  /** Unique document search */
+  where: PresenceWhereUniqueInput;
+};
+
+export type PresenceUpsertInput = {
+  /** Create document if it didn't exist */
+  create: PresenceCreateInput;
+  /** Update document if it exists */
+  update: PresenceUpdateInput;
+};
+
+export type PresenceUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<PresenceUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: PresenceWhereUniqueInput;
+};
+
+export type PresenceUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: PresenceUpsertInput;
+  /** Unique document search */
+  where: PresenceWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type PresenceWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PresenceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  prensente?: InputMaybe<Scalars['Boolean']>;
+  /** All values that are not equal to given value. */
+  prensente_not?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberWhereInput>;
+};
+
+/** References Presence record uniquely */
+export type PresenceWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type PublishLocaleInput = {
@@ -6433,6 +6825,7 @@ export type SubscriberConnection = {
 
 export type SubscriberCreateInput = {
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleCreateManyInlineInput>;
+  clevupd5740wo01ue2xkjfxhr?: InputMaybe<PresenceCreateManyInlineInput>;
   comments?: InputMaybe<CommentCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
@@ -6644,6 +7037,7 @@ export enum SubscriberOrderByInput {
 
 export type SubscriberUpdateInput = {
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleUpdateManyInlineInput>;
+  clevupd5740wo01ue2xkjfxhr?: InputMaybe<PresenceUpdateManyInlineInput>;
   comments?: InputMaybe<CommentUpdateManyInlineInput>;
   email?: InputMaybe<Scalars['String']>;
   grades?: InputMaybe<Array<Scalars['Json']>>;
@@ -7941,10 +8335,828 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetSubscriberQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSubscriberLoginQueryVariables = Exact<{
+  email?: Scalars['String'];
+}>;
 
 
-export type GetSubscriberQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', id: string, name: string, payment?: boolean | null, pictureUrl?: string | null } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null } | null };
 
 
-export const GetSubscriberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSubscriber"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriber"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"StringValue","value":"augusto.souza8330@gmail.com","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"payment"}},{"kind":"Field","name":{"kind":"Name","value":"pictureUrl"}}]}}]}}]} as unknown as DocumentNode<GetSubscriberQuery, GetSubscriberQueryVariables>;
+export const GetSubscriberLoginDocument = gql`
+    query GetSubscriberLogin($email: String! = "") {
+  subscriber(where: {email: $email}, stage: DRAFT) {
+    email
+    id
+    name
+    payment
+    pictureUrl
+  }
+}
+    `;
+
+/**
+ * __useGetSubscriberLoginQuery__
+ *
+ * To run a query within a React component, call `useGetSubscriberLoginQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubscriberLoginQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubscriberLoginQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetSubscriberLoginQuery(baseOptions?: Apollo.QueryHookOptions<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>(GetSubscriberLoginDocument, options);
+      }
+export function useGetSubscriberLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>(GetSubscriberLoginDocument, options);
+        }
+export type GetSubscriberLoginQueryHookResult = ReturnType<typeof useGetSubscriberLoginQuery>;
+export type GetSubscriberLoginLazyQueryHookResult = ReturnType<typeof useGetSubscriberLoginLazyQuery>;
+export type GetSubscriberLoginQueryResult = Apollo.QueryResult<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>;
+export type AggregateKeySpecifier = ('count' | AggregateKeySpecifier)[];
+export type AggregateFieldPolicy = {
+	count?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AssetKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'fileName' | 'handle' | 'height' | 'history' | 'id' | 'locale' | 'localizations' | 'mimeType' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'size' | 'slug' | 'stage' | 'updatedAt' | 'updatedBy' | 'url' | 'width' | AssetKeySpecifier)[];
+export type AssetFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	fileName?: FieldPolicy<any> | FieldReadFunction<any>,
+	handle?: FieldPolicy<any> | FieldReadFunction<any>,
+	height?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	locale?: FieldPolicy<any> | FieldReadFunction<any>,
+	localizations?: FieldPolicy<any> | FieldReadFunction<any>,
+	mimeType?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	size?: FieldPolicy<any> | FieldReadFunction<any>,
+	slug?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>,
+	width?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AssetConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | AssetConnectionKeySpecifier)[];
+export type AssetConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AssetEdgeKeySpecifier = ('cursor' | 'node' | AssetEdgeKeySpecifier)[];
+export type AssetEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type BatchPayloadKeySpecifier = ('count' | BatchPayloadKeySpecifier)[];
+export type BatchPayloadFieldPolicy = {
+	count?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ChallengeKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | 'url' | ChallengeKeySpecifier)[];
+export type ChallengeFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ChallengeConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | ChallengeConnectionKeySpecifier)[];
+export type ChallengeConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ChallengeEdgeKeySpecifier = ('cursor' | 'node' | ChallengeEdgeKeySpecifier)[];
+export type ChallengeEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ColorKeySpecifier = ('css' | 'hex' | 'rgba' | ColorKeySpecifier)[];
+export type ColorFieldPolicy = {
+	css?: FieldPolicy<any> | FieldReadFunction<any>,
+	hex?: FieldPolicy<any> | FieldReadFunction<any>,
+	rgba?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CommentKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'feedback' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | CommentKeySpecifier)[];
+export type CommentFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	feedback?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CommentConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | CommentConnectionKeySpecifier)[];
+export type CommentConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CommentEdgeKeySpecifier = ('cursor' | 'node' | CommentEdgeKeySpecifier)[];
+export type CommentEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type DocumentVersionKeySpecifier = ('createdAt' | 'data' | 'id' | 'revision' | 'stage' | DocumentVersionKeySpecifier)[];
+export type DocumentVersionFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	data?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	revision?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FrequencyKeySpecifier = ('createdAt' | 'createdBy' | 'dataHora' | 'documentInStages' | 'history' | 'id' | 'presence' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
+export type FrequencyFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	dataHora?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	presence?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FrequencyConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | FrequencyConnectionKeySpecifier)[];
+export type FrequencyConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FrequencyEdgeKeySpecifier = ('cursor' | 'node' | FrequencyEdgeKeySpecifier)[];
+export type FrequencyEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LessonKeySpecifier = ('availableAt' | 'challenge' | 'createdAt' | 'createdBy' | 'description' | 'documentInStages' | 'history' | 'id' | 'lessonType' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'slug' | 'stage' | 'teacher' | 'title' | 'updatedAt' | 'updatedBy' | 'videoId' | LessonKeySpecifier)[];
+export type LessonFieldPolicy = {
+	availableAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	challenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	lessonType?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	slug?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	teacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	videoId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LessonConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | LessonConnectionKeySpecifier)[];
+export type LessonConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LessonEdgeKeySpecifier = ('cursor' | 'node' | LessonEdgeKeySpecifier)[];
+export type LessonEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LocationKeySpecifier = ('distance' | 'latitude' | 'longitude' | LocationKeySpecifier)[];
+export type LocationFieldPolicy = {
+	distance?: FieldPolicy<any> | FieldReadFunction<any>,
+	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
+	longitude?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type MutationKeySpecifier = ('createAsset' | 'createChallenge' | 'createComment' | 'createFrequency' | 'createLesson' | 'createResponsible' | 'createScheduledRelease' | 'createSubscriber' | 'createTeacher' | 'deleteAsset' | 'deleteChallenge' | 'deleteComment' | 'deleteFrequency' | 'deleteLesson' | 'deleteManyAssets' | 'deleteManyAssetsConnection' | 'deleteManyChallenges' | 'deleteManyChallengesConnection' | 'deleteManyComments' | 'deleteManyCommentsConnection' | 'deleteManyFrequencies' | 'deleteManyFrequenciesConnection' | 'deleteManyLessons' | 'deleteManyLessonsConnection' | 'deleteManyResponsibles' | 'deleteManyResponsiblesConnection' | 'deleteManySubscribers' | 'deleteManySubscribersConnection' | 'deleteManyTeachers' | 'deleteManyTeachersConnection' | 'deleteResponsible' | 'deleteScheduledOperation' | 'deleteScheduledRelease' | 'deleteSubscriber' | 'deleteTeacher' | 'publishAsset' | 'publishChallenge' | 'publishComment' | 'publishFrequency' | 'publishLesson' | 'publishManyAssets' | 'publishManyAssetsConnection' | 'publishManyChallenges' | 'publishManyChallengesConnection' | 'publishManyComments' | 'publishManyCommentsConnection' | 'publishManyFrequencies' | 'publishManyFrequenciesConnection' | 'publishManyLessons' | 'publishManyLessonsConnection' | 'publishManyResponsibles' | 'publishManyResponsiblesConnection' | 'publishManySubscribers' | 'publishManySubscribersConnection' | 'publishManyTeachers' | 'publishManyTeachersConnection' | 'publishResponsible' | 'publishSubscriber' | 'publishTeacher' | 'schedulePublishAsset' | 'schedulePublishChallenge' | 'schedulePublishComment' | 'schedulePublishFrequency' | 'schedulePublishLesson' | 'schedulePublishResponsible' | 'schedulePublishSubscriber' | 'schedulePublishTeacher' | 'scheduleUnpublishAsset' | 'scheduleUnpublishChallenge' | 'scheduleUnpublishComment' | 'scheduleUnpublishFrequency' | 'scheduleUnpublishLesson' | 'scheduleUnpublishResponsible' | 'scheduleUnpublishSubscriber' | 'scheduleUnpublishTeacher' | 'unpublishAsset' | 'unpublishChallenge' | 'unpublishComment' | 'unpublishFrequency' | 'unpublishLesson' | 'unpublishManyAssets' | 'unpublishManyAssetsConnection' | 'unpublishManyChallenges' | 'unpublishManyChallengesConnection' | 'unpublishManyComments' | 'unpublishManyCommentsConnection' | 'unpublishManyFrequencies' | 'unpublishManyFrequenciesConnection' | 'unpublishManyLessons' | 'unpublishManyLessonsConnection' | 'unpublishManyResponsibles' | 'unpublishManyResponsiblesConnection' | 'unpublishManySubscribers' | 'unpublishManySubscribersConnection' | 'unpublishManyTeachers' | 'unpublishManyTeachersConnection' | 'unpublishResponsible' | 'unpublishSubscriber' | 'unpublishTeacher' | 'updateAsset' | 'updateChallenge' | 'updateComment' | 'updateFrequency' | 'updateLesson' | 'updateManyAssets' | 'updateManyAssetsConnection' | 'updateManyChallenges' | 'updateManyChallengesConnection' | 'updateManyComments' | 'updateManyCommentsConnection' | 'updateManyFrequencies' | 'updateManyFrequenciesConnection' | 'updateManyLessons' | 'updateManyLessonsConnection' | 'updateManyResponsibles' | 'updateManyResponsiblesConnection' | 'updateManySubscribers' | 'updateManySubscribersConnection' | 'updateManyTeachers' | 'updateManyTeachersConnection' | 'updateResponsible' | 'updateScheduledRelease' | 'updateSubscriber' | 'updateTeacher' | 'upsertAsset' | 'upsertChallenge' | 'upsertComment' | 'upsertFrequency' | 'upsertLesson' | 'upsertResponsible' | 'upsertSubscriber' | 'upsertTeacher' | MutationKeySpecifier)[];
+export type MutationFieldPolicy = {
+	createAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	createChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	createComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	createFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	createLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	createResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	createScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
+	createSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	createTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyChallenges?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyChallengesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyCommentsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyLessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyLessonsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyResponsiblesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManySubscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteScheduledOperation?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyChallenges?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyChallengesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyCommentsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyLessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyLessonsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyResponsiblesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManySubscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyChallenges?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyChallengesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyCommentsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyLessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyLessonsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyResponsiblesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManySubscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyChallenges?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyChallengesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyCommentsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyLessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyLessonsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyResponsiblesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManySubscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertChallenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertLesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertTeacher?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type NodeKeySpecifier = ('id' | 'stage' | NodeKeySpecifier)[];
+export type NodeFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PageInfoKeySpecifier = ('endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'pageSize' | 'startCursor' | PageInfoKeySpecifier)[];
+export type PageInfoFieldPolicy = {
+	endCursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>,
+	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageSize?: FieldPolicy<any> | FieldReadFunction<any>,
+	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PresenceKeySpecifier = ('id' | 'prensente' | 'stage' | 'subscriber' | PresenceKeySpecifier)[];
+export type PresenceFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	prensente?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriber?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PresenceConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | PresenceConnectionKeySpecifier)[];
+export type PresenceConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PresenceEdgeKeySpecifier = ('cursor' | 'node' | PresenceEdgeKeySpecifier)[];
+export type PresenceEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type QueryKeySpecifier = ('asset' | 'assetVersion' | 'assets' | 'assetsConnection' | 'challenge' | 'challengeVersion' | 'challenges' | 'challengesConnection' | 'comment' | 'commentVersion' | 'comments' | 'commentsConnection' | 'frequencies' | 'frequenciesConnection' | 'frequency' | 'frequencyVersion' | 'lesson' | 'lessonVersion' | 'lessons' | 'lessonsConnection' | 'node' | 'responsible' | 'responsibleVersion' | 'responsibles' | 'responsiblesConnection' | 'scheduledOperation' | 'scheduledOperations' | 'scheduledOperationsConnection' | 'scheduledRelease' | 'scheduledReleases' | 'scheduledReleasesConnection' | 'subscriber' | 'subscriberVersion' | 'subscribers' | 'subscribersConnection' | 'teacher' | 'teacherVersion' | 'teachers' | 'teachersConnection' | 'user' | 'users' | 'usersConnection' | QueryKeySpecifier)[];
+export type QueryFieldPolicy = {
+	asset?: FieldPolicy<any> | FieldReadFunction<any>,
+	assetVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	assets?: FieldPolicy<any> | FieldReadFunction<any>,
+	assetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	challenge?: FieldPolicy<any> | FieldReadFunction<any>,
+	challengeVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	challenges?: FieldPolicy<any> | FieldReadFunction<any>,
+	challengesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	comment?: FieldPolicy<any> | FieldReadFunction<any>,
+	commentVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	comments?: FieldPolicy<any> | FieldReadFunction<any>,
+	commentsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	frequencies?: FieldPolicy<any> | FieldReadFunction<any>,
+	frequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	frequency?: FieldPolicy<any> | FieldReadFunction<any>,
+	frequencyVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	lesson?: FieldPolicy<any> | FieldReadFunction<any>,
+	lessonVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	lessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	lessonsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>,
+	responsible?: FieldPolicy<any> | FieldReadFunction<any>,
+	responsibleVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	responsibles?: FieldPolicy<any> | FieldReadFunction<any>,
+	responsiblesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledOperation?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledOperations?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledOperationsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledReleases?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledReleasesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriberVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	teacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	teacherVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	teachers?: FieldPolicy<any> | FieldReadFunction<any>,
+	teachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>,
+	users?: FieldPolicy<any> | FieldReadFunction<any>,
+	usersConnection?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type RGBAKeySpecifier = ('a' | 'b' | 'g' | 'r' | RGBAKeySpecifier)[];
+export type RGBAFieldPolicy = {
+	a?: FieldPolicy<any> | FieldReadFunction<any>,
+	b?: FieldPolicy<any> | FieldReadFunction<any>,
+	g?: FieldPolicy<any> | FieldReadFunction<any>,
+	r?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResponsibleKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | ResponsibleKeySpecifier)[];
+export type ResponsibleFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	grades?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	payment?: FieldPolicy<any> | FieldReadFunction<any>,
+	pictureUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResponsibleConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | ResponsibleConnectionKeySpecifier)[];
+export type ResponsibleConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResponsibleEdgeKeySpecifier = ('cursor' | 'node' | ResponsibleEdgeKeySpecifier)[];
+export type ResponsibleEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type RichTextKeySpecifier = ('html' | 'markdown' | 'raw' | 'text' | RichTextKeySpecifier)[];
+export type RichTextFieldPolicy = {
+	html?: FieldPolicy<any> | FieldReadFunction<any>,
+	markdown?: FieldPolicy<any> | FieldReadFunction<any>,
+	raw?: FieldPolicy<any> | FieldReadFunction<any>,
+	text?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledOperationKeySpecifier = ('affectedDocuments' | 'createdAt' | 'createdBy' | 'description' | 'documentInStages' | 'errorMessage' | 'id' | 'publishedAt' | 'publishedBy' | 'rawPayload' | 'release' | 'stage' | 'status' | 'updatedAt' | 'updatedBy' | ScheduledOperationKeySpecifier)[];
+export type ScheduledOperationFieldPolicy = {
+	affectedDocuments?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	errorMessage?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	rawPayload?: FieldPolicy<any> | FieldReadFunction<any>,
+	release?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	status?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledOperationConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | ScheduledOperationConnectionKeySpecifier)[];
+export type ScheduledOperationConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledOperationEdgeKeySpecifier = ('cursor' | 'node' | ScheduledOperationEdgeKeySpecifier)[];
+export type ScheduledOperationEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledReleaseKeySpecifier = ('createdAt' | 'createdBy' | 'description' | 'documentInStages' | 'errorMessage' | 'id' | 'isActive' | 'isImplicit' | 'operations' | 'publishedAt' | 'publishedBy' | 'releaseAt' | 'stage' | 'status' | 'title' | 'updatedAt' | 'updatedBy' | ScheduledReleaseKeySpecifier)[];
+export type ScheduledReleaseFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	errorMessage?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	isActive?: FieldPolicy<any> | FieldReadFunction<any>,
+	isImplicit?: FieldPolicy<any> | FieldReadFunction<any>,
+	operations?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	releaseAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	status?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledReleaseConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | ScheduledReleaseConnectionKeySpecifier)[];
+export type ScheduledReleaseConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScheduledReleaseEdgeKeySpecifier = ('cursor' | 'node' | ScheduledReleaseEdgeKeySpecifier)[];
+export type ScheduledReleaseEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SubscriberKeySpecifier = ('comments' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
+export type SubscriberFieldPolicy = {
+	comments?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	grades?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	payment?: FieldPolicy<any> | FieldReadFunction<any>,
+	pictureUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SubscriberConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | SubscriberConnectionKeySpecifier)[];
+export type SubscriberConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SubscriberEdgeKeySpecifier = ('cursor' | 'node' | SubscriberEdgeKeySpecifier)[];
+export type SubscriberEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'lessons' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
+export type TeacherFieldPolicy = {
+	avatarURL?: FieldPolicy<any> | FieldReadFunction<any>,
+	bio?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	lessons?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TeacherConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | TeacherConnectionKeySpecifier)[];
+export type TeacherConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TeacherEdgeKeySpecifier = ('cursor' | 'node' | TeacherEdgeKeySpecifier)[];
+export type TeacherEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UserKeySpecifier = ('createdAt' | 'documentInStages' | 'id' | 'isActive' | 'kind' | 'name' | 'picture' | 'publishedAt' | 'stage' | 'updatedAt' | UserKeySpecifier)[];
+export type UserFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	isActive?: FieldPolicy<any> | FieldReadFunction<any>,
+	kind?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	picture?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UserConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | UserConnectionKeySpecifier)[];
+export type UserConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UserEdgeKeySpecifier = ('cursor' | 'node' | UserEdgeKeySpecifier)[];
+export type UserEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type VersionKeySpecifier = ('createdAt' | 'id' | 'revision' | 'stage' | VersionKeySpecifier)[];
+export type VersionFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	revision?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type StrictTypedTypePolicies = {
+	Aggregate?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AggregateKeySpecifier | (() => undefined | AggregateKeySpecifier),
+		fields?: AggregateFieldPolicy,
+	},
+	Asset?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AssetKeySpecifier | (() => undefined | AssetKeySpecifier),
+		fields?: AssetFieldPolicy,
+	},
+	AssetConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AssetConnectionKeySpecifier | (() => undefined | AssetConnectionKeySpecifier),
+		fields?: AssetConnectionFieldPolicy,
+	},
+	AssetEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AssetEdgeKeySpecifier | (() => undefined | AssetEdgeKeySpecifier),
+		fields?: AssetEdgeFieldPolicy,
+	},
+	BatchPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | BatchPayloadKeySpecifier | (() => undefined | BatchPayloadKeySpecifier),
+		fields?: BatchPayloadFieldPolicy,
+	},
+	Challenge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ChallengeKeySpecifier | (() => undefined | ChallengeKeySpecifier),
+		fields?: ChallengeFieldPolicy,
+	},
+	ChallengeConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ChallengeConnectionKeySpecifier | (() => undefined | ChallengeConnectionKeySpecifier),
+		fields?: ChallengeConnectionFieldPolicy,
+	},
+	ChallengeEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ChallengeEdgeKeySpecifier | (() => undefined | ChallengeEdgeKeySpecifier),
+		fields?: ChallengeEdgeFieldPolicy,
+	},
+	Color?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ColorKeySpecifier | (() => undefined | ColorKeySpecifier),
+		fields?: ColorFieldPolicy,
+	},
+	Comment?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CommentKeySpecifier | (() => undefined | CommentKeySpecifier),
+		fields?: CommentFieldPolicy,
+	},
+	CommentConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CommentConnectionKeySpecifier | (() => undefined | CommentConnectionKeySpecifier),
+		fields?: CommentConnectionFieldPolicy,
+	},
+	CommentEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CommentEdgeKeySpecifier | (() => undefined | CommentEdgeKeySpecifier),
+		fields?: CommentEdgeFieldPolicy,
+	},
+	DocumentVersion?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DocumentVersionKeySpecifier | (() => undefined | DocumentVersionKeySpecifier),
+		fields?: DocumentVersionFieldPolicy,
+	},
+	Frequency?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FrequencyKeySpecifier | (() => undefined | FrequencyKeySpecifier),
+		fields?: FrequencyFieldPolicy,
+	},
+	FrequencyConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FrequencyConnectionKeySpecifier | (() => undefined | FrequencyConnectionKeySpecifier),
+		fields?: FrequencyConnectionFieldPolicy,
+	},
+	FrequencyEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FrequencyEdgeKeySpecifier | (() => undefined | FrequencyEdgeKeySpecifier),
+		fields?: FrequencyEdgeFieldPolicy,
+	},
+	Lesson?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LessonKeySpecifier | (() => undefined | LessonKeySpecifier),
+		fields?: LessonFieldPolicy,
+	},
+	LessonConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LessonConnectionKeySpecifier | (() => undefined | LessonConnectionKeySpecifier),
+		fields?: LessonConnectionFieldPolicy,
+	},
+	LessonEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LessonEdgeKeySpecifier | (() => undefined | LessonEdgeKeySpecifier),
+		fields?: LessonEdgeFieldPolicy,
+	},
+	Location?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationKeySpecifier | (() => undefined | LocationKeySpecifier),
+		fields?: LocationFieldPolicy,
+	},
+	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
+		fields?: MutationFieldPolicy,
+	},
+	Node?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier),
+		fields?: NodeFieldPolicy,
+	},
+	PageInfo?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
+		fields?: PageInfoFieldPolicy,
+	},
+	Presence?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PresenceKeySpecifier | (() => undefined | PresenceKeySpecifier),
+		fields?: PresenceFieldPolicy,
+	},
+	PresenceConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PresenceConnectionKeySpecifier | (() => undefined | PresenceConnectionKeySpecifier),
+		fields?: PresenceConnectionFieldPolicy,
+	},
+	PresenceEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PresenceEdgeKeySpecifier | (() => undefined | PresenceEdgeKeySpecifier),
+		fields?: PresenceEdgeFieldPolicy,
+	},
+	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
+		fields?: QueryFieldPolicy,
+	},
+	RGBA?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RGBAKeySpecifier | (() => undefined | RGBAKeySpecifier),
+		fields?: RGBAFieldPolicy,
+	},
+	Responsible?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResponsibleKeySpecifier | (() => undefined | ResponsibleKeySpecifier),
+		fields?: ResponsibleFieldPolicy,
+	},
+	ResponsibleConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResponsibleConnectionKeySpecifier | (() => undefined | ResponsibleConnectionKeySpecifier),
+		fields?: ResponsibleConnectionFieldPolicy,
+	},
+	ResponsibleEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResponsibleEdgeKeySpecifier | (() => undefined | ResponsibleEdgeKeySpecifier),
+		fields?: ResponsibleEdgeFieldPolicy,
+	},
+	RichText?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RichTextKeySpecifier | (() => undefined | RichTextKeySpecifier),
+		fields?: RichTextFieldPolicy,
+	},
+	ScheduledOperation?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledOperationKeySpecifier | (() => undefined | ScheduledOperationKeySpecifier),
+		fields?: ScheduledOperationFieldPolicy,
+	},
+	ScheduledOperationConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledOperationConnectionKeySpecifier | (() => undefined | ScheduledOperationConnectionKeySpecifier),
+		fields?: ScheduledOperationConnectionFieldPolicy,
+	},
+	ScheduledOperationEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledOperationEdgeKeySpecifier | (() => undefined | ScheduledOperationEdgeKeySpecifier),
+		fields?: ScheduledOperationEdgeFieldPolicy,
+	},
+	ScheduledRelease?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledReleaseKeySpecifier | (() => undefined | ScheduledReleaseKeySpecifier),
+		fields?: ScheduledReleaseFieldPolicy,
+	},
+	ScheduledReleaseConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledReleaseConnectionKeySpecifier | (() => undefined | ScheduledReleaseConnectionKeySpecifier),
+		fields?: ScheduledReleaseConnectionFieldPolicy,
+	},
+	ScheduledReleaseEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScheduledReleaseEdgeKeySpecifier | (() => undefined | ScheduledReleaseEdgeKeySpecifier),
+		fields?: ScheduledReleaseEdgeFieldPolicy,
+	},
+	Subscriber?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SubscriberKeySpecifier | (() => undefined | SubscriberKeySpecifier),
+		fields?: SubscriberFieldPolicy,
+	},
+	SubscriberConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SubscriberConnectionKeySpecifier | (() => undefined | SubscriberConnectionKeySpecifier),
+		fields?: SubscriberConnectionFieldPolicy,
+	},
+	SubscriberEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SubscriberEdgeKeySpecifier | (() => undefined | SubscriberEdgeKeySpecifier),
+		fields?: SubscriberEdgeFieldPolicy,
+	},
+	Teacher?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TeacherKeySpecifier | (() => undefined | TeacherKeySpecifier),
+		fields?: TeacherFieldPolicy,
+	},
+	TeacherConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TeacherConnectionKeySpecifier | (() => undefined | TeacherConnectionKeySpecifier),
+		fields?: TeacherConnectionFieldPolicy,
+	},
+	TeacherEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TeacherEdgeKeySpecifier | (() => undefined | TeacherEdgeKeySpecifier),
+		fields?: TeacherEdgeFieldPolicy,
+	},
+	User?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier),
+		fields?: UserFieldPolicy,
+	},
+	UserConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UserConnectionKeySpecifier | (() => undefined | UserConnectionKeySpecifier),
+		fields?: UserConnectionFieldPolicy,
+	},
+	UserEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UserEdgeKeySpecifier | (() => undefined | UserEdgeKeySpecifier),
+		fields?: UserEdgeFieldPolicy,
+	},
+	Version?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VersionKeySpecifier | (() => undefined | VersionKeySpecifier),
+		fields?: VersionFieldPolicy,
+	}
+};
+export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
