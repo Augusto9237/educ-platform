@@ -14,7 +14,7 @@ export function CardMonth({ month }: CardMonthProps) {
 
             <div className="flex max-sm:flex-col justify-center flex-1">
                 <div className="flex items-center justify-center flex-1">
-                    <h1 className="max-sm:-ml-4 text-lg font-bold">10 aulas</h1>
+                    <h1 className="max-sm:-ml-4 text-lg font-bold">4 aulas</h1>
                 </div>
                 <div className="flex flex-row flex-1 justify-between items-center">
                     <div className="flex flex-1 items-center justify-center gap-2 text-textSecondaryColor-400">

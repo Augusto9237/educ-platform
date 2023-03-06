@@ -7,7 +7,7 @@ import { StudentAvatar } from "../components/StudentAvatar";
 import { GlobalContext } from "../context/GlobalContext";
 
 export default function Profile() {
-    const {user} = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
     return (
         <>
             <Container>
@@ -15,7 +15,9 @@ export default function Profile() {
                     <div className="flex flex-col items-center h-80 justify-center gap-4">
                         <StudentAvatar width="100px" height="100px" url={user?.subscriber?.pictureUrl} />
                         <strong className="text-textSecondaryColor-600 text-2xl">{user?.subscriber?.name}</strong>
+                        <span>Turma: A</span>
                     </div>
+
 
                     <div className="flex flex-col bg-backgroundColor-100 rounded-xl p-3">
                         <h1 className="mx-auto text-lg font-semibold">Informações do perfil</h1>
