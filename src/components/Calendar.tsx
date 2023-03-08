@@ -67,9 +67,9 @@ export function Calendar({ month, year }: CalendarProps) {
       {renderDaysOfWeek()}
       {renderDaysOfMonth()}
 
-      <div className="flex flex-col gap-4 mt-8">
-        <span className="flex  items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />2 presenças</span>
-        <span className="flex items-center justify-center max-sm:flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill />2 faltas</span>
+      <div className="flex gap-4 mt-8">
+        <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />2 presenças</span>
+        <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill />2 faltas</span>
       </div>
     </div>
   );

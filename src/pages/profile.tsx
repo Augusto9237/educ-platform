@@ -12,7 +12,7 @@ export default function Profile() {
         <>
             <Container>
                 <div className="flex flex-col flex-1 w-full  max-sm:justify-center max-sm:pb-14">
-                    <div className="flex flex-col items-center h-80 justify-center gap-4">
+                    <div className="flex flex-col items-center h-80 justify-center">
                         <StudentAvatar width="100px" height="100px" url={user?.subscriber?.pictureUrl} />
                         <strong className="text-textSecondaryColor-600 text-2xl">{user?.subscriber?.name}</strong>
                         <span>Turma: A</span>

@@ -15,7 +15,7 @@ export default function Frequency() {
             <Header titleRoutes='Frequência' />
             <Sidebar/>
             <Container>
-                <section className="flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
+                <section className="fl:grid grid-cols-3 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
                     <Dialog.Root>
                         <Dialog.Trigger onClick={() => setMonth(1)}>
                             <CardMonth month="JAN" />
@@ -36,7 +36,7 @@ export default function Frequency() {
                             <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
                                 <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                                     <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
-                                        X
+                                        <strong className='text-textColor-300'>X</strong>
                                     </Dialog.Close>
                                     <Calendar month={month - 1} year={2023} />
                                 </Dialog.Content>

@@ -6,13 +6,13 @@ interface CardMonthProps {
 
 export function CardMonth({ month }: CardMonthProps) {
     return (
-        <div className="flex  bg-backgroundColor-100 rounded-xl p-2 drop-shadow-md ">
+        <div className="flex  bg-backgroundColor-100 rounded-xl p-2 lg:p-3 drop-shadow-md ">
 
             <div className="flex items-center justify-center rounded-full min-w-[60px] min-h-[60px] text-backgroundColor-500 bg-backgroundColor-400/40">
                 <h1 className="text-lg font-bold">{month}</h1>
             </div>
 
-            <div className="flex max-sm:flex-col justify-center flex-1">
+            <div className="flex flex-col justify-center flex-1">
                 <div className="flex items-center justify-center flex-1">
                     <h1 className="max-sm:-ml-4 text-lg font-bold">4 aulas</h1>
                 </div>
