@@ -15,10 +15,10 @@ export default function Assesments() {
                 <section className="fl:grid grid-cols-2 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14">
                     <Dialog.Root>
                         <Dialog.Trigger>
-                            <CardGrades percentage={90} />
+                            <CardGrades mounth='Janeiro' percentage={90} />
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardGrades percentage={10} />
+                            <CardGrades mounth='Fevereiro' percentage={10} />
                         </Dialog.Trigger>
 
                         <Dialog.Portal>
@@ -27,7 +27,7 @@ export default function Assesments() {
                                     <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                         <strong className='text-textColor-200'>X</strong>
                                     </Dialog.Close>
-                                    <WeekGrades/>
+                                    <WeekGrades />
                                 </Dialog.Content>
                             </Dialog.Overlay>
                         </Dialog.Portal>

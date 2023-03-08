@@ -2,12 +2,13 @@ import clsx from "clsx";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 interface GradesProps {
     percentage: Number;
+    mounth: string;
 }
 
-export function CardGrades({ percentage }: GradesProps) {
+export function CardGrades({ percentage, mounth }: GradesProps) {
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
-            <strong className="mx-auto text-lg">Janeiro</strong>
+            <strong className="mx-auto text-lg">{mounth}</strong>
 
             <div
                 className={clsx("fixed flex items-center justify-center rounded-full min-w-[60px] min-h-[60px] translate-y-3", {
