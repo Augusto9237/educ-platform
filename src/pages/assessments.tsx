@@ -11,7 +11,7 @@ export default function Assesments() {
         <Sidebar/>
         <Container>
             <section className="flex flex-col flex-1 gap-10 justify-start max-sm:pb-14">
-                <CardGrades/>
+                <CardGrades percentage={90}/>
             </section>
         </Container>
         <BottomBar />
