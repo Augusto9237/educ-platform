@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import { Stage, useGetFrequencyClassQuery } from 'graphql/api';
 import { useState } from 'react';
 
 import { BottomBar } from "../components/BottomBar";
@@ -10,10 +11,11 @@ import { Sidebar } from '../components/Sidebar';
 
 export default function Frequency() {
     const [month, setMonth] = useState(0)
+    const { data, loading } = useGetFrequencyClassQuery();
     return (
         <>
             <Header titleRoutes='Frequência' />
-            <Sidebar/>
+            <Sidebar />
             <Container>
                 <section className="fl:grid grid-cols-3 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
                     <Dialog.Root>

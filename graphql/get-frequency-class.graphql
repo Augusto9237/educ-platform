@@ -1,0 +1,30 @@
+query GetFrequencyClass{
+  page: frequenciesConnection(stage: PUBLISHED) {
+    edges {
+      node {
+        id
+        class {
+          entryId: id
+          code
+        }
+        createdAt
+        id
+        subscribes(first: 50) {
+          ... on Presence {
+            id
+            prensente
+            subscriber {
+              name
+              id
+            }
+          }
+        }
+        createdBy {
+          entryId: id
+          name
+          picture
+        }
+      }
+    }
+  }
+}
