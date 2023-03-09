@@ -12,6 +12,7 @@ import { Sidebar } from '../components/Sidebar';
 export default function Frequency() {
     const [month, setMonth] = useState(0)
     const { data, loading } = useGetFrequencyClassQuery();
+
     return (
         <>
             <Header titleRoutes='Frequência' />
