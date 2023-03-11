@@ -736,460 +736,6 @@ export type BatchPayload = {
   count: Scalars['Long'];
 };
 
-export type Class = Node & {
-  __typename?: 'Class';
-  code?: Maybe<Scalars['String']>;
-  /** The time the document was created */
-  createdAt: Scalars['DateTime'];
-  /** User that created this document */
-  createdBy?: Maybe<User>;
-  /** Get the document in other stages */
-  documentInStages: Array<Class>;
-  /** List of Class versions */
-  history: Array<Version>;
-  /** The unique identifier */
-  id: Scalars['ID'];
-  /** The time the document was published. Null on documents in draft stage. */
-  publishedAt?: Maybe<Scalars['DateTime']>;
-  /** User that last published this document */
-  publishedBy?: Maybe<User>;
-  scheduledIn: Array<ScheduledOperation>;
-  /** System stage field */
-  stage: Stage;
-  subscribers: Array<Subscriber>;
-  /** The time the document was updated */
-  updatedAt: Scalars['DateTime'];
-  /** User that last updated this document */
-  updatedBy?: Maybe<User>;
-};
-
-
-export type ClassCreatedByArgs = {
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  locales?: InputMaybe<Array<Locale>>;
-};
-
-
-export type ClassDocumentInStagesArgs = {
-  includeCurrent?: Scalars['Boolean'];
-  inheritLocale?: Scalars['Boolean'];
-  stages?: Array<Stage>;
-};
-
-
-export type ClassHistoryArgs = {
-  limit?: Scalars['Int'];
-  skip?: Scalars['Int'];
-  stageOverride?: InputMaybe<Stage>;
-};
-
-
-export type ClassPublishedByArgs = {
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  locales?: InputMaybe<Array<Locale>>;
-};
-
-
-export type ClassScheduledInArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ScheduledOperationWhereInput>;
-};
-
-
-export type ClassSubscribersArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  orderBy?: InputMaybe<SubscriberOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<SubscriberWhereInput>;
-};
-
-
-export type ClassUpdatedByArgs = {
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  locales?: InputMaybe<Array<Locale>>;
-};
-
-export type ClassConnectInput = {
-  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
-  position?: InputMaybe<ConnectPositionInput>;
-  /** Document to connect */
-  where: ClassWhereUniqueInput;
-};
-
-/** A connection to a list of items. */
-export type ClassConnection = {
-  __typename?: 'ClassConnection';
-  aggregate: Aggregate;
-  /** A list of edges. */
-  edges: Array<ClassEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-export type ClassCreateInput = {
-  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyCreateManyInlineInput>;
-  code?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  subscribers?: InputMaybe<SubscriberCreateManyInlineInput>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type ClassCreateManyInlineInput = {
-  /** Connect multiple existing Class documents */
-  connect?: InputMaybe<Array<ClassWhereUniqueInput>>;
-  /** Create and connect multiple existing Class documents */
-  create?: InputMaybe<Array<ClassCreateInput>>;
-};
-
-export type ClassCreateOneInlineInput = {
-  /** Connect one existing Class document */
-  connect?: InputMaybe<ClassWhereUniqueInput>;
-  /** Create and connect one Class document */
-  create?: InputMaybe<ClassCreateInput>;
-};
-
-/** An edge in a connection. */
-export type ClassEdge = {
-  __typename?: 'ClassEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
-  /** The item at the end of the edge. */
-  node: Class;
-};
-
-/** Identifies documents */
-export type ClassManyWhereInput = {
-  /** Logical AND on all given filters. */
-  AND?: InputMaybe<Array<ClassWhereInput>>;
-  /** Logical NOT on all given filters combined by AND. */
-  NOT?: InputMaybe<Array<ClassWhereInput>>;
-  /** Logical OR on all given filters. */
-  OR?: InputMaybe<Array<ClassWhereInput>>;
-  /** Contains search across all appropriate fields. */
-  _search?: InputMaybe<Scalars['String']>;
-  code?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  code_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  code_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  code_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values that are not equal to given value. */
-  code_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  code_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  code_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  code_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  code_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  code_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  createdAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  createdBy?: InputMaybe<UserWhereInput>;
-  documentInStages_every?: InputMaybe<ClassWhereStageInput>;
-  documentInStages_none?: InputMaybe<ClassWhereStageInput>;
-  documentInStages_some?: InputMaybe<ClassWhereStageInput>;
-  id?: InputMaybe<Scalars['ID']>;
-  /** All values containing the given string. */
-  id_contains?: InputMaybe<Scalars['ID']>;
-  /** All values ending with the given string. */
-  id_ends_with?: InputMaybe<Scalars['ID']>;
-  /** All values that are contained in given list. */
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  /** All values that are not equal to given value. */
-  id_not?: InputMaybe<Scalars['ID']>;
-  /** All values not containing the given string. */
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  /** All values not ending with the given string */
-  id_not_ends_with?: InputMaybe<Scalars['ID']>;
-  /** All values that are not contained in given list. */
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  /** All values not starting with the given string. */
-  id_not_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values starting with the given string. */
-  id_starts_with?: InputMaybe<Scalars['ID']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  publishedBy?: InputMaybe<UserWhereInput>;
-  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
-  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
-  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  subscribers_every?: InputMaybe<SubscriberWhereInput>;
-  subscribers_none?: InputMaybe<SubscriberWhereInput>;
-  subscribers_some?: InputMaybe<SubscriberWhereInput>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  updatedBy?: InputMaybe<UserWhereInput>;
-};
-
-export enum ClassOrderByInput {
-  CodeAsc = 'code_ASC',
-  CodeDesc = 'code_DESC',
-  CreatedAtAsc = 'createdAt_ASC',
-  CreatedAtDesc = 'createdAt_DESC',
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  PublishedAtAsc = 'publishedAt_ASC',
-  PublishedAtDesc = 'publishedAt_DESC',
-  UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC'
-}
-
-export type ClassUpdateInput = {
-  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyUpdateManyInlineInput>;
-  code?: InputMaybe<Scalars['String']>;
-  subscribers?: InputMaybe<SubscriberUpdateManyInlineInput>;
-};
-
-export type ClassUpdateManyInlineInput = {
-  /** Connect multiple existing Class documents */
-  connect?: InputMaybe<Array<ClassConnectInput>>;
-  /** Create and connect multiple Class documents */
-  create?: InputMaybe<Array<ClassCreateInput>>;
-  /** Delete multiple Class documents */
-  delete?: InputMaybe<Array<ClassWhereUniqueInput>>;
-  /** Disconnect multiple Class documents */
-  disconnect?: InputMaybe<Array<ClassWhereUniqueInput>>;
-  /** Override currently-connected documents with multiple existing Class documents */
-  set?: InputMaybe<Array<ClassWhereUniqueInput>>;
-  /** Update multiple Class documents */
-  update?: InputMaybe<Array<ClassUpdateWithNestedWhereUniqueInput>>;
-  /** Upsert multiple Class documents */
-  upsert?: InputMaybe<Array<ClassUpsertWithNestedWhereUniqueInput>>;
-};
-
-export type ClassUpdateManyInput = {
-  code?: InputMaybe<Scalars['String']>;
-};
-
-export type ClassUpdateManyWithNestedWhereInput = {
-  /** Update many input */
-  data: ClassUpdateManyInput;
-  /** Document search */
-  where: ClassWhereInput;
-};
-
-export type ClassUpdateOneInlineInput = {
-  /** Connect existing Class document */
-  connect?: InputMaybe<ClassWhereUniqueInput>;
-  /** Create and connect one Class document */
-  create?: InputMaybe<ClassCreateInput>;
-  /** Delete currently connected Class document */
-  delete?: InputMaybe<Scalars['Boolean']>;
-  /** Disconnect currently connected Class document */
-  disconnect?: InputMaybe<Scalars['Boolean']>;
-  /** Update single Class document */
-  update?: InputMaybe<ClassUpdateWithNestedWhereUniqueInput>;
-  /** Upsert single Class document */
-  upsert?: InputMaybe<ClassUpsertWithNestedWhereUniqueInput>;
-};
-
-export type ClassUpdateWithNestedWhereUniqueInput = {
-  /** Document to update */
-  data: ClassUpdateInput;
-  /** Unique document search */
-  where: ClassWhereUniqueInput;
-};
-
-export type ClassUpsertInput = {
-  /** Create document if it didn't exist */
-  create: ClassCreateInput;
-  /** Update document if it exists */
-  update: ClassUpdateInput;
-};
-
-export type ClassUpsertWithNestedWhereUniqueInput = {
-  /** Upsert data */
-  data: ClassUpsertInput;
-  /** Unique document search */
-  where: ClassWhereUniqueInput;
-};
-
-/** This contains a set of filters that can be used to compare values internally */
-export type ClassWhereComparatorInput = {
-  /** This field can be used to request to check if the entry is outdated by internal comparison */
-  outdated_to?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** Identifies documents */
-export type ClassWhereInput = {
-  /** Logical AND on all given filters. */
-  AND?: InputMaybe<Array<ClassWhereInput>>;
-  /** Logical NOT on all given filters combined by AND. */
-  NOT?: InputMaybe<Array<ClassWhereInput>>;
-  /** Logical OR on all given filters. */
-  OR?: InputMaybe<Array<ClassWhereInput>>;
-  /** Contains search across all appropriate fields. */
-  _search?: InputMaybe<Scalars['String']>;
-  code?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  code_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  code_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  code_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values that are not equal to given value. */
-  code_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  code_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  code_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  code_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  code_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  code_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  createdAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  createdBy?: InputMaybe<UserWhereInput>;
-  documentInStages_every?: InputMaybe<ClassWhereStageInput>;
-  documentInStages_none?: InputMaybe<ClassWhereStageInput>;
-  documentInStages_some?: InputMaybe<ClassWhereStageInput>;
-  id?: InputMaybe<Scalars['ID']>;
-  /** All values containing the given string. */
-  id_contains?: InputMaybe<Scalars['ID']>;
-  /** All values ending with the given string. */
-  id_ends_with?: InputMaybe<Scalars['ID']>;
-  /** All values that are contained in given list. */
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  /** All values that are not equal to given value. */
-  id_not?: InputMaybe<Scalars['ID']>;
-  /** All values not containing the given string. */
-  id_not_contains?: InputMaybe<Scalars['ID']>;
-  /** All values not ending with the given string */
-  id_not_ends_with?: InputMaybe<Scalars['ID']>;
-  /** All values that are not contained in given list. */
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  /** All values not starting with the given string. */
-  id_not_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values starting with the given string. */
-  id_starts_with?: InputMaybe<Scalars['ID']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  publishedBy?: InputMaybe<UserWhereInput>;
-  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
-  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
-  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  subscribers_every?: InputMaybe<SubscriberWhereInput>;
-  subscribers_none?: InputMaybe<SubscriberWhereInput>;
-  subscribers_some?: InputMaybe<SubscriberWhereInput>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than the given value. */
-  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
-  /** All values greater than or equal the given value. */
-  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are contained in given list. */
-  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  /** All values less than the given value. */
-  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
-  /** All values less than or equal the given value. */
-  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not equal to given value. */
-  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
-  /** All values that are not contained in given list. */
-  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
-  updatedBy?: InputMaybe<UserWhereInput>;
-};
-
-/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
-export type ClassWhereStageInput = {
-  /** Logical AND on all given filters. */
-  AND?: InputMaybe<Array<ClassWhereStageInput>>;
-  /** Logical NOT on all given filters combined by AND. */
-  NOT?: InputMaybe<Array<ClassWhereStageInput>>;
-  /** Logical OR on all given filters. */
-  OR?: InputMaybe<Array<ClassWhereStageInput>>;
-  /** This field contains fields which can be set as true or false to specify an internal comparison */
-  compareWithParent?: InputMaybe<ClassWhereComparatorInput>;
-  /** Specify the stage to compare with */
-  stage?: InputMaybe<Stage>;
-};
-
-/** References Class record uniquely */
-export type ClassWhereUniqueInput = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
 /** Representing a color value comprising of HEX, RGBA and css color values */
 export type Color = {
   __typename?: 'Color';
@@ -1281,7 +827,6 @@ export type DocumentVersion = {
 
 export type Frequency = Node & {
   __typename?: 'Frequency';
-  class?: Maybe<Class>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -1300,16 +845,11 @@ export type Frequency = Node & {
   /** System stage field */
   stage: Stage;
   subscribes: Array<FrequencysubscribesUnion>;
+  turma?: Maybe<Turma>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
-};
-
-
-export type FrequencyClassArgs = {
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -1362,6 +902,12 @@ export type FrequencySubscribesArgs = {
 };
 
 
+export type FrequencyTurmaArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
 export type FrequencyUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -1385,9 +931,9 @@ export type FrequencyConnection = {
 };
 
 export type FrequencyCreateInput = {
-  class?: InputMaybe<ClassCreateOneInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   subscribes?: InputMaybe<FrequencysubscribesUnionCreateManyInlineInput>;
+  turma?: InputMaybe<TurmaCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1424,7 +970,6 @@ export type FrequencyManyWhereInput = {
   OR?: InputMaybe<Array<FrequencyWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1482,6 +1027,7 @@ export type FrequencyManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  turma?: InputMaybe<TurmaWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1512,8 +1058,8 @@ export enum FrequencyOrderByInput {
 }
 
 export type FrequencyUpdateInput = {
-  class?: InputMaybe<ClassUpdateOneInlineInput>;
   subscribes?: InputMaybe<FrequencysubscribesUnionUpdateManyInlineInput>;
+  turma?: InputMaybe<TurmaUpdateOneInlineInput>;
 };
 
 export type FrequencyUpdateManyInlineInput = {
@@ -1597,7 +1143,6 @@ export type FrequencyWhereInput = {
   OR?: InputMaybe<Array<FrequencyWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1655,6 +1200,7 @@ export type FrequencyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  turma?: InputMaybe<TurmaWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1834,8 +1380,6 @@ export type Mutation = {
    * @deprecated Asset mutations will be overhauled soon
    */
   createAsset?: Maybe<Asset>;
-  /** Create one class */
-  createClass?: Maybe<Class>;
   /** Create one frequency */
   createFrequency?: Maybe<Frequency>;
   /** Create one responsible */
@@ -1846,10 +1390,10 @@ export type Mutation = {
   createSubscriber?: Maybe<Subscriber>;
   /** Create one teacher */
   createTeacher?: Maybe<Teacher>;
+  /** Create one turma */
+  createTurma?: Maybe<Turma>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
   deleteAsset?: Maybe<Asset>;
-  /** Delete one class from _all_ existing stages. Returns deleted document. */
-  deleteClass?: Maybe<Class>;
   /** Delete one frequency from _all_ existing stages. Returns deleted document. */
   deleteFrequency?: Maybe<Frequency>;
   /**
@@ -1859,13 +1403,6 @@ export type Mutation = {
   deleteManyAssets: BatchPayload;
   /** Delete many Asset documents, return deleted documents */
   deleteManyAssetsConnection: AssetConnection;
-  /**
-   * Delete many Class documents
-   * @deprecated Please use the new paginated many mutation (deleteManyClassesConnection)
-   */
-  deleteManyClasses: BatchPayload;
-  /** Delete many Class documents, return deleted documents */
-  deleteManyClassesConnection: ClassConnection;
   /**
    * Delete many Frequency documents
    * @deprecated Please use the new paginated many mutation (deleteManyFrequenciesConnection)
@@ -1894,6 +1431,13 @@ export type Mutation = {
   deleteManyTeachers: BatchPayload;
   /** Delete many Teacher documents, return deleted documents */
   deleteManyTeachersConnection: TeacherConnection;
+  /**
+   * Delete many Turma documents
+   * @deprecated Please use the new paginated many mutation (deleteManyTurmasConnection)
+   */
+  deleteManyTurmas: BatchPayload;
+  /** Delete many Turma documents, return deleted documents */
+  deleteManyTurmasConnection: TurmaConnection;
   /** Delete one responsible from _all_ existing stages. Returns deleted document. */
   deleteResponsible?: Maybe<Responsible>;
   /** Delete and return scheduled operation */
@@ -1904,10 +1448,10 @@ export type Mutation = {
   deleteSubscriber?: Maybe<Subscriber>;
   /** Delete one teacher from _all_ existing stages. Returns deleted document. */
   deleteTeacher?: Maybe<Teacher>;
+  /** Delete one turma from _all_ existing stages. Returns deleted document. */
+  deleteTurma?: Maybe<Turma>;
   /** Publish one asset */
   publishAsset?: Maybe<Asset>;
-  /** Publish one class */
-  publishClass?: Maybe<Class>;
   /** Publish one frequency */
   publishFrequency?: Maybe<Frequency>;
   /**
@@ -1917,13 +1461,6 @@ export type Mutation = {
   publishManyAssets: BatchPayload;
   /** Publish many Asset documents */
   publishManyAssetsConnection: AssetConnection;
-  /**
-   * Publish many Class documents
-   * @deprecated Please use the new paginated many mutation (publishManyClassesConnection)
-   */
-  publishManyClasses: BatchPayload;
-  /** Publish many Class documents */
-  publishManyClassesConnection: ClassConnection;
   /**
    * Publish many Frequency documents
    * @deprecated Please use the new paginated many mutation (publishManyFrequenciesConnection)
@@ -1952,16 +1489,23 @@ export type Mutation = {
   publishManyTeachers: BatchPayload;
   /** Publish many Teacher documents */
   publishManyTeachersConnection: TeacherConnection;
+  /**
+   * Publish many Turma documents
+   * @deprecated Please use the new paginated many mutation (publishManyTurmasConnection)
+   */
+  publishManyTurmas: BatchPayload;
+  /** Publish many Turma documents */
+  publishManyTurmasConnection: TurmaConnection;
   /** Publish one responsible */
   publishResponsible?: Maybe<Responsible>;
   /** Publish one subscriber */
   publishSubscriber?: Maybe<Subscriber>;
   /** Publish one teacher */
   publishTeacher?: Maybe<Teacher>;
+  /** Publish one turma */
+  publishTurma?: Maybe<Turma>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
-  /** Schedule to publish one class */
-  schedulePublishClass?: Maybe<Class>;
   /** Schedule to publish one frequency */
   schedulePublishFrequency?: Maybe<Frequency>;
   /** Schedule to publish one responsible */
@@ -1970,10 +1514,10 @@ export type Mutation = {
   schedulePublishSubscriber?: Maybe<Subscriber>;
   /** Schedule to publish one teacher */
   schedulePublishTeacher?: Maybe<Teacher>;
+  /** Schedule to publish one turma */
+  schedulePublishTurma?: Maybe<Turma>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
-  /** Unpublish one class from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
-  scheduleUnpublishClass?: Maybe<Class>;
   /** Unpublish one frequency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishFrequency?: Maybe<Frequency>;
   /** Unpublish one responsible from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1982,10 +1526,10 @@ export type Mutation = {
   scheduleUnpublishSubscriber?: Maybe<Subscriber>;
   /** Unpublish one teacher from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishTeacher?: Maybe<Teacher>;
+  /** Unpublish one turma from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishTurma?: Maybe<Turma>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
-  /** Unpublish one class from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
-  unpublishClass?: Maybe<Class>;
   /** Unpublish one frequency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishFrequency?: Maybe<Frequency>;
   /**
@@ -1995,13 +1539,6 @@ export type Mutation = {
   unpublishManyAssets: BatchPayload;
   /** Find many Asset documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyAssetsConnection: AssetConnection;
-  /**
-   * Unpublish many Class documents
-   * @deprecated Please use the new paginated many mutation (unpublishManyClassesConnection)
-   */
-  unpublishManyClasses: BatchPayload;
-  /** Find many Class documents that match criteria in specified stage and unpublish from target stages */
-  unpublishManyClassesConnection: ClassConnection;
   /**
    * Unpublish many Frequency documents
    * @deprecated Please use the new paginated many mutation (unpublishManyFrequenciesConnection)
@@ -2030,16 +1567,23 @@ export type Mutation = {
   unpublishManyTeachers: BatchPayload;
   /** Find many Teacher documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyTeachersConnection: TeacherConnection;
+  /**
+   * Unpublish many Turma documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyTurmasConnection)
+   */
+  unpublishManyTurmas: BatchPayload;
+  /** Find many Turma documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyTurmasConnection: TurmaConnection;
   /** Unpublish one responsible from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishResponsible?: Maybe<Responsible>;
   /** Unpublish one subscriber from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishSubscriber?: Maybe<Subscriber>;
   /** Unpublish one teacher from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishTeacher?: Maybe<Teacher>;
+  /** Unpublish one turma from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishTurma?: Maybe<Turma>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
-  /** Update one class */
-  updateClass?: Maybe<Class>;
   /** Update one frequency */
   updateFrequency?: Maybe<Frequency>;
   /**
@@ -2049,13 +1593,6 @@ export type Mutation = {
   updateManyAssets: BatchPayload;
   /** Update many Asset documents */
   updateManyAssetsConnection: AssetConnection;
-  /**
-   * Update many classes
-   * @deprecated Please use the new paginated many mutation (updateManyClassesConnection)
-   */
-  updateManyClasses: BatchPayload;
-  /** Update many Class documents */
-  updateManyClassesConnection: ClassConnection;
   /**
    * Update many frequencies
    * @deprecated Please use the new paginated many mutation (updateManyFrequenciesConnection)
@@ -2084,6 +1621,13 @@ export type Mutation = {
   updateManyTeachers: BatchPayload;
   /** Update many Teacher documents */
   updateManyTeachersConnection: TeacherConnection;
+  /**
+   * Update many turmas
+   * @deprecated Please use the new paginated many mutation (updateManyTurmasConnection)
+   */
+  updateManyTurmas: BatchPayload;
+  /** Update many Turma documents */
+  updateManyTurmasConnection: TurmaConnection;
   /** Update one responsible */
   updateResponsible?: Maybe<Responsible>;
   /** Update one scheduledRelease */
@@ -2092,10 +1636,10 @@ export type Mutation = {
   updateSubscriber?: Maybe<Subscriber>;
   /** Update one teacher */
   updateTeacher?: Maybe<Teacher>;
+  /** Update one turma */
+  updateTurma?: Maybe<Turma>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
-  /** Upsert one class */
-  upsertClass?: Maybe<Class>;
   /** Upsert one frequency */
   upsertFrequency?: Maybe<Frequency>;
   /** Upsert one responsible */
@@ -2104,16 +1648,13 @@ export type Mutation = {
   upsertSubscriber?: Maybe<Subscriber>;
   /** Upsert one teacher */
   upsertTeacher?: Maybe<Teacher>;
+  /** Upsert one turma */
+  upsertTurma?: Maybe<Turma>;
 };
 
 
 export type MutationCreateAssetArgs = {
   data: AssetCreateInput;
-};
-
-
-export type MutationCreateClassArgs = {
-  data: ClassCreateInput;
 };
 
 
@@ -2142,13 +1683,13 @@ export type MutationCreateTeacherArgs = {
 };
 
 
-export type MutationDeleteAssetArgs = {
-  where: AssetWhereUniqueInput;
+export type MutationCreateTurmaArgs = {
+  data: TurmaCreateInput;
 };
 
 
-export type MutationDeleteClassArgs = {
-  where: ClassWhereUniqueInput;
+export type MutationDeleteAssetArgs = {
+  where: AssetWhereUniqueInput;
 };
 
 
@@ -2169,21 +1710,6 @@ export type MutationDeleteManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
-};
-
-
-export type MutationDeleteManyClassesArgs = {
-  where?: InputMaybe<ClassManyWhereInput>;
-};
-
-
-export type MutationDeleteManyClassesConnectionArgs = {
-  after?: InputMaybe<Scalars['ID']>;
-  before?: InputMaybe<Scalars['ID']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ClassManyWhereInput>;
 };
 
 
@@ -2247,6 +1773,21 @@ export type MutationDeleteManyTeachersConnectionArgs = {
 };
 
 
+export type MutationDeleteManyTurmasArgs = {
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
+export type MutationDeleteManyTurmasConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
 export type MutationDeleteResponsibleArgs = {
   where: ResponsibleWhereUniqueInput;
 };
@@ -2272,18 +1813,17 @@ export type MutationDeleteTeacherArgs = {
 };
 
 
+export type MutationDeleteTurmaArgs = {
+  where: TurmaWhereUniqueInput;
+};
+
+
 export type MutationPublishAssetArgs = {
   locales?: InputMaybe<Array<Locale>>;
   publishBase?: InputMaybe<Scalars['Boolean']>;
   to?: Array<Stage>;
   where: AssetWhereUniqueInput;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-export type MutationPublishClassArgs = {
-  to?: Array<Stage>;
-  where: ClassWhereUniqueInput;
 };
 
 
@@ -2314,24 +1854,6 @@ export type MutationPublishManyAssetsConnectionArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<AssetManyWhereInput>;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-export type MutationPublishManyClassesArgs = {
-  to?: Array<Stage>;
-  where?: InputMaybe<ClassManyWhereInput>;
-};
-
-
-export type MutationPublishManyClassesConnectionArgs = {
-  after?: InputMaybe<Scalars['ID']>;
-  before?: InputMaybe<Scalars['ID']>;
-  first?: InputMaybe<Scalars['Int']>;
-  from?: InputMaybe<Stage>;
-  last?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  to?: Array<Stage>;
-  where?: InputMaybe<ClassManyWhereInput>;
 };
 
 
@@ -2407,6 +1929,24 @@ export type MutationPublishManyTeachersConnectionArgs = {
 };
 
 
+export type MutationPublishManyTurmasArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
+export type MutationPublishManyTurmasConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
 export type MutationPublishResponsibleArgs = {
   to?: Array<Stage>;
   where: ResponsibleWhereUniqueInput;
@@ -2425,6 +1965,12 @@ export type MutationPublishTeacherArgs = {
 };
 
 
+export type MutationPublishTurmaArgs = {
+  to?: Array<Stage>;
+  where: TurmaWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishAssetArgs = {
   locales?: InputMaybe<Array<Locale>>;
   publishBase?: InputMaybe<Scalars['Boolean']>;
@@ -2433,14 +1979,6 @@ export type MutationSchedulePublishAssetArgs = {
   to?: Array<Stage>;
   where: AssetWhereUniqueInput;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-export type MutationSchedulePublishClassArgs = {
-  releaseAt?: InputMaybe<Scalars['DateTime']>;
-  releaseId?: InputMaybe<Scalars['String']>;
-  to?: Array<Stage>;
-  where: ClassWhereUniqueInput;
 };
 
 
@@ -2476,6 +2014,14 @@ export type MutationSchedulePublishTeacherArgs = {
 };
 
 
+export type MutationSchedulePublishTurmaArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: TurmaWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishAssetArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -2483,14 +2029,6 @@ export type MutationScheduleUnpublishAssetArgs = {
   releaseId?: InputMaybe<Scalars['String']>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where: AssetWhereUniqueInput;
-};
-
-
-export type MutationScheduleUnpublishClassArgs = {
-  from?: Array<Stage>;
-  releaseAt?: InputMaybe<Scalars['DateTime']>;
-  releaseId?: InputMaybe<Scalars['String']>;
-  where: ClassWhereUniqueInput;
 };
 
 
@@ -2526,17 +2064,19 @@ export type MutationScheduleUnpublishTeacherArgs = {
 };
 
 
+export type MutationScheduleUnpublishTurmaArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: TurmaWhereUniqueInput;
+};
+
+
 export type MutationUnpublishAssetArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where: AssetWhereUniqueInput;
-};
-
-
-export type MutationUnpublishClassArgs = {
-  from?: Array<Stage>;
-  where: ClassWhereUniqueInput;
 };
 
 
@@ -2565,24 +2105,6 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
   stage?: InputMaybe<Stage>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<AssetManyWhereInput>;
-};
-
-
-export type MutationUnpublishManyClassesArgs = {
-  from?: Array<Stage>;
-  where?: InputMaybe<ClassManyWhereInput>;
-};
-
-
-export type MutationUnpublishManyClassesConnectionArgs = {
-  after?: InputMaybe<Scalars['ID']>;
-  before?: InputMaybe<Scalars['ID']>;
-  first?: InputMaybe<Scalars['Int']>;
-  from?: Array<Stage>;
-  last?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  stage?: InputMaybe<Stage>;
-  where?: InputMaybe<ClassManyWhereInput>;
 };
 
 
@@ -2658,6 +2180,24 @@ export type MutationUnpublishManyTeachersConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyTurmasArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyTurmasConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
 export type MutationUnpublishResponsibleArgs = {
   from?: Array<Stage>;
   where: ResponsibleWhereUniqueInput;
@@ -2676,15 +2216,15 @@ export type MutationUnpublishTeacherArgs = {
 };
 
 
-export type MutationUpdateAssetArgs = {
-  data: AssetUpdateInput;
-  where: AssetWhereUniqueInput;
+export type MutationUnpublishTurmaArgs = {
+  from?: Array<Stage>;
+  where: TurmaWhereUniqueInput;
 };
 
 
-export type MutationUpdateClassArgs = {
-  data: ClassUpdateInput;
-  where: ClassWhereUniqueInput;
+export type MutationUpdateAssetArgs = {
+  data: AssetUpdateInput;
+  where: AssetWhereUniqueInput;
 };
 
 
@@ -2708,23 +2248,6 @@ export type MutationUpdateManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
-};
-
-
-export type MutationUpdateManyClassesArgs = {
-  data: ClassUpdateManyInput;
-  where?: InputMaybe<ClassManyWhereInput>;
-};
-
-
-export type MutationUpdateManyClassesConnectionArgs = {
-  after?: InputMaybe<Scalars['ID']>;
-  before?: InputMaybe<Scalars['ID']>;
-  data: ClassUpdateManyInput;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ClassManyWhereInput>;
 };
 
 
@@ -2796,6 +2319,23 @@ export type MutationUpdateManyTeachersConnectionArgs = {
 };
 
 
+export type MutationUpdateManyTurmasArgs = {
+  data: TurmaUpdateManyInput;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
+export type MutationUpdateManyTurmasConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: TurmaUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TurmaManyWhereInput>;
+};
+
+
 export type MutationUpdateResponsibleArgs = {
   data: ResponsibleUpdateInput;
   where: ResponsibleWhereUniqueInput;
@@ -2820,15 +2360,15 @@ export type MutationUpdateTeacherArgs = {
 };
 
 
-export type MutationUpsertAssetArgs = {
-  upsert: AssetUpsertInput;
-  where: AssetWhereUniqueInput;
+export type MutationUpdateTurmaArgs = {
+  data: TurmaUpdateInput;
+  where: TurmaWhereUniqueInput;
 };
 
 
-export type MutationUpsertClassArgs = {
-  upsert: ClassUpsertInput;
-  where: ClassWhereUniqueInput;
+export type MutationUpsertAssetArgs = {
+  upsert: AssetUpsertInput;
+  where: AssetWhereUniqueInput;
 };
 
 
@@ -2853,6 +2393,12 @@ export type MutationUpsertSubscriberArgs = {
 export type MutationUpsertTeacherArgs = {
   upsert: TeacherUpsertInput;
   where: TeacherWhereUniqueInput;
+};
+
+
+export type MutationUpsertTurmaArgs = {
+  upsert: TurmaUpsertInput;
+  where: TurmaWhereUniqueInput;
 };
 
 /** An object with an ID */
@@ -3198,14 +2744,6 @@ export type Query = {
   assets: Array<Asset>;
   /** Retrieve multiple assets using the Relay connection interface */
   assetsConnection: AssetConnection;
-  /** Retrieve a single class */
-  class?: Maybe<Class>;
-  /** Retrieve document version */
-  classVersion?: Maybe<DocumentVersion>;
-  /** Retrieve multiple classes */
-  classes: Array<Class>;
-  /** Retrieve multiple classes using the Relay connection interface */
-  classesConnection: ClassConnection;
   /** Retrieve multiple frequencies */
   frequencies: Array<Frequency>;
   /** Retrieve multiple frequencies using the Relay connection interface */
@@ -3252,6 +2790,14 @@ export type Query = {
   teachers: Array<Teacher>;
   /** Retrieve multiple teachers using the Relay connection interface */
   teachersConnection: TeacherConnection;
+  /** Retrieve a single turma */
+  turma?: Maybe<Turma>;
+  /** Retrieve document version */
+  turmaVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple turmas */
+  turmas: Array<Turma>;
+  /** Retrieve multiple turmas using the Relay connection interface */
+  turmasConnection: TurmaConnection;
   /** Retrieve a single user */
   user?: Maybe<User>;
   /** Retrieve multiple users */
@@ -3296,44 +2842,6 @@ export type QueryAssetsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<AssetWhereInput>;
-};
-
-
-export type QueryClassArgs = {
-  locales?: Array<Locale>;
-  stage?: Stage;
-  where: ClassWhereUniqueInput;
-};
-
-
-export type QueryClassVersionArgs = {
-  where: VersionWhereInput;
-};
-
-
-export type QueryClassesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: Array<Locale>;
-  orderBy?: InputMaybe<ClassOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  stage?: Stage;
-  where?: InputMaybe<ClassWhereInput>;
-};
-
-
-export type QueryClassesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: Array<Locale>;
-  orderBy?: InputMaybe<ClassOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  stage?: Stage;
-  where?: InputMaybe<ClassWhereInput>;
 };
 
 
@@ -3559,6 +3067,44 @@ export type QueryTeachersConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<TeacherWhereInput>;
+};
+
+
+export type QueryTurmaArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: TurmaWhereUniqueInput;
+};
+
+
+export type QueryTurmaVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryTurmasArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<TurmaOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<TurmaWhereInput>;
+};
+
+
+export type QueryTurmasConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<TurmaOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<TurmaWhereInput>;
 };
 
 
@@ -4269,7 +3815,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Class | Frequency | Responsible | Subscriber | Teacher;
+export type ScheduledOperationAffectedDocument = Asset | Frequency | Responsible | Subscriber | Teacher | Turma;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -5212,7 +4758,7 @@ export enum Stage {
 
 export type Subscriber = Node & {
   __typename?: 'Subscriber';
-  class?: Maybe<Class>;
+  class?: Maybe<Turma>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -5309,7 +4855,7 @@ export type SubscriberConnection = {
 };
 
 export type SubscriberCreateInput = {
-  class?: InputMaybe<ClassCreateOneInlineInput>;
+  class?: InputMaybe<TurmaCreateOneInlineInput>;
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleCreateManyInlineInput>;
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -5354,7 +4900,7 @@ export type SubscriberManyWhereInput = {
   OR?: InputMaybe<Array<SubscriberWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  class?: InputMaybe<ClassWhereInput>;
+  class?: InputMaybe<TurmaWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5519,7 +5065,7 @@ export enum SubscriberOrderByInput {
 }
 
 export type SubscriberUpdateInput = {
-  class?: InputMaybe<ClassUpdateOneInlineInput>;
+  class?: InputMaybe<TurmaUpdateOneInlineInput>;
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleUpdateManyInlineInput>;
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceUpdateManyInlineInput>;
   email?: InputMaybe<Scalars['String']>;
@@ -5612,7 +5158,7 @@ export type SubscriberWhereInput = {
   OR?: InputMaybe<Array<SubscriberWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  class?: InputMaybe<ClassWhereInput>;
+  class?: InputMaybe<TurmaWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -6301,6 +5847,460 @@ export type TeacherWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+export type Turma = Node & {
+  __typename?: 'Turma';
+  code?: Maybe<Scalars['String']>;
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Turma>;
+  /** List of Turma versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  subscribers: Array<Subscriber>;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type TurmaCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type TurmaDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type TurmaHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type TurmaPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type TurmaScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type TurmaSubscribersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<SubscriberOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SubscriberWhereInput>;
+};
+
+
+export type TurmaUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type TurmaConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: TurmaWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type TurmaConnection = {
+  __typename?: 'TurmaConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<TurmaEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type TurmaCreateInput = {
+  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyCreateManyInlineInput>;
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  subscribers?: InputMaybe<SubscriberCreateManyInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TurmaCreateManyInlineInput = {
+  /** Connect multiple existing Turma documents */
+  connect?: InputMaybe<Array<TurmaWhereUniqueInput>>;
+  /** Create and connect multiple existing Turma documents */
+  create?: InputMaybe<Array<TurmaCreateInput>>;
+};
+
+export type TurmaCreateOneInlineInput = {
+  /** Connect one existing Turma document */
+  connect?: InputMaybe<TurmaWhereUniqueInput>;
+  /** Create and connect one Turma document */
+  create?: InputMaybe<TurmaCreateInput>;
+};
+
+/** An edge in a connection. */
+export type TurmaEdge = {
+  __typename?: 'TurmaEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Turma;
+};
+
+/** Identifies documents */
+export type TurmaManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  code?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  code_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  code_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  code_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  code_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  code_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  code_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  code_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  code_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  code_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TurmaWhereStageInput>;
+  documentInStages_none?: InputMaybe<TurmaWhereStageInput>;
+  documentInStages_some?: InputMaybe<TurmaWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  subscribers_every?: InputMaybe<SubscriberWhereInput>;
+  subscribers_none?: InputMaybe<SubscriberWhereInput>;
+  subscribers_some?: InputMaybe<SubscriberWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum TurmaOrderByInput {
+  CodeAsc = 'code_ASC',
+  CodeDesc = 'code_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type TurmaUpdateInput = {
+  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyUpdateManyInlineInput>;
+  code?: InputMaybe<Scalars['String']>;
+  subscribers?: InputMaybe<SubscriberUpdateManyInlineInput>;
+};
+
+export type TurmaUpdateManyInlineInput = {
+  /** Connect multiple existing Turma documents */
+  connect?: InputMaybe<Array<TurmaConnectInput>>;
+  /** Create and connect multiple Turma documents */
+  create?: InputMaybe<Array<TurmaCreateInput>>;
+  /** Delete multiple Turma documents */
+  delete?: InputMaybe<Array<TurmaWhereUniqueInput>>;
+  /** Disconnect multiple Turma documents */
+  disconnect?: InputMaybe<Array<TurmaWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Turma documents */
+  set?: InputMaybe<Array<TurmaWhereUniqueInput>>;
+  /** Update multiple Turma documents */
+  update?: InputMaybe<Array<TurmaUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Turma documents */
+  upsert?: InputMaybe<Array<TurmaUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type TurmaUpdateManyInput = {
+  code?: InputMaybe<Scalars['String']>;
+};
+
+export type TurmaUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: TurmaUpdateManyInput;
+  /** Document search */
+  where: TurmaWhereInput;
+};
+
+export type TurmaUpdateOneInlineInput = {
+  /** Connect existing Turma document */
+  connect?: InputMaybe<TurmaWhereUniqueInput>;
+  /** Create and connect one Turma document */
+  create?: InputMaybe<TurmaCreateInput>;
+  /** Delete currently connected Turma document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Turma document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Turma document */
+  update?: InputMaybe<TurmaUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Turma document */
+  upsert?: InputMaybe<TurmaUpsertWithNestedWhereUniqueInput>;
+};
+
+export type TurmaUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: TurmaUpdateInput;
+  /** Unique document search */
+  where: TurmaWhereUniqueInput;
+};
+
+export type TurmaUpsertInput = {
+  /** Create document if it didn't exist */
+  create: TurmaCreateInput;
+  /** Update document if it exists */
+  update: TurmaUpdateInput;
+};
+
+export type TurmaUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: TurmaUpsertInput;
+  /** Unique document search */
+  where: TurmaWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type TurmaWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type TurmaWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TurmaWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  code?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  code_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  code_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  code_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  code_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  code_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  code_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  code_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  code_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  code_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TurmaWhereStageInput>;
+  documentInStages_none?: InputMaybe<TurmaWhereStageInput>;
+  documentInStages_some?: InputMaybe<TurmaWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  subscribers_every?: InputMaybe<SubscriberWhereInput>;
+  subscribers_none?: InputMaybe<SubscriberWhereInput>;
+  subscribers_some?: InputMaybe<SubscriberWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type TurmaWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TurmaWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TurmaWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TurmaWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<TurmaWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Turma record uniquely */
+export type TurmaWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type UnpublishLocaleInput = {
   /** Locales to unpublish */
   locale: Locale;
@@ -6794,10 +6794,12 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetFrequencyClassQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetFrequenciesClassQueryVariables = Exact<{
+  code?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export type GetFrequencyClassQuery = { __typename?: 'Query', page: { __typename?: 'FrequencyConnection', edges: Array<{ __typename?: 'FrequencyEdge', node: { __typename?: 'Frequency', id: string, createdAt: any, class?: { __typename?: 'Class', code?: string | null, entryId: string } | null, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }>, createdBy?: { __typename?: 'User', name: string, picture?: string | null, entryId: string } | null } }> } };
+export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
 
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: Scalars['String'];
@@ -6807,32 +6809,18 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 export type GetSubscriberLoginQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null } | null };
 
 
-export const GetFrequencyClassDocument = gql`
-    query GetFrequencyClass {
-  page: frequenciesConnection(stage: PUBLISHED) {
-    edges {
-      node {
+export const GetFrequenciesClassDocument = gql`
+    query GetFrequenciesClass($code: String = "") {
+  frequencies(where: {turma: {code: $code}}) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
         id
-        class {
-          entryId: id
-          code
-        }
-        createdAt
-        id
-        subscribes(first: 50) {
-          ... on Presence {
-            id
-            prensente
-            subscriber {
-              name
-              id
-            }
-          }
-        }
-        createdBy {
-          entryId: id
+        prensente
+        subscriber {
           name
-          picture
+          id
         }
       }
     }
@@ -6841,31 +6829,32 @@ export const GetFrequencyClassDocument = gql`
     `;
 
 /**
- * __useGetFrequencyClassQuery__
+ * __useGetFrequenciesClassQuery__
  *
- * To run a query within a React component, call `useGetFrequencyClassQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetFrequencyClassQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetFrequenciesClassQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFrequenciesClassQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetFrequencyClassQuery({
+ * const { data, loading, error } = useGetFrequenciesClassQuery({
  *   variables: {
+ *      code: // value for 'code'
  *   },
  * });
  */
-export function useGetFrequencyClassQuery(baseOptions?: Apollo.QueryHookOptions<GetFrequencyClassQuery, GetFrequencyClassQueryVariables>) {
+export function useGetFrequenciesClassQuery(baseOptions?: Apollo.QueryHookOptions<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetFrequencyClassQuery, GetFrequencyClassQueryVariables>(GetFrequencyClassDocument, options);
+        return Apollo.useQuery<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>(GetFrequenciesClassDocument, options);
       }
-export function useGetFrequencyClassLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFrequencyClassQuery, GetFrequencyClassQueryVariables>) {
+export function useGetFrequenciesClassLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetFrequencyClassQuery, GetFrequencyClassQueryVariables>(GetFrequencyClassDocument, options);
+          return Apollo.useLazyQuery<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>(GetFrequenciesClassDocument, options);
         }
-export type GetFrequencyClassQueryHookResult = ReturnType<typeof useGetFrequencyClassQuery>;
-export type GetFrequencyClassLazyQueryHookResult = ReturnType<typeof useGetFrequencyClassLazyQuery>;
-export type GetFrequencyClassQueryResult = Apollo.QueryResult<GetFrequencyClassQuery, GetFrequencyClassQueryVariables>;
+export type GetFrequenciesClassQueryHookResult = ReturnType<typeof useGetFrequenciesClassQuery>;
+export type GetFrequenciesClassLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassLazyQuery>;
+export type GetFrequenciesClassQueryResult = Apollo.QueryResult<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>;
 export const GetSubscriberLoginDocument = gql`
     query GetSubscriberLogin($email: String! = "") {
   subscriber(where: {email: $email}, stage: DRAFT) {
@@ -6948,33 +6937,6 @@ export type BatchPayloadKeySpecifier = ('count' | BatchPayloadKeySpecifier)[];
 export type BatchPayloadFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ClassKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'updatedAt' | 'updatedBy' | ClassKeySpecifier)[];
-export type ClassFieldPolicy = {
-	code?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
-	history?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
-	stage?: FieldPolicy<any> | FieldReadFunction<any>,
-	subscribers?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ClassConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | ClassConnectionKeySpecifier)[];
-export type ClassConnectionFieldPolicy = {
-	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ClassEdgeKeySpecifier = ('cursor' | 'node' | ClassEdgeKeySpecifier)[];
-export type ClassEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type ColorKeySpecifier = ('css' | 'hex' | 'rgba' | ColorKeySpecifier)[];
 export type ColorFieldPolicy = {
 	css?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -6989,9 +6951,8 @@ export type DocumentVersionFieldPolicy = {
 	revision?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FrequencyKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribes' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
+export type FrequencyKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribes' | 'turma' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
 export type FrequencyFieldPolicy = {
-	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7002,6 +6963,7 @@ export type FrequencyFieldPolicy = {
 	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>,
 	subscribes?: FieldPolicy<any> | FieldReadFunction<any>,
+	turma?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -7022,22 +6984,19 @@ export type LocationFieldPolicy = {
 	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
 	longitude?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createAsset' | 'createClass' | 'createFrequency' | 'createResponsible' | 'createScheduledRelease' | 'createSubscriber' | 'createTeacher' | 'deleteAsset' | 'deleteClass' | 'deleteFrequency' | 'deleteManyAssets' | 'deleteManyAssetsConnection' | 'deleteManyClasses' | 'deleteManyClassesConnection' | 'deleteManyFrequencies' | 'deleteManyFrequenciesConnection' | 'deleteManyResponsibles' | 'deleteManyResponsiblesConnection' | 'deleteManySubscribers' | 'deleteManySubscribersConnection' | 'deleteManyTeachers' | 'deleteManyTeachersConnection' | 'deleteResponsible' | 'deleteScheduledOperation' | 'deleteScheduledRelease' | 'deleteSubscriber' | 'deleteTeacher' | 'publishAsset' | 'publishClass' | 'publishFrequency' | 'publishManyAssets' | 'publishManyAssetsConnection' | 'publishManyClasses' | 'publishManyClassesConnection' | 'publishManyFrequencies' | 'publishManyFrequenciesConnection' | 'publishManyResponsibles' | 'publishManyResponsiblesConnection' | 'publishManySubscribers' | 'publishManySubscribersConnection' | 'publishManyTeachers' | 'publishManyTeachersConnection' | 'publishResponsible' | 'publishSubscriber' | 'publishTeacher' | 'schedulePublishAsset' | 'schedulePublishClass' | 'schedulePublishFrequency' | 'schedulePublishResponsible' | 'schedulePublishSubscriber' | 'schedulePublishTeacher' | 'scheduleUnpublishAsset' | 'scheduleUnpublishClass' | 'scheduleUnpublishFrequency' | 'scheduleUnpublishResponsible' | 'scheduleUnpublishSubscriber' | 'scheduleUnpublishTeacher' | 'unpublishAsset' | 'unpublishClass' | 'unpublishFrequency' | 'unpublishManyAssets' | 'unpublishManyAssetsConnection' | 'unpublishManyClasses' | 'unpublishManyClassesConnection' | 'unpublishManyFrequencies' | 'unpublishManyFrequenciesConnection' | 'unpublishManyResponsibles' | 'unpublishManyResponsiblesConnection' | 'unpublishManySubscribers' | 'unpublishManySubscribersConnection' | 'unpublishManyTeachers' | 'unpublishManyTeachersConnection' | 'unpublishResponsible' | 'unpublishSubscriber' | 'unpublishTeacher' | 'updateAsset' | 'updateClass' | 'updateFrequency' | 'updateManyAssets' | 'updateManyAssetsConnection' | 'updateManyClasses' | 'updateManyClassesConnection' | 'updateManyFrequencies' | 'updateManyFrequenciesConnection' | 'updateManyResponsibles' | 'updateManyResponsiblesConnection' | 'updateManySubscribers' | 'updateManySubscribersConnection' | 'updateManyTeachers' | 'updateManyTeachersConnection' | 'updateResponsible' | 'updateScheduledRelease' | 'updateSubscriber' | 'updateTeacher' | 'upsertAsset' | 'upsertClass' | 'upsertFrequency' | 'upsertResponsible' | 'upsertSubscriber' | 'upsertTeacher' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createAsset' | 'createFrequency' | 'createResponsible' | 'createScheduledRelease' | 'createSubscriber' | 'createTeacher' | 'createTurma' | 'deleteAsset' | 'deleteFrequency' | 'deleteManyAssets' | 'deleteManyAssetsConnection' | 'deleteManyFrequencies' | 'deleteManyFrequenciesConnection' | 'deleteManyResponsibles' | 'deleteManyResponsiblesConnection' | 'deleteManySubscribers' | 'deleteManySubscribersConnection' | 'deleteManyTeachers' | 'deleteManyTeachersConnection' | 'deleteManyTurmas' | 'deleteManyTurmasConnection' | 'deleteResponsible' | 'deleteScheduledOperation' | 'deleteScheduledRelease' | 'deleteSubscriber' | 'deleteTeacher' | 'deleteTurma' | 'publishAsset' | 'publishFrequency' | 'publishManyAssets' | 'publishManyAssetsConnection' | 'publishManyFrequencies' | 'publishManyFrequenciesConnection' | 'publishManyResponsibles' | 'publishManyResponsiblesConnection' | 'publishManySubscribers' | 'publishManySubscribersConnection' | 'publishManyTeachers' | 'publishManyTeachersConnection' | 'publishManyTurmas' | 'publishManyTurmasConnection' | 'publishResponsible' | 'publishSubscriber' | 'publishTeacher' | 'publishTurma' | 'schedulePublishAsset' | 'schedulePublishFrequency' | 'schedulePublishResponsible' | 'schedulePublishSubscriber' | 'schedulePublishTeacher' | 'schedulePublishTurma' | 'scheduleUnpublishAsset' | 'scheduleUnpublishFrequency' | 'scheduleUnpublishResponsible' | 'scheduleUnpublishSubscriber' | 'scheduleUnpublishTeacher' | 'scheduleUnpublishTurma' | 'unpublishAsset' | 'unpublishFrequency' | 'unpublishManyAssets' | 'unpublishManyAssetsConnection' | 'unpublishManyFrequencies' | 'unpublishManyFrequenciesConnection' | 'unpublishManyResponsibles' | 'unpublishManyResponsiblesConnection' | 'unpublishManySubscribers' | 'unpublishManySubscribersConnection' | 'unpublishManyTeachers' | 'unpublishManyTeachersConnection' | 'unpublishManyTurmas' | 'unpublishManyTurmasConnection' | 'unpublishResponsible' | 'unpublishSubscriber' | 'unpublishTeacher' | 'unpublishTurma' | 'updateAsset' | 'updateFrequency' | 'updateManyAssets' | 'updateManyAssetsConnection' | 'updateManyFrequencies' | 'updateManyFrequenciesConnection' | 'updateManyResponsibles' | 'updateManyResponsiblesConnection' | 'updateManySubscribers' | 'updateManySubscribersConnection' | 'updateManyTeachers' | 'updateManyTeachersConnection' | 'updateManyTurmas' | 'updateManyTurmasConnection' | 'updateResponsible' | 'updateScheduledRelease' | 'updateSubscriber' | 'updateTeacher' | 'updateTurma' | 'upsertAsset' | 'upsertFrequency' | 'upsertResponsible' | 'upsertSubscriber' | 'upsertTeacher' | 'upsertTurma' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	createClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	createFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	createResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	createScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
 	createSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	createTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	createTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteManyClasses?: FieldPolicy<any> | FieldReadFunction<any>,
-	deleteManyClassesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7046,18 +7005,18 @@ export type MutationFieldPolicy = {
 	deleteManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyTurmas?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyTurmasConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteScheduledOperation?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	publishClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
-	publishManyClasses?: FieldPolicy<any> | FieldReadFunction<any>,
-	publishManyClassesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7066,28 +7025,28 @@ export type MutationFieldPolicy = {
 	publishManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyTurmas?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyTurmasConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	schedulePublishClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	scheduleUnpublishClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	unpublishClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
-	unpublishManyClasses?: FieldPolicy<any> | FieldReadFunction<any>,
-	unpublishManyClassesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7096,16 +7055,16 @@ export type MutationFieldPolicy = {
 	unpublishManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyTurmas?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyTurmasConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateManyClasses?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateManyClassesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyResponsibles?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7114,16 +7073,19 @@ export type MutationFieldPolicy = {
 	updateManySubscribersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyTeachers?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyTeachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyTurmas?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyTurmasConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateScheduledRelease?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertAsset?: FieldPolicy<any> | FieldReadFunction<any>,
-	upsertClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertSubscriber?: FieldPolicy<any> | FieldReadFunction<any>,
-	upsertTeacher?: FieldPolicy<any> | FieldReadFunction<any>
+	upsertTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertTurma?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NodeKeySpecifier = ('id' | 'stage' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
@@ -7156,16 +7118,12 @@ export type PresenceEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('asset' | 'assetVersion' | 'assets' | 'assetsConnection' | 'class' | 'classVersion' | 'classes' | 'classesConnection' | 'frequencies' | 'frequenciesConnection' | 'frequency' | 'frequencyVersion' | 'node' | 'responsible' | 'responsibleVersion' | 'responsibles' | 'responsiblesConnection' | 'scheduledOperation' | 'scheduledOperations' | 'scheduledOperationsConnection' | 'scheduledRelease' | 'scheduledReleases' | 'scheduledReleasesConnection' | 'subscriber' | 'subscriberVersion' | 'subscribers' | 'subscribersConnection' | 'teacher' | 'teacherVersion' | 'teachers' | 'teachersConnection' | 'user' | 'users' | 'usersConnection' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('asset' | 'assetVersion' | 'assets' | 'assetsConnection' | 'frequencies' | 'frequenciesConnection' | 'frequency' | 'frequencyVersion' | 'node' | 'responsible' | 'responsibleVersion' | 'responsibles' | 'responsiblesConnection' | 'scheduledOperation' | 'scheduledOperations' | 'scheduledOperationsConnection' | 'scheduledRelease' | 'scheduledReleases' | 'scheduledReleasesConnection' | 'subscriber' | 'subscriberVersion' | 'subscribers' | 'subscribersConnection' | 'teacher' | 'teacherVersion' | 'teachers' | 'teachersConnection' | 'turma' | 'turmaVersion' | 'turmas' | 'turmasConnection' | 'user' | 'users' | 'usersConnection' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	asset?: FieldPolicy<any> | FieldReadFunction<any>,
 	assetVersion?: FieldPolicy<any> | FieldReadFunction<any>,
 	assets?: FieldPolicy<any> | FieldReadFunction<any>,
 	assetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
-	class?: FieldPolicy<any> | FieldReadFunction<any>,
-	classVersion?: FieldPolicy<any> | FieldReadFunction<any>,
-	classes?: FieldPolicy<any> | FieldReadFunction<any>,
-	classesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequency?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7189,6 +7147,10 @@ export type QueryFieldPolicy = {
 	teacherVersion?: FieldPolicy<any> | FieldReadFunction<any>,
 	teachers?: FieldPolicy<any> | FieldReadFunction<any>,
 	teachersConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	turma?: FieldPolicy<any> | FieldReadFunction<any>,
+	turmaVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	turmas?: FieldPolicy<any> | FieldReadFunction<any>,
+	turmasConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	users?: FieldPolicy<any> | FieldReadFunction<any>,
 	usersConnection?: FieldPolicy<any> | FieldReadFunction<any>
@@ -7357,6 +7319,33 @@ export type TeacherEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type TurmaKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'updatedAt' | 'updatedBy' | TurmaKeySpecifier)[];
+export type TurmaFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TurmaConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | TurmaConnectionKeySpecifier)[];
+export type TurmaConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TurmaEdgeKeySpecifier = ('cursor' | 'node' | TurmaEdgeKeySpecifier)[];
+export type TurmaEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type UserKeySpecifier = ('createdAt' | 'documentInStages' | 'id' | 'isActive' | 'kind' | 'name' | 'picture' | 'publishedAt' | 'stage' | 'updatedAt' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7408,18 +7397,6 @@ export type StrictTypedTypePolicies = {
 	BatchPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | BatchPayloadKeySpecifier | (() => undefined | BatchPayloadKeySpecifier),
 		fields?: BatchPayloadFieldPolicy,
-	},
-	Class?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ClassKeySpecifier | (() => undefined | ClassKeySpecifier),
-		fields?: ClassFieldPolicy,
-	},
-	ClassConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ClassConnectionKeySpecifier | (() => undefined | ClassConnectionKeySpecifier),
-		fields?: ClassConnectionFieldPolicy,
-	},
-	ClassEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ClassEdgeKeySpecifier | (() => undefined | ClassEdgeKeySpecifier),
-		fields?: ClassEdgeFieldPolicy,
 	},
 	Color?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ColorKeySpecifier | (() => undefined | ColorKeySpecifier),
@@ -7540,6 +7517,18 @@ export type StrictTypedTypePolicies = {
 	TeacherEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TeacherEdgeKeySpecifier | (() => undefined | TeacherEdgeKeySpecifier),
 		fields?: TeacherEdgeFieldPolicy,
+	},
+	Turma?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TurmaKeySpecifier | (() => undefined | TurmaKeySpecifier),
+		fields?: TurmaFieldPolicy,
+	},
+	TurmaConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TurmaConnectionKeySpecifier | (() => undefined | TurmaConnectionKeySpecifier),
+		fields?: TurmaConnectionFieldPolicy,
+	},
+	TurmaEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TurmaEdgeKeySpecifier | (() => undefined | TurmaEdgeKeySpecifier),
+		fields?: TurmaEdgeFieldPolicy,
 	},
 	User?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier),

@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { Stage, useGetFrequencyClassQuery } from 'graphql/api';
+import { useGetFrequenciesClassQuery } from 'graphql/api';
+
 import { useState } from 'react';
 
 import { BottomBar } from "../components/BottomBar";
@@ -11,7 +12,12 @@ import { Sidebar } from '../components/Sidebar';
 
 export default function Frequency() {
     const [month, setMonth] = useState(0)
-    const { data, loading } = useGetFrequencyClassQuery();
+    const {data, loading} = useGetFrequenciesClassQuery({
+        variables: {
+            code: "1"
+        }
+    })
+  
 
     return (
         <>
@@ -19,6 +25,7 @@ export default function Frequency() {
             <Sidebar />
             <Container>
                 <section className="fl:grid grid-cols-3 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
+            
                     <Dialog.Root>
                         <Dialog.Trigger onClick={() => setMonth(1)}>
                             <CardMonth month="JAN" />

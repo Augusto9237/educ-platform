@@ -1,30 +1,17 @@
-query GetFrequencyClass{
-  page: frequenciesConnection(stage: PUBLISHED) {
-    edges {
-      node {
+query GetFrequenciesClass($code: String = "") {
+  frequencies(where: {turma: {code: $code}}) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
         id
-        class {
-          entryId: id
-          code
-        }
-        createdAt
-        id
-        subscribes(first: 50) {
-          ... on Presence {
-            id
-            prensente
-            subscriber {
-              name
-              id
-            }
-          }
-        }
-        createdBy {
-          entryId: id
+        prensente
+        subscriber {
           name
-          picture
+          id
         }
       }
     }
   }
 }
+
