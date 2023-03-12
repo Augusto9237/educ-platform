@@ -15,7 +15,7 @@ export default function Profile() {
                     <div className="flex flex-col items-center h-80 justify-center">
                         <StudentAvatar width="100px" height="100px" url={user?.subscriber?.pictureUrl} />
                         <strong className="text-textSecondaryColor-600 text-2xl">{user?.subscriber?.name}</strong>
-                        <span>Turma: A</span>
+                        <span>{`Turma: ${user?.subscriber?.class?.code}`}</span>
                     </div>
 
 

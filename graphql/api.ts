@@ -6796,6 +6796,7 @@ export enum _SystemDateTimeFieldVariation {
 
 export type GetFrequenciesClassQueryVariables = Exact<{
   code?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
 }>;
 
 
@@ -6806,12 +6807,14 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null } | null };
 
 
 export const GetFrequenciesClassDocument = gql`
-    query GetFrequenciesClass($code: String = "") {
-  frequencies(where: {turma: {code: $code}}) {
+    query GetFrequenciesClass($code: String = "", $id: ID = "") {
+  frequencies(
+    where: {turma: {code: $code}, AND: {turma: {subscribers_some: {id: $id}}}}
+  ) {
     createdAt
     id
     subscribes {
@@ -6841,6 +6844,7 @@ export const GetFrequenciesClassDocument = gql`
  * const { data, loading, error } = useGetFrequenciesClassQuery({
  *   variables: {
  *      code: // value for 'code'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -6863,6 +6867,10 @@ export const GetSubscriberLoginDocument = gql`
     name
     payment
     pictureUrl
+    class {
+      id
+      code
+    }
   }
 }
     `;

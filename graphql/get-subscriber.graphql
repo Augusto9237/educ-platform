@@ -5,5 +5,9 @@ query GetSubscriberLogin($email: String! = "") {
     name
     payment
     pictureUrl
+    class {
+      id
+      code
+    }
   }
 }

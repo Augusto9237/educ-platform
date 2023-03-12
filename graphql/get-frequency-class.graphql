@@ -1,5 +1,7 @@
-query GetFrequenciesClass($code: String = "") {
-  frequencies(where: {turma: {code: $code}}) {
+query GetFrequenciesClass($code: String = "", $id: ID = "") {
+  frequencies(
+    where: {turma: {code: $code}, AND: {turma: {subscribers_some: {id: $id}}}}
+  ) {
     createdAt
     id
     subscribes {
@@ -14,4 +16,3 @@ query GetFrequenciesClass($code: String = "") {
     }
   }
 }
-

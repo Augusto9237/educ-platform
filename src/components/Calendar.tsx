@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 import clsx from 'clsx';
+import { FrequencyGroupedByMonth } from '../pages/frequency';
 
 type CalendarProps = {
   month: number;
   year: number;
+  frequencies: FrequencyGroupedByMonth[];
 };
 
 type SelectedDate = Date | undefined;
 
-export function Calendar({ month, year }: CalendarProps) {
+export function Calendar({ month, year, frequencies }: CalendarProps) {
+
+  
   const [selectedDate, setSelectedDate] = useState<SelectedDate>();
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
