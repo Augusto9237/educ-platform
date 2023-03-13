@@ -1,6 +1,5 @@
 
 import { BottomBar } from "../components/BottomBar";
-import { Button } from "../components/Button";
 import { CardAssessment } from "../components/CardAssessment";
 import { CardFrequency } from "../components/CardFrequency";
 import { CardPayments } from "../components/CardPayments";
@@ -16,17 +15,17 @@ export default function Home() {
             <Container>
                 <section className="w-full max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid grid-cols-3 gap-6 max-sm:justify-start  max-sm:pb-14 ">
                     <div className="flex flex-col gap-4">
-                        <span className="text-base font-bold">Avaliações</span>
+                        <h1 className="text-lg font-bold">Avaliações</h1>
                         <CardAssessment />
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <span className="text-base font-bold">Frequência</span>
+                        <h1 className="text-lg font-bold">Frequência</h1>
                         <CardFrequency />
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <span className="text-base font-bold">Pagamentos</span>
+                        <h1 className="text-lg font-bold">Pagamentos</h1>
                         <CardPayments/>
                     </div>
                 </section>
