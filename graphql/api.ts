@@ -6794,6 +6794,16 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type GetFrequenciesClassByMonthQueryVariables = Exact<{
+  code?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  monthStart?: InputMaybe<Scalars['DateTime']>;
+  monthEnd?: InputMaybe<Scalars['DateTime']>;
+}>;
+
+
+export type GetFrequenciesClassByMonthQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
+
 export type GetFrequenciesClassQueryVariables = Exact<{
   code?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -6810,6 +6820,57 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 export type GetSubscriberLoginQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null } | null };
 
 
+export const GetFrequenciesClassByMonthDocument = gql`
+    query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
+  frequencies(
+    where: {turma: {code: $code}, AND: {turma: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
+  ) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
+        id
+        prensente
+        subscriber {
+          name
+          id
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFrequenciesClassByMonthQuery__
+ *
+ * To run a query within a React component, call `useGetFrequenciesClassByMonthQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFrequenciesClassByMonthQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFrequenciesClassByMonthQuery({
+ *   variables: {
+ *      code: // value for 'code'
+ *      id: // value for 'id'
+ *      monthStart: // value for 'monthStart'
+ *      monthEnd: // value for 'monthEnd'
+ *   },
+ * });
+ */
+export function useGetFrequenciesClassByMonthQuery(baseOptions?: Apollo.QueryHookOptions<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>(GetFrequenciesClassByMonthDocument, options);
+      }
+export function useGetFrequenciesClassByMonthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>(GetFrequenciesClassByMonthDocument, options);
+        }
+export type GetFrequenciesClassByMonthQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthQuery>;
+export type GetFrequenciesClassByMonthLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthLazyQuery>;
+export type GetFrequenciesClassByMonthQueryResult = Apollo.QueryResult<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>;
 export const GetFrequenciesClassDocument = gql`
     query GetFrequenciesClass($code: String = "", $id: ID = "") {
   frequencies(

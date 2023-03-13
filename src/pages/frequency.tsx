@@ -33,7 +33,6 @@ interface Frequency {
     }>;
 }
 
-
 export default function Frequency() {
     const [month, setMonth] = useState(0)
     const { user } = useContext(GlobalContext)

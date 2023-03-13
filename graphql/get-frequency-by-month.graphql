@@ -1,0 +1,25 @@
+query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
+  frequencies(
+    where: {
+      turma: { code: $code },
+      AND: {
+        turma: { subscribers_some: { id: $id } },
+        createdAt_gte: $monthStart,
+        createdAt_lt: $monthEnd
+      }
+    }
+  ) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
+        id
+        prensente
+        subscriber {
+          name
+          id
+        }
+      }
+    }
+  }
+}
