@@ -62,10 +62,9 @@ export function Calendar({ month, year, frequencies }: CalendarProps) {
 
   return (
     <div>
-      <h1 className="first-line:uppercase text-lg font-bold px-2 mb-2 ">
+      <h1 className="capitalize text-lg font-bold px-2 mb-2 ">
         {new Date(year, month).toLocaleDateString('pt-BR', {
           month: 'long',
-          year: 'numeric',
         })}
       </h1>
       {renderDaysOfWeek()}
