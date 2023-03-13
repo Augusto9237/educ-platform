@@ -8,7 +8,7 @@ export function CardAssessment() {
     return (
         <div className="relative flex flex-1 flex-col p-3 pl-6 justify-center gap-4 w-full rounded-xl shadow-lg  bg-backgroundColor-100 overflow-hidden">
             <div className="absolute bg-backgroundColor-500/90 w-3 h-full left-0" />
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-4">
                 <div className="flex items-center text-4xl rounded-full p-3 text-backgroundColor-500/90 bg-backgroundColor-400/40">
                     <RiBarChartBoxFill />
                 </div>

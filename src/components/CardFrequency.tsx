@@ -72,7 +72,7 @@ export function CardFrequency() {
                     .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.subscriber?.id);
                 return (
                     <>
-                        <div className="flex flex-row gap-2">
+                        <div className="flex flex-row gap-4">
                             <div className="flex items-center text-4xl rounded-full p-3 text-buttonColor-600/90 bg-buttonColor-500/30">
                                 <RiCalendarCheckFill />
                             </div>
