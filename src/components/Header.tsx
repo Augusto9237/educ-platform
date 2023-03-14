@@ -8,8 +8,8 @@ interface HeaderProps {
     titleRoutes: string
 }
 export function Header({ titleRoutes }: HeaderProps) {
-   const {user} = useContext(GlobalContext)
-      
+    const { user, loadingUser } = useContext(GlobalContext)
+
     const dataAtual = new Date();
     const meses = [
         "janeiro", "fevereiro", "março", "abril", "maio", "junho",
@@ -28,7 +28,20 @@ export function Header({ titleRoutes }: HeaderProps) {
                     <span className="flex flex-1">Bem-vindo(a)</span>
                     <Link href='/profile' className="flex flex-row flex-1 justify-end items-center overflow-hidden gap-2">
                         <strong className="text-base">{user?.subscriber?.name}</strong>
-                        <StudentAvatar width="30px" height="30px" url={user?.subscriber?.pictureUrl} />
+                        {loadingUser && (
+                            <div
+                                className="inline-block h-[30px] w-[30px] animate-spin rounded-full border-4 border-solid border-backgroundColor-900 border-r-buttonColor-500 align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status">
+                                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                                >
+
+                                </span>
+                            </div>
+                        )}
+
+                        {!loadingUser && (
+                            <StudentAvatar width="30px" height="30px" url={user?.subscriber?.pictureUrl} />
+                        )}
                     </Link>
                 </div>
                 <div className="flex flex-row justify-between">

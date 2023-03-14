@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 import { GlobalContext } from "../context/GlobalContext";
+import { extractMonth } from "../utils/getMonth";
 
 interface Frequency {
     __typename?: 'Frequency';
@@ -36,9 +37,7 @@ export function CardMonth({ month, frequencies }: CardMonthProps) {
         <div className="flex  bg-backgroundColor-100 rounded-xl p-2 lg:p-3 drop-shadow-md ">
 
             <div className="flex items-center justify-center rounded-full min-w-[60px] min-h-[60px] text-backgroundColor-500 bg-backgroundColor-400/40">
-                <h1 className="uppercase text-lg font-bold">{new Date(2023, month - 1).toLocaleDateString('pt-BR', {
-                    month: 'short',
-                })}</h1>
+                <h1 className="uppercase text-lg font-bold">{extractMonth(month)}</h1>
             </div>
 
             <div className="flex flex-col justify-center flex-1">
