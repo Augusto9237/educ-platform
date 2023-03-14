@@ -18,7 +18,7 @@ export default function Assesments() {
                             <CardGrades mounth='Janeiro' percentage={90} />
                         </Dialog.Trigger>
                         <Dialog.Trigger>
-                            <CardGrades mounth='Fevereiro' percentage={10} />
+                            <CardGrades mounth='Fevereiro' percentage={50} />
                         </Dialog.Trigger>
 
                         <Dialog.Portal>

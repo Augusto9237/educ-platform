@@ -11,7 +11,7 @@ export function StudentAvatar({ width, height, url }: AvatarProps) {
 
     return (
 
-        <div style={containerStyle} className="h-full rounded-full object-contain overflow-hidden">
+        <div style={containerStyle} className="h-full rounded-full object-contain overflow-hidden border-2 border-solid border-buttonColor-500">
             <img className="w-full h-full" src={url!} alt="perfil" />
         </div>
 

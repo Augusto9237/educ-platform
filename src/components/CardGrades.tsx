@@ -26,35 +26,10 @@ export function CardGrades({ percentage, mounth }: GradesProps) {
                 <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-400">
                     <RiCheckboxFill /> Sua média: 900pts /<span className="text-sm mt-1">1000pts</span>
                 </h1>
-                <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-200/90 mb-1">
+                <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-200/90">
                     <RiCheckboxIndeterminateFill /> Média da turma: 900pts / <span className="text-xs">1000pts</span>
                 </h1>
             </div>
-
-
-            {/* <div className="flex pb-2">
-                <div className="flex flex-1 flex-col items-center ">
-                    <span className="text-xs">1ª</span>
-                    <h1 className="text-sm font-semibold leading-none">900</h1>
-                </div>
-                <div className="w-1 h-full bg-textColor-200 rounded-sm" />
-
-                <div className="flex flex-1 flex-col items-center">
-                    <span className="text-xs">2ª</span>
-                    <h1 className="text-sm font-semibold leading-none">900</h1>
-                </div>
-                <div className="w-1 h-full bg-textColor-200" />
-
-                <div className="flex flex-1 flex-col items-center">
-                    <span className="text-xs">3ª</span>
-                    <h1 className="text-sm font-semibold leading-none">900</h1>
-                </div>
-                <div className="w-1 h-full bg-textColor-200" />
-                <div className="flex flex-1 flex-col items-center">
-                    <span className="text-xs">4ª</span>
-                    <h1 className="text-sm font-semibold leading-none">900</h1>
-                </div>
-            </div> */}
         </div>
     )
 }

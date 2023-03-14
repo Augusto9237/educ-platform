@@ -1,7 +1,7 @@
 
 export function WeekGrades() {
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-textSecondaryColor-600">
             <header><h1 className="text-lg font-bold">Avaliação semanal</h1></header>
             <div className="flex flex-col">
                 <strong>1ª semana</strong>
