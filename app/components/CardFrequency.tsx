@@ -21,7 +21,7 @@ interface Frequency {
   }>;
 }
 
-export function CardFrequency()  {
+export function CardFrequency() {
   const { user } = useContext(GlobalContext);
 
   const [frequencyGroup, setFrequencyGroup] = useState<FrequencyGroupedByMonth[]>([]);
@@ -79,7 +79,7 @@ export function CardFrequency()  {
           .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.subscriber?.id);
 
         return (
-          <>
+          <React.Fragment key={i}>
             <div className="flex flex-row gap-4">
               <div className="flex items-center text-4xl rounded-full p-3 text-buttonColor-600/90 bg-buttonColor-500/30">
                 <RiCalendarCheckFill />
@@ -104,7 +104,7 @@ export function CardFrequency()  {
                 {`${absences.length} faltas`}
               </span>
             </div>
-          </>
+          </React.Fragment>
         );
       })}
     </div>

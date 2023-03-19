@@ -30,13 +30,6 @@ export function Sidebar() {
                     </button>
                 </Link>
             </div>
-            <div className="fixed bottom-8 pl-7">
-                <Link href='/' className="flex flex-col items-center  text-textSecondaryColor-200 group-hover:items-start">
-                    <button className="flex  text-2xl items-center gap-2">
-                    <RiLogoutBoxRFill/><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Sair</span>
-                    </button>
-                </Link>
-            </div>
         </section>
     )
 }
