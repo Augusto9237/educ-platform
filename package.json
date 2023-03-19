@@ -10,7 +10,7 @@
     "codegen": "graphql-codegen --config .graphqlrc.yaml -w"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.9",
+    "@apollo/client": "^3.7.10",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-popover": "^1.0.4",
     "@types/node": "18.14.1",
@@ -21,7 +21,7 @@
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.1",
     "graphql": "^16.6.0",
-    "next": "13.2.1",
+    "next": "^13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1"

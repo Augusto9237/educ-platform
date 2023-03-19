@@ -1,5 +1,6 @@
+'use client';
 import clsx from 'clsx';
-import { useRouter } from 'next/router'
+import { useRouter, usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
 interface ActiveLinkProps {
@@ -7,9 +8,11 @@ interface ActiveLinkProps {
     href: string
 }
 
+
 export function ActiveLink({ children, href }: ActiveLinkProps) {
     const router = useRouter()
-    const style = clsx('flex flex-col items-center ', router.asPath === href ? 'text-buttonColor-500' : ' text-textColor-100')
+    const path = usePathname()
+    const style = clsx('flex flex-col items-center ', path === href ? 'text-buttonColor-500' : ' text-textColor-100')
 
     const handleClick = (e: { preventDefault: () => void; }) => {
         e.preventDefault()

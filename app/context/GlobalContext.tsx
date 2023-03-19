@@ -1,3 +1,4 @@
+'use client';
 import { GetSubscriberLoginQuery } from "graphql/api";
 import { createContext } from "react";
 

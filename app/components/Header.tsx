@@ -1,15 +1,15 @@
-import { useGetSubscriberLoginQuery } from "graphql/api";
+'use client';
 import Link from "next/link";
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { StudentAvatar } from "./StudentAvatar"
 
 interface HeaderProps {
-    titleRoutes: string
+    titleRoutes?: string
 }
 export function Header({ titleRoutes }: HeaderProps) {
     const { user, loadingUser } = useContext(GlobalContext)
-
+   
     const dataAtual = new Date();
     const meses = [
         "janeiro", "fevereiro", "março", "abril", "maio", "junho",
@@ -20,6 +20,7 @@ export function Header({ titleRoutes }: HeaderProps) {
     const mesNome = meses[mesNumero];
     const ano = dataAtual.getFullYear();
     const dataFormatada = `${dia} de ${mesNome} de ${ano}`;
+    
 
     return (
         <header className="flex flex-col w-full max-h-[114px] max-md:rounded-b-2xl text-textColor-100 p-4 bg-backgroundColor-900">
