@@ -1,6 +1,7 @@
 "use client";
 import * as Dialog from '@radix-ui/react-dialog';
 import { Calendar } from 'app/components/Calendar';
+import { CalendarTest } from 'app/components/CalendarTest';
 import { CardMonth } from 'app/components/CardMonth';
 import { Spinner } from 'app/components/Spinner';
 import { GlobalContext } from 'app/context/GlobalContext';
@@ -90,7 +91,7 @@ export default function Frequency() {
                                     {
                                         frequencyGroup.map(({ frequencies, month }, i) =>
                                         (
-                                            <Calendar key={i} month={month - 1} year={2023} frequencies={frequencies} />
+                                            <CalendarTest key={i} month={month - 1} year={2023} frequencies={frequencies} />
                                         )
                                         )
                                     }
