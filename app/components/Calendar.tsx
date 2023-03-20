@@ -1,12 +1,28 @@
 import { useState } from 'react';
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 import clsx from 'clsx';
-import { FrequencyGroupedByMonth } from '../pages/frequency';
+import { FrequencyGroupedByMonth } from 'app/(authenticated)/frequency/page';
+
+interface Frequency {
+  __typename?: 'Frequency';
+  createdAt: any;
+  id: string;
+  subscribes: Array<{
+      __typename?: 'Presence';
+      id: string;
+      prensente?: boolean | null;
+      subscriber?: {
+          __typename?: 'Subscriber';
+          name: string;
+          id: string
+      } | null
+  }>;
+}
 
 type CalendarProps = {
   month: number;
   year: number;
-  frequencies: FrequencyGroupedByMonth[];
+  frequencies: Frequency[];
 };
 
 type SelectedDate = Date | undefined;

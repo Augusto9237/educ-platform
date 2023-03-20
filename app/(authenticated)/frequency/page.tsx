@@ -64,7 +64,6 @@ export default function Frequency() {
     return (
         <>
             <section className="fl:grid grid-cols-3 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14 ">
-
                 <Dialog.Root>
                     <>
                         {loading && (
@@ -88,7 +87,13 @@ export default function Frequency() {
                                     <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                         <strong className='text-textColor-300'>X</strong>
                                     </Dialog.Close>
-                                    <Calendar month={month - 1} year={2023} frequencies={frequencyGroup} />
+                                    {
+                                        frequencyGroup.map(({ frequencies, month }, i) =>
+                                        (
+                                            <Calendar key={i} month={month - 1} year={2023} frequencies={frequencies} />
+                                        )
+                                        )
+                                    }
                                 </Dialog.Content>
                             </Dialog.Overlay>
                         </Dialog.Portal>
