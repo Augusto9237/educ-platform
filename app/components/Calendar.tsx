@@ -1,21 +1,21 @@
+"use client";
 import { useState } from 'react';
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 import clsx from 'clsx';
-import { FrequencyGroupedByMonth } from 'app/(authenticated)/frequency/page';
 
 interface Frequency {
   __typename?: 'Frequency';
-  createdAt: any;
+  createdAt: Date;
   id: string;
   subscribes: Array<{
-      __typename?: 'Presence';
-      id: string;
-      prensente?: boolean | null;
-      subscriber?: {
-          __typename?: 'Subscriber';
-          name: string;
-          id: string
-      } | null
+    __typename?: 'Presence';
+    id: string;
+    prensente?: boolean | null;
+    subscriber?: {
+      __typename?: 'Subscriber';
+      name: string;
+      id: string
+    } | null
   }>;
 }
 
@@ -28,10 +28,6 @@ type CalendarProps = {
 type SelectedDate = Date | undefined;
 
 export function Calendar({ month, year, frequencies }: CalendarProps) {
-
-  
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>();
-
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
 
@@ -58,20 +54,29 @@ export function Calendar({ month, year, frequencies }: CalendarProps) {
       <div key={`empty-${index}`} className="h-6 w-6"></div>
     ));
     daysToRender.push(
-      ...days.map((day) => (
-        <div
-          key={day.toString()}
-          className={clsx(
-            'h-6 w-6 flex items-center justify-center cursor-pointer rounded-full p-1',
-            {
-              'bg-textSecondaryColor-300/95 text-textSecondaryColor-600': selectedDate?.getDate() === day.getDate(),
-            }
-          )}
-          onClick={() => setSelectedDate(day)}
-        >
-          {day.getDate()}
-        </div>
-      ))
+      ...days.map((day) => {
+        const foundFrequency = frequencies.find(frequency => {
+          const frequencyDate = new Date(frequency.createdAt);
+          return frequencyDate.getFullYear() === year && frequencyDate.getMonth() === month && frequencyDate.getDate() === day.getDate();
+        });
+
+        const presences = foundFrequency?.subscribes.filter(subscribe => subscribe.prensente);
+        const absences = foundFrequency?.subscribes.filter(subscribe => !subscribe.prensente);
+   
+        return (
+          <div
+            key={day.toString()}
+            className={clsx(
+              'h-6 w-6 flex items-center justify-center cursor-pointer rounded-full p-1',
+              {
+                'bg-textSecondaryColor-300/95 text-textSecondaryColor-600': foundFrequency && day.getDate() === new Date(foundFrequency.createdAt).getDate() && foundFrequency?.subscribes.filter(subscribe => subscribe.prensente),
+              }
+            )}
+          >
+            {day.getDate()}
+          </div>
+        );
+      })
     );
     return <div className="grid grid-cols-7 gap-2 ml-4 -mr-1">{daysToRender}</div>;
   };
