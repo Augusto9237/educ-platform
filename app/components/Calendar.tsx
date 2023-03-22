@@ -53,11 +53,11 @@ export function CalendarEvent({ frequencies, month }: CalendarProps) {
         locale="br"
         headerToolbar={false}
         firstDay={1}
-        height={350}
         initialDate={frequencies[0].createdAt}
         showNonCurrentDates={false}
         events={event}
         contentHeight="auto"
+        
       />
     </>
   );
