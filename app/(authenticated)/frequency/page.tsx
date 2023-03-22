@@ -90,7 +90,7 @@ export default function Frequency() {
                                     {
                                         frequencyGroup.map(({ frequencies, month }, i) =>
                                         (
-                                            <CalendarEvent key={i}  frequencies={frequencies} />
+                                            <CalendarEvent key={i} month={month} frequencies={frequencies} />
                                         )
                                         )
                                     }

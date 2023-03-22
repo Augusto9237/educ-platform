@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { RiCheckboxFill } from 'react-icons/ri';
+import { extractMonth } from 'app/utils/getMonth';
 
 interface Frequency {
   __typename?: 'Frequency';
@@ -24,6 +25,7 @@ interface Frequency {
 
 type CalendarProps = {
   frequencies: Frequency[];
+  month: number;
 };
 
 type events = {
@@ -31,7 +33,7 @@ type events = {
   date: string;
 }[]
 
-export function CalendarEvent({ frequencies }: CalendarProps) {
+export function CalendarEvent({ frequencies, month }: CalendarProps) {
   const [event, setEvent] = useState<events>([])
   useEffect(() => {
     if (frequencies) {
@@ -43,21 +45,21 @@ export function CalendarEvent({ frequencies }: CalendarProps) {
   }, [frequencies])
 
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin]}
-      initialView="dayGridMonth"
-      locale="br"
-      headerToolbar={{
-        left: "",
-        center: "title",
-        right: "",
-      }}
-      firstDay={1}
-      height={425}
-      initialDate={frequencies[0].createdAt}
-      showNonCurrentDates={false}
-      events={event}
-    />
+    <>
+      <h1 className="uppercase text-lg font-bold mb-2">{extractMonth(month)}</h1>
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        locale="br"
+        headerToolbar={false}
+        firstDay={1}
+        height={350}
+        initialDate={frequencies[0].createdAt}
+        showNonCurrentDates={false}
+        events={event}
+        contentHeight="auto"
+      />
+    </>
   );
 };
 
