@@ -1,38 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## EduPlatform - Gestão de Alunos
+Introdução
+O EduPlatform é um aplicativo web desenvolvido em Next.js, GraphQL e Tailwind CSS para gestão de alunos, com foco em controle de frequência, notas, avaliação de desempenho e controle financeiro para pagamentos das mensalidades. O aplicativo foi criado para permitir que professores possam inserir notas e frequência, bem como avaliar o desempenho dos alunos, enquanto os alunos podem consultar suas notas, frequência, avaliação de desempenho e efetuar pagamentos de mensalidades.
 
-## Getting Started
+##Funcionalidades
+O EduPlatform oferece as seguintes funcionalidades:
 
-First, run the development server:
+Controle de frequência: permite que os professores registrem a frequência dos alunos nas aulas.
+Controle de notas: permite que os professores insiram as notas dos alunos em cada disciplina.
+Avaliação de desempenho: permite que os professores avaliem o desempenho dos alunos em cada disciplina.
+Controle financeiro: permite que os alunos consultem e efetuem pagamentos das mensalidades.
+Área do professor: permite que os professores acessem as notas, frequência e avaliação de desempenho dos alunos em suas disciplinas.
+Área do aluno: permite que os alunos acessem suas notas, frequência, avaliação de desempenho e paguem suas mensalidades.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+##Tecnologias Utilizadas
+Next.js: um framework web React que oferece a possibilidade de construir aplicativos web escaláveis.
+GraphQL: uma linguagem de consulta para APIs, que permite que os clientes solicitem dados exatamente como precisam, tornando as consultas mais eficientes.
+Tailwind CSS: um framework de CSS utilitário para criação de interfaces web responsivas e personalizáveis.
