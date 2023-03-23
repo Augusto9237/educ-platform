@@ -46,7 +46,7 @@ export function CalendarEvent({ frequencies, month }: CalendarProps) {
 
   return (
     <>
-      <h1 className="text-textSecondaryColor-600 text-lg font-bold mb-2">{extractMonth(month, true)}</h1>
+      <h1 className="text-textSecondaryColor-600 text-lg font-bold mb-4">{extractMonth(month, true)}</h1>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

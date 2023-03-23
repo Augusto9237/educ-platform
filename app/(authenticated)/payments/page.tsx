@@ -7,7 +7,7 @@ export default function Payments() {
     return (
         <>
             <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100">
-                <h1 className="mx-auto text-lg font-semibold">Mensalidades</h1>
+                <h1 className="mx-auto text-lg font-bold">Mensalidades</h1>
                 <div className="flex flex-col gap-2">
                     <div className="grid grid-cols-3">
                         <span className="flex justify-center">Mês</span>
