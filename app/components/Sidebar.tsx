@@ -14,7 +14,7 @@ export function Sidebar() {
 
                 <Link href='/frequency' className="flex flex-col text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                     <button className="flex text-2xl items-center gap-2">
-                        <RiCalendarCheckFill /><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Frequência</span>
+                        <RiCalendarCheckFill /><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600">Frequência</span>
                     </button>
                 </Link>
 
