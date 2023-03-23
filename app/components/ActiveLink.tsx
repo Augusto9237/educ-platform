@@ -12,7 +12,7 @@ interface ActiveLinkProps {
 export function ActiveLink({ children, href }: ActiveLinkProps) {
     const router = useRouter()
     const path = usePathname()
-    const style = clsx('flex flex-col items-center ', path === href ? 'text-buttonColor-500' : ' text-textColor-100')
+    const style = clsx('flex flex-col items-center justify-center', path === href ? 'text-buttonColor-500' : ' text-textColor-100')
 
     const handleClick = (e: { preventDefault: () => void; }) => {
         e.preventDefault()

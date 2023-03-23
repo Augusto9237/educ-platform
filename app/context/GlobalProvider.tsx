@@ -1,6 +1,6 @@
 "use client";
 import { useGetSubscriberLoginQuery, GetSubscriberLoginDocument } from "graphql/api";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { GlobalContext } from "./GlobalContext";
 
 interface AuthProps {
@@ -9,11 +9,13 @@ interface AuthProps {
 
 
 export const GlobalProvider = ({ children }: AuthProps) => {
-  const { data, loading } = useGetSubscriberLoginQuery({
+   
+    const { data, loading } = useGetSubscriberLoginQuery({
         variables: {
             email: 'augusto.souza8330@gmail.com'
         },
     });
+
 
     return (
         <GlobalContext.Provider value={{

@@ -12,8 +12,6 @@ interface HeaderProps {
     titleRoutes?: string
 }
 export function Header({ titleRoutes }: HeaderProps) {
-
-
     const dataAtual = new Date();
     const meses = [
         "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -33,8 +31,6 @@ export function Header({ titleRoutes }: HeaderProps) {
                         <span className="flex flex-1 ">Bem-vindo(a)</span>
                         <span>{dataFormatada}</span>
                     </div>
-
-
                     <ProfileMenu />
                 </div>
             </div>

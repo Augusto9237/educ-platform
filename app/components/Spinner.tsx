@@ -1,6 +1,6 @@
 export function Spinner() {
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex h-[80vh]  w-full items-center justify-center">
         <div
           className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-r-backgroundColor-300 align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
           role="status">
