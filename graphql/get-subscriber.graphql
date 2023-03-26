@@ -1,5 +1,5 @@
-query GetSubscriberLogin($email: String! = "") {
-  subscriber(where: { email: $email }, stage: DRAFT) {
+query GetSubscriberLogin($email: String = "") {
+  values: subscriber(where: {email: $email}, stage: DRAFT) {
     email
     id
     name
@@ -8,6 +8,19 @@ query GetSubscriberLogin($email: String! = "") {
     class {
       id
       code
+    }
+    gradeses {
+      id
+      month
+      weeklyAssessments {
+        ... on Week {
+          id
+          fourthReview
+          primaryReview
+          secondReview
+          thirdReview
+        }
+      }
     }
   }
 }

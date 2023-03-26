@@ -15,8 +15,7 @@ export const GlobalProvider = ({ children }: AuthProps) => {
             email: 'augusto.souza8330@gmail.com'
         },
     });
-
-
+    
     return (
         <GlobalContext.Provider value={{
             user: data,

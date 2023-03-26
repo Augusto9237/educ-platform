@@ -1,14 +1,56 @@
+import { extractMonth } from "app/utils/getMonth";
 import clsx from "clsx";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
-interface GradesProps {
-    percentage: Number;
-    mounth: string;
+
+interface Week {
+    __typename: string;
+    id: string;
+    fourthReview: number;
+    primaryReview: number;
+    secondReview: number;
+    thirdReview: number;
 }
 
-export function CardGrades({ percentage, mounth }: GradesProps) {
+interface Grades {
+    __typename?: "Grades" | undefined;
+    id: string;
+    month?: any;
+    weeklyAssessments: {
+        __typename?: "Week" | undefined;
+        id: string;
+        fourthReview?: number | null | undefined;
+        primaryReview?: number | null | undefined;
+        secondReview?: number | undefined;
+        thirdReview?: number | undefined;
+    }[];
+}
+interface GradesProps {
+    gradeses?: Grades[] | any;
+    month?: any;
+}
+
+export function CardGrades({ gradeses, month }: GradesProps) {
+    const newMonth = new Date(month).getMonth();
+
+    const assessments = gradeses.weeklyAssessments;
+
+    let sum = 0;
+    let count = 0;
+
+    assessments.forEach((week: Week) => {
+        sum += week.fourthReview;
+        sum += week.primaryReview;
+        sum += week.secondReview;
+        sum += week.thirdReview;
+        count += 4;
+    });
+
+    const average = sum / count;
+    const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
-            <strong className="mx-auto text-lg">{mounth}</strong>
+            <strong className="mx-auto text-lg">{extractMonth(newMonth, true)}</strong>
 
             <div
                 className={clsx("fixed flex items-center justify-center rounded-full min-w-[60px] min-h-[60px] translate-y-3", {
@@ -24,7 +66,7 @@ export function CardGrades({ percentage, mounth }: GradesProps) {
 
             <div className="flex flex-col pl-20">
                 <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-400">
-                    <RiCheckboxFill /> Sua média: 900pts /<span className="text-sm mt-1">1000pts</span>
+                    <RiCheckboxFill /> {`Sua média: ${average}pts /`}<span className="text-sm mt-1">1000pts</span>
                 </h1>
                 <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-200/90">
                     <RiCheckboxIndeterminateFill /> Média da turma: 900pts / <span className="text-xs">1000pts</span>

@@ -33,13 +33,13 @@ export default function Frequency() {
     const [month, setMonth] = useState(0)
     const { user } = useContext(GlobalContext)
     const [frequencyGroup, setFrequencyGroup] = useState<FrequencyGroupedByMonth[]>([])
+
     const { data, loading } = useGetFrequenciesClassQuery({
         variables: {
-            code: user?.subscriber?.class?.code,
-            id: user?.subscriber?.id
+            code: user?.values?.class?.code,
+            id: user?.values?.id
         }
     });
-
 
     useEffect(() => {
         if (data?.frequencies) {

@@ -7,6 +7,7 @@ import { StudentAvatar } from './StudentAvatar';
 
 export function ProfileMenu() {
     const { user, loadingUser } = useContext(GlobalContext)
+   
     return (
         <Popover.Root>
             <Popover.Trigger className='h-full'>
@@ -25,11 +26,11 @@ export function ProfileMenu() {
                 {!loadingUser && (
                     <>
                         <div className="flex flex-row flex-1 justify-end items-center overflow-hidden gap-2">
-                            <strong className="text-base leading-none">{user?.subscriber?.name}</strong>
-                            <StudentAvatar width="30px" height="30px" url={user?.subscriber?.pictureUrl} />
+                            <strong className="text-base leading-none">{user?.values?.name}</strong>
+                            <StudentAvatar width="30px" height="30px" url={user?.values?.pictureUrl} />
                         </div>
                         <span className='flex flex-1 leading-relaxed justify-center'>
-                            {`Turma: ${user?.subscriber?.class?.code}`}
+                            {`Turma: ${user?.values?.class?.code}`}
                         </span>
                     </>
                 )}
