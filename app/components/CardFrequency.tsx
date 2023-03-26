@@ -28,8 +28,8 @@ export function CardFrequency() {
   const [monthStart, monthEnd] = getMonthBounds(new Date());
   const { data, loading } = useGetFrequenciesClassByMonthQuery({
     variables: {
-      code: user?.subscriber?.class?.code,
-      id: user?.subscriber?.id,
+      code: user?.values?.class?.code,
+      id: user?.values?.id,
       monthStart,
       monthEnd,
     },
@@ -72,11 +72,11 @@ export function CardFrequency() {
       {frequencyGroup.map(({ frequencies, month }, i) => {
         const presences = frequencies
           .map((frequency) => frequency.subscribes[0])
-          .filter(({ prensente, subscriber }) => prensente && subscriber?.id === user?.subscriber?.id);
+          .filter(({ prensente, subscriber }) => prensente && subscriber?.id === user?.values?.id);
 
         const absences = frequencies
           .map((frequency) => frequency.subscribes[0])
-          .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.subscriber?.id);
+          .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.values?.id);
 
         return (
           <React.Fragment key={i}>

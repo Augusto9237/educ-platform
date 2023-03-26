@@ -34,18 +34,15 @@ export function CardGrades({ gradeses, month }: GradesProps) {
 
     const assessments = gradeses.weeklyAssessments;
 
-    let sum = 0;
-    let count = 0;
+    function calculateAverage(assessments: Week[]) {
+        const sum = assessments.reduce((total, week) => {
+            return total + week.fourthReview + week.primaryReview + week.secondReview + week.thirdReview;
+        }, 0);
+        const count = assessments.length * 4;
+        return sum / count;
+    }
 
-    assessments.forEach((week: Week) => {
-        sum += week.fourthReview;
-        sum += week.primaryReview;
-        sum += week.secondReview;
-        sum += week.thirdReview;
-        count += 4;
-    });
-
-    const average = sum / count;
+    const average = calculateAverage(assessments);
     const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
 
     return (

@@ -29,11 +29,11 @@ export function CardMonth({ month, frequencies }: CardMonthProps) {
     const { user } = useContext(GlobalContext)
     const presences = frequencies
         .map((frequencia) => frequencia.subscribes[0])
-        .filter(({ prensente, subscriber }) => prensente && subscriber?.id === user?.subscriber?.id);
+        .filter(({ prensente, subscriber }) => prensente && subscriber?.id === user?.values?.id);
 
     const absences = frequencies
         .map((frequencia) => frequencia.subscribes[0])
-        .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.subscriber?.id);
+        .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.values?.id);
     return (
         <div className="flex  bg-backgroundColor-100 rounded-xl p-2 lg:p-3 drop-shadow-md ">
 
