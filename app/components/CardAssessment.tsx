@@ -1,3 +1,4 @@
+import { GradesProps } from "app/(authenticated)/assessments/page";
 import { GlobalContext } from "app/context/GlobalContext"
 import { extractMonth } from "app/utils/getMonth";
 import dayjs from "dayjs";
@@ -22,7 +23,7 @@ export function CardAssessment() {
     const average = calculateAverage(assessments);
     const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
 
-    function calculateAverage(assessments: Week[]) {
+    function calculateAverage(assessments: GradesProps[]) {
         const sum = assessments.reduce((total, week) => {
           return total + week.fourthReview! + week.primaryReview! + week.secondReview! + week.thirdReview!;
         }, 0);

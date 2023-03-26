@@ -3,21 +3,29 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { CardGrades } from 'app/components/CardGrades';
 import { WeekGrades } from 'app/components/WeekGrades';
 import { GlobalContext } from 'app/context/GlobalContext';
-import dayjs from 'dayjs';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+
+export interface GradesProps {
+    __typename?: "Week" | undefined;
+    id: string;
+    fourthReview?: number | null | undefined;
+    primaryReview?: number | null | undefined;
+    secondReview?: number | null | undefined;
+    thirdReview?: number | null| undefined;
+}[]
 
 
 export default function Assesments() {
     const { user, loadingUser } = useContext(GlobalContext)
-
+    const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([])
     return (
         <>
             {!loadingUser && (
                 <section className="fl:grid grid-cols-2 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14">
                     <Dialog.Root>
                         {user?.values?.gradeses.map((grades) => (
-                            <Dialog.Trigger key={grades.id}>
+                            <Dialog.Trigger key={grades.id} onClick={() => setGradesSelected(grades.weeklyAssessments)}>
                                 <CardGrades gradeses={grades} month={grades.month} />
                             </Dialog.Trigger>
                         ))} 
@@ -27,7 +35,7 @@ export default function Assesments() {
                                     <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                         <strong className='text-textColor-200'>X</strong>
                                     </Dialog.Close>
-                                    <WeekGrades />
+                                    <WeekGrades grades={gradesSelected} />
                                 </Dialog.Content>
                             </Dialog.Overlay>
                         </Dialog.Portal>

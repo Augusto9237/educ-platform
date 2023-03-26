@@ -1,5 +1,6 @@
 import { extractMonth } from "app/utils/getMonth";
 import clsx from "clsx";
+import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 
 interface Week {
@@ -30,7 +31,7 @@ interface GradesProps {
 }
 
 export function CardGrades({ gradeses, month }: GradesProps) {
-    const newMonth = new Date(month).getMonth();
+    const newMonth = dayjs(month).month() + 1;
 
     const assessments = gradeses.weeklyAssessments;
 
