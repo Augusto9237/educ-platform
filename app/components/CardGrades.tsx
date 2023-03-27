@@ -63,10 +63,10 @@ export function CardGrades({ gradeses, month }: GradesProps) {
             </div>
 
             <div className="flex flex-col pl-20">
-                <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-400">
+                <h1 className="flex flex-1 gap-2 flex-row items-center text-textSecondaryColor-400">
                     <RiCheckboxFill /> {`Sua média: ${average}pts /`}<span className="text-sm mt-1">1000pts</span>
                 </h1>
-                <h1 className="flex flex-row items-center gap-1  text-textSecondaryColor-200/90">
+                <h1 className="flex flex-1 gap-2 flex-row items-center text-textSecondaryColor-200/90">
                     <RiCheckboxIndeterminateFill /> Média da turma: 900pts / <span className="text-xs">1000pts</span>
                 </h1>
             </div>

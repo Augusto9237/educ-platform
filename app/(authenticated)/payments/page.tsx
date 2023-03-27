@@ -1,15 +1,17 @@
 'use client';
+import * as Dialog from '@radix-ui/react-dialog';
 import { GlobalContext } from "app/context/GlobalContext";
 import { extractMonth } from "app/utils/getMonth";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 
 
 export default function Payments() {
     const { user, loadingUser } = useContext(GlobalContext)
-
+    const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false)
+    console.log(paymentStatus)
     return (
         <>
             {!loadingUser && (
@@ -21,21 +23,33 @@ export default function Payments() {
                             <span className="flex justify-center">Valor</span>
                             <span className="flex justify-center">status</span>
                         </div>
-                        {user?.values?.finances.map((tuition) => (
-                            <div key={tuition.id} className="relative grid grid-cols-3 pb-2">
-                                <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
-                                <span className="flex justify-center">R$ 150,00</span>
+                        <Dialog.Root>
+                            {user?.values?.finances.map((tuition) => (
+                                <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2" disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
+                                    <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
+                                    <span className="flex justify-center">R$ 150,00</span>
 
-                                <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
-                                    {
-                                        "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment,
-                                        "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": !tuition.payment
-                                    })}>
-                                    {tuition.payment === true ? <><RiCheckboxFill />Pago</> : <> <RiCheckboxIndeterminateFill />Atrasado</>}
-                                </span>
-                                <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
-                            </div>
-                        ))}
+                                    <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
+                                        {
+                                            "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment,
+                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": !tuition.payment
+                                        })}>
+                                        {tuition.payment === true ? <><RiCheckboxFill />Pago</> : <> <RiCheckboxIndeterminateFill />Atrasado</>}
+                                    </span>
+                                    <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
+                                </Dialog.Trigger>
+                            ))}
+                            <Dialog.Portal>
+                                <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                        <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
+                                            <strong className='text-textColor-300'>X</strong>
+                                        </Dialog.Close>
+                                        <h1>{paymentStatus? "pago" : "atrasado"}</h1>
+                                    </Dialog.Content>
+                                </Dialog.Overlay>
+                            </Dialog.Portal>
+                        </Dialog.Root>
                     </div>
                 </section>
             )}

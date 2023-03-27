@@ -1,27 +1,14 @@
 'use client';
-import Link from "next/link";
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalContext";
-import { StudentAvatar } from "./StudentAvatar"
 
-import * as Popover from '@radix-ui/react-popover';
-import { RiLogoutBoxRFill } from "react-icons/ri";
+import { extractMonth } from "app/utils/getMonth";
 import { ProfileMenu } from "./ProfileMenu";
 
-interface HeaderProps {
-    titleRoutes?: string
-}
-export function Header({ titleRoutes }: HeaderProps) {
-    const dataAtual = new Date();
-    const meses = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
-    const dia = dataAtual.getDate().toString().padStart(2, '0');
-    const mesNumero = dataAtual.getMonth();
-    const mesNome = meses[mesNumero];
-    const dataFormatada = `${dia} de ${mesNome}`;
 
+export function Header() {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = date.getMonth();
+    const dateFormated = `${day} de ${extractMonth(month +1, true)}`;
 
     return (
         <header className="flex flex-col w-full max-h-[114px] max-md:rounded-b-2xl text-textColor-100 p-4 bg-backgroundColor-900">
@@ -29,7 +16,7 @@ export function Header({ titleRoutes }: HeaderProps) {
                 <div className="flex  flex-row w-full justify-between items-center gap-4 overflow-hidden">
                     <div className="flex flex-col gap-1">
                         <span className="flex flex-1 ">Bem-vindo(a)</span>
-                        <span>{dataFormatada}</span>
+                        <span>{dateFormated}</span>
                     </div>
                     <ProfileMenu />
                 </div>
