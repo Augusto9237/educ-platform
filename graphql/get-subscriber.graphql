@@ -22,5 +22,10 @@ query GetSubscriberLogin($email: String = "") {
         }
       }
     }
+    finances {
+      id
+      month
+      payment
+    }
   }
 }

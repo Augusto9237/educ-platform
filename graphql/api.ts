@@ -825,6 +825,628 @@ export type DocumentVersion = {
   stage: Stage;
 };
 
+export type Finance = Node & {
+  __typename?: 'Finance';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Finance>;
+  /** List of Finance versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** System Locale field */
+  locale: Locale;
+  /** Get the other localizations for this document */
+  localizations: Array<Finance>;
+  month?: Maybe<Scalars['Date']>;
+  payment?: Maybe<Scalars['Boolean']>;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  subscriber?: Maybe<FinanceSubscriber>;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type FinanceCreatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type FinanceCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FinanceDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type FinanceHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type FinanceLocalizationsArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  locales?: Array<Locale>;
+};
+
+
+export type FinancePublishedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type FinancePublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FinanceScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type FinanceSubscriberArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FinanceUpdatedAtArgs = {
+  variation?: SystemDateTimeFieldVariation;
+};
+
+
+export type FinanceUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type FinanceConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FinanceWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FinanceConnection = {
+  __typename?: 'FinanceConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FinanceEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FinanceCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** Inline mutations for managing document localizations excluding the default locale */
+  localizations?: InputMaybe<FinanceCreateLocalizationsInput>;
+  /** month input for default locale (en) */
+  month?: InputMaybe<Scalars['Date']>;
+  payment?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<FinanceSubscriberCreateOneInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FinanceCreateLocalizationDataInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  month?: InputMaybe<Scalars['Date']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FinanceCreateLocalizationInput = {
+  /** Localization input */
+  data: FinanceCreateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type FinanceCreateLocalizationsInput = {
+  /** Create localizations for the newly-created document */
+  create?: InputMaybe<Array<FinanceCreateLocalizationInput>>;
+};
+
+export type FinanceCreateManyInlineInput = {
+  /** Connect multiple existing Finance documents */
+  connect?: InputMaybe<Array<FinanceWhereUniqueInput>>;
+  /** Create and connect multiple existing Finance documents */
+  create?: InputMaybe<Array<FinanceCreateInput>>;
+};
+
+export type FinanceCreateOneInlineInput = {
+  /** Connect one existing Finance document */
+  connect?: InputMaybe<FinanceWhereUniqueInput>;
+  /** Create and connect one Finance document */
+  create?: InputMaybe<FinanceCreateInput>;
+};
+
+/** An edge in a connection. */
+export type FinanceEdge = {
+  __typename?: 'FinanceEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Finance;
+};
+
+/** Identifies documents */
+export type FinanceManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FinanceWhereStageInput>;
+  documentInStages_none?: InputMaybe<FinanceWhereStageInput>;
+  documentInStages_some?: InputMaybe<FinanceWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  payment?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  payment_not?: InputMaybe<Scalars['Boolean']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  /** All values in which the union is connected to the given models */
+  subscriber?: InputMaybe<FinanceSubscriberWhereInput>;
+  /** All values in which the union is empty */
+  subscriber_empty?: InputMaybe<Scalars['Boolean']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum FinanceOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  MonthAsc = 'month_ASC',
+  MonthDesc = 'month_DESC',
+  PaymentAsc = 'payment_ASC',
+  PaymentDesc = 'payment_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type FinanceSubscriber = Responsible | Subscriber | Teacher;
+
+export type FinanceSubscriberConnectInput = {
+  Responsible?: InputMaybe<ResponsibleConnectInput>;
+  Subscriber?: InputMaybe<SubscriberConnectInput>;
+  Teacher?: InputMaybe<TeacherConnectInput>;
+};
+
+export type FinanceSubscriberCreateInput = {
+  Responsible?: InputMaybe<ResponsibleCreateInput>;
+  Subscriber?: InputMaybe<SubscriberCreateInput>;
+  Teacher?: InputMaybe<TeacherCreateInput>;
+};
+
+export type FinanceSubscriberCreateManyInlineInput = {
+  /** Connect multiple existing FinanceSubscriber documents */
+  connect?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
+  /** Create and connect multiple existing FinanceSubscriber documents */
+  create?: InputMaybe<Array<FinanceSubscriberCreateInput>>;
+};
+
+export type FinanceSubscriberCreateOneInlineInput = {
+  /** Connect one existing FinanceSubscriber document */
+  connect?: InputMaybe<FinanceSubscriberWhereUniqueInput>;
+  /** Create and connect one FinanceSubscriber document */
+  create?: InputMaybe<FinanceSubscriberCreateInput>;
+};
+
+export type FinanceSubscriberUpdateInput = {
+  Responsible?: InputMaybe<ResponsibleUpdateInput>;
+  Subscriber?: InputMaybe<SubscriberUpdateInput>;
+  Teacher?: InputMaybe<TeacherUpdateInput>;
+};
+
+export type FinanceSubscriberUpdateManyInlineInput = {
+  /** Connect multiple existing FinanceSubscriber documents */
+  connect?: InputMaybe<Array<FinanceSubscriberConnectInput>>;
+  /** Create and connect multiple FinanceSubscriber documents */
+  create?: InputMaybe<Array<FinanceSubscriberCreateInput>>;
+  /** Delete multiple FinanceSubscriber documents */
+  delete?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
+  /** Disconnect multiple FinanceSubscriber documents */
+  disconnect?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FinanceSubscriber documents */
+  set?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
+  /** Update multiple FinanceSubscriber documents */
+  update?: InputMaybe<Array<FinanceSubscriberUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FinanceSubscriber documents */
+  upsert?: InputMaybe<Array<FinanceSubscriberUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FinanceSubscriberUpdateManyWithNestedWhereInput = {
+  Responsible?: InputMaybe<ResponsibleUpdateManyWithNestedWhereInput>;
+  Subscriber?: InputMaybe<SubscriberUpdateManyWithNestedWhereInput>;
+  Teacher?: InputMaybe<TeacherUpdateManyWithNestedWhereInput>;
+};
+
+export type FinanceSubscriberUpdateOneInlineInput = {
+  /** Connect existing FinanceSubscriber document */
+  connect?: InputMaybe<FinanceSubscriberWhereUniqueInput>;
+  /** Create and connect one FinanceSubscriber document */
+  create?: InputMaybe<FinanceSubscriberCreateInput>;
+  /** Delete currently connected FinanceSubscriber document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FinanceSubscriber document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FinanceSubscriber document */
+  update?: InputMaybe<FinanceSubscriberUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FinanceSubscriber document */
+  upsert?: InputMaybe<FinanceSubscriberUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FinanceSubscriberUpdateWithNestedWhereUniqueInput = {
+  Responsible?: InputMaybe<ResponsibleUpdateWithNestedWhereUniqueInput>;
+  Subscriber?: InputMaybe<SubscriberUpdateWithNestedWhereUniqueInput>;
+  Teacher?: InputMaybe<TeacherUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FinanceSubscriberUpsertWithNestedWhereUniqueInput = {
+  Responsible?: InputMaybe<ResponsibleUpsertWithNestedWhereUniqueInput>;
+  Subscriber?: InputMaybe<SubscriberUpsertWithNestedWhereUniqueInput>;
+  Teacher?: InputMaybe<TeacherUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FinanceSubscriberWhereInput = {
+  Responsible?: InputMaybe<ResponsibleWhereInput>;
+  Subscriber?: InputMaybe<SubscriberWhereInput>;
+  Teacher?: InputMaybe<TeacherWhereInput>;
+};
+
+export type FinanceSubscriberWhereUniqueInput = {
+  Responsible?: InputMaybe<ResponsibleWhereUniqueInput>;
+  Subscriber?: InputMaybe<SubscriberWhereUniqueInput>;
+  Teacher?: InputMaybe<TeacherWhereUniqueInput>;
+};
+
+export type FinanceUpdateInput = {
+  /** Manage document localizations */
+  localizations?: InputMaybe<FinanceUpdateLocalizationsInput>;
+  /** month input for default locale (en) */
+  month?: InputMaybe<Scalars['Date']>;
+  payment?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<FinanceSubscriberUpdateOneInlineInput>;
+};
+
+export type FinanceUpdateLocalizationDataInput = {
+  month?: InputMaybe<Scalars['Date']>;
+};
+
+export type FinanceUpdateLocalizationInput = {
+  data: FinanceUpdateLocalizationDataInput;
+  locale: Locale;
+};
+
+export type FinanceUpdateLocalizationsInput = {
+  /** Localizations to create */
+  create?: InputMaybe<Array<FinanceCreateLocalizationInput>>;
+  /** Localizations to delete */
+  delete?: InputMaybe<Array<Locale>>;
+  /** Localizations to update */
+  update?: InputMaybe<Array<FinanceUpdateLocalizationInput>>;
+  upsert?: InputMaybe<Array<FinanceUpsertLocalizationInput>>;
+};
+
+export type FinanceUpdateManyInlineInput = {
+  /** Connect multiple existing Finance documents */
+  connect?: InputMaybe<Array<FinanceConnectInput>>;
+  /** Create and connect multiple Finance documents */
+  create?: InputMaybe<Array<FinanceCreateInput>>;
+  /** Delete multiple Finance documents */
+  delete?: InputMaybe<Array<FinanceWhereUniqueInput>>;
+  /** Disconnect multiple Finance documents */
+  disconnect?: InputMaybe<Array<FinanceWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Finance documents */
+  set?: InputMaybe<Array<FinanceWhereUniqueInput>>;
+  /** Update multiple Finance documents */
+  update?: InputMaybe<Array<FinanceUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Finance documents */
+  upsert?: InputMaybe<Array<FinanceUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FinanceUpdateManyInput = {
+  /** Optional updates to localizations */
+  localizations?: InputMaybe<FinanceUpdateManyLocalizationsInput>;
+  /** month input for default locale (en) */
+  month?: InputMaybe<Scalars['Date']>;
+  payment?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FinanceUpdateManyLocalizationDataInput = {
+  month?: InputMaybe<Scalars['Date']>;
+};
+
+export type FinanceUpdateManyLocalizationInput = {
+  data: FinanceUpdateManyLocalizationDataInput;
+  locale: Locale;
+};
+
+export type FinanceUpdateManyLocalizationsInput = {
+  /** Localizations to update */
+  update?: InputMaybe<Array<FinanceUpdateManyLocalizationInput>>;
+};
+
+export type FinanceUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FinanceUpdateManyInput;
+  /** Document search */
+  where: FinanceWhereInput;
+};
+
+export type FinanceUpdateOneInlineInput = {
+  /** Connect existing Finance document */
+  connect?: InputMaybe<FinanceWhereUniqueInput>;
+  /** Create and connect one Finance document */
+  create?: InputMaybe<FinanceCreateInput>;
+  /** Delete currently connected Finance document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Finance document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Finance document */
+  update?: InputMaybe<FinanceUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Finance document */
+  upsert?: InputMaybe<FinanceUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FinanceUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FinanceUpdateInput;
+  /** Unique document search */
+  where: FinanceWhereUniqueInput;
+};
+
+export type FinanceUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FinanceCreateInput;
+  /** Update document if it exists */
+  update: FinanceUpdateInput;
+};
+
+export type FinanceUpsertLocalizationInput = {
+  create: FinanceCreateLocalizationDataInput;
+  locale: Locale;
+  update: FinanceUpdateLocalizationDataInput;
+};
+
+export type FinanceUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FinanceUpsertInput;
+  /** Unique document search */
+  where: FinanceWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type FinanceWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type FinanceWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FinanceWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FinanceWhereStageInput>;
+  documentInStages_none?: InputMaybe<FinanceWhereStageInput>;
+  documentInStages_some?: InputMaybe<FinanceWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  month?: InputMaybe<Scalars['Date']>;
+  /** All values greater than the given value. */
+  month_gt?: InputMaybe<Scalars['Date']>;
+  /** All values greater than or equal the given value. */
+  month_gte?: InputMaybe<Scalars['Date']>;
+  /** All values that are contained in given list. */
+  month_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  /** All values less than the given value. */
+  month_lt?: InputMaybe<Scalars['Date']>;
+  /** All values less than or equal the given value. */
+  month_lte?: InputMaybe<Scalars['Date']>;
+  /** Any other value that exists and is not equal to the given value. */
+  month_not?: InputMaybe<Scalars['Date']>;
+  /** All values that are not contained in given list. */
+  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  payment?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  payment_not?: InputMaybe<Scalars['Boolean']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  /** All values in which the union is connected to the given models */
+  subscriber?: InputMaybe<FinanceSubscriberWhereInput>;
+  /** All values in which the union is empty */
+  subscriber_empty?: InputMaybe<Scalars['Boolean']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type FinanceWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FinanceWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FinanceWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FinanceWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<FinanceWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Finance record uniquely */
+export type FinanceWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type Frequency = Node & {
   __typename?: 'Frequency';
   /** The time the document was created */
@@ -1921,6 +2543,8 @@ export type Mutation = {
    * @deprecated Asset mutations will be overhauled soon
    */
   createAsset?: Maybe<Asset>;
+  /** Create one finance */
+  createFinance?: Maybe<Finance>;
   /** Create one frequency */
   createFrequency?: Maybe<Frequency>;
   /** Create one grades */
@@ -1937,6 +2561,8 @@ export type Mutation = {
   createTurma?: Maybe<Turma>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
   deleteAsset?: Maybe<Asset>;
+  /** Delete one finance from _all_ existing stages. Returns deleted document. */
+  deleteFinance?: Maybe<Finance>;
   /** Delete one frequency from _all_ existing stages. Returns deleted document. */
   deleteFrequency?: Maybe<Frequency>;
   /** Delete one grades from _all_ existing stages. Returns deleted document. */
@@ -1948,6 +2574,13 @@ export type Mutation = {
   deleteManyAssets: BatchPayload;
   /** Delete many Asset documents, return deleted documents */
   deleteManyAssetsConnection: AssetConnection;
+  /**
+   * Delete many Finance documents
+   * @deprecated Please use the new paginated many mutation (deleteManyFinancesConnection)
+   */
+  deleteManyFinances: BatchPayload;
+  /** Delete many Finance documents, return deleted documents */
+  deleteManyFinancesConnection: FinanceConnection;
   /**
    * Delete many Frequency documents
    * @deprecated Please use the new paginated many mutation (deleteManyFrequenciesConnection)
@@ -2004,6 +2637,8 @@ export type Mutation = {
   deleteTurma?: Maybe<Turma>;
   /** Publish one asset */
   publishAsset?: Maybe<Asset>;
+  /** Publish one finance */
+  publishFinance?: Maybe<Finance>;
   /** Publish one frequency */
   publishFrequency?: Maybe<Frequency>;
   /** Publish one grades */
@@ -2015,6 +2650,13 @@ export type Mutation = {
   publishManyAssets: BatchPayload;
   /** Publish many Asset documents */
   publishManyAssetsConnection: AssetConnection;
+  /**
+   * Publish many Finance documents
+   * @deprecated Please use the new paginated many mutation (publishManyFinancesConnection)
+   */
+  publishManyFinances: BatchPayload;
+  /** Publish many Finance documents */
+  publishManyFinancesConnection: FinanceConnection;
   /**
    * Publish many Frequency documents
    * @deprecated Please use the new paginated many mutation (publishManyFrequenciesConnection)
@@ -2067,6 +2709,8 @@ export type Mutation = {
   publishTurma?: Maybe<Turma>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
+  /** Schedule to publish one finance */
+  schedulePublishFinance?: Maybe<Finance>;
   /** Schedule to publish one frequency */
   schedulePublishFrequency?: Maybe<Frequency>;
   /** Schedule to publish one grades */
@@ -2081,6 +2725,8 @@ export type Mutation = {
   schedulePublishTurma?: Maybe<Turma>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
+  /** Unpublish one finance from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishFinance?: Maybe<Finance>;
   /** Unpublish one frequency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishFrequency?: Maybe<Frequency>;
   /** Unpublish one grades from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2095,6 +2741,8 @@ export type Mutation = {
   scheduleUnpublishTurma?: Maybe<Turma>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
+  /** Unpublish one finance from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishFinance?: Maybe<Finance>;
   /** Unpublish one frequency from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishFrequency?: Maybe<Frequency>;
   /** Unpublish one grades from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -2106,6 +2754,13 @@ export type Mutation = {
   unpublishManyAssets: BatchPayload;
   /** Find many Asset documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyAssetsConnection: AssetConnection;
+  /**
+   * Unpublish many Finance documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyFinancesConnection)
+   */
+  unpublishManyFinances: BatchPayload;
+  /** Find many Finance documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyFinancesConnection: FinanceConnection;
   /**
    * Unpublish many Frequency documents
    * @deprecated Please use the new paginated many mutation (unpublishManyFrequenciesConnection)
@@ -2158,6 +2813,8 @@ export type Mutation = {
   unpublishTurma?: Maybe<Turma>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
+  /** Update one finance */
+  updateFinance?: Maybe<Finance>;
   /** Update one frequency */
   updateFrequency?: Maybe<Frequency>;
   /** Update one grades */
@@ -2169,6 +2826,13 @@ export type Mutation = {
   updateManyAssets: BatchPayload;
   /** Update many Asset documents */
   updateManyAssetsConnection: AssetConnection;
+  /**
+   * Update many finances
+   * @deprecated Please use the new paginated many mutation (updateManyFinancesConnection)
+   */
+  updateManyFinances: BatchPayload;
+  /** Update many Finance documents */
+  updateManyFinancesConnection: FinanceConnection;
   /**
    * Update many frequencies
    * @deprecated Please use the new paginated many mutation (updateManyFrequenciesConnection)
@@ -2223,6 +2887,8 @@ export type Mutation = {
   updateTurma?: Maybe<Turma>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
+  /** Upsert one finance */
+  upsertFinance?: Maybe<Finance>;
   /** Upsert one frequency */
   upsertFrequency?: Maybe<Frequency>;
   /** Upsert one grades */
@@ -2240,6 +2906,11 @@ export type Mutation = {
 
 export type MutationCreateAssetArgs = {
   data: AssetCreateInput;
+};
+
+
+export type MutationCreateFinanceArgs = {
+  data: FinanceCreateInput;
 };
 
 
@@ -2283,6 +2954,11 @@ export type MutationDeleteAssetArgs = {
 };
 
 
+export type MutationDeleteFinanceArgs = {
+  where: FinanceWhereUniqueInput;
+};
+
+
 export type MutationDeleteFrequencyArgs = {
   where: FrequencyWhereUniqueInput;
 };
@@ -2305,6 +2981,21 @@ export type MutationDeleteManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFinancesArgs = {
+  where?: InputMaybe<FinanceManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFinancesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FinanceManyWhereInput>;
 };
 
 
@@ -2437,6 +3128,15 @@ export type MutationPublishAssetArgs = {
 };
 
 
+export type MutationPublishFinanceArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']>;
+  to?: Array<Stage>;
+  where: FinanceWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
+};
+
+
 export type MutationPublishFrequencyArgs = {
   to?: Array<Stage>;
   where: FrequencyWhereUniqueInput;
@@ -2469,6 +3169,30 @@ export type MutationPublishManyAssetsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   to?: Array<Stage>;
   where?: InputMaybe<AssetManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type MutationPublishManyFinancesArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<FinanceManyWhereInput>;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type MutationPublishManyFinancesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<FinanceManyWhereInput>;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -2616,6 +3340,17 @@ export type MutationSchedulePublishAssetArgs = {
 };
 
 
+export type MutationSchedulePublishFinanceArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+  publishBase?: InputMaybe<Scalars['Boolean']>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: FinanceWhereUniqueInput;
+  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
+};
+
+
 export type MutationSchedulePublishFrequencyArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -2671,6 +3406,16 @@ export type MutationScheduleUnpublishAssetArgs = {
   releaseId?: InputMaybe<Scalars['String']>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where: AssetWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishFinanceArgs = {
+  from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']>;
+  where: FinanceWhereUniqueInput;
 };
 
 
@@ -2730,6 +3475,14 @@ export type MutationUnpublishAssetArgs = {
 };
 
 
+export type MutationUnpublishFinanceArgs = {
+  from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']>;
+  where: FinanceWhereUniqueInput;
+};
+
+
 export type MutationUnpublishFrequencyArgs = {
   from?: Array<Stage>;
   where: FrequencyWhereUniqueInput;
@@ -2761,6 +3514,28 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
   stage?: InputMaybe<Stage>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFinancesArgs = {
+  from?: Array<Stage>;
+  locales?: InputMaybe<Array<Locale>>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<FinanceManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFinancesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  unpublishBase?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<FinanceManyWhereInput>;
 };
 
 
@@ -2902,6 +3677,12 @@ export type MutationUpdateAssetArgs = {
 };
 
 
+export type MutationUpdateFinanceArgs = {
+  data: FinanceUpdateInput;
+  where: FinanceWhereUniqueInput;
+};
+
+
 export type MutationUpdateFrequencyArgs = {
   data: FrequencyUpdateInput;
   where: FrequencyWhereUniqueInput;
@@ -2928,6 +3709,23 @@ export type MutationUpdateManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFinancesArgs = {
+  data: FinanceUpdateManyInput;
+  where?: InputMaybe<FinanceManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFinancesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: FinanceUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FinanceManyWhereInput>;
 };
 
 
@@ -3066,6 +3864,12 @@ export type MutationUpdateTurmaArgs = {
 export type MutationUpsertAssetArgs = {
   upsert: AssetUpsertInput;
   where: AssetWhereUniqueInput;
+};
+
+
+export type MutationUpsertFinanceArgs = {
+  upsert: FinanceUpsertInput;
+  where: FinanceWhereUniqueInput;
 };
 
 
@@ -3447,6 +4251,14 @@ export type Query = {
   assets: Array<Asset>;
   /** Retrieve multiple assets using the Relay connection interface */
   assetsConnection: AssetConnection;
+  /** Retrieve a single finance */
+  finance?: Maybe<Finance>;
+  /** Retrieve document version */
+  financeVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple finances */
+  finances: Array<Finance>;
+  /** Retrieve multiple finances using the Relay connection interface */
+  financesConnection: FinanceConnection;
   /** Retrieve multiple frequencies */
   frequencies: Array<Frequency>;
   /** Retrieve multiple frequencies using the Relay connection interface */
@@ -3553,6 +4365,44 @@ export type QueryAssetsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<AssetWhereInput>;
+};
+
+
+export type QueryFinanceArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: FinanceWhereUniqueInput;
+};
+
+
+export type QueryFinanceVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryFinancesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FinanceOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FinanceWhereInput>;
+};
+
+
+export type QueryFinancesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FinanceOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -3915,6 +4765,7 @@ export type Responsible = Node & {
   /** Get the document in other stages */
   documentInStages: Array<Responsible>;
   email: Scalars['String'];
+  finances: Array<Finance>;
   grades: Array<Scalars['Json']>;
   /** List of Responsible versions */
   history: Array<Version>;
@@ -3948,6 +4799,18 @@ export type ResponsibleDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
+};
+
+
+export type ResponsibleFinancesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -4007,6 +4870,7 @@ export type ResponsibleConnection = {
 export type ResponsibleCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  finances?: InputMaybe<FinanceCreateManyInlineInput>;
   grades?: InputMaybe<Array<Scalars['Json']>>;
   name: Scalars['String'];
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -4086,6 +4950,9 @@ export type ResponsibleManyWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   /** All values containing the given json path. */
   grades_json_path_exists?: InputMaybe<Scalars['String']>;
   /**
@@ -4214,6 +5081,7 @@ export enum ResponsibleOrderByInput {
 
 export type ResponsibleUpdateInput = {
   email?: InputMaybe<Scalars['String']>;
+  finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   grades?: InputMaybe<Array<Scalars['Json']>>;
   name?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -4342,6 +5210,9 @@ export type ResponsibleWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   /** All values containing the given json path. */
   grades_json_path_exists?: InputMaybe<Scalars['String']>;
   /**
@@ -4564,7 +5435,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Frequency | Grades | Responsible | Subscriber | Teacher | Turma;
+export type ScheduledOperationAffectedDocument = Asset | Finance | Frequency | Grades | Responsible | Subscriber | Teacher | Turma;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -5515,6 +6386,7 @@ export type Subscriber = Node & {
   /** Get the document in other stages */
   documentInStages: Array<Subscriber>;
   email: Scalars['String'];
+  finances: Array<Finance>;
   gradeses: Array<Grades>;
   /** List of Subscriber versions */
   history: Array<Version>;
@@ -5553,6 +6425,18 @@ export type SubscriberDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
+};
+
+
+export type SubscriberFinancesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -5622,6 +6506,7 @@ export type SubscriberCreateInput = {
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  finances?: InputMaybe<FinanceCreateManyInlineInput>;
   gradeses?: InputMaybe<GradesCreateManyInlineInput>;
   name: Scalars['String'];
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -5701,6 +6586,9 @@ export type SubscriberManyWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   gradeses_every?: InputMaybe<GradesWhereInput>;
   gradeses_none?: InputMaybe<GradesWhereInput>;
   gradeses_some?: InputMaybe<GradesWhereInput>;
@@ -5825,6 +6713,7 @@ export type SubscriberUpdateInput = {
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleUpdateManyInlineInput>;
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceUpdateManyInlineInput>;
   email?: InputMaybe<Scalars['String']>;
+  finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   gradeses?: InputMaybe<GradesUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -5952,6 +6841,9 @@ export type SubscriberWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   gradeses_every?: InputMaybe<GradesWhereInput>;
   gradeses_none?: InputMaybe<GradesWhereInput>;
   gradeses_some?: InputMaybe<GradesWhereInput>;
@@ -6088,6 +6980,7 @@ export type Teacher = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<Teacher>;
+  finances: Array<Finance>;
   /** List of Teacher versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -6117,6 +7010,18 @@ export type TeacherDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
+};
+
+
+export type TeacherFinancesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -6171,6 +7076,7 @@ export type TeacherCreateInput = {
   avatarURL: Scalars['String'];
   bio: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  finances?: InputMaybe<FinanceCreateManyInlineInput>;
   name: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -6265,6 +7171,9 @@ export type TeacherManyWhereInput = {
   documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -6360,6 +7269,7 @@ export enum TeacherOrderByInput {
 export type TeacherUpdateInput = {
   avatarURL?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
+  finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -6502,6 +7412,9 @@ export type TeacherWhereInput = {
   documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
+  finances_every?: InputMaybe<FinanceWhereInput>;
+  finances_none?: InputMaybe<FinanceWhereInput>;
+  finances_some?: InputMaybe<FinanceWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7995,7 +8908,7 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null }> } | null };
 
 
 export const GetFrequenciesClassByMonthDocument = gql`
@@ -8123,6 +9036,11 @@ export const GetSubscriberLoginDocument = gql`
         }
       }
     }
+    finances {
+      id
+      month
+      payment
+    }
   }
 }
     `;
@@ -8211,6 +9129,36 @@ export type DocumentVersionFieldPolicy = {
 	revision?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type FinanceKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'locale' | 'localizations' | 'month' | 'payment' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | FinanceKeySpecifier)[];
+export type FinanceFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	history?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	locale?: FieldPolicy<any> | FieldReadFunction<any>,
+	localizations?: FieldPolicy<any> | FieldReadFunction<any>,
+	month?: FieldPolicy<any> | FieldReadFunction<any>,
+	payment?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
+	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	subscriber?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FinanceConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | FinanceConnectionKeySpecifier)[];
+export type FinanceConnectionFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type FinanceEdgeKeySpecifier = ('cursor' | 'node' | FinanceEdgeKeySpecifier)[];
+export type FinanceEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type FrequencyKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribes' | 'turma' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
 export type FrequencyFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8272,9 +9220,10 @@ export type LocationFieldPolicy = {
 	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
 	longitude?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createAsset' | 'createFrequency' | 'createGrades' | 'createResponsible' | 'createScheduledRelease' | 'createSubscriber' | 'createTeacher' | 'createTurma' | 'deleteAsset' | 'deleteFrequency' | 'deleteGrades' | 'deleteManyAssets' | 'deleteManyAssetsConnection' | 'deleteManyFrequencies' | 'deleteManyFrequenciesConnection' | 'deleteManyGradeses' | 'deleteManyGradesesConnection' | 'deleteManyResponsibles' | 'deleteManyResponsiblesConnection' | 'deleteManySubscribers' | 'deleteManySubscribersConnection' | 'deleteManyTeachers' | 'deleteManyTeachersConnection' | 'deleteManyTurmas' | 'deleteManyTurmasConnection' | 'deleteResponsible' | 'deleteScheduledOperation' | 'deleteScheduledRelease' | 'deleteSubscriber' | 'deleteTeacher' | 'deleteTurma' | 'publishAsset' | 'publishFrequency' | 'publishGrades' | 'publishManyAssets' | 'publishManyAssetsConnection' | 'publishManyFrequencies' | 'publishManyFrequenciesConnection' | 'publishManyGradeses' | 'publishManyGradesesConnection' | 'publishManyResponsibles' | 'publishManyResponsiblesConnection' | 'publishManySubscribers' | 'publishManySubscribersConnection' | 'publishManyTeachers' | 'publishManyTeachersConnection' | 'publishManyTurmas' | 'publishManyTurmasConnection' | 'publishResponsible' | 'publishSubscriber' | 'publishTeacher' | 'publishTurma' | 'schedulePublishAsset' | 'schedulePublishFrequency' | 'schedulePublishGrades' | 'schedulePublishResponsible' | 'schedulePublishSubscriber' | 'schedulePublishTeacher' | 'schedulePublishTurma' | 'scheduleUnpublishAsset' | 'scheduleUnpublishFrequency' | 'scheduleUnpublishGrades' | 'scheduleUnpublishResponsible' | 'scheduleUnpublishSubscriber' | 'scheduleUnpublishTeacher' | 'scheduleUnpublishTurma' | 'unpublishAsset' | 'unpublishFrequency' | 'unpublishGrades' | 'unpublishManyAssets' | 'unpublishManyAssetsConnection' | 'unpublishManyFrequencies' | 'unpublishManyFrequenciesConnection' | 'unpublishManyGradeses' | 'unpublishManyGradesesConnection' | 'unpublishManyResponsibles' | 'unpublishManyResponsiblesConnection' | 'unpublishManySubscribers' | 'unpublishManySubscribersConnection' | 'unpublishManyTeachers' | 'unpublishManyTeachersConnection' | 'unpublishManyTurmas' | 'unpublishManyTurmasConnection' | 'unpublishResponsible' | 'unpublishSubscriber' | 'unpublishTeacher' | 'unpublishTurma' | 'updateAsset' | 'updateFrequency' | 'updateGrades' | 'updateManyAssets' | 'updateManyAssetsConnection' | 'updateManyFrequencies' | 'updateManyFrequenciesConnection' | 'updateManyGradeses' | 'updateManyGradesesConnection' | 'updateManyResponsibles' | 'updateManyResponsiblesConnection' | 'updateManySubscribers' | 'updateManySubscribersConnection' | 'updateManyTeachers' | 'updateManyTeachersConnection' | 'updateManyTurmas' | 'updateManyTurmasConnection' | 'updateResponsible' | 'updateScheduledRelease' | 'updateSubscriber' | 'updateTeacher' | 'updateTurma' | 'upsertAsset' | 'upsertFrequency' | 'upsertGrades' | 'upsertResponsible' | 'upsertSubscriber' | 'upsertTeacher' | 'upsertTurma' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createAsset' | 'createFinance' | 'createFrequency' | 'createGrades' | 'createResponsible' | 'createScheduledRelease' | 'createSubscriber' | 'createTeacher' | 'createTurma' | 'deleteAsset' | 'deleteFinance' | 'deleteFrequency' | 'deleteGrades' | 'deleteManyAssets' | 'deleteManyAssetsConnection' | 'deleteManyFinances' | 'deleteManyFinancesConnection' | 'deleteManyFrequencies' | 'deleteManyFrequenciesConnection' | 'deleteManyGradeses' | 'deleteManyGradesesConnection' | 'deleteManyResponsibles' | 'deleteManyResponsiblesConnection' | 'deleteManySubscribers' | 'deleteManySubscribersConnection' | 'deleteManyTeachers' | 'deleteManyTeachersConnection' | 'deleteManyTurmas' | 'deleteManyTurmasConnection' | 'deleteResponsible' | 'deleteScheduledOperation' | 'deleteScheduledRelease' | 'deleteSubscriber' | 'deleteTeacher' | 'deleteTurma' | 'publishAsset' | 'publishFinance' | 'publishFrequency' | 'publishGrades' | 'publishManyAssets' | 'publishManyAssetsConnection' | 'publishManyFinances' | 'publishManyFinancesConnection' | 'publishManyFrequencies' | 'publishManyFrequenciesConnection' | 'publishManyGradeses' | 'publishManyGradesesConnection' | 'publishManyResponsibles' | 'publishManyResponsiblesConnection' | 'publishManySubscribers' | 'publishManySubscribersConnection' | 'publishManyTeachers' | 'publishManyTeachersConnection' | 'publishManyTurmas' | 'publishManyTurmasConnection' | 'publishResponsible' | 'publishSubscriber' | 'publishTeacher' | 'publishTurma' | 'schedulePublishAsset' | 'schedulePublishFinance' | 'schedulePublishFrequency' | 'schedulePublishGrades' | 'schedulePublishResponsible' | 'schedulePublishSubscriber' | 'schedulePublishTeacher' | 'schedulePublishTurma' | 'scheduleUnpublishAsset' | 'scheduleUnpublishFinance' | 'scheduleUnpublishFrequency' | 'scheduleUnpublishGrades' | 'scheduleUnpublishResponsible' | 'scheduleUnpublishSubscriber' | 'scheduleUnpublishTeacher' | 'scheduleUnpublishTurma' | 'unpublishAsset' | 'unpublishFinance' | 'unpublishFrequency' | 'unpublishGrades' | 'unpublishManyAssets' | 'unpublishManyAssetsConnection' | 'unpublishManyFinances' | 'unpublishManyFinancesConnection' | 'unpublishManyFrequencies' | 'unpublishManyFrequenciesConnection' | 'unpublishManyGradeses' | 'unpublishManyGradesesConnection' | 'unpublishManyResponsibles' | 'unpublishManyResponsiblesConnection' | 'unpublishManySubscribers' | 'unpublishManySubscribersConnection' | 'unpublishManyTeachers' | 'unpublishManyTeachersConnection' | 'unpublishManyTurmas' | 'unpublishManyTurmasConnection' | 'unpublishResponsible' | 'unpublishSubscriber' | 'unpublishTeacher' | 'unpublishTurma' | 'updateAsset' | 'updateFinance' | 'updateFrequency' | 'updateGrades' | 'updateManyAssets' | 'updateManyAssetsConnection' | 'updateManyFinances' | 'updateManyFinancesConnection' | 'updateManyFrequencies' | 'updateManyFrequenciesConnection' | 'updateManyGradeses' | 'updateManyGradesesConnection' | 'updateManyResponsibles' | 'updateManyResponsiblesConnection' | 'updateManySubscribers' | 'updateManySubscribersConnection' | 'updateManyTeachers' | 'updateManyTeachersConnection' | 'updateManyTurmas' | 'updateManyTurmasConnection' | 'updateResponsible' | 'updateScheduledRelease' | 'updateSubscriber' | 'updateTeacher' | 'updateTurma' | 'upsertAsset' | 'upsertFinance' | 'upsertFrequency' | 'upsertGrades' | 'upsertResponsible' | 'upsertSubscriber' | 'upsertTeacher' | 'upsertTurma' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	createFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	createFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	createGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	createResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8283,10 +9232,13 @@ export type MutationFieldPolicy = {
 	createTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	createTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyFinances?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteManyFinancesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteManyGradeses?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8306,10 +9258,13 @@ export type MutationFieldPolicy = {
 	deleteTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyFinances?: FieldPolicy<any> | FieldReadFunction<any>,
+	publishManyFinancesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishManyGradeses?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8327,6 +9282,7 @@ export type MutationFieldPolicy = {
 	publishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	schedulePublishFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8334,6 +9290,7 @@ export type MutationFieldPolicy = {
 	schedulePublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	schedulePublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	scheduleUnpublishFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8341,10 +9298,13 @@ export type MutationFieldPolicy = {
 	scheduleUnpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduleUnpublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyFinances?: FieldPolicy<any> | FieldReadFunction<any>,
+	unpublishManyFinancesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishManyGradeses?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8362,10 +9322,13 @@ export type MutationFieldPolicy = {
 	unpublishTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	unpublishTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyAssets?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyAssetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyFinances?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateManyFinancesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyFrequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyFrequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateManyGradeses?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8384,6 +9347,7 @@ export type MutationFieldPolicy = {
 	updateTeacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateTurma?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertAsset?: FieldPolicy<any> | FieldReadFunction<any>,
+	upsertFinance?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertFrequency?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertGrades?: FieldPolicy<any> | FieldReadFunction<any>,
 	upsertResponsible?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8422,12 +9386,16 @@ export type PresenceEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('asset' | 'assetVersion' | 'assets' | 'assetsConnection' | 'frequencies' | 'frequenciesConnection' | 'frequency' | 'frequencyVersion' | 'grades' | 'gradesVersion' | 'gradeses' | 'gradesesConnection' | 'node' | 'responsible' | 'responsibleVersion' | 'responsibles' | 'responsiblesConnection' | 'scheduledOperation' | 'scheduledOperations' | 'scheduledOperationsConnection' | 'scheduledRelease' | 'scheduledReleases' | 'scheduledReleasesConnection' | 'subscriber' | 'subscriberVersion' | 'subscribers' | 'subscribersConnection' | 'teacher' | 'teacherVersion' | 'teachers' | 'teachersConnection' | 'turma' | 'turmaVersion' | 'turmas' | 'turmasConnection' | 'user' | 'users' | 'usersConnection' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('asset' | 'assetVersion' | 'assets' | 'assetsConnection' | 'finance' | 'financeVersion' | 'finances' | 'financesConnection' | 'frequencies' | 'frequenciesConnection' | 'frequency' | 'frequencyVersion' | 'grades' | 'gradesVersion' | 'gradeses' | 'gradesesConnection' | 'node' | 'responsible' | 'responsibleVersion' | 'responsibles' | 'responsiblesConnection' | 'scheduledOperation' | 'scheduledOperations' | 'scheduledOperationsConnection' | 'scheduledRelease' | 'scheduledReleases' | 'scheduledReleasesConnection' | 'subscriber' | 'subscriberVersion' | 'subscribers' | 'subscribersConnection' | 'teacher' | 'teacherVersion' | 'teachers' | 'teachersConnection' | 'turma' | 'turmaVersion' | 'turmas' | 'turmasConnection' | 'user' | 'users' | 'usersConnection' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	asset?: FieldPolicy<any> | FieldReadFunction<any>,
 	assetVersion?: FieldPolicy<any> | FieldReadFunction<any>,
 	assets?: FieldPolicy<any> | FieldReadFunction<any>,
 	assetsConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	finance?: FieldPolicy<any> | FieldReadFunction<any>,
+	financeVersion?: FieldPolicy<any> | FieldReadFunction<any>,
+	finances?: FieldPolicy<any> | FieldReadFunction<any>,
+	financesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequenciesConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	frequency?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8470,12 +9438,13 @@ export type RGBAFieldPolicy = {
 	g?: FieldPolicy<any> | FieldReadFunction<any>,
 	r?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ResponsibleKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | ResponsibleKeySpecifier)[];
+export type ResponsibleKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | ResponsibleKeySpecifier)[];
 export type ResponsibleFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	grades?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8568,13 +9537,14 @@ export type ScheduledReleaseEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriberKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'gradeses' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
+export type SubscriberKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'gradeses' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
 export type SubscriberFieldPolicy = {
 	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
+	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	gradeses?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8599,13 +9569,14 @@ export type SubscriberEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
+export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'finances' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
 export type TeacherFieldPolicy = {
 	avatarURL?: FieldPolicy<any> | FieldReadFunction<any>,
 	bio?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -8733,6 +9704,18 @@ export type StrictTypedTypePolicies = {
 	DocumentVersion?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | DocumentVersionKeySpecifier | (() => undefined | DocumentVersionKeySpecifier),
 		fields?: DocumentVersionFieldPolicy,
+	},
+	Finance?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FinanceKeySpecifier | (() => undefined | FinanceKeySpecifier),
+		fields?: FinanceFieldPolicy,
+	},
+	FinanceConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FinanceConnectionKeySpecifier | (() => undefined | FinanceConnectionKeySpecifier),
+		fields?: FinanceConnectionFieldPolicy,
+	},
+	FinanceEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FinanceEdgeKeySpecifier | (() => undefined | FinanceEdgeKeySpecifier),
+		fields?: FinanceEdgeFieldPolicy,
 	},
 	Frequency?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | FrequencyKeySpecifier | (() => undefined | FrequencyKeySpecifier),
