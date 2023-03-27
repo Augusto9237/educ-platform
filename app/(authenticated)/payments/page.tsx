@@ -10,8 +10,8 @@ import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 
 export default function Payments() {
     const { user, loadingUser } = useContext(GlobalContext)
-    const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false)
-    console.log(paymentStatus)
+    const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false);
+
     return (
         <>
             {!loadingUser && (
@@ -25,6 +25,7 @@ export default function Payments() {
                         </div>
                         <Dialog.Root>
                             {user?.values?.finances.map((tuition) => (
+                                
                                 <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2 " disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
                                     <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
                                     <span className="flex justify-center">R$ 150,00</span>
@@ -45,7 +46,11 @@ export default function Payments() {
                                         <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                             <strong className='text-textColor-300'>X</strong>
                                         </Dialog.Close>
-                                        <h1>{paymentStatus? "pago" : "atrasado"}</h1>
+                                        <div className='flex flex-1 flex-col overflow-hidden'>
+                                            <img src='https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png'/>
+                                            <strong className='mx-auto'>Efeutue o pagmento!</strong>
+                                            <span>OBS:Querido aluno, por favor! inclua no comprovante de pagamento seu e-mail</span>
+                                        </div>
                                     </Dialog.Content>
                                 </Dialog.Overlay>
                             </Dialog.Portal>
