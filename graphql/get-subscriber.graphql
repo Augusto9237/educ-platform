@@ -26,6 +26,7 @@ query GetSubscriberLogin($email: String = "") {
       id
       month
       payment
+      value
     }
   }
 }

@@ -28,7 +28,7 @@ export default function Payments() {
                                 
                                 <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2 " disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
                                     <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
-                                    <span className="flex justify-center">R$ 150,00</span>
+                                    <span className="flex justify-center">R$ {tuition.value}</span>
 
                                     <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
                                         {

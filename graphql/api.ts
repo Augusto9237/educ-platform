@@ -855,6 +855,7 @@ export type Finance = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+  value?: Maybe<Scalars['Float']>;
 };
 
 
@@ -954,6 +955,7 @@ export type FinanceCreateInput = {
   payment?: InputMaybe<Scalars['Boolean']>;
   subscriber?: InputMaybe<FinanceSubscriberCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+  value?: InputMaybe<Scalars['Float']>;
 };
 
 export type FinanceCreateLocalizationDataInput = {
@@ -1086,6 +1088,21 @@ export type FinanceManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  value?: InputMaybe<Scalars['Float']>;
+  /** All values greater than the given value. */
+  value_gt?: InputMaybe<Scalars['Float']>;
+  /** All values greater than or equal the given value. */
+  value_gte?: InputMaybe<Scalars['Float']>;
+  /** All values that are contained in given list. */
+  value_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  /** All values less than the given value. */
+  value_lt?: InputMaybe<Scalars['Float']>;
+  /** All values less than or equal the given value. */
+  value_lte?: InputMaybe<Scalars['Float']>;
+  /** Any other value that exists and is not equal to the given value. */
+  value_not?: InputMaybe<Scalars['Float']>;
+  /** All values that are not contained in given list. */
+  value_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
 export enum FinanceOrderByInput {
@@ -1100,7 +1117,9 @@ export enum FinanceOrderByInput {
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC'
+  UpdatedAtDesc = 'updatedAt_DESC',
+  ValueAsc = 'value_ASC',
+  ValueDesc = 'value_DESC'
 }
 
 export type FinanceSubscriber = Responsible | Subscriber | Teacher;
@@ -1206,6 +1225,7 @@ export type FinanceUpdateInput = {
   month?: InputMaybe<Scalars['Date']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   subscriber?: InputMaybe<FinanceSubscriberUpdateOneInlineInput>;
+  value?: InputMaybe<Scalars['Float']>;
 };
 
 export type FinanceUpdateLocalizationDataInput = {
@@ -1250,6 +1270,7 @@ export type FinanceUpdateManyInput = {
   /** month input for default locale (en) */
   month?: InputMaybe<Scalars['Date']>;
   payment?: InputMaybe<Scalars['Boolean']>;
+  value?: InputMaybe<Scalars['Float']>;
 };
 
 export type FinanceUpdateManyLocalizationDataInput = {
@@ -1426,6 +1447,21 @@ export type FinanceWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  value?: InputMaybe<Scalars['Float']>;
+  /** All values greater than the given value. */
+  value_gt?: InputMaybe<Scalars['Float']>;
+  /** All values greater than or equal the given value. */
+  value_gte?: InputMaybe<Scalars['Float']>;
+  /** All values that are contained in given list. */
+  value_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  /** All values less than the given value. */
+  value_lt?: InputMaybe<Scalars['Float']>;
+  /** All values less than or equal the given value. */
+  value_lte?: InputMaybe<Scalars['Float']>;
+  /** Any other value that exists and is not equal to the given value. */
+  value_not?: InputMaybe<Scalars['Float']>;
+  /** All values that are not contained in given list. */
+  value_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
 /** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
@@ -8908,7 +8944,7 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
 
 
 export const GetFrequenciesClassByMonthDocument = gql`
@@ -9040,6 +9076,7 @@ export const GetSubscriberLoginDocument = gql`
       id
       month
       payment
+      value
     }
   }
 }
@@ -9129,7 +9166,7 @@ export type DocumentVersionFieldPolicy = {
 	revision?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FinanceKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'locale' | 'localizations' | 'month' | 'payment' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | FinanceKeySpecifier)[];
+export type FinanceKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'locale' | 'localizations' | 'month' | 'payment' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'value' | FinanceKeySpecifier)[];
 export type FinanceFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9146,7 +9183,8 @@ export type FinanceFieldPolicy = {
 	stage?: FieldPolicy<any> | FieldReadFunction<any>,
 	subscriber?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
+	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
+	value?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type FinanceConnectionKeySpecifier = ('aggregate' | 'edges' | 'pageInfo' | FinanceConnectionKeySpecifier)[];
 export type FinanceConnectionFieldPolicy = {
