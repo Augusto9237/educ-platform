@@ -11,6 +11,7 @@ import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 export default function Payments() {
     const { user, loadingUser } = useContext(GlobalContext)
     const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false);
+    console.log(user?.values?.pictureUrl)
 
     return (
         <>

@@ -1,3 +1,4 @@
+'use client'
 interface AvatarProps {
     width: string;
     height: string;

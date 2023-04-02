@@ -7,6 +7,7 @@ import { StudentAvatar } from './StudentAvatar';
 
 export function ProfileMenu() {
     const { user, loadingUser } = useContext(GlobalContext)
+    
    
     return (
         <Popover.Root>

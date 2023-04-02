@@ -2,7 +2,7 @@ import { GradesProps } from "app/(authenticated)/assessments/page";
 import { GlobalContext } from "app/context/GlobalContext"
 import { extractMonth } from "app/utils/getMonth";
 import dayjs from "dayjs";
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { RiBarChartBoxFill, RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 
 interface Week {
@@ -16,12 +16,24 @@ interface Week {
 
 export function CardAssessment() {
     const { user } = useContext(GlobalContext);
+    const [month, setMonth] = useState(new Date().getMonth());
+    const [average, setAverage] = useState(0);
+    const [percentage, setPercentage] = useState(0);
 
-    const newMonth = dayjs(user?.values?.gradeses[user.values.gradeses.length - 1].month).month() + 1;
-    const assessments = user?.values?.gradeses[user.values.gradeses.length - 1].weeklyAssessments;
+    useEffect(() => {
+        if (user?.values?.gradeses) {
+            const newMonth = dayjs(user?.values?.gradeses[user.values.gradeses.length - 1]?.month).month() + 1;
+            const assessments = user?.values?.gradeses[user.values.gradeses.length - 1]?.weeklyAssessments;
+            const average = calculateAverage(assessments!);
+            const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+            setAverage(average);
+            setPercentage(percentage);
+            setMonth(newMonth)
+        }
+    }, [user])
 
-    const average = calculateAverage(assessments!);
-    const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+
+   
 
     function calculateAverage(assessments: Week[]) {
         if (assessments) {
@@ -43,7 +55,7 @@ export function CardAssessment() {
                 </div>
                 <div>
                     <h1 className="text-textSecondaryColor-600 text-2xl font-bold">{`${percentage}%`}</h1>
-                    <span className="text-textColor-300">{extractMonth(newMonth, true)}</span>
+                    <span className="text-textColor-300">{extractMonth(month, true)}</span>
                 </div>
             </div>
 
