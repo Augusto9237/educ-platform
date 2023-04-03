@@ -69,7 +69,20 @@ export function CardFrequency() {
   return (
     <div className="relative flex flex-1 flex-col p-3 pl-6 justify-center gap-4 w-full rounded-xl shadow-lg bg-backgroundColor-100 overflow-hidden">
       <div className="absolute bg-buttonColor-500 w-3 h-full left-0" />
-      {frequencyGroup.map(({ frequencies, month }, i) => {
+      <div className="flex flex-row gap-4">
+        <div className="flex items-center text-4xl rounded-full p-3 text-buttonColor-600/90 bg-buttonColor-500/30">
+          <RiCalendarCheckFill />
+        </div>
+        <div>
+          <h1 className="text-textSecondaryColor-600 text-2xl font-bold">4 aulas</h1>
+          <span className="text-textColor-300 capitalize">
+            {new Date().toLocaleDateString("pt-BR", {
+              month: "long",
+            })}
+          </span>
+        </div>
+      </div>
+      {frequencyGroup.map(({ frequencies }, i) => {
         const presences = frequencies
           .map((frequency) => frequency.subscribes[0])
           .filter(({ prensente, subscriber }) => prensente && subscriber?.id === user?.values?.id);
@@ -79,32 +92,16 @@ export function CardFrequency() {
           .filter(({ prensente, subscriber }) => !prensente && subscriber?.id === user?.values?.id);
 
         return (
-          <React.Fragment key={i}>
-            <div className="flex flex-row gap-4">
-              <div className="flex items-center text-4xl rounded-full p-3 text-buttonColor-600/90 bg-buttonColor-500/30">
-                <RiCalendarCheckFill />
-              </div>
-              <div>
-                <h1 className="text-textSecondaryColor-600 text-2xl font-bold">4 aulas</h1>
-                <span className="text-textColor-300 capitalize">
-                  {new Date(2023, month - 1).toLocaleDateString("pt-BR", {
-                    month: "long",
-                  })}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <span className="flex flex-1 gap-2 items-center justify-center  text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1">
-                <RiCheckboxFill />
-                {`${presences.length} presenças`}
-              </span>
-              <span className="flex flex-1 gap-2 items-center justify-center  text-textSecondaryColor-200 bg-textSecondaryColor-200/20 rounded p-1">
-                <RiCheckboxIndeterminateFill />
-                {`${absences.length} faltas`}
-              </span>
-            </div>
-          </React.Fragment>
+          <div className="flex gap-4" key={i}>
+            <span className="flex flex-1 gap-2 items-center justify-center  text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1">
+              <RiCheckboxFill />
+              {presences.length} presenças
+            </span>
+            <span className="flex flex-1 gap-2 items-center justify-center  text-textSecondaryColor-200 bg-textSecondaryColor-200/20 rounded p-1">
+              <RiCheckboxIndeterminateFill />
+              {absences.length} faltas
+            </span>
+          </div>
         );
       })}
     </div>

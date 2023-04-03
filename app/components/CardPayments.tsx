@@ -26,8 +26,14 @@ export function CardPayments() {
 
             {payments?.map((payment) => (
                 <div className="flex  gap-4" key={payment.id}>
-                    <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />{payment.payment ? '1 pago' : '0 pago'}</span>
-                    <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill />{!payment.payment ? '1 atrasado' : '0 atrasado'}</span>
+                    {payment.payment === null ?
+                        <span className="flex items-center justify-center flex-1 gap-2 text-buttonColor-600 bg-buttonColor-500/20 rounded p-1">Em aberto</span>
+                        :
+                        <>
+                            <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1"><RiCheckboxFill />{payment.payment ? '1 pago' : '0 pago'}</span>
+                            <span className="flex items-center justify-center flex-1 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20  rounded p-1"><RiCheckboxIndeterminateFill />{!payment.payment ? '1 atrasado' : '0 atrasado'}</span>
+                        </>
+                    }
                 </div>
             ))}
         </div>

@@ -26,7 +26,7 @@ export default function Payments() {
                         </div>
                         <Dialog.Root>
                             {user?.values?.finances.map((tuition) => (
-                                
+
                                 <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2 " disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
                                     <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
                                     <span className="flex justify-center">R$ {tuition.value}</span>
@@ -34,9 +34,12 @@ export default function Payments() {
                                     <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
                                         {
                                             "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment,
-                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": !tuition.payment
+                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": !tuition.payment,
+                                            "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
                                         })}>
-                                        {tuition.payment === true ? <><RiCheckboxFill />Pago</> : <> <RiCheckboxIndeterminateFill />Atrasado</>}
+                                        {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
+                                        {!tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
+                                        {tuition.payment === null ? <h1>Em aberto</h1> : null}
                                     </span>
                                     <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                 </Dialog.Trigger>
@@ -48,9 +51,9 @@ export default function Payments() {
                                             <strong className='text-textColor-300'>X</strong>
                                         </Dialog.Close>
                                         <div className='flex flex-1 flex-col overflow-hidden'>
-                                            <img src='https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png'/>
+                                            <img src='https://qrcg-free-editor.qr-code-generator.com/main/assets/images/websiteQRCode_noFrame.png' />
                                             <strong className='mx-auto'>Efeutue o pagmento!</strong>
-                                            <span>OBS:Querido aluno, por favor! inclua no comprovante de pagamento seu e-mail</span>
+                                            <span>OBS: Querido aluno, por favor! inclua no comprovante de pagamento seu e-mail</span>
                                         </div>
                                     </Dialog.Content>
                                 </Dialog.Overlay>
