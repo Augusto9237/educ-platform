@@ -33,8 +33,8 @@ export default function Payments() {
 
                                     <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
                                         {
-                                            "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment,
-                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": !tuition.payment,
+                                            "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment === true,
+                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": tuition.payment === false,
                                             "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
                                         })}>
                                         {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
