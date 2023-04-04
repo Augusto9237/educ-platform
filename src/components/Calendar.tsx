@@ -1,11 +1,10 @@
 "use client";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { RiCheckboxFill } from 'react-icons/ri';
-import { extractMonth } from 'app/utils/getMonth';
+import { extractMonth } from '../app/utils/getMonth';
+
 
 interface Frequency {
   __typename?: 'Frequency';

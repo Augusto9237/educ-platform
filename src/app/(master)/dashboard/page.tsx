@@ -2,9 +2,9 @@
 import { Spinner } from "app/components/Spinner";
 import { GlobalContext } from "app/context/GlobalContext";
 import { useContext } from "react";
-import { CardAssessment } from "../../components/CardAssessment";
-import { CardFrequency } from "../../components/CardFrequency";
-import { CardPayments } from "../../components/CardPayments";
+import { CardAssessment } from "../../../components/CardAssessment";
+import { CardFrequency } from "../../../components/CardFrequency";
+import { CardPayments } from "../../../components/CardPayments";
 
 export default function Dashboard() {
     const { loadingUser } = useContext(GlobalContext)

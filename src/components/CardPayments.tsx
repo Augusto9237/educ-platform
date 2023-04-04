@@ -1,9 +1,10 @@
 
-import { GlobalContext } from "app/context/GlobalContext";
-import { extractMonth } from "app/utils/getMonth";
+
 import dayjs from "dayjs";
 import { useContext } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiMoneyDollarCircleFill } from "react-icons/ri"
+import { GlobalContext } from "../app/context/GlobalContext";
+import { extractMonth } from "../app/utils/getMonth";
 
 export function CardPayments() {
     const { user } = useContext(GlobalContext);

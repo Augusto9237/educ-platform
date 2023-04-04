@@ -1,4 +1,4 @@
-import { extractMonth } from "app/utils/getMonth";
+
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
@@ -45,6 +45,10 @@ export function CardGrades({ gradeses, month }: GradesProps) {
 
     const average = calculateAverage(assessments);
     const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+
+    function extractMonth(newMonth: number, arg1: boolean): import("react").ReactNode {
+        throw new Error("Function not implemented.");
+    }
 
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">

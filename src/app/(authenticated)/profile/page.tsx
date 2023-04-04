@@ -1,7 +1,7 @@
 "use client";
-import { StudentAvatar } from "app/components/StudentAvatar";
-import { GlobalContext } from "app/context/GlobalContext";
+import { StudentAvatar } from "@/components/components/StudentAvatar";
 import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export default function Profile() {
     const { user } = useContext(GlobalContext)

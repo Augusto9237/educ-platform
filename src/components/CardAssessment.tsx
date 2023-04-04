@@ -1,9 +1,9 @@
-import { GradesProps } from "app/(authenticated)/assessments/page";
-import { GlobalContext } from "app/context/GlobalContext"
-import { extractMonth } from "app/utils/getMonth";
+
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react"
 import { RiBarChartBoxFill, RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
+import { GlobalContext } from "../app/context/GlobalContext";
+import { extractMonth } from "../app/utils/getMonth";
 
 interface Week {
     __typename?: "Week" | undefined;

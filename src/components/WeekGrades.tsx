@@ -1,5 +1,6 @@
-import { GradesProps } from "app/(authenticated)/assessments/page";
+
 import { useEffect, useState } from "react";
+import { GradesProps } from "../app/(authenticated)/assessments/page";
 
 interface WeekGradesProps {
     grades: GradesProps[];

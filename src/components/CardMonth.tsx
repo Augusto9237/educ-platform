@@ -1,8 +1,8 @@
 
-import { extractMonth } from "app/utils/getMonth";
 import { useContext } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../app/context/GlobalContext";
+import { extractMonth } from "../app/utils/getMonth";
 
 
 interface Frequency {

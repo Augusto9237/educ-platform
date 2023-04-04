@@ -1,7 +1,7 @@
 import { useGetFrequenciesClassByMonthQuery } from "graphql/api";
 import React, { useContext, useEffect, useState } from "react";
 import { RiCalendarCheckFill, RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../app/context/GlobalContext";
 
 interface FrequencyGroupedByMonth {
   month: number;

@@ -1,10 +1,11 @@
 'use client';
+import { CardGrades } from '@/components/components/CardGrades';
+import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
-import { CardGrades } from 'app/components/CardGrades';
-import { WeekGrades } from 'app/components/WeekGrades';
-import { GlobalContext } from 'app/context/GlobalContext';
+
 
 import { useContext, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 
 export interface GradesProps {
     __typename?: "Week" | undefined;

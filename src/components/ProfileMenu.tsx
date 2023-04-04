@@ -1,8 +1,8 @@
 import * as Popover from '@radix-ui/react-popover';
-import { GlobalContext } from 'app/context/GlobalContext';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { RiLogoutBoxRFill, RiUserFill } from 'react-icons/ri';
+import { GlobalContext } from '../app/context/GlobalContext';
 import { StudentAvatar } from './StudentAvatar';
 
 export function ProfileMenu() {

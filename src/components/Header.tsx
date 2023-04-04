@@ -1,8 +1,7 @@
 'use client';
 
-import { extractMonth } from "app/utils/getMonth";
+import { extractMonth } from "../app/utils/getMonth";
 import { ProfileMenu } from "./ProfileMenu";
-
 
 export function Header() {
     const date = new Date();

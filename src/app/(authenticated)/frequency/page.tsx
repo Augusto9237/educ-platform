@@ -1,12 +1,12 @@
 "use client";
 import * as Dialog from '@radix-ui/react-dialog';
-import { CalendarEvent } from 'app/components/Calendar';
-import { CardMonth } from 'app/components/CardMonth';
-import { Spinner } from 'app/components/Spinner';
-import { GlobalContext } from 'app/context/GlobalContext';
+import { GlobalContext } from '../../context/GlobalContext';
 import { useGetFrequenciesClassQuery } from 'graphql/api';
 
 import { useContext, useEffect, useState } from 'react';
+import { CalendarEvent } from '../../../components/Calendar';
+import { Spinner } from '@/components/components/Spinner';
+import { CardMonth } from '@/components/components/CardMonth';
 
 export interface FrequencyGroupedByMonth {
     month: number;

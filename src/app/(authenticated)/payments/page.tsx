@@ -1,11 +1,12 @@
 'use client';
 import * as Dialog from '@radix-ui/react-dialog';
-import { GlobalContext } from "app/context/GlobalContext";
-import { extractMonth } from "app/utils/getMonth";
+
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
+import { GlobalContext } from '../../context/GlobalContext';
+import { extractMonth } from '../../utils/getMonth';
 
 
 export default function Payments() {

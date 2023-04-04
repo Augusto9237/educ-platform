@@ -1,10 +1,10 @@
 'use client';
 import { AiFillGoogleCircle } from "react-icons/ai";
 import Link from "next/link";
-import { Background } from "app/components/Background";
-import { Container } from "app/components/Container";
-import Logo from "app/components/Logo";
-import { Button } from "app/components/Button";
+import { Background } from "@/components/components/Background";
+import { Button } from "@/components/components/Button";
+import { Container } from "@/components/components/Container";
+import Logo from "@/components/components/Logo";
 
 
 
