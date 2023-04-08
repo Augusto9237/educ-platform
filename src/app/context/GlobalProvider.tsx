@@ -7,9 +7,7 @@ interface AuthProps {
     children: ReactNode;
 }
 
-
 export const GlobalProvider = ({ children }: AuthProps) => {
-   
     const { data, loading } = useGetSubscriberLoginQuery({
         variables: {
             email: 'augusto.souza8330@gmail.com'
