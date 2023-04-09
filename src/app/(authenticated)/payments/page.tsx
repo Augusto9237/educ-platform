@@ -12,7 +12,6 @@ import { extractMonth } from '../../utils/getMonth';
 export default function Payments() {
     const { user, loadingUser } = useContext(GlobalContext)
     const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false);
-    console.log(user?.values?.pictureUrl)
 
     return (
         <>

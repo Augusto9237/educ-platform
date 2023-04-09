@@ -9,6 +9,7 @@ import { ReactNode } from 'react';
 import { GlobalProvider } from '../context/GlobalProvider';
 import '../globals.css';
 import { Client } from '../lib/apollo';
+import ProvidersWrapper from '../ProvidersWrapper';
 
 interface RootLayoutProps {
     children: ReactNode
@@ -18,16 +19,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <html lang='pt-br'>
             <head />
             <body className='bg-backgroundColor-300'>
-                <ApolloProvider client={Client}>
-                    <GlobalProvider>
-                        <Header />
-                        <Sidebar />
-                        <Container>
-                            {children}
-                        </Container>
-                        <BottomBar />
-                    </GlobalProvider>
-                </ApolloProvider>
+                <ProvidersWrapper>
+                    <ApolloProvider client={Client}>
+                        <GlobalProvider>
+                            <Header />
+                            <Sidebar />
+                            <Container>
+                                {children}
+                            </Container>
+                            <BottomBar />
+                        </GlobalProvider>
+                    </ApolloProvider>
+                </ProvidersWrapper>
             </body>
         </html>
     )

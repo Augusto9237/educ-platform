@@ -1,4 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { RiLogoutBoxRFill, RiUserFill } from 'react-icons/ri';
@@ -7,8 +8,6 @@ import { StudentAvatar } from './StudentAvatar';
 
 export function ProfileMenu() {
     const { user, loadingUser } = useContext(GlobalContext)
-    
-   
     return (
         <Popover.Root>
             <Popover.Trigger className='h-full'>
@@ -48,7 +47,7 @@ export function ProfileMenu() {
                     )}
 
                     <Link href='/' className="flex flex-col px-2">
-                        <button className="flex  items-center gap-2">
+                        <button onClick={() => signOut()} className="flex  items-center gap-2">
                             <RiLogoutBoxRFill /><strong>Sair</strong>
                         </button>
                     </Link>
