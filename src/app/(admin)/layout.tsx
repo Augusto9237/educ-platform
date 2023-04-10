@@ -23,8 +23,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <body className='bg-backgroundColor-300'>
                 <ProvidersWrapper>
                     <ApolloProvider client={Client}>
-                        {/* <GlobalProvider> */}
-                            {/* <Header /> */}
+                        <GlobalProvider>
+                            <Header />
                             <Sidebar>
                                 <Link href='/dashboard' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex flex-row text-2xl items-center gap-2">
@@ -33,19 +33,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                 </Link>
 
 
-                                <Link href='/frequency' className="flex text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
+                                <Link href='/frequencies' className="flex text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex text-2xl items-center gap-2">
                                         <RiCalendarCheckFill /><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600">Frequências</span>
                                     </button>
                                 </Link>
 
-                                <Link href='/assessments' className="flex text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
+                                <Link href='/grades' className="flex text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex text-2xl items-center gap-2">
                                         <RiBarChartBoxFill /><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Avaliações</span>
                                     </button>
                                 </Link>
 
-                                <Link href='/payments' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
+                                <Link href='/financial' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex  text-2xl items-center gap-2">
                                         <RiMoneyDollarCircleFill /><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Financeiro</span>
                                     </button>
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                 {children}
                             </Container>
                             <BottomBar />
-                        {/* </GlobalProvider> */}
+                        </GlobalProvider>
                     </ApolloProvider>
                 </ProvidersWrapper>
             </body>

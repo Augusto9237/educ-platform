@@ -3,7 +3,7 @@ import { StudentAvatar } from "@/components/components/StudentAvatar";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
-export default function Profile() {
+export default function ProfileTeacher() {
     const { user } = useContext(GlobalContext)
     return (
         <>
