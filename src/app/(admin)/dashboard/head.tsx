@@ -1,5 +1,5 @@
 export default function HomeHead() {
     return <>
-     <title>Home - Edu Platform</title>
+     <title>Dashboard - Edu Platform</title>
     </>
 }

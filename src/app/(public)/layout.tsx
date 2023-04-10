@@ -6,7 +6,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
+    
     <html lang="pt-br">
       <body>
         <ProvidersWrapper>

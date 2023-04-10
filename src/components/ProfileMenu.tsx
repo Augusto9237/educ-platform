@@ -45,12 +45,12 @@ export function ProfileMenu() {
                             </button>
                         </Link>
                     )}
-
-                    <Link href='/' className="flex flex-col px-2">
-                        <button onClick={() => signOut()} className="flex  items-center gap-2">
+                    <div className="flex flex-col px-2">
+                        <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} className="flex  items-center gap-2">
                             <RiLogoutBoxRFill /><strong>Sair</strong>
                         </button>
-                    </Link>
+                    </div>
+
                     <Popover.Arrow height={8} width={16} className='fill-textColor-700' />
                 </Popover.Content>
             </Popover.Portal>

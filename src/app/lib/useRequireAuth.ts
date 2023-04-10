@@ -1,17 +1,14 @@
 import { useSession } from "next-auth/react";
-import { redirect, useRouter} from 'next/navigation'
-import { useEffect } from "react";
+import { redirect} from 'next/navigation'
+
 
 export function useRequireAuth() {
     const {data: session} = useSession();
 
-    const router = useRouter();
-
-    useEffect(() => {
         if(!session && typeof session != 'undefined'){
             redirect("/");
         }
-    }, [session])
+    
     
     return session;
 }

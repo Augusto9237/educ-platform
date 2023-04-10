@@ -9,6 +9,13 @@ export const authOptions: NextAuthOptions = {
       clientSecret:process.env.GOOGLE_SECRET!,
     }),
   ],
+  theme: {
+    colorScheme: "light",
+  },
+  pages: {
+    signOut: '/',
+  },
+  secret: process.env.NEXTAUTH_SECRET
 }
 
 export default NextAuth(authOptions);
