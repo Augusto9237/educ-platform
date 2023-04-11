@@ -37,6 +37,8 @@ export default async function Login() {
       variables: { email: session.user.email }
     });
 
+    console.log(subscribers.subscriber)
+    console.log(teachers.teacher)
 
     if (subscribers.subscriber?.email === session.user.email) {
       redirect('/home');
