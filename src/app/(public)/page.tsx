@@ -15,30 +15,25 @@ export default async function Login() {
   if (session?.user?.email) {
     const { data: subscribers } = await client.query({
       query: gql`
-         query Subscriber($email: String = "") {
-          subscriber(where: {email: $email}) {
-            id
-            email
+           query Subscriber($email: String = "") {
+            subscriber(where: {email: $email}) {
+              email
+            }
           }
-        }
-     `,
+       `,
       variables: { email: session.user.email }
     });
 
     const { data: teachers } = await client.query({
       query: gql`
-      query Teacher($email: String = "") {
-        teacher(where: {email: $email}){
-          id
-          email
+        query Teacher($email: String = "") {
+          teacher(where: {email: $email}){
+            email
+          }
         }
-      }
-     `,
+       `,
       variables: { email: session.user.email }
     });
-
-    console.log(subscribers.subscriber)
-    console.log(teachers.teacher)
 
     if (subscribers.subscriber?.email === session.user.email) {
       redirect('/home');
@@ -50,6 +45,8 @@ export default async function Login() {
 
     redirect('/register');
   }
+
+
 
   return (
     <>

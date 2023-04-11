@@ -1,5 +1,7 @@
 "use client";
 import { useGetSubscriberLoginQuery, GetSubscriberLoginDocument } from "graphql/api";
+import { signOut, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { useRequireAuth } from "../lib/useRequireAuth";
 import { GlobalContext } from "./GlobalContext";
@@ -9,7 +11,7 @@ interface AuthProps {
 }
 
 export const GlobalProvider = ({ children }: AuthProps) => {
-    const session = useRequireAuth()
+    const {data: session} = useSession();
     const { data, loading } = useGetSubscriberLoginQuery({
         variables: {
             email: session?.user?.email
