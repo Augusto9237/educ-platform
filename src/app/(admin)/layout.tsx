@@ -10,7 +10,7 @@ import { ReactNode } from 'react';
 import { RiHome3Fill, RiCalendarCheckFill, RiBarChartBoxFill, RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { GlobalProvider } from '../context/GlobalProvider';
 import '../globals.css';
-import { Client } from '../lib/apollo';
+import { client } from '../lib/apollo';
 import ProvidersWrapper from '../ProvidersWrapper';
 
 interface RootLayoutProps {
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <head />
             <body className='bg-backgroundColor-300'>
                 <ProvidersWrapper>
-                    <ApolloProvider client={Client}>
+                    <ApolloProvider client={client}>
                         <GlobalProvider>
                             <Header />
                             <Sidebar>

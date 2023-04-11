@@ -7,9 +7,10 @@ import { authOptions } from "@/components/pages/api/auth/[...nextauth]";
 import { redirect } from 'next/navigation';
 import { Spinner } from "@/components/components/Spinner";
 import { gql } from "@apollo/client";
-import { client } from "../lib/apollo";
+import { client } from "../../lib/apollo";
 
-export default async function Login() {
+
+export default async function Register() {
   const session = await getServerSession(authOptions);
 
   if (session?.user?.email) {
