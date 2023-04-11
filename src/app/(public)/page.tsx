@@ -6,13 +6,43 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/components/pages/api/auth/[...nextauth]";
 import { redirect } from 'next/navigation';
 import { Spinner } from "@/components/components/Spinner";
+import { gql } from "@apollo/client";
+import { client } from "../lib/apollo";
 
 export default async function Login() {
   const session = await getServerSession(authOptions);
-  if (session) {
-    redirect('/home');
+
+  if (session?.user?.email) {
+    const { data: subscribers } = await client.query({
+      query: gql`
+         query Subscriber($email: String = "") {
+          subscriber(where: {email: $email}) {
+            id
+          }
+        }
+     `,
+      variables: { email: session.user.email }
+    });
+
+    const { data: teachers } = await client.query({
+      query: gql`
+      query Teacher($email: String = "") {
+        teacher(where: {email: $email})
+      }
+     `,
+      variables: { email: session.user.email }
+    });
+
+    if (subscribers.subscriber) {
+      redirect('/home');
+    }
+
+    if (teachers.teacher) {
+      redirect('/dashboard');
+    }
   }
-  
+
+
   return (
     <>
       <Background />
@@ -25,7 +55,7 @@ export default async function Login() {
             <ButtonLogin />
           )}
           {session && (
-            <Spinner/>
+            <Spinner />
           )}
         </div>
       </Container>
