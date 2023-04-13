@@ -1,5 +1,5 @@
 'use client';
-import { GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables } from "graphql/api";
+import { GetSubscriberLoginQuery } from "graphql/api";
 import { createContext } from "react";
 
 

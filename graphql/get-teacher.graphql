@@ -1,0 +1,9 @@
+query GetTeacher($email: String = "") {
+  teacher(where: {email: $email}) {
+    email
+    id
+    name
+    avatarURL
+    bio
+  }
+}

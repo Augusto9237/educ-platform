@@ -7,7 +7,6 @@ export default function Profile() {
     const { user } = useContext(GlobalContext)
     return (
         <>
-
             <div className="flex flex-col flex-1 w-full  max-sm:justify-center max-sm:pb-14">
                 <div className="flex flex-col items-center h-80 justify-center">
                     <StudentAvatar width="100px" height="100px" url={user?.values?.pictureUrl} />

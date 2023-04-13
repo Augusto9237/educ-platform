@@ -7016,6 +7016,7 @@ export type Teacher = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<Teacher>;
+  email?: Maybe<Scalars['String']>;
   finances: Array<Finance>;
   /** List of Teacher versions */
   history: Array<Version>;
@@ -7112,6 +7113,7 @@ export type TeacherCreateInput = {
   avatarURL: Scalars['String'];
   bio: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  email?: InputMaybe<Scalars['String']>;
   finances?: InputMaybe<FinanceCreateManyInlineInput>;
   name: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -7207,6 +7209,25 @@ export type TeacherManyWhereInput = {
   documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
   finances_every?: InputMaybe<FinanceWhereInput>;
   finances_none?: InputMaybe<FinanceWhereInput>;
   finances_some?: InputMaybe<FinanceWhereInput>;
@@ -7292,6 +7313,8 @@ export enum TeacherOrderByInput {
   BioDesc = 'bio_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
@@ -7305,6 +7328,7 @@ export enum TeacherOrderByInput {
 export type TeacherUpdateInput = {
   avatarURL?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
   finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
 };
@@ -7448,6 +7472,25 @@ export type TeacherWhereInput = {
   documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
   documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
   finances_every?: InputMaybe<FinanceWhereInput>;
   finances_none?: InputMaybe<FinanceWhereInput>;
   finances_some?: InputMaybe<FinanceWhereInput>;
@@ -7542,6 +7585,7 @@ export type TeacherWhereStageInput = {
 
 /** References Teacher record uniquely */
 export type TeacherWhereUniqueInput = {
+  email?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
@@ -8946,6 +8990,13 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 
 export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
 
+export type GetTeacherQueryVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetTeacherQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', email?: string | null, id: string, name: string, avatarURL: string, bio: string } | null };
+
 
 export const GetFrequenciesClassByMonthDocument = gql`
     query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
@@ -9109,6 +9160,45 @@ export function useGetSubscriberLoginLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetSubscriberLoginQueryHookResult = ReturnType<typeof useGetSubscriberLoginQuery>;
 export type GetSubscriberLoginLazyQueryHookResult = ReturnType<typeof useGetSubscriberLoginLazyQuery>;
 export type GetSubscriberLoginQueryResult = Apollo.QueryResult<GetSubscriberLoginQuery, GetSubscriberLoginQueryVariables>;
+export const GetTeacherDocument = gql`
+    query GetTeacher($email: String = "") {
+  teacher(where: {email: $email}) {
+    email
+    id
+    name
+    avatarURL
+    bio
+  }
+}
+    `;
+
+/**
+ * __useGetTeacherQuery__
+ *
+ * To run a query within a React component, call `useGetTeacherQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTeacherQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTeacherQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetTeacherQuery(baseOptions?: Apollo.QueryHookOptions<GetTeacherQuery, GetTeacherQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTeacherQuery, GetTeacherQueryVariables>(GetTeacherDocument, options);
+      }
+export function useGetTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTeacherQuery, GetTeacherQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTeacherQuery, GetTeacherQueryVariables>(GetTeacherDocument, options);
+        }
+export type GetTeacherQueryHookResult = ReturnType<typeof useGetTeacherQuery>;
+export type GetTeacherLazyQueryHookResult = ReturnType<typeof useGetTeacherLazyQuery>;
+export type GetTeacherQueryResult = Apollo.QueryResult<GetTeacherQuery, GetTeacherQueryVariables>;
 export type AggregateKeySpecifier = ('count' | AggregateKeySpecifier)[];
 export type AggregateFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>
@@ -9607,13 +9697,14 @@ export type SubscriberEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'finances' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
+export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
 export type TeacherFieldPolicy = {
 	avatarURL?: FieldPolicy<any> | FieldReadFunction<any>,
 	bio?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,

@@ -12,11 +12,16 @@ interface AuthProps {
 
 export const GlobalProvider = ({ children }: AuthProps) => {
     const {data: session} = useSession();
+    
     const { data, loading } = useGetSubscriberLoginQuery({
         variables: {
             email: session?.user?.email
         },
     });
+
+    if(data?.values?.__typename !== 'Subscriber') {
+        redirect('/')
+    }
     return (
         <GlobalContext.Provider value={{
             user: data,
