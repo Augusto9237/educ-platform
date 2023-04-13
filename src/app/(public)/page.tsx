@@ -21,7 +21,12 @@ export default async function Login() {
             }
           }
        `,
-      variables: { email: session.user.email }
+      variables: { email: session.user.email },
+      context: {
+        fetchOptions: {
+          cache: "no-store"
+        },
+      },
     });
 
     const { data: teachers } = await client.query({
@@ -32,8 +37,14 @@ export default async function Login() {
           }
         }
        `,
-      variables: { email: session.user.email }
+      variables: { email: session.user.email },
+      context: {
+        fetchOptions: {
+          cache: "no-store"
+        },
+      },
     });
+
 
     if (subscribers.subscriber?.email === session.user.email) {
       redirect('/home');
@@ -45,7 +56,6 @@ export default async function Login() {
 
     redirect('/register');
   }
-
 
 
   return (
