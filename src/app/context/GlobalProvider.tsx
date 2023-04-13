@@ -19,7 +19,7 @@ export const GlobalProvider = ({ children }: AuthProps) => {
         },
     });
 
-    if(data?.values?.__typename !== 'Subscriber') {
+    if( data && data?.values?.__typename !== 'Subscriber') {
         redirect('/')
     }
     return (
