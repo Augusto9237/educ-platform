@@ -1,6 +1,6 @@
 "use client";
 import { StudentAvatar } from "@/components/components/StudentAvatar";
-import { useContext } from "react";
+import { use, useContext } from "react";
 import { AdminContext } from "../../context/AdminContext";
 
 
@@ -13,6 +13,7 @@ export default function ProfileAdmin() {
                 <div className="flex flex-col items-center h-80 justify-center">
                     <StudentAvatar width="100px" height="100px" url={user?.teacher?.avatarURL} />
                     <strong className="text-textSecondaryColor-600 text-2xl">{user?.teacher?.name}</strong>
+                    <span className="text-textColor-600">{user?.teacher?.bio}</span>
                 </div>
 
 

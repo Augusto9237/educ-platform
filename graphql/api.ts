@@ -1122,18 +1122,14 @@ export enum FinanceOrderByInput {
   ValueDesc = 'value_DESC'
 }
 
-export type FinanceSubscriber = Responsible | Subscriber | Teacher;
+export type FinanceSubscriber = Subscriber;
 
 export type FinanceSubscriberConnectInput = {
-  Responsible?: InputMaybe<ResponsibleConnectInput>;
   Subscriber?: InputMaybe<SubscriberConnectInput>;
-  Teacher?: InputMaybe<TeacherConnectInput>;
 };
 
 export type FinanceSubscriberCreateInput = {
-  Responsible?: InputMaybe<ResponsibleCreateInput>;
   Subscriber?: InputMaybe<SubscriberCreateInput>;
-  Teacher?: InputMaybe<TeacherCreateInput>;
 };
 
 export type FinanceSubscriberCreateManyInlineInput = {
@@ -1151,9 +1147,7 @@ export type FinanceSubscriberCreateOneInlineInput = {
 };
 
 export type FinanceSubscriberUpdateInput = {
-  Responsible?: InputMaybe<ResponsibleUpdateInput>;
   Subscriber?: InputMaybe<SubscriberUpdateInput>;
-  Teacher?: InputMaybe<TeacherUpdateInput>;
 };
 
 export type FinanceSubscriberUpdateManyInlineInput = {
@@ -1174,9 +1168,7 @@ export type FinanceSubscriberUpdateManyInlineInput = {
 };
 
 export type FinanceSubscriberUpdateManyWithNestedWhereInput = {
-  Responsible?: InputMaybe<ResponsibleUpdateManyWithNestedWhereInput>;
   Subscriber?: InputMaybe<SubscriberUpdateManyWithNestedWhereInput>;
-  Teacher?: InputMaybe<TeacherUpdateManyWithNestedWhereInput>;
 };
 
 export type FinanceSubscriberUpdateOneInlineInput = {
@@ -1195,27 +1187,19 @@ export type FinanceSubscriberUpdateOneInlineInput = {
 };
 
 export type FinanceSubscriberUpdateWithNestedWhereUniqueInput = {
-  Responsible?: InputMaybe<ResponsibleUpdateWithNestedWhereUniqueInput>;
   Subscriber?: InputMaybe<SubscriberUpdateWithNestedWhereUniqueInput>;
-  Teacher?: InputMaybe<TeacherUpdateWithNestedWhereUniqueInput>;
 };
 
 export type FinanceSubscriberUpsertWithNestedWhereUniqueInput = {
-  Responsible?: InputMaybe<ResponsibleUpsertWithNestedWhereUniqueInput>;
   Subscriber?: InputMaybe<SubscriberUpsertWithNestedWhereUniqueInput>;
-  Teacher?: InputMaybe<TeacherUpsertWithNestedWhereUniqueInput>;
 };
 
 export type FinanceSubscriberWhereInput = {
-  Responsible?: InputMaybe<ResponsibleWhereInput>;
   Subscriber?: InputMaybe<SubscriberWhereInput>;
-  Teacher?: InputMaybe<TeacherWhereInput>;
 };
 
 export type FinanceSubscriberWhereUniqueInput = {
-  Responsible?: InputMaybe<ResponsibleWhereUniqueInput>;
   Subscriber?: InputMaybe<SubscriberWhereUniqueInput>;
-  Teacher?: InputMaybe<TeacherWhereUniqueInput>;
 };
 
 export type FinanceUpdateInput = {
@@ -4801,7 +4785,6 @@ export type Responsible = Node & {
   /** Get the document in other stages */
   documentInStages: Array<Responsible>;
   email: Scalars['String'];
-  finances: Array<Finance>;
   grades: Array<Scalars['Json']>;
   /** List of Responsible versions */
   history: Array<Version>;
@@ -4835,18 +4818,6 @@ export type ResponsibleDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
-};
-
-
-export type ResponsibleFinancesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -4906,7 +4877,6 @@ export type ResponsibleConnection = {
 export type ResponsibleCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
-  finances?: InputMaybe<FinanceCreateManyInlineInput>;
   grades?: InputMaybe<Array<Scalars['Json']>>;
   name: Scalars['String'];
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -4986,9 +4956,6 @@ export type ResponsibleManyWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
-  finances_every?: InputMaybe<FinanceWhereInput>;
-  finances_none?: InputMaybe<FinanceWhereInput>;
-  finances_some?: InputMaybe<FinanceWhereInput>;
   /** All values containing the given json path. */
   grades_json_path_exists?: InputMaybe<Scalars['String']>;
   /**
@@ -5117,7 +5084,6 @@ export enum ResponsibleOrderByInput {
 
 export type ResponsibleUpdateInput = {
   email?: InputMaybe<Scalars['String']>;
-  finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   grades?: InputMaybe<Array<Scalars['Json']>>;
   name?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -5246,9 +5212,6 @@ export type ResponsibleWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
-  finances_every?: InputMaybe<FinanceWhereInput>;
-  finances_none?: InputMaybe<FinanceWhereInput>;
-  finances_some?: InputMaybe<FinanceWhereInput>;
   /** All values containing the given json path. */
   grades_json_path_exists?: InputMaybe<Scalars['String']>;
   /**
@@ -6429,7 +6392,6 @@ export type Subscriber = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   name: Scalars['String'];
-  payment?: Maybe<Scalars['Boolean']>;
   pictureUrl?: Maybe<Scalars['String']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -6545,7 +6507,6 @@ export type SubscriberCreateInput = {
   finances?: InputMaybe<FinanceCreateManyInlineInput>;
   gradeses?: InputMaybe<GradesCreateManyInlineInput>;
   name: Scalars['String'];
-  payment?: InputMaybe<Scalars['Boolean']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -6666,9 +6627,6 @@ export type SubscriberManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
-  payment?: InputMaybe<Scalars['Boolean']>;
-  /** Any other value that exists and is not equal to the given value. */
-  payment_not?: InputMaybe<Scalars['Boolean']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   pictureUrl_contains?: InputMaybe<Scalars['String']>;
@@ -6734,8 +6692,6 @@ export enum SubscriberOrderByInput {
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
-  PaymentAsc = 'payment_ASC',
-  PaymentDesc = 'payment_DESC',
   PictureUrlAsc = 'pictureUrl_ASC',
   PictureUrlDesc = 'pictureUrl_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
@@ -6752,7 +6708,6 @@ export type SubscriberUpdateInput = {
   finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   gradeses?: InputMaybe<GradesUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
-  payment?: InputMaybe<Scalars['Boolean']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
 };
 
@@ -6775,7 +6730,6 @@ export type SubscriberUpdateManyInlineInput = {
 
 export type SubscriberUpdateManyInput = {
   name?: InputMaybe<Scalars['String']>;
-  payment?: InputMaybe<Scalars['Boolean']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
 };
 
@@ -6921,9 +6875,6 @@ export type SubscriberWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
-  payment?: InputMaybe<Scalars['Boolean']>;
-  /** Any other value that exists and is not equal to the given value. */
-  payment_not?: InputMaybe<Scalars['Boolean']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   pictureUrl_contains?: InputMaybe<Scalars['String']>;
@@ -7017,7 +6968,6 @@ export type Teacher = Node & {
   /** Get the document in other stages */
   documentInStages: Array<Teacher>;
   email?: Maybe<Scalars['String']>;
-  finances: Array<Finance>;
   /** List of Teacher versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -7047,18 +6997,6 @@ export type TeacherDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
-};
-
-
-export type TeacherFinancesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<FinanceWhereInput>;
 };
 
 
@@ -7114,7 +7052,6 @@ export type TeacherCreateInput = {
   bio: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
-  finances?: InputMaybe<FinanceCreateManyInlineInput>;
   name: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -7228,9 +7165,6 @@ export type TeacherManyWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
-  finances_every?: InputMaybe<FinanceWhereInput>;
-  finances_none?: InputMaybe<FinanceWhereInput>;
-  finances_some?: InputMaybe<FinanceWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -7329,7 +7263,6 @@ export type TeacherUpdateInput = {
   avatarURL?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
-  finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -7491,9 +7424,6 @@ export type TeacherWhereInput = {
   email_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   email_starts_with?: InputMaybe<Scalars['String']>;
-  finances_every?: InputMaybe<FinanceWhereInput>;
-  finances_none?: InputMaybe<FinanceWhereInput>;
-  finances_some?: InputMaybe<FinanceWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -8983,12 +8913,17 @@ export type GetFrequenciesClassQueryVariables = Exact<{
 
 export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
 
+export type GetSubscribersDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, class?: { __typename?: 'Turma', code?: string | null, id: string } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
+
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, payment?: boolean | null, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
 
 export type GetTeacherQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9098,13 +9033,72 @@ export function useGetFrequenciesClassLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetFrequenciesClassQueryHookResult = ReturnType<typeof useGetFrequenciesClassQuery>;
 export type GetFrequenciesClassLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassLazyQuery>;
 export type GetFrequenciesClassQueryResult = Apollo.QueryResult<GetFrequenciesClassQuery, GetFrequenciesClassQueryVariables>;
+export const GetSubscribersDataDocument = gql`
+    query GetSubscribersData {
+  subscribers {
+    class {
+      code
+      id
+    }
+    id
+    name
+    email
+    pictureUrl
+    finances {
+      id
+      month
+      payment
+      value
+    }
+    gradeses {
+      id
+      month
+      weeklyAssessments {
+        ... on Week {
+          id
+          primaryReview
+          secondReview
+          thirdReview
+          fourthReview
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSubscribersDataQuery__
+ *
+ * To run a query within a React component, call `useGetSubscribersDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubscribersDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubscribersDataQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSubscribersDataQuery(baseOptions?: Apollo.QueryHookOptions<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>(GetSubscribersDataDocument, options);
+      }
+export function useGetSubscribersDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>(GetSubscribersDataDocument, options);
+        }
+export type GetSubscribersDataQueryHookResult = ReturnType<typeof useGetSubscribersDataQuery>;
+export type GetSubscribersDataLazyQueryHookResult = ReturnType<typeof useGetSubscribersDataLazyQuery>;
+export type GetSubscribersDataQueryResult = Apollo.QueryResult<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>;
 export const GetSubscriberLoginDocument = gql`
     query GetSubscriberLogin($email: String = "") {
   values: subscriber(where: {email: $email}, stage: DRAFT) {
     email
     id
     name
-    payment
     pictureUrl
     class {
       id
@@ -9566,13 +9560,12 @@ export type RGBAFieldPolicy = {
 	g?: FieldPolicy<any> | FieldReadFunction<any>,
 	r?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ResponsibleKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | ResponsibleKeySpecifier)[];
+export type ResponsibleKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'grades' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | ResponsibleKeySpecifier)[];
 export type ResponsibleFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
-	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	grades?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9665,7 +9658,7 @@ export type ScheduledReleaseEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriberKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'gradeses' | 'history' | 'id' | 'name' | 'payment' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
+export type SubscriberKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'gradeses' | 'history' | 'id' | 'name' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
 export type SubscriberFieldPolicy = {
 	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9677,7 +9670,6 @@ export type SubscriberFieldPolicy = {
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	payment?: FieldPolicy<any> | FieldReadFunction<any>,
 	pictureUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9697,7 +9689,7 @@ export type SubscriberEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
+export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
 export type TeacherFieldPolicy = {
 	avatarURL?: FieldPolicy<any> | FieldReadFunction<any>,
 	bio?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9705,7 +9697,6 @@ export type TeacherFieldPolicy = {
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
-	finances?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,

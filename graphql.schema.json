@@ -7442,17 +7442,7 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
-            "name": "Responsible",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "Subscriber",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
-            "name": "Teacher",
             "ofType": null
           }
         ]
@@ -7464,35 +7454,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleConnectInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberConnectInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherConnectInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7511,35 +7477,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleCreateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberCreateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherCreateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7644,35 +7586,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleUpdateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberUpdateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherUpdateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7842,35 +7760,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleUpdateManyWithNestedWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberUpdateManyWithNestedWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherUpdateManyWithNestedWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7972,35 +7866,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleUpdateWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberUpdateWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherUpdateWithNestedWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -8019,35 +7889,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleUpsertWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberUpsertWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherUpsertWithNestedWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -8066,35 +7912,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -8113,35 +7935,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "Responsible",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ResponsibleWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "Subscriber",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "Teacher",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "TeacherWhereUniqueInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -33240,135 +33038,6 @@
             "deprecationReason": null
           },
           {
-            "name": "finances",
-            "description": null,
-            "args": [
-              {
-                "name": "after",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "before",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "first",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "forceParentLocale",
-                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "last",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "locales",
-                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "Locale",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "skip",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceWhereInput",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Finance",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "grades",
             "description": null,
             "args": [],
@@ -33978,18 +33647,6 @@
             "deprecationReason": null
           },
           {
-            "name": "finances",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceCreateManyInlineInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "grades",
             "description": null,
             "type": {
@@ -34559,42 +34216,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_every",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_none",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_some",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -35437,18 +35058,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceUpdateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -36376,42 +35985,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_every",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_none",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_some",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -44822,18 +44395,6 @@
             "deprecationReason": null
           },
           {
-            "name": "payment",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "pictureUrl",
             "description": null,
             "args": [],
@@ -45331,18 +44892,6 @@
                 "name": "String",
                 "ofType": null
               }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -46205,30 +45754,6 @@
             "deprecationReason": null
           },
           {
-            "name": "payment",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment_not",
-            "description": "Any other value that exists and is not equal to the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "pictureUrl",
             "description": null,
             "type": {
@@ -46686,18 +46211,6 @@
             "deprecationReason": null
           },
           {
-            "name": "payment_ASC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment_DESC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "pictureUrl_ASC",
             "description": null,
             "isDeprecated": false,
@@ -46820,18 +46333,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null,
@@ -47018,18 +46519,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null,
@@ -48030,30 +47519,6 @@
             "deprecationReason": null
           },
           {
-            "name": "payment",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "payment_not",
-            "description": "Any other value that exists and is not equal to the given value.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "pictureUrl",
             "description": null,
             "type": {
@@ -48805,135 +48270,6 @@
             "deprecationReason": null
           },
           {
-            "name": "finances",
-            "description": null,
-            "args": [
-              {
-                "name": "after",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "before",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "first",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "forceParentLocale",
-                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "last",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "locales",
-                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "Locale",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "skip",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "where",
-                "description": null,
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceWhereInput",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Finance",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "history",
             "description": "List of Teacher versions",
             "args": [
@@ -49471,18 +48807,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceCreateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -50266,42 +49590,6 @@
             "deprecationReason": null
           },
           {
-            "name": "finances_every",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_none",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_some",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "id",
             "description": null,
             "type": {
@@ -50973,18 +50261,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceUpdateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -52092,42 +51368,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_every",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_none",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "finances_some",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceWhereInput",
               "ofType": null
             },
             "defaultValue": null,

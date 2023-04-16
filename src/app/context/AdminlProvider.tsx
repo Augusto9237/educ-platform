@@ -1,5 +1,5 @@
 "use client";
-import { useGetSubscriberLoginQuery, GetSubscriberLoginDocument, useGetTeacherQuery } from "graphql/api";
+import { useGetTeacherQuery, useGetSubscribersDataQuery } from "graphql/api";
 import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -11,19 +11,18 @@ interface AuthProps {
 
 export const AdminProvider = ({ children }: AuthProps) => {
     const {data: session} = useSession();
-    const { data, loading } = useGetTeacherQuery({
+    const { data: user, loading: loadingUser } = useGetTeacherQuery({
         variables: {
             email: session?.user?.email
         },
     });
+    const {data, loading} = useGetSubscribersDataQuery()
 
-    // if(data?.teacher?.__typename !== 'Teacher'){
-    //     redirect('/')
-    // }
     return (
         <AdminContext.Provider value={{
-            user: data,
-            loadingUser: loading,
+            user: user,
+            loadingUser: loadingUser,
+            dataSubscribers: data,
         }}>
             {children}
         </AdminContext.Provider>

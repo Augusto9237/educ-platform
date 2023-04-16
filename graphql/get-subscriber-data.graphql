@@ -1,12 +1,18 @@
-query GetSubscriberLogin($email: String = "") {
-  values: subscriber(where: {email: $email}, stage: DRAFT) {
-    email
+query GetSubscribersData {
+  subscribers {
+    class {
+      code
+      id
+    }
     id
     name
+    email
     pictureUrl
-    class {
+    finances {
       id
-      code
+      month
+      payment
+      value
     }
     gradeses {
       id
@@ -14,18 +20,12 @@ query GetSubscriberLogin($email: String = "") {
       weeklyAssessments {
         ... on Week {
           id
-          fourthReview
           primaryReview
           secondReview
           thirdReview
+          fourthReview
         }
       }
-    }
-    finances {
-      id
-      month
-      payment
-      value
     }
   }
 }
