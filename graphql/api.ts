@@ -8932,6 +8932,14 @@ export type GetTeacherQueryVariables = Exact<{
 
 export type GetTeacherQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', email?: string | null, id: string, name: string, avatarURL: string, bio: string } | null };
 
+export type UpdateFinancePaymentMutationVariables = Exact<{
+  payment?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type UpdateFinancePaymentMutation = { __typename?: 'Mutation', updateFinance?: { __typename?: 'Finance', id: string, locale: Locale, month?: any | null, payment?: boolean | null } | null, publishFinance?: { __typename?: 'Finance', id: string, stage: Stage } | null };
+
 
 export const GetFrequenciesClassByMonthDocument = gql`
     query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
@@ -9193,6 +9201,47 @@ export function useGetTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetTeacherQueryHookResult = ReturnType<typeof useGetTeacherQuery>;
 export type GetTeacherLazyQueryHookResult = ReturnType<typeof useGetTeacherLazyQuery>;
 export type GetTeacherQueryResult = Apollo.QueryResult<GetTeacherQuery, GetTeacherQueryVariables>;
+export const UpdateFinancePaymentDocument = gql`
+    mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
+  updateFinance(data: {payment: $payment}, where: {id: $id}) {
+    id
+    locale
+    month
+    payment
+  }
+  publishFinance(where: {id: $id}) {
+    id
+    stage
+  }
+}
+    `;
+export type UpdateFinancePaymentMutationFn = Apollo.MutationFunction<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>;
+
+/**
+ * __useUpdateFinancePaymentMutation__
+ *
+ * To run a mutation, you first call `useUpdateFinancePaymentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFinancePaymentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFinancePaymentMutation, { data, loading, error }] = useUpdateFinancePaymentMutation({
+ *   variables: {
+ *      payment: // value for 'payment'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateFinancePaymentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>(UpdateFinancePaymentDocument, options);
+      }
+export type UpdateFinancePaymentMutationHookResult = ReturnType<typeof useUpdateFinancePaymentMutation>;
+export type UpdateFinancePaymentMutationResult = Apollo.MutationResult<UpdateFinancePaymentMutation>;
+export type UpdateFinancePaymentMutationOptions = Apollo.BaseMutationOptions<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>;
 export type AggregateKeySpecifier = ('count' | AggregateKeySpecifier)[];
 export type AggregateFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>

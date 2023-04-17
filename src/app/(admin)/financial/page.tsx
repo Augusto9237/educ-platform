@@ -1,14 +1,15 @@
 'use client';
 import * as Dialog from '@radix-ui/react-dialog';
+import * as Popover from '@radix-ui/react-popover';
 
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 import { extractMonth } from '../../utils/getMonth';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
-
-interface FinanceSubscriberProps {
+import { UpdateFinancePaymentDocument, useUpdateFinancePaymentMutation } from 'graphql/api';
+export interface FinanceSubscriberProps {
     __typename?: "Finance" | undefined;
     id: string;
     month?: any;
@@ -20,6 +21,15 @@ interface FinanceSubscriberProps {
 export default function Financial() {
     const { dataSubscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
+    const [updateFinance, publishFinance] = useUpdateFinancePaymentMutation()
+    async function handleUpdatePayment(id: string, status: boolean) {
+        await updateFinance({
+            variables: {
+                id: id,
+                payment: status
+            }
+        })   
+    }
 
     return (
         <>
@@ -28,49 +38,36 @@ export default function Financial() {
                     <h1 className="mx-auto text-lg font-bold">Mensalidades</h1>
                     <div className="flex flex-col gap-2">
                         <div className="grid grid-cols-3">
-                            <span className="flex justify-center">Aluno</span>
-                            <span className="flex justify-center">Turma</span>
-                            <span className="flex justify-center">Status</span>
+                            <strong className="flex justify-center">Aluno</strong>
+                            <strong className="flex justify-center">Turma</strong>
+                            <strong className="flex justify-center">Status</strong>
                         </div>
                         <Dialog.Root>
                             {dataSubscribers?.subscribers.map((finance) => {
                                 const paids = finance.finances.filter((payment) => payment.payment === true)
                                 const late = finance.finances.filter((payment) => payment.payment === false)
                                 const isOpen = finance.finances.filter((payment) => payment.payment !== true && payment.payment !== false)
-
+                                
                                 return (
                                     <Dialog.Trigger key={finance.id} className="relative grid grid-cols-3 pb-2 max-sm:overflow-x-auto" onClick={() => setFinanceSubscriber(finance.finances)}>
                                         <span className="flex justify-center">{finance.name}</span>
                                         <span className="flex justify-center">{finance.class?.code}</span>
-                                        <div className="flex flex-1 gap-4 justify-center">
-                                            <span className='text-textSecondaryColor-400'>{paids.length} Pagos</span>
-                                            <span className='text-textSecondaryColor-200'>{late.length} Atrasados</span>
-                                            <span className='text-buttonColor-500'>{isOpen.length} Abertos</span>
+                                        <div className="flex flex-1">
+                                            <span className={clsx('flex flex-1 items-center justify-center max-sm:flex-1 gap-2 rounded',
+                                                {
+                                                    "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": late.length <= 0,
+                                                    "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": late.length > 0,
+                                                    "text-buttonColor-600 bg-buttonColor-500/20": isOpen.length > 0
+                                                })}>
+                                                {late.length < 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
+                                                {late.length > 0 && (<>{late.length} Atrasado{late.length > 1 ? 's' : null}</>)}
+                                                {late.length < 0 || isOpen.length > 0 && (<h1>{isOpen.length} Em aberto</h1>)}
+                                            </span>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                     </Dialog.Trigger>
                                 )
                             })}
-                            {/* {finances?.finances.map((tuition) => (
-
-                                <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2 " disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
-                                    <span className="flex justify-center">{}</span>
-                                    <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
-                                    <span className="flex justify-center">R$ {tuition.value}</span>
-
-                                    <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
-                                        {
-                                            "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment === true,
-                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": tuition.payment === false,
-                                            "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
-                                        })}>
-                                        {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
-                                        {!tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
-                                        {tuition.payment === null ? <h1>Em aberto</h1> : null}
-                                    </span>
-                                    <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
-                                </Dialog.Trigger>
-                            ))} */}
                             <Dialog.Portal>
                                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
                                     <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
@@ -84,20 +81,30 @@ export default function Financial() {
                                         </div>
                                         {financeSubscriber.map((tuition) => {
                                             return (
-                                                <div key={tuition.id} className="relative grid grid-cols-3 pb-2 " >
+                                                <div key={tuition.id} className=" relative grid grid-cols-3 py-2" >
                                                     <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
                                                     <span className="flex justify-center">R$ {tuition.value}</span>
+                                                    <Popover.Root>
+                                                        <Popover.Trigger className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
+                                                            {
+                                                                "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment === true,
+                                                                "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": tuition.payment === false,
+                                                                "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
+                                                            })}>
 
-                                                    <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
-                                                        {
-                                                            "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment === true,
-                                                            "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": tuition.payment === false,
-                                                            "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
-                                                        })}>
-                                                        {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
-                                                        {tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
-                                                        {tuition.payment === null ? <h1>Em aberto</h1> : null}
-                                                    </span>
+                                                            {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
+                                                            {tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
+                                                            {tuition.payment === null ? <h1>Em aberto</h1> : null}
+                                                        </Popover.Trigger>
+                                                        <Popover.Anchor />
+                                                        <Popover.Portal >
+                                                            <Popover.Content className='flex flex-1 flex-col gap-2 bg-textColor-100 rounded shadow-md shadow-textColor-700 p-2 w-full z-50 mt-[6px] ml-[221%] max-sm:ml-[182%] max-ip:ml-[175%]'>
+                                                                <Popover.Close />
+                                                                <button onClick={() => handleUpdatePayment(tuition.id, true)} className='flex flex-1 items-center px-3 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20'><RiCheckboxFill />Pago</button>
+                                                                <button onClick={() => handleUpdatePayment(tuition.id, false)} className='flex flex-1 items-center px-3 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20'><RiCheckboxIndeterminateFill />Atrasado</button>
+                                                            </Popover.Content>
+                                                        </Popover.Portal>
+                                                    </Popover.Root>
                                                     <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                                 </div>
 
