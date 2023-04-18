@@ -22,13 +22,33 @@ export default function Financial() {
     const { dataSubscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
     const [updateFinance, publishFinance] = useUpdateFinancePaymentMutation()
+
     async function handleUpdatePayment(id: string, status: boolean) {
-        await updateFinance({
-            variables: {
-                id: id,
-                payment: status
-            }
-        })   
+        try {
+            await updateFinance({
+                variables: {
+                    id: id,
+                    payment: status
+                }
+            })
+
+            const updatedArray = financeSubscriber.map(obj => {
+                if (obj.id === id) {
+                    return {
+                        ...obj,
+                        payment: status
+                    };
+                }
+                return obj;
+            });
+            setFinanceSubscriber(updatedArray)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function handleSelectedFinance(finance: FinanceSubscriberProps[]) {
+        setFinanceSubscriber(finance)
     }
 
     return (
@@ -47,19 +67,20 @@ export default function Financial() {
                                 const paids = finance.finances.filter((payment) => payment.payment === true)
                                 const late = finance.finances.filter((payment) => payment.payment === false)
                                 const isOpen = finance.finances.filter((payment) => payment.payment !== true && payment.payment !== false)
-                                
+
+
                                 return (
-                                    <Dialog.Trigger key={finance.id} className="relative grid grid-cols-3 pb-2 max-sm:overflow-x-auto" onClick={() => setFinanceSubscriber(finance.finances)}>
+                                    <Dialog.Trigger key={finance.id} className="relative grid grid-cols-3 pb-2 max-sm:overflow-x-auto" onClick={() => handleSelectedFinance(finance.finances)}>
                                         <span className="flex justify-center">{finance.name}</span>
                                         <span className="flex justify-center">{finance.class?.code}</span>
                                         <div className="flex flex-1">
                                             <span className={clsx('flex flex-1 items-center justify-center max-sm:flex-1 gap-2 rounded',
                                                 {
-                                                    "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": late.length <= 0,
+                                                    "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": late.length === 0,
                                                     "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": late.length > 0,
                                                     "text-buttonColor-600 bg-buttonColor-500/20": isOpen.length > 0
                                                 })}>
-                                                {late.length < 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
+                                                {late.length === 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
                                                 {late.length > 0 && (<>{late.length} Atrasado{late.length > 1 ? 's' : null}</>)}
                                                 {late.length < 0 || isOpen.length > 0 && (<h1>{isOpen.length} Em aberto</h1>)}
                                             </span>
@@ -87,11 +108,10 @@ export default function Financial() {
                                                     <Popover.Root>
                                                         <Popover.Trigger className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
                                                             {
-                                                                "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": tuition.payment === true,
-                                                                "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": tuition.payment === false,
+                                                                "text-textSecondaryColor-400 bg-textSecondaryColor-300/20 hover:bg-textSecondaryColor-300/30": tuition.payment === true,
+                                                                "text-textSecondaryColor-200 bg-textSecondaryColor-200/20 hover:bg-textSecondaryColor-200/30": tuition.payment === false,
                                                                 "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
                                                             })}>
-
                                                             {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
                                                             {tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
                                                             {tuition.payment === null ? <h1>Em aberto</h1> : null}
@@ -100,8 +120,8 @@ export default function Financial() {
                                                         <Popover.Portal >
                                                             <Popover.Content className='flex flex-1 flex-col gap-2 bg-textColor-100 rounded shadow-md shadow-textColor-700 p-2 w-full z-50 mt-[6px] ml-[221%] max-sm:ml-[182%] max-ip:ml-[175%]'>
                                                                 <Popover.Close />
-                                                                <button onClick={() => handleUpdatePayment(tuition.id, true)} className='flex flex-1 items-center px-3 gap-2 text-textSecondaryColor-400 bg-textSecondaryColor-300/20'><RiCheckboxFill />Pago</button>
-                                                                <button onClick={() => handleUpdatePayment(tuition.id, false)} className='flex flex-1 items-center px-3 gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/20'><RiCheckboxIndeterminateFill />Atrasado</button>
+                                                                <button onClick={() => handleUpdatePayment(tuition.id, true)} className='flex flex-1 items-center px-3 gap-2 rounded-sm text-textSecondaryColor-400 bg-textSecondaryColor-300/20 hover:bg-textSecondaryColor-300/30'><RiCheckboxFill />Pago</button>
+                                                                <button onClick={() => handleUpdatePayment(tuition.id, false)} className='flex flex-1 items-center px-3 gap-2 rounded-sm text-textSecondaryColor-200 bg-textSecondaryColor-200/20 hover:bg-textSecondaryColor-200/30'><RiCheckboxIndeterminateFill />Atrasado</button>
                                                             </Popover.Content>
                                                         </Popover.Portal>
                                                     </Popover.Root>
