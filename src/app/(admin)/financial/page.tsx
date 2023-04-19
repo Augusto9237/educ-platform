@@ -6,9 +6,10 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 import { extractMonth } from '../../utils/getMonth';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
-import { UpdateFinancePaymentDocument, useUpdateFinancePaymentMutation } from 'graphql/api';
+import { useUpdateFinancePaymentMutation } from 'graphql/api';
+import { toast } from 'react-toastify';
 export interface FinanceSubscriberProps {
     __typename?: "Finance" | undefined;
     id: string;
@@ -42,6 +43,7 @@ export default function Financial() {
                 return obj;
             });
             setFinanceSubscriber(updatedArray)
+            toast.success('Status de Pagamento do aluno alterado')
         } catch (error) {
             console.error(error)
         }

@@ -23,11 +23,11 @@ module.exports = {
         100: "#F8F8F8",
         300: "#E1E1E6",
         400: "#3668ff",
-        500: "#1348cf",
-        900: "#0c2f87",
+        500: "#0363B4",
+        900: "#004783",
       },
       buttonColor: {
-        500: "#ffc34a",
+        500: "#FBAC0F",
         600: '#d9af07',
       },
       buttonSecondaryColor: {
