@@ -1,6 +1,5 @@
 'use client'
 import { signIn } from "next-auth/react";
-import { AiFillGoogleCircle } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 export function ButtonLogin() {
