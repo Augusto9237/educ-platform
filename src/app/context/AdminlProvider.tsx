@@ -10,13 +10,13 @@ interface AuthProps {
 }
 
 export const AdminProvider = ({ children }: AuthProps) => {
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const { data: user, loading: loadingUser } = useGetTeacherQuery({
-        variables: {
-            email: session?.user?.email
-        },
-    });
-    const {data, loading} = useGetSubscribersDataQuery()
+            variables: {
+                email: session?.user?.email
+            },
+        });
+    const { data, loading } = useGetSubscribersDataQuery()
 
     return (
         <AdminContext.Provider value={{

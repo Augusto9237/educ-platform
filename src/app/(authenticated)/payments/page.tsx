@@ -38,7 +38,7 @@ export default function Payments() {
                                             "text-buttonColor-600 bg-buttonColor-500/20": tuition.payment === null
                                         })}>
                                         {tuition.payment === true ? <><RiCheckboxFill />Pago</> : null}
-                                        {!tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
+                                        {tuition.payment === false ? <><RiCheckboxIndeterminateFill />Atrasado</> : null}
                                         {tuition.payment === null ? <h1>Em aberto</h1> : null}
                                     </span>
                                     <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

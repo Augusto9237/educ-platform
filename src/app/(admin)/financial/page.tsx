@@ -45,7 +45,7 @@ export default function Financial() {
             setFinanceSubscriber(updatedArray)
             toast.success('Status de Pagamento do aluno alterado')
         } catch (error) {
-            console.error(error)
+            toast.error('Erro! Tente novamente')
         }
     }
 
