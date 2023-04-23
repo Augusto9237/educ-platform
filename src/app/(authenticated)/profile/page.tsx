@@ -27,7 +27,11 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col p-2">
                         <span className="text-textColor-600">Telefone</span>
-                        <span className="text-lg font-semibold">(91) 999999</span>
+                        <span className="text-lg font-semibold">{user?.values?.phone}</span>
+                    </div>
+                    <div className="flex flex-col p-2">
+                        <span className="text-textColor-600">Endereço</span>
+                        <span className="text-lg font-semibold">{user?.values?.address}</span>
                     </div>
                 </div>
             </div>
