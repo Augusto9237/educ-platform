@@ -15,6 +15,7 @@ export default function Home() {
             {loadingUser && (
                 <Spinner />
             )}
+            
             {!loadingUser && (
                 <section className="w-full gap-4 max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid  grid-cols-3  max-sm:justify-start  max-sm:pb-14 ">
                     <div className="flex flex-col gap-2 md:mb-4">

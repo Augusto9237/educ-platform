@@ -38,17 +38,24 @@ export function FormUser({ session }: FormProps) {
   async function handleRegister(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
-    await createSubscriber({
-      variables: {
-        name: subscriberData?.name,
-        email: subscriberData?.email,
-        pictureUrl: subscriberData?.image,
-        phone: subscriberData?.phone,
-        address: subscriberData?.address
-      }
-    })
-    signOut({ callbackUrl: 'http://localhost:3000/' })
-    toast.success('Cadastrado com sucesso! faça login novamente')
+    try {
+      await createSubscriber({
+        variables: {
+          name: subscriberData?.name,
+          email: subscriberData?.email,
+          pictureUrl: subscriberData?.image,
+          phone: subscriberData?.phone,
+          address: subscriberData?.address
+        }
+      })
+      signOut({ callbackUrl: 'http://localhost:3000/' })
+      toast.success('Cadastrado com sucesso! faça login novamente')
+
+    } catch (error) {
+      console.log(error)
+      toast.error('Algo deu errado! tente novamente')
+    }
+
   }
 
   return (
