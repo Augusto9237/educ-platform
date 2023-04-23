@@ -18,7 +18,6 @@ export interface FinanceSubscriberProps {
     value?: number | null | undefined;
 }
 
-
 export default function Financial() {
     const { dataSubscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);

@@ -1,0 +1,15 @@
+mutation RegisterSubscriber($email: String = "", $name: String = "", $address: String = "", $phone: String = "", $pictureUrl: String = "") {
+  createSubscriber(
+    data: {name: $name, email: $email, address: $address, phone: $phone, pictureUrl: $pictureUrl}
+  ) {
+    id
+    name
+    phone
+    pictureUrl
+    email
+    stage
+  }
+  publishSubscriber(where: {email: $email}) {
+    id
+  }
+}

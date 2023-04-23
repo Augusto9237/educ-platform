@@ -6377,6 +6377,7 @@ export enum Stage {
 
 export type Subscriber = Node & {
   __typename?: 'Subscriber';
+  address?: Maybe<Scalars['String']>;
   class?: Maybe<Turma>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -6392,6 +6393,7 @@ export type Subscriber = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   name: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
   pictureUrl?: Maybe<Scalars['String']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -6499,6 +6501,7 @@ export type SubscriberConnection = {
 };
 
 export type SubscriberCreateInput = {
+  address?: InputMaybe<Scalars['String']>;
   class?: InputMaybe<TurmaCreateOneInlineInput>;
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleCreateManyInlineInput>;
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceCreateManyInlineInput>;
@@ -6507,6 +6510,7 @@ export type SubscriberCreateInput = {
   finances?: InputMaybe<FinanceCreateManyInlineInput>;
   gradeses?: InputMaybe<GradesCreateManyInlineInput>;
   name: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -6544,6 +6548,25 @@ export type SubscriberManyWhereInput = {
   OR?: InputMaybe<Array<SubscriberWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  address_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  address_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  address_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  address_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  address_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  address_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  address_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  address_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  address_starts_with?: InputMaybe<Scalars['String']>;
   class?: InputMaybe<TurmaWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
@@ -6627,6 +6650,25 @@ export type SubscriberManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  phone_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  phone_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  phone_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  phone_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  phone_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  phone_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  phone_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  phone_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  phone_starts_with?: InputMaybe<Scalars['String']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   pictureUrl_contains?: InputMaybe<Scalars['String']>;
@@ -6684,6 +6726,8 @@ export type SubscriberManyWhereInput = {
 };
 
 export enum SubscriberOrderByInput {
+  AddressAsc = 'address_ASC',
+  AddressDesc = 'address_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   EmailAsc = 'email_ASC',
@@ -6692,6 +6736,8 @@ export enum SubscriberOrderByInput {
   IdDesc = 'id_DESC',
   NameAsc = 'name_ASC',
   NameDesc = 'name_DESC',
+  PhoneAsc = 'phone_ASC',
+  PhoneDesc = 'phone_DESC',
   PictureUrlAsc = 'pictureUrl_ASC',
   PictureUrlDesc = 'pictureUrl_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
@@ -6701,6 +6747,7 @@ export enum SubscriberOrderByInput {
 }
 
 export type SubscriberUpdateInput = {
+  address?: InputMaybe<Scalars['String']>;
   class?: InputMaybe<TurmaUpdateOneInlineInput>;
   clehzzwft2o7z01t391n73da9?: InputMaybe<ResponsibleUpdateManyInlineInput>;
   clf0g6x4d1voc01td0tegc2zr?: InputMaybe<PresenceUpdateManyInlineInput>;
@@ -6708,6 +6755,7 @@ export type SubscriberUpdateInput = {
   finances?: InputMaybe<FinanceUpdateManyInlineInput>;
   gradeses?: InputMaybe<GradesUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
 };
 
@@ -6729,7 +6777,9 @@ export type SubscriberUpdateManyInlineInput = {
 };
 
 export type SubscriberUpdateManyInput = {
+  address?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
 };
 
@@ -6792,6 +6842,25 @@ export type SubscriberWhereInput = {
   OR?: InputMaybe<Array<SubscriberWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  address_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  address_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  address_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  address_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  address_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  address_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  address_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  address_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  address_starts_with?: InputMaybe<Scalars['String']>;
   class?: InputMaybe<TurmaWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
@@ -6875,6 +6944,25 @@ export type SubscriberWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  phone_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  phone_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  phone_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  phone_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  phone_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  phone_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  phone_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  phone_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  phone_starts_with?: InputMaybe<Scalars['String']>;
   pictureUrl?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   pictureUrl_contains?: InputMaybe<Scalars['String']>;
@@ -8932,6 +9020,17 @@ export type GetTeacherQueryVariables = Exact<{
 
 export type GetTeacherQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', email?: string | null, id: string, name: string, avatarURL: string, bio: string } | null };
 
+export type RegisterSubscriberMutationVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  pictureUrl?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type RegisterSubscriberMutation = { __typename?: 'Mutation', createSubscriber?: { __typename?: 'Subscriber', id: string, name: string, phone?: string | null, pictureUrl?: string | null, email: string, stage: Stage } | null, publishSubscriber?: { __typename?: 'Subscriber', id: string } | null };
+
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -9201,6 +9300,53 @@ export function useGetTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetTeacherQueryHookResult = ReturnType<typeof useGetTeacherQuery>;
 export type GetTeacherLazyQueryHookResult = ReturnType<typeof useGetTeacherLazyQuery>;
 export type GetTeacherQueryResult = Apollo.QueryResult<GetTeacherQuery, GetTeacherQueryVariables>;
+export const RegisterSubscriberDocument = gql`
+    mutation RegisterSubscriber($email: String = "", $name: String = "", $address: String = "", $phone: String = "", $pictureUrl: String = "") {
+  createSubscriber(
+    data: {name: $name, email: $email, address: $address, phone: $phone, pictureUrl: $pictureUrl}
+  ) {
+    id
+    name
+    phone
+    pictureUrl
+    email
+    stage
+  }
+  publishSubscriber(where: {email: $email}) {
+    id
+  }
+}
+    `;
+export type RegisterSubscriberMutationFn = Apollo.MutationFunction<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
+
+/**
+ * __useRegisterSubscriberMutation__
+ *
+ * To run a mutation, you first call `useRegisterSubscriberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterSubscriberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerSubscriberMutation, { data, loading, error }] = useRegisterSubscriberMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      name: // value for 'name'
+ *      address: // value for 'address'
+ *      phone: // value for 'phone'
+ *      pictureUrl: // value for 'pictureUrl'
+ *   },
+ * });
+ */
+export function useRegisterSubscriberMutation(baseOptions?: Apollo.MutationHookOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>(RegisterSubscriberDocument, options);
+      }
+export type RegisterSubscriberMutationHookResult = ReturnType<typeof useRegisterSubscriberMutation>;
+export type RegisterSubscriberMutationResult = Apollo.MutationResult<RegisterSubscriberMutation>;
+export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
 export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {
@@ -9707,8 +9853,9 @@ export type ScheduledReleaseEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriberKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'gradeses' | 'history' | 'id' | 'name' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
+export type SubscriberKeySpecifier = ('address' | 'class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'finances' | 'gradeses' | 'history' | 'id' | 'name' | 'phone' | 'pictureUrl' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | SubscriberKeySpecifier)[];
 export type SubscriberFieldPolicy = {
+	address?: FieldPolicy<any> | FieldReadFunction<any>,
 	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9719,6 +9866,7 @@ export type SubscriberFieldPolicy = {
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	phone?: FieldPolicy<any> | FieldReadFunction<any>,
 	pictureUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,

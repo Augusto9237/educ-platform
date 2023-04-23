@@ -2,7 +2,6 @@
 import {  GetSubscribersDataQuery, GetTeacherQuery } from "graphql/api";
 import { createContext } from "react";
 
-
 export interface GlobalContextProps {
     user: GetTeacherQuery| undefined;
     loadingUser: boolean;

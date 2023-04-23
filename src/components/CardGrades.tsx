@@ -61,8 +61,10 @@ export function CardGrades({ gradeses, month }: GradesProps) {
                     'text-textSecondaryColor-400 bg-textSecondaryColor-300/20': percentage >= 80,
                 })}
             >
-                <h1 className="text-lg font-bold">{`${percentage}%`}</h1>
+                <h1 className="absolute text-lg font-bold">{`${percentage}%`}</h1>
+
             </div>
+
 
             <div className="flex flex-col pl-20">
                 <h1 className="flex flex-1 gap-2 flex-row items-center text-textSecondaryColor-400">
