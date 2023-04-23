@@ -9011,7 +9011,7 @@ export type GetSubscriberLoginQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Turma', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
 
 export type GetTeacherQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9202,11 +9202,13 @@ export type GetSubscribersDataLazyQueryHookResult = ReturnType<typeof useGetSubs
 export type GetSubscribersDataQueryResult = Apollo.QueryResult<GetSubscribersDataQuery, GetSubscribersDataQueryVariables>;
 export const GetSubscriberLoginDocument = gql`
     query GetSubscriberLogin($email: String = "") {
-  values: subscriber(where: {email: $email}, stage: DRAFT) {
+  values: subscriber(where: {email: $email}) {
     email
     id
     name
     pictureUrl
+    phone
+    address
     class {
       id
       code

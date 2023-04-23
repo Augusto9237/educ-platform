@@ -10,7 +10,6 @@ import { CardBody } from "./CardBody";
 export function CardPayments() {
     const { user } = useContext(GlobalContext);
     const payments = user?.values?.finances.filter((payment) => dayjs(payment.month).month() === dayjs().month())
-    console.log(payments)
     return (
         <CardBody>
             <div className="absolute bg-textSecondaryColor-400 w-3 h-full left-0" />

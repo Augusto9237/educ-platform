@@ -1,9 +1,11 @@
 query GetSubscriberLogin($email: String = "") {
-  values: subscriber(where: {email: $email}, stage: DRAFT) {
+  values: subscriber(where: {email: $email}) {
     email
     id
     name
     pictureUrl
+    phone
+    address
     class {
       id
       code
