@@ -49205,6 +49205,135 @@
             "deprecationReason": null
           },
           {
+            "name": "turmas",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "forceParentLocale",
+                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `turmas` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "locales",
+                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `turmas` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "Locale",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Turma",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": "The time the document was updated",
             "args": [],
@@ -49456,6 +49585,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaCreateManyInlineInput",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -50630,6 +50771,42 @@
             "deprecationReason": null
           },
           {
+            "name": "turmas_every",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas_none",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas_some",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "type": {
@@ -50905,6 +51082,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaUpdateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -52415,6 +52604,42 @@
             "deprecationReason": null
           },
           {
+            "name": "turmas_every",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas_none",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "turmas_some",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "type": {
@@ -52910,6 +53135,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publishedAt",
             "description": "The time the document was published. Null on documents in draft stage.",
             "args": [],
@@ -53253,6 +53490,51 @@
             "deprecationReason": null
           },
           {
+            "name": "teacher",
+            "description": null,
+            "args": [
+              {
+                "name": "forceParentLocale",
+                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `teacher` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "locales",
+                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `teacher` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "Locale",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "UNION",
+              "name": "TurmaTeacher",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": "The time the document was updated",
             "args": [],
@@ -53474,11 +53756,35 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subscribers",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberCreateManyInlineInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherCreateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -54118,6 +54424,134 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_contains",
+            "description": "All values containing the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_ends_with",
+            "description": "All values ending with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_in",
+            "description": "All values that are contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not",
+            "description": "Any other value that exists and is not equal to the given value.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_contains",
+            "description": "All values not containing the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_ends_with",
+            "description": "All values not ending with the given string",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_in",
+            "description": "All values that are not contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_starts_with",
+            "description": "All values not starting with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_starts_with",
+            "description": "All values starting with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publishedAt",
             "description": null,
             "type": {
@@ -54306,6 +54740,30 @@
             "deprecationReason": null
           },
           {
+            "name": "teacher",
+            "description": "All values in which the union is connected to the given models",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "teacher_empty",
+            "description": "All values in which the union is empty",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "type": {
@@ -54471,6 +54929,18 @@
             "deprecationReason": null
           },
           {
+            "name": "name_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publishedAt_ASC",
             "description": null,
             "isDeprecated": false,
@@ -54495,6 +54965,526 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "TurmaTeacher",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Teacher",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherConnectInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherConnectInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherCreateInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherCreateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherCreateManyInlineInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "connect",
+            "description": "Connect multiple existing TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": "Create and connect multiple existing TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherCreateInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherCreateOneInlineInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "connect",
+            "description": "Connect one existing TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": "Create and connect one TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherCreateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpdateInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherUpdateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpdateManyInlineInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "connect",
+            "description": "Connect multiple existing TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherConnectInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": "Create and connect multiple TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherCreateInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": "Delete multiple TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "disconnect",
+            "description": "Disconnect multiple TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "set",
+            "description": "Override currently-connected documents with multiple existing TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update",
+            "description": "Update multiple TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherUpdateWithNestedWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "upsert",
+            "description": "Upsert multiple TurmaTeacher documents",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "TurmaTeacherUpsertWithNestedWhereUniqueInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpdateManyWithNestedWhereInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherUpdateManyWithNestedWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpdateOneInlineInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "connect",
+            "description": "Connect existing TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": "Create and connect one TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherCreateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": "Delete currently connected TurmaTeacher document",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "disconnect",
+            "description": "Disconnect currently connected TurmaTeacher document",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update",
+            "description": "Update single TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherUpdateWithNestedWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "upsert",
+            "description": "Upsert single TurmaTeacher document",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherUpsertWithNestedWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpdateWithNestedWhereUniqueInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherUpdateWithNestedWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherUpsertWithNestedWhereUniqueInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherUpsertWithNestedWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherWhereInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TurmaTeacherWhereUniqueInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "Teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TeacherWhereUniqueInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -54528,11 +55518,35 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subscribers",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberUpdateManyInlineInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "teacher",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherUpdateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -54703,6 +55717,18 @@
         "inputFields": [
           {
             "name": "code",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -55483,6 +56509,134 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_contains",
+            "description": "All values containing the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_ends_with",
+            "description": "All values ending with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_in",
+            "description": "All values that are contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not",
+            "description": "Any other value that exists and is not equal to the given value.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_contains",
+            "description": "All values not containing the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_ends_with",
+            "description": "All values not ending with the given string",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_in",
+            "description": "All values that are not contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_not_starts_with",
+            "description": "All values not starting with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name_starts_with",
+            "description": "All values starting with the given string.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publishedAt",
             "description": null,
             "type": {
@@ -55664,6 +56818,30 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "SubscriberWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "teacher",
+            "description": "All values in which the union is connected to the given models",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "TurmaTeacherWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "teacher_empty",
+            "description": "All values in which the union is empty",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null,

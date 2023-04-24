@@ -3,11 +3,14 @@ query GetSubscribersData {
     class {
       code
       id
+      name
     }
     id
     name
     email
     pictureUrl
+    phone
+    address
     finances {
       id
       month

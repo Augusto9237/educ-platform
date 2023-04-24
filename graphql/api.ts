@@ -7068,6 +7068,7 @@ export type Teacher = Node & {
   scheduledIn: Array<ScheduledOperation>;
   /** System stage field */
   stage: Stage;
+  turmas: Array<Turma>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -7113,6 +7114,18 @@ export type TeacherScheduledInArgs = {
 };
 
 
+export type TeacherTurmasArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TurmaWhereInput>;
+};
+
+
 export type TeacherUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -7141,6 +7154,7 @@ export type TeacherCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
+  turmas?: InputMaybe<TurmaCreateManyInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -7310,6 +7324,9 @@ export type TeacherManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  turmas_every?: InputMaybe<TurmaWhereInput>;
+  turmas_none?: InputMaybe<TurmaWhereInput>;
+  turmas_some?: InputMaybe<TurmaWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -7352,6 +7369,7 @@ export type TeacherUpdateInput = {
   bio?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  turmas?: InputMaybe<TurmaUpdateManyInlineInput>;
 };
 
 export type TeacherUpdateManyInlineInput = {
@@ -7569,6 +7587,9 @@ export type TeacherWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  turmas_every?: InputMaybe<TurmaWhereInput>;
+  turmas_none?: InputMaybe<TurmaWhereInput>;
+  turmas_some?: InputMaybe<TurmaWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -7620,6 +7641,7 @@ export type Turma = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -7628,6 +7650,7 @@ export type Turma = Node & {
   /** System stage field */
   stage: Stage;
   subscribers: Array<Subscriber>;
+  teacher?: Maybe<TurmaTeacher>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -7686,6 +7709,12 @@ export type TurmaSubscribersArgs = {
 };
 
 
+export type TurmaTeacherArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
 export type TurmaUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -7712,7 +7741,9 @@ export type TurmaCreateInput = {
   clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyCreateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
   subscribers?: InputMaybe<SubscriberCreateManyInlineInput>;
+  teacher?: InputMaybe<TurmaTeacherCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -7806,6 +7837,25 @@ export type TurmaManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -7828,6 +7878,10 @@ export type TurmaManyWhereInput = {
   subscribers_every?: InputMaybe<SubscriberWhereInput>;
   subscribers_none?: InputMaybe<SubscriberWhereInput>;
   subscribers_some?: InputMaybe<SubscriberWhereInput>;
+  /** All values in which the union is connected to the given models */
+  teacher?: InputMaybe<TurmaTeacherWhereInput>;
+  /** All values in which the union is empty */
+  teacher_empty?: InputMaybe<Scalars['Boolean']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -7853,16 +7907,100 @@ export enum TurmaOrderByInput {
   CreatedAtDesc = 'createdAt_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
 
+export type TurmaTeacher = Teacher;
+
+export type TurmaTeacherConnectInput = {
+  Teacher?: InputMaybe<TeacherConnectInput>;
+};
+
+export type TurmaTeacherCreateInput = {
+  Teacher?: InputMaybe<TeacherCreateInput>;
+};
+
+export type TurmaTeacherCreateManyInlineInput = {
+  /** Connect multiple existing TurmaTeacher documents */
+  connect?: InputMaybe<Array<TurmaTeacherWhereUniqueInput>>;
+  /** Create and connect multiple existing TurmaTeacher documents */
+  create?: InputMaybe<Array<TurmaTeacherCreateInput>>;
+};
+
+export type TurmaTeacherCreateOneInlineInput = {
+  /** Connect one existing TurmaTeacher document */
+  connect?: InputMaybe<TurmaTeacherWhereUniqueInput>;
+  /** Create and connect one TurmaTeacher document */
+  create?: InputMaybe<TurmaTeacherCreateInput>;
+};
+
+export type TurmaTeacherUpdateInput = {
+  Teacher?: InputMaybe<TeacherUpdateInput>;
+};
+
+export type TurmaTeacherUpdateManyInlineInput = {
+  /** Connect multiple existing TurmaTeacher documents */
+  connect?: InputMaybe<Array<TurmaTeacherConnectInput>>;
+  /** Create and connect multiple TurmaTeacher documents */
+  create?: InputMaybe<Array<TurmaTeacherCreateInput>>;
+  /** Delete multiple TurmaTeacher documents */
+  delete?: InputMaybe<Array<TurmaTeacherWhereUniqueInput>>;
+  /** Disconnect multiple TurmaTeacher documents */
+  disconnect?: InputMaybe<Array<TurmaTeacherWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing TurmaTeacher documents */
+  set?: InputMaybe<Array<TurmaTeacherWhereUniqueInput>>;
+  /** Update multiple TurmaTeacher documents */
+  update?: InputMaybe<Array<TurmaTeacherUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple TurmaTeacher documents */
+  upsert?: InputMaybe<Array<TurmaTeacherUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type TurmaTeacherUpdateManyWithNestedWhereInput = {
+  Teacher?: InputMaybe<TeacherUpdateManyWithNestedWhereInput>;
+};
+
+export type TurmaTeacherUpdateOneInlineInput = {
+  /** Connect existing TurmaTeacher document */
+  connect?: InputMaybe<TurmaTeacherWhereUniqueInput>;
+  /** Create and connect one TurmaTeacher document */
+  create?: InputMaybe<TurmaTeacherCreateInput>;
+  /** Delete currently connected TurmaTeacher document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected TurmaTeacher document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single TurmaTeacher document */
+  update?: InputMaybe<TurmaTeacherUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single TurmaTeacher document */
+  upsert?: InputMaybe<TurmaTeacherUpsertWithNestedWhereUniqueInput>;
+};
+
+export type TurmaTeacherUpdateWithNestedWhereUniqueInput = {
+  Teacher?: InputMaybe<TeacherUpdateWithNestedWhereUniqueInput>;
+};
+
+export type TurmaTeacherUpsertWithNestedWhereUniqueInput = {
+  Teacher?: InputMaybe<TeacherUpsertWithNestedWhereUniqueInput>;
+};
+
+export type TurmaTeacherWhereInput = {
+  Teacher?: InputMaybe<TeacherWhereInput>;
+};
+
+export type TurmaTeacherWhereUniqueInput = {
+  Teacher?: InputMaybe<TeacherWhereUniqueInput>;
+};
+
 export type TurmaUpdateInput = {
   clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyUpdateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
   subscribers?: InputMaybe<SubscriberUpdateManyInlineInput>;
+  teacher?: InputMaybe<TurmaTeacherUpdateOneInlineInput>;
 };
 
 export type TurmaUpdateManyInlineInput = {
@@ -7884,6 +8022,7 @@ export type TurmaUpdateManyInlineInput = {
 
 export type TurmaUpdateManyInput = {
   code?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type TurmaUpdateManyWithNestedWhereInput = {
@@ -8002,6 +8141,25 @@ export type TurmaWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -8024,6 +8182,10 @@ export type TurmaWhereInput = {
   subscribers_every?: InputMaybe<SubscriberWhereInput>;
   subscribers_none?: InputMaybe<SubscriberWhereInput>;
   subscribers_some?: InputMaybe<SubscriberWhereInput>;
+  /** All values in which the union is connected to the given models */
+  teacher?: InputMaybe<TurmaTeacherWhereInput>;
+  /** All values in which the union is empty */
+  teacher_empty?: InputMaybe<Scalars['Boolean']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -9004,7 +9166,7 @@ export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Arra
 export type GetSubscribersDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, class?: { __typename?: 'Turma', code?: string | null, id: string } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
+export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Turma', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
 
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9146,11 +9308,14 @@ export const GetSubscribersDataDocument = gql`
     class {
       code
       id
+      name
     }
     id
     name
     email
     pictureUrl
+    phone
+    address
     finances {
       id
       month
@@ -9888,7 +10053,7 @@ export type SubscriberEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
+export type TeacherKeySpecifier = ('avatarURL' | 'bio' | 'createdAt' | 'createdBy' | 'documentInStages' | 'email' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'turmas' | 'updatedAt' | 'updatedBy' | TeacherKeySpecifier)[];
 export type TeacherFieldPolicy = {
 	avatarURL?: FieldPolicy<any> | FieldReadFunction<any>,
 	bio?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9903,6 +10068,7 @@ export type TeacherFieldPolicy = {
 	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>,
+	turmas?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -9917,7 +10083,7 @@ export type TeacherEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TurmaKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'updatedAt' | 'updatedBy' | TurmaKeySpecifier)[];
+export type TurmaKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'teacher' | 'updatedAt' | 'updatedBy' | TurmaKeySpecifier)[];
 export type TurmaFieldPolicy = {
 	code?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -9925,11 +10091,13 @@ export type TurmaFieldPolicy = {
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>,
 	subscribers?: FieldPolicy<any> | FieldReadFunction<any>,
+	teacher?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
 };

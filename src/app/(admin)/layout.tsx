@@ -6,6 +6,7 @@ import { Sidebar } from '@/components/components/Sidebar';
 import { ApolloProvider } from '@apollo/client';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { HiUsers } from 'react-icons/hi';
 import { RiHome3Fill, RiCalendarCheckFill, RiBarChartBoxFill, RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { AdminProvider } from '../context/AdminlProvider';
 import '../globals.css';
@@ -28,6 +29,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                 <Link href='/dashboard' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex flex-row text-2xl items-center gap-2">
                                         <RiHome3Fill /><span className="hidden leading-none text-xl group-hover:flex delay-200 duration-600">Dashboard</span>
+                                    </button>
+                                </Link>
+
+                                <Link href='/subscribers' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
+                                    <button className="flex  text-2xl items-center gap-2">
+                                        <HiUsers /><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Alunos</span>
                                     </button>
                                 </Link>
 
