@@ -9145,6 +9145,13 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type DeleteSubscriberMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type DeleteSubscriberMutation = { __typename?: 'Mutation', unpublishSubscriber?: { __typename?: 'Subscriber', id: string, name: string } | null, deleteSubscriber?: { __typename?: 'Subscriber', id: string, name: string, updatedAt: any } | null };
+
 export type GetFrequenciesClassByMonthQueryVariables = Exact<{
   code?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -9202,6 +9209,45 @@ export type UpdateFinancePaymentMutationVariables = Exact<{
 export type UpdateFinancePaymentMutation = { __typename?: 'Mutation', updateFinance?: { __typename?: 'Finance', id: string, locale: Locale, month?: any | null, payment?: boolean | null } | null, publishFinance?: { __typename?: 'Finance', id: string, stage: Stage } | null };
 
 
+export const DeleteSubscriberDocument = gql`
+    mutation DeleteSubscriber($id: ID = "") {
+  unpublishSubscriber(where: {id: $id}) {
+    id
+    name
+  }
+  deleteSubscriber(where: {id: $id}) {
+    id
+    name
+    updatedAt
+  }
+}
+    `;
+export type DeleteSubscriberMutationFn = Apollo.MutationFunction<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>;
+
+/**
+ * __useDeleteSubscriberMutation__
+ *
+ * To run a mutation, you first call `useDeleteSubscriberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSubscriberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSubscriberMutation, { data, loading, error }] = useDeleteSubscriberMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteSubscriberMutation(baseOptions?: Apollo.MutationHookOptions<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>(DeleteSubscriberDocument, options);
+      }
+export type DeleteSubscriberMutationHookResult = ReturnType<typeof useDeleteSubscriberMutation>;
+export type DeleteSubscriberMutationResult = Apollo.MutationResult<DeleteSubscriberMutation>;
+export type DeleteSubscriberMutationOptions = Apollo.BaseMutationOptions<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>;
 export const GetFrequenciesClassByMonthDocument = gql`
     query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
   frequencies(
