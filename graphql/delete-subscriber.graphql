@@ -1,8 +1,4 @@
 mutation DeleteSubscriber($id: ID = "") {
-  unpublishSubscriber(where: {id: $id}) {
-    id
-    name
-  }
   deleteSubscriber(where: {id: $id}) {
     id
     name

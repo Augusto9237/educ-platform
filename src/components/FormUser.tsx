@@ -59,13 +59,13 @@ export function FormUser({ session }: FormProps) {
   }
 
   return (
-    <form className="flex flex-col flex-1 w-full  max-sm:justify-center max-sm:pb-14" onSubmit={handleRegister}>
+    <form className="flex flex-col flex-1 w-full h-full my-auto bg-backgroundColor-100 rounded-xl  max-sm:justify-center" onSubmit={handleRegister}>
       <div className="flex flex-col items-center h-80 justify-center">
         <StudentAvatar width="100px" height="100px" url={session?.user?.image} />
         <strong className="text-textSecondaryColor-600 text-2xl">{session?.user?.name}</strong>
       </div>
 
-      <div className="flex flex-col bg-backgroundColor-100 rounded-xl p-3">
+      <div className="flex flex-col p-3">
         <h1 className="mx-auto text-lg font-semibold">Prossiga com o cadastro</h1>
         <div className="flex flex-col p-2">
           <span className="text-textColor-600">Nome Completo</span>

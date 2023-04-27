@@ -3,7 +3,6 @@ import { CardGrades } from '@/components/components/CardGrades';
 import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 
-
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 

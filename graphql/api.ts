@@ -9150,7 +9150,7 @@ export type DeleteSubscriberMutationVariables = Exact<{
 }>;
 
 
-export type DeleteSubscriberMutation = { __typename?: 'Mutation', unpublishSubscriber?: { __typename?: 'Subscriber', id: string, name: string } | null, deleteSubscriber?: { __typename?: 'Subscriber', id: string, name: string, updatedAt: any } | null };
+export type DeleteSubscriberMutation = { __typename?: 'Mutation', deleteSubscriber?: { __typename?: 'Subscriber', id: string, name: string, updatedAt: any } | null };
 
 export type GetFrequenciesClassByMonthQueryVariables = Exact<{
   code?: InputMaybe<Scalars['String']>;
@@ -9208,13 +9208,20 @@ export type UpdateFinancePaymentMutationVariables = Exact<{
 
 export type UpdateFinancePaymentMutation = { __typename?: 'Mutation', updateFinance?: { __typename?: 'Finance', id: string, locale: Locale, month?: any | null, payment?: boolean | null } | null, publishFinance?: { __typename?: 'Finance', id: string, stage: Stage } | null };
 
+export type EditSubscriberMutationVariables = Exact<{
+  address?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber?: { __typename?: 'Subscriber', id: string, updatedAt: any } | null };
+
 
 export const DeleteSubscriberDocument = gql`
     mutation DeleteSubscriber($id: ID = "") {
-  unpublishSubscriber(where: {id: $id}) {
-    id
-    name
-  }
   deleteSubscriber(where: {id: $id}) {
     id
     name
@@ -9601,6 +9608,47 @@ export function useUpdateFinancePaymentMutation(baseOptions?: Apollo.MutationHoo
 export type UpdateFinancePaymentMutationHookResult = ReturnType<typeof useUpdateFinancePaymentMutation>;
 export type UpdateFinancePaymentMutationResult = Apollo.MutationResult<UpdateFinancePaymentMutation>;
 export type UpdateFinancePaymentMutationOptions = Apollo.BaseMutationOptions<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>;
+export const EditSubscriberDocument = gql`
+    mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "") {
+  updateSubscriber(
+    data: {address: $address, email: $email, name: $name, phone: $phone}
+    where: {id: $id}
+  ) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type EditSubscriberMutationFn = Apollo.MutationFunction<EditSubscriberMutation, EditSubscriberMutationVariables>;
+
+/**
+ * __useEditSubscriberMutation__
+ *
+ * To run a mutation, you first call `useEditSubscriberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditSubscriberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editSubscriberMutation, { data, loading, error }] = useEditSubscriberMutation({
+ *   variables: {
+ *      address: // value for 'address'
+ *      email: // value for 'email'
+ *      name: // value for 'name'
+ *      phone: // value for 'phone'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEditSubscriberMutation(baseOptions?: Apollo.MutationHookOptions<EditSubscriberMutation, EditSubscriberMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditSubscriberMutation, EditSubscriberMutationVariables>(EditSubscriberDocument, options);
+      }
+export type EditSubscriberMutationHookResult = ReturnType<typeof useEditSubscriberMutation>;
+export type EditSubscriberMutationResult = Apollo.MutationResult<EditSubscriberMutation>;
+export type EditSubscriberMutationOptions = Apollo.BaseMutationOptions<EditSubscriberMutation, EditSubscriberMutationVariables>;
 export type AggregateKeySpecifier = ('count' | AggregateKeySpecifier)[];
 export type AggregateFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>
