@@ -66,7 +66,7 @@ export default function Classes() {
                         <div className="grid grid-cols-4">
                             <strong className="flex justify-center">Codigo</strong>
                             <strong className="flex justify-center">Nome</strong>
-                            <strong className="flex justify-center">Quant. Alunos</strong>
+                            <strong className="flex justify-center">Quantidade de Alunos</strong>
                         </div>
                         {!loadingClasses && (
                             <>
