@@ -18,8 +18,8 @@ interface SubscriberProps {
     address?: string | null;
 }
 
-export default function Subscribers() {
-    const { subscribers, loadingUser, loadingSubscribers, reloadSubscribers } = useContext(AdminContext);
+export default function Classes() {
+    const { classes, reloadClasses, loadingUser, loadingClasses } = useContext(AdminContext);
     const [selectedSubscriber, setSelectedSubscriber] = useState<SubscriberProps>(null!);
     const [deleteSubscriber] = useDeleteSubscriberMutation()
 
@@ -31,7 +31,7 @@ export default function Subscribers() {
                 }
             })
             toast.success('Aluno excluído com sucesso!')
-            reloadSubscribers()
+            reloadClasses()
         } catch (error) {
             toast.error('Erro! Tente novamente')
         }
@@ -50,23 +50,22 @@ export default function Subscribers() {
                     <h1 className="mx-auto text-lg font-bold">Alunos</h1>
                     <div className="flex flex-col gap-2">
                         <div className="grid grid-cols-5">
+                            <strong className="flex justify-center">Codigo</strong>
                             <strong className="flex justify-center">Nome</strong>
-                            <strong className="flex justify-center">Turma</strong>
-                            <strong className="flex justify-center">E-mail</strong>
-                            <strong className="flex justify-center">Telefone</strong>
+                            <strong className="flex justify-center">Quant. Alunos</strong>
                         </div>
-                        {!loadingSubscribers && (
+                        {!loadingClasses && (
                             <>
-                                {subscribers?.subscribers.map((subscriber) => (
-                                    <div key={subscriber.id} className='relative'>
+                                {classes?.classes.map((classe) => (
+                                    <div key={classe.id} className='relative'>
                                         <div className="grid grid-cols-5 overflow-hidden overflow-x-auto hover:bg-backgroundColor-300/60 mb-2">
-                                            <span className="flex justify-center">{subscriber.name}</span>
-                                            <span className="flex justify-center">{subscriber.class?.code}</span>
-                                            <span className="flex justify-center">{subscriber.email}</span>
-                                            <span className="flex justify-center">{`(${subscriber.phone!.slice(0, 2)}) ${subscriber.phone!.slice(2)}`}</span>
+                                            <span className="flex justify-center">{classe.code}</span>
+                                            <span className="flex justify-center">{classe.name}</span>
+                                            <span className="flex justify-center">{classe.subscribers.length}</span>
+                                            <span className="flex justify-center">adicionar aluno</span>
                                             <div className='flex justify-evenly'>
 
-                                                <Dialog.Root>
+                                                {/* <Dialog.Root>
                                                     <Dialog.Trigger onClick={() => setSelectedSubscriber(subscriber)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />
                                                         <span>Editar</span>
@@ -86,7 +85,7 @@ export default function Subscribers() {
                                                 <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex items-center gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2  rounded hover:bg-textSecondaryColor-200/20'>
                                                     <RiDeleteBin2Fill />
                                                     <span>Excluir</span>
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
@@ -94,7 +93,7 @@ export default function Subscribers() {
                                 ))}
                             </>
                         )}
-                        {loadingSubscribers && (
+                        {loadingClasses && (
                             <div className='flex flex-1 py-2 justify-center'>
                                 <div
                                     className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-backgroundColor-300 align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"

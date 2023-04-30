@@ -1,0 +1,34 @@
+query GetClasses($id: ID = "") {
+  classes(where: {teacher: {Teacher: {id: $id}}}) {
+    code
+    id
+    name
+    subscribers {
+      id
+      name
+      email
+      phone
+      address
+      pictureUrl
+      gradeses {
+        id
+        month
+        weeklyAssessments {
+          ... on Week {
+            id
+            primaryReview
+            secondReview
+            thirdReview
+            fourthReview
+          }
+        }
+      }
+      finances {
+        id
+        month
+        payment
+        value
+      }
+    }
+  }
+}

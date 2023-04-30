@@ -6,7 +6,7 @@ import { HiUsers } from "react-icons/hi";
 import { AdminContext } from "../../context/AdminContext";
 
 export default function Dashboard() {
-    const { dataSubscribers, loadingUser } = useContext(AdminContext);
+    const { subscribers, loadingUser } = useContext(AdminContext);
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function Dashboard() {
                         <HiUsers />
                         <span>Alunos</span>
                     </div>
-                    <h1 className="text-textSecondaryColor-600 text-2xl font-bold">{dataSubscribers?.subscribers.length}</h1>
+                    <h1 className="text-textSecondaryColor-600 text-2xl font-bold">{subscribers?.subscribers.length}</h1>
                 </CardBody>
             </section>
 

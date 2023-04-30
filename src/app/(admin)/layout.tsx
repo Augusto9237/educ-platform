@@ -38,6 +38,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                     </button>
                                 </Link>
 
+                                <Link href='/classes' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
+                                    <button className="flex  text-2xl items-center gap-2">
+                                        <HiUsers /><span className="hidden  leading-none text-xl group-hover:flex delay-150 duration-600">Turmas</span>
+                                    </button>
+                                </Link>
+
 
                                 <Link href='/frequencies' className="flex text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex text-2xl items-center gap-2">

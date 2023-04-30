@@ -1,7 +1,8 @@
 'use client';
 import { useEditSubscriberMutation } from "graphql/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
+import { AdminContext } from "../app/context/AdminContext";
 
 
 interface SubscriberDataProps {
@@ -17,6 +18,7 @@ interface SubscriberProps {
   subscriber: SubscriberDataProps | null;
 }
 export function FormEditSubscriber({ subscriber }: SubscriberProps) {
+  const { reloadSubscribers } = useContext(AdminContext);
   const [updateSubscriber] = useEditSubscriberMutation()
   const [subscriberData, setSubscriberData] = useState<SubscriberDataProps>({
     id: subscriber?.id!,
@@ -49,6 +51,7 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
         }
       })
       toast.success('Cadastro do aluno atualizado com sucesso!')
+      reloadSubscribers()
 
     } catch (error) {
       console.log(error)
