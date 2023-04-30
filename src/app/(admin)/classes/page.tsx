@@ -4,23 +4,37 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
-import { GetSubscribersDataQuery, useDeleteSubscriberMutation, useEditSubscriberMutation } from 'graphql/api';
+import { GetClassesQuery, useDeleteSubscriberMutation } from 'graphql/api';
+import { ImUserPlus } from "react-icons/im";
 import { toast } from 'react-toastify';
-import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
+import { FormEditClasse } from '@/components/components/FormEditClasse';
 
-interface SubscriberProps {
-    __typename?: 'Subscriber';
+export interface ClasseProps {
+    __typename?: "Class" | undefined;
+    code?: string | null | undefined;
     id: string;
-    name: string;
-    email: string;
-    pictureUrl?: string | null;
-    phone?: string | null;
-    address?: string | null;
+    name?: string | null | undefined;
+    subscribers?: {
+        __typename?: 'Subscriber';
+        id: string;
+        name: string;
+        email: string;
+        pictureUrl?: string | null;
+        phone?: string | null;
+        address?: string | null;
+        finances?: {
+            __typename?: "Finance" | undefined;
+            id: string;
+            month?: any;
+            payment?: boolean | null | undefined;
+            value?: number | null | undefined;
+        }[];
+    }[];
 }
 
 export default function Classes() {
     const { classes, reloadClasses, loadingUser, loadingClasses } = useContext(AdminContext);
-    const [selectedSubscriber, setSelectedSubscriber] = useState<SubscriberProps>(null!);
+    const [selectedClasse, setSelectedClasse] = useState<ClasseProps>(null!);
     const [deleteSubscriber] = useDeleteSubscriberMutation()
 
     async function handleDeleteSubscriber(id: string) {
@@ -47,9 +61,9 @@ export default function Classes() {
 
             {!loadingUser && (
                 <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
-                    <h1 className="mx-auto text-lg font-bold">Alunos</h1>
+                    <h1 className="mx-auto text-lg font-bold">Turmas</h1>
                     <div className="flex flex-col gap-2">
-                        <div className="grid grid-cols-5">
+                        <div className="grid grid-cols-4">
                             <strong className="flex justify-center">Codigo</strong>
                             <strong className="flex justify-center">Nome</strong>
                             <strong className="flex justify-center">Quant. Alunos</strong>
@@ -58,15 +72,13 @@ export default function Classes() {
                             <>
                                 {classes?.classes.map((classe) => (
                                     <div key={classe.id} className='relative'>
-                                        <div className="grid grid-cols-5 overflow-hidden overflow-x-auto hover:bg-backgroundColor-300/60 mb-2">
+                                        <div className="grid grid-cols-4 overflow-hidden overflow-x-auto hover:bg-backgroundColor-300/60 mb-2">
                                             <span className="flex justify-center">{classe.code}</span>
                                             <span className="flex justify-center">{classe.name}</span>
                                             <span className="flex justify-center">{classe.subscribers.length}</span>
-                                            <span className="flex justify-center">adicionar aluno</span>
-                                            <div className='flex justify-evenly'>
-
-                                                {/* <Dialog.Root>
-                                                    <Dialog.Trigger onClick={() => setSelectedSubscriber(subscriber)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                            <div className="flex justify-evenly">
+                                                <Dialog.Root>
+                                                    <Dialog.Trigger onClick={() => setSelectedClasse(classe)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />
                                                         <span>Editar</span>
                                                     </Dialog.Trigger>
@@ -77,15 +89,16 @@ export default function Classes() {
                                                                 <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                                                     <strong className='text-textColor-200'>X</strong>
                                                                 </Dialog.Close>
-                                                                <FormEditSubscriber subscriber={selectedSubscriber} />
+                                                                <FormEditClasse classe={classe}/>
                                                             </Dialog.Content>
                                                         </Dialog.Overlay>
                                                     </Dialog.Portal>
                                                 </Dialog.Root>
-                                                <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex items-center gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2  rounded hover:bg-textSecondaryColor-200/20'>
+
+                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex items-center gap-2 px-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/25  rounded hover:bg-textSecondaryColor-200/20'>
                                                     <RiDeleteBin2Fill />
                                                     <span>Excluir</span>
-                                                </button> */}
+                                                </button>
                                             </div>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

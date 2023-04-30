@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
-import { GetSubscribersDataQuery, useDeleteSubscriberMutation, useEditSubscriberMutation } from 'graphql/api';
+import { useDeleteSubscriberMutation} from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
 

@@ -19,7 +19,7 @@ export interface FinanceSubscriberProps {
 }
 
 export default function Financial() {
-    const { dataSubscribers, loadingUser } = useContext(AdminContext);
+    const { subscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
     const [updateFinance, publishFinance] = useUpdateFinancePaymentMutation()
 
@@ -64,7 +64,7 @@ export default function Financial() {
                             <strong className="flex justify-center">Status</strong>
                         </div>
                         <Dialog.Root>
-                            {dataSubscribers?.subscribers.map((finance) => {
+                            {subscribers?.subscribers.map((finance) => {
                                 const paids = finance.finances.filter((payment) => payment.payment === true)
                                 const late = finance.finances.filter((payment) => payment.payment === false)
                                 const isOpen = finance.finances.filter((payment) => payment.payment !== true && payment.payment !== false)
