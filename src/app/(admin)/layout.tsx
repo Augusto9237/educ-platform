@@ -34,8 +34,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
                                 </Link>
 
                                 <Link href='/subscribers' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
-                                    <button className="flex  text-2xl items-center gap-2">
-                                        <FaUserGraduate size={20} className="mx-[2px]"/><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600"> Alunos</span>
+                                    <button className="flex  text-xl items-center gap-2">
+                                        <FaUserGraduate className="mx-[2px]"/><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600"> Alunos</span>
                                     </button>
                                 </Link>
 
