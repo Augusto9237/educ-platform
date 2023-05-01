@@ -66,47 +66,15 @@ export function FormEditClasse({ classe }: ClassesProps) {
         <div className="flex flex-col p-2 gap-2">
           <span className="text-textColor-600 flex flex-1 justify-between  font-semibold">
             Alunos
-
-            <Dialog.Root>
-              <Dialog.Trigger className='flex items-center font-light text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
-                <ImUserPlus />
-              </Dialog.Trigger>
-
-              <Dialog.Portal>
-                <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                  <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                    <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
-                      <strong className='text-textColor-200'>X</strong>
-                    </Dialog.Close>
-                    <div>
-                      <div className="grid grid-cols-3">
-                        <strong className="flex">Nome</strong>
-                        <strong className="flex justify-center">E-mail</strong>
-                      </div>
-                      {subscribers?.subscribers.map((subscriber) => (
-                        <div key={subscriber.id} className="grid grid-cols-3 gap-2">
-                          <span className="flex">{subscriber.name}</span>
-                          <span className="flex justify-center">{subscriber.email}</span>
-                          <span className="flex justify-center">
-                            <button>+</button>
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                  </Dialog.Content>
-                </Dialog.Overlay>
-              </Dialog.Portal>
-            </Dialog.Root>
-
           </span>
-          {classe?.subscribers?.map((subscribe, index) => (
-            <div key={subscribe.id} className="flex flex-1 text-lg justify-between p-2 bg-[#ffff] rounded">
-              <span>{index + 1} - {subscribe.name}</span>
-              <span>{subscribe.email}</span>
-              <button className="text-textSecondaryColor-200"><RiDeleteBin2Fill /></button>
-            </div>
-          ))}
+          <div className='p-2 bg-[#ffff] rounded overflow-y-auto'>
+            {classe?.subscribers?.map((subscribe, index) => (
+              <div key={subscribe.id} className="flex flex-1 text-lg justify-between">
+                <span>{index + 1} - {subscribe.name}</span>
+                <span>{subscribe.email}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-1 gap-4 mt-4">
