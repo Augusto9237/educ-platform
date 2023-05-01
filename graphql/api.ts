@@ -9211,8 +9211,6 @@ export type EditClassMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   code?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  id1?: InputMaybe<Scalars['ID']>;
-  id2?: InputMaybe<Scalars['ID']>;
 }>;
 
 
@@ -9652,11 +9650,8 @@ export type RegisterSubscriberMutationHookResult = ReturnType<typeof useRegister
 export type RegisterSubscriberMutationResult = Apollo.MutationResult<RegisterSubscriberMutation>;
 export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
 export const EditClassDocument = gql`
-    mutation EditClass($id: ID = "", $code: String = "", $name: String = "", $id1: ID = "", $id2: ID = "") {
-  updateClass(
-    data: {code: $code, name: $name, subscribers: {connect: {where: {id: $id1}}, disconnect: {id: $id2}}}
-    where: {id: $id}
-  ) {
+    mutation EditClass($id: ID = "", $code: String = "", $name: String = "") {
+  updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
     updatedAt
   }
 }
@@ -9679,8 +9674,6 @@ export type EditClassMutationFn = Apollo.MutationFunction<EditClassMutation, Edi
  *      id: // value for 'id'
  *      code: // value for 'code'
  *      name: // value for 'name'
- *      id1: // value for 'id1'
- *      id2: // value for 'id2'
  *   },
  * });
  */

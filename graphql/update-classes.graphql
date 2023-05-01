@@ -1,6 +1,6 @@
-mutation EditClass($id: ID = "", $code: String = "", $name: String = "", $id1: ID = "", $id2: ID = "") {
+mutation EditClass($id: ID = "", $code: String = "", $name: String = "") {
   updateClass(
-    data: {code: $code, name: $name, subscribers: {connect: {where: {id: $id1}}, disconnect: {id: $id2}}}
+    data: {code: $code, name: $name}
     where: {id: $id}
   ) {
     updatedAt

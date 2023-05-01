@@ -1,6 +1,5 @@
-'use client';
 import { useEditSubscriberMutation } from "graphql/api";
-import { useContext, useState } from "react";
+import { SetStateAction, useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import { AdminContext } from "../app/context/AdminContext";
 
@@ -22,8 +21,9 @@ interface SubscriberDataProps {
 
 interface SubscriberProps {
   subscriber: SubscriberDataProps | null;
+  setIsOpen: (value: SetStateAction<boolean>) => void
 }
-export function FormEditSubscriber({ subscriber }: SubscriberProps) {
+export function FormEditSubscriber({ subscriber, setIsOpen }: SubscriberProps) {
   const { classes, reloadSubscribers } = useContext(AdminContext);
   const [updateSubscriber] = useEditSubscriberMutation()
   const [selectedClassId, setSelectedClassId] = useState('');
@@ -35,8 +35,6 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
     address: subscriber?.address,
     class: subscriber?.class
   })
-
-  console.log(subscriberData)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) => {
     const { name, value } = event.target;
@@ -62,7 +60,8 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
         }
       })
       toast.success('Cadastro do aluno atualizado com sucesso!')
-      reloadSubscribers()
+      reloadSubscribers();
+      setIsOpen(false);
 
     } catch (error) {
       console.log(error)
@@ -94,7 +93,7 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
 
         <div className="flex flex-col p-2">
           <span className="text-textColor-600">Turma</span>
-          <select required className="text-lg font-semibold p-1 rounded" name="class" defaultValue={subscriberData.class?.name!} value={subscriberData.class?.id!} onChange={handleChange}>
+          <select required className="text-lg font-semibold p-1 rounded" name="class" value={subscriberData.class?.id!} onChange={handleChange}>
             <option value=''>Selecione uma turma</option>
             {classes?.classes.map((classe) => (
               <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>
@@ -107,7 +106,7 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
             <strong>Salvar</strong>
           </button>
 
-          <button type="reset" className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+          <button type="reset" onClick={()=> setIsOpen(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
             <strong>Cancelar</strong>
           </button>
         </div>

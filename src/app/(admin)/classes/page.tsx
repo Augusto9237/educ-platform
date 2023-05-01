@@ -34,8 +34,8 @@ export interface ClasseProps {
 
 export default function Classes() {
     const { classes, reloadClasses, loadingUser, loadingClasses } = useContext(AdminContext);
-    const [selectedClasse, setSelectedClasse] = useState<ClasseProps>(null!);
-    const [deleteSubscriber] = useDeleteSubscriberMutation()
+    const [isOpen, setIsOpen] = useState(false);
+    const [deleteSubscriber] = useDeleteSubscriberMutation();
 
     async function handleDeleteSubscriber(id: string) {
         try {
@@ -76,9 +76,9 @@ export default function Classes() {
                                             <span className="flex justify-center">{classe.code}</span>
                                             <span className="flex justify-center">{classe.name}</span>
                                             <span className="flex justify-center">{classe.subscribers.length}</span>
-                                            <div className="flex justify-evenly">
-                                                <Dialog.Root>
-                                                    <Dialog.Trigger onClick={() => setSelectedClasse(classe)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                            <div className="flex gap-4">
+                                                <Dialog.Root modal={isOpen}>
+                                                    <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />
                                                         <span>Editar</span>
                                                     </Dialog.Trigger>
@@ -89,13 +89,13 @@ export default function Classes() {
                                                                 <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                                                     <strong className='text-textColor-200'>X</strong>
                                                                 </Dialog.Close>
-                                                                <FormEditClasse classe={classe}/>
+                                                                <FormEditClasse classe={classe} setIsOpen={setIsOpen}/>
                                                             </Dialog.Content>
                                                         </Dialog.Overlay>
                                                     </Dialog.Portal>
                                                 </Dialog.Root>
 
-                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex items-center gap-2 px-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/25  rounded hover:bg-textSecondaryColor-200/20'>
+                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                     <RiDeleteBin2Fill />
                                                     <span>Excluir</span>
                                                 </button>

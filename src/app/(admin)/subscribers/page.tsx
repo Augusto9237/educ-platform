@@ -22,6 +22,7 @@ export default function Subscribers() {
     const { subscribers, loadingUser, loadingSubscribers, reloadSubscribers } = useContext(AdminContext);
     const [selectedSubscriber, setSelectedSubscriber] = useState<SubscriberProps>(null!);
     const [deleteSubscriber] = useDeleteSubscriberMutation()
+    const [isOpen, setIsOpen] = useState(false);
 
     async function handleDeleteSubscriber(id: string) {
         try {
@@ -35,6 +36,11 @@ export default function Subscribers() {
         } catch (error) {
             toast.error('Erro! Tente novamente')
         }
+    }
+
+    function handleSelectedSubscriber(subscriber: SubscriberProps){
+        setSelectedSubscriber(subscriber);
+        setIsOpen(true);
     }
 
     return (
@@ -64,9 +70,9 @@ export default function Subscribers() {
                                             <span className="flex justify-center">{subscriber.class?.code}</span>
                                             <span className="flex justify-center">{subscriber.email}</span>
                                             <span className="flex justify-center">{`(${subscriber.phone!.slice(0, 2)}) ${subscriber.phone!.slice(2)}`}</span>
-                                            <div className='flex justify-evenly'>
-                                                <Dialog.Root>
-                                                    <Dialog.Trigger onClick={() => setSelectedSubscriber(subscriber)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                            <div className='flex gap-4'>
+                                                <Dialog.Root modal={isOpen}>
+                                                    <Dialog.Trigger onClick={() => handleSelectedSubscriber(subscriber)} className='flex flex-1 items-center justify-center gap-2 rounded text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />
                                                         <span>Editar</span>
                                                     </Dialog.Trigger>
@@ -77,12 +83,12 @@ export default function Subscribers() {
                                                                 <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
                                                                     <strong className='text-textColor-200'>X</strong>
                                                                 </Dialog.Close>
-                                                                <FormEditSubscriber subscriber={selectedSubscriber} />
+                                                                <FormEditSubscriber subscriber={selectedSubscriber} setIsOpen={setIsOpen} />
                                                             </Dialog.Content>
                                                         </Dialog.Overlay>
                                                     </Dialog.Portal>
                                                 </Dialog.Root>
-                                                <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex items-center gap-2 text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2  rounded hover:bg-textSecondaryColor-200/20'>
+                                                <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2 hover:bg-textSecondaryColor-200/20'>
                                                     <RiDeleteBin2Fill />
                                                     <span>Excluir</span>
                                                 </button>
