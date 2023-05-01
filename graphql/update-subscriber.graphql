@@ -1,6 +1,6 @@
-mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "") {
+mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "", $id1: ID = "", $disconnect: Boolean = false) {
   updateSubscriber(
-    data: {address: $address, email: $email, name: $name, phone: $phone}
+    data: {address: $address, email: $email, name: $name, phone: $phone, class: {connect: {id: $id1}, disconnect: $disconnect}}
     where: {id: $id}
   ) {
     id

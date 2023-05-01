@@ -9207,6 +9207,17 @@ export type RegisterSubscriberMutationVariables = Exact<{
 
 export type RegisterSubscriberMutation = { __typename?: 'Mutation', createSubscriber?: { __typename?: 'Subscriber', id: string, name: string, phone?: string | null, pictureUrl?: string | null, email: string, stage: Stage } | null, publishSubscriber?: { __typename?: 'Subscriber', id: string } | null };
 
+export type EditClassMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  code?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  id1?: InputMaybe<Scalars['ID']>;
+  id2?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type EditClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', updatedAt: any } | null };
+
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -9221,6 +9232,8 @@ export type EditSubscriberMutationVariables = Exact<{
   name?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
+  id1?: InputMaybe<Scalars['ID']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
@@ -9638,6 +9651,46 @@ export function useRegisterSubscriberMutation(baseOptions?: Apollo.MutationHookO
 export type RegisterSubscriberMutationHookResult = ReturnType<typeof useRegisterSubscriberMutation>;
 export type RegisterSubscriberMutationResult = Apollo.MutationResult<RegisterSubscriberMutation>;
 export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
+export const EditClassDocument = gql`
+    mutation EditClass($id: ID = "", $code: String = "", $name: String = "", $id1: ID = "", $id2: ID = "") {
+  updateClass(
+    data: {code: $code, name: $name, subscribers: {connect: {where: {id: $id1}}, disconnect: {id: $id2}}}
+    where: {id: $id}
+  ) {
+    updatedAt
+  }
+}
+    `;
+export type EditClassMutationFn = Apollo.MutationFunction<EditClassMutation, EditClassMutationVariables>;
+
+/**
+ * __useEditClassMutation__
+ *
+ * To run a mutation, you first call `useEditClassMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditClassMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editClassMutation, { data, loading, error }] = useEditClassMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      code: // value for 'code'
+ *      name: // value for 'name'
+ *      id1: // value for 'id1'
+ *      id2: // value for 'id2'
+ *   },
+ * });
+ */
+export function useEditClassMutation(baseOptions?: Apollo.MutationHookOptions<EditClassMutation, EditClassMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditClassMutation, EditClassMutationVariables>(EditClassDocument, options);
+      }
+export type EditClassMutationHookResult = ReturnType<typeof useEditClassMutation>;
+export type EditClassMutationResult = Apollo.MutationResult<EditClassMutation>;
+export type EditClassMutationOptions = Apollo.BaseMutationOptions<EditClassMutation, EditClassMutationVariables>;
 export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {
@@ -9680,9 +9733,9 @@ export type UpdateFinancePaymentMutationHookResult = ReturnType<typeof useUpdate
 export type UpdateFinancePaymentMutationResult = Apollo.MutationResult<UpdateFinancePaymentMutation>;
 export type UpdateFinancePaymentMutationOptions = Apollo.BaseMutationOptions<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>;
 export const EditSubscriberDocument = gql`
-    mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "") {
+    mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "", $id1: ID = "", $disconnect: Boolean = false) {
   updateSubscriber(
-    data: {address: $address, email: $email, name: $name, phone: $phone}
+    data: {address: $address, email: $email, name: $name, phone: $phone, class: {connect: {id: $id1}, disconnect: $disconnect}}
     where: {id: $id}
   ) {
     id
@@ -9710,6 +9763,8 @@ export type EditSubscriberMutationFn = Apollo.MutationFunction<EditSubscriberMut
  *      name: // value for 'name'
  *      phone: // value for 'phone'
  *      id: // value for 'id'
+ *      id1: // value for 'id1'
+ *      disconnect: // value for 'disconnect'
  *   },
  * });
  */

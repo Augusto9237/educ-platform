@@ -65,7 +65,6 @@ export default function Subscribers() {
                                             <span className="flex justify-center">{subscriber.email}</span>
                                             <span className="flex justify-center">{`(${subscriber.phone!.slice(0, 2)}) ${subscriber.phone!.slice(2)}`}</span>
                                             <div className='flex justify-evenly'>
-
                                                 <Dialog.Root>
                                                     <Dialog.Trigger onClick={() => setSelectedSubscriber(subscriber)} className='flex items-center gap-2 text-backgroundColor-500 bg-backgroundColor-400/30 px-2 rounded hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />

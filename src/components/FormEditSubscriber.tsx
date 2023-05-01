@@ -12,23 +12,33 @@ interface SubscriberDataProps {
   pictureUrl?: string | null;
   phone?: string | null;
   address?: string | null;
+  class?: {
+    __typename?: "Class";
+    code?: string;
+    id: string;
+    name?: string;
+  };
 }
 
 interface SubscriberProps {
   subscriber: SubscriberDataProps | null;
 }
 export function FormEditSubscriber({ subscriber }: SubscriberProps) {
-  const { reloadSubscribers } = useContext(AdminContext);
+  const { classes, reloadSubscribers } = useContext(AdminContext);
   const [updateSubscriber] = useEditSubscriberMutation()
+  const [selectedClassId, setSelectedClassId] = useState('');
   const [subscriberData, setSubscriberData] = useState<SubscriberDataProps>({
     id: subscriber?.id!,
     name: subscriber?.name!,
     email: subscriber?.email!,
     phone: subscriber?.phone!,
     address: subscriber?.address,
+    class: subscriber?.class
   })
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(subscriberData)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) => {
     const { name, value } = event.target;
 
     setSubscriberData((prevFormData) => ({
@@ -47,7 +57,8 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
           name: subscriberData?.name,
           email: subscriberData?.email,
           phone: subscriberData?.phone,
-          address: subscriberData?.address
+          address: subscriberData?.address,
+          id1: (subscriberData.class?.id || subscriberData.class)?.toString()
         }
       })
       toast.success('Cadastro do aluno atualizado com sucesso!')
@@ -79,6 +90,16 @@ export function FormEditSubscriber({ subscriber }: SubscriberProps) {
         <div className="flex flex-col p-2">
           <span className="text-textColor-600">Endereço</span>
           <input required className="text-lg font-semibold p-1 rounded" name="address" onChange={handleChange} value={subscriberData.address!} placeholder="Digite o seu endereço" />
+        </div>
+
+        <div className="flex flex-col p-2">
+          <span className="text-textColor-600">Turma</span>
+          <select required className="text-lg font-semibold p-1 rounded" name="class" defaultValue={subscriberData.class?.name!} value={subscriberData.class?.id!} onChange={handleChange}>
+            <option value=''>Selecione uma turma</option>
+            {classes?.classes.map((classe) => (
+              <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>
+            ))}
+          </select>
         </div>
 
         <div className="flex flex-1 gap-4 mt-4">
