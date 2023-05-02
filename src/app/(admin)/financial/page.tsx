@@ -24,7 +24,7 @@ export default function Financial() {
     const [updateFinance] = useUpdateFinancePaymentMutation();
     const [createFinance] = useCreateFinancesMutation();
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     async function handleUpdatePayment(id: string, status: boolean) {
         try {
@@ -69,8 +69,8 @@ export default function Financial() {
             {!loadingUser && (
                 <section className="relative flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
                     <h1 className="mx-auto text-lg font-bold">Mensalidades</h1>
-                    <Dialog.Root modal={isOpen}>
-                        <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex absolute top-4 right-4 items-center text-lg font-semibold rounded px-2 gap-2 justify-center text-textSecondaryColor-400 bg-textSecondaryColor-300/20'>
+                    <Dialog.Root modal={isOpenModal}>
+                        <Dialog.Trigger onClick={() => setIsOpenModal(true)} className='flex absolute top-4 right-4 items-center text-lg font-semibold rounded px-2 gap-2 justify-center text-textSecondaryColor-400 bg-textSecondaryColor-300/20'>
                             <RiMoneyDollarCircleFill />
                             <span>Adicionar Mensalidade</span>
                         </Dialog.Trigger>
@@ -99,7 +99,7 @@ export default function Financial() {
                                                     <strong>Salvar</strong>
                                                 </button>
 
-                                                <button type="reset" onClick={() => setIsOpen(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                                <button type="reset" onClick={() => setIsOpenModal(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
                                                     <strong>Cancelar</strong>
                                                 </button>
                                             </div>
@@ -121,7 +121,6 @@ export default function Financial() {
                                 const late = finance.finances.filter((payment) => payment.payment === false)
                                 const isOpen = finance.finances.filter((payment) => payment.payment !== true && payment.payment !== false)
 
-
                                 return (
                                     <Dialog.Trigger key={finance.id} className="relative grid grid-cols-3 pb-2 max-sm:overflow-x-auto" onClick={() => handleSelectedFinance(finance.finances)}>
                                         <span className="flex justify-center">{finance.name}</span>
@@ -129,11 +128,11 @@ export default function Financial() {
                                         <div className="flex flex-1">
                                             <span className={clsx('flex flex-1 items-center justify-center max-sm:flex-1 gap-2 rounded',
                                                 {
-                                                    "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": late.length === 0,
+                                                    "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": late.length === 0 && isOpen.length === 0,
                                                     "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": late.length > 0,
                                                     "text-buttonColor-600 bg-buttonColor-500/20": isOpen.length > 0
                                                 })}>
-                                                {late.length === 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
+                                                {late.length === 0 && isOpen.length === 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
                                                 {late.length > 0 && (<>{late.length} Atrasado{late.length > 1 ? 's' : null}</>)}
                                                 {late.length < 0 || isOpen.length > 0 && (<h1>{isOpen.length} Em aberto</h1>)}
                                             </span>
