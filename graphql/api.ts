@@ -9145,6 +9145,15 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type CreateFinancesMutationVariables = Exact<{
+  month?: InputMaybe<Scalars['Date']>;
+  value?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type CreateFinancesMutation = { __typename?: 'Mutation', createFinance?: { __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null, subscriber?: { __typename?: 'Subscriber', id: string, email: string, name: string } | null } | null };
+
 export type DeleteSubscriberMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
@@ -9238,6 +9247,53 @@ export type EditSubscriberMutationVariables = Exact<{
 export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber?: { __typename?: 'Subscriber', id: string, updatedAt: any } | null };
 
 
+export const CreateFinancesDocument = gql`
+    mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
+  createFinance(
+    data: {month: $month, value: $value, subscriber: {connect: {Subscriber: {id: $id}}}}
+  ) {
+    id
+    month
+    payment
+    value
+    subscriber {
+      ... on Subscriber {
+        id
+        email
+        name
+      }
+    }
+  }
+}
+    `;
+export type CreateFinancesMutationFn = Apollo.MutationFunction<CreateFinancesMutation, CreateFinancesMutationVariables>;
+
+/**
+ * __useCreateFinancesMutation__
+ *
+ * To run a mutation, you first call `useCreateFinancesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFinancesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFinancesMutation, { data, loading, error }] = useCreateFinancesMutation({
+ *   variables: {
+ *      month: // value for 'month'
+ *      value: // value for 'value'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCreateFinancesMutation(baseOptions?: Apollo.MutationHookOptions<CreateFinancesMutation, CreateFinancesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateFinancesMutation, CreateFinancesMutationVariables>(CreateFinancesDocument, options);
+      }
+export type CreateFinancesMutationHookResult = ReturnType<typeof useCreateFinancesMutation>;
+export type CreateFinancesMutationResult = Apollo.MutationResult<CreateFinancesMutation>;
+export type CreateFinancesMutationOptions = Apollo.BaseMutationOptions<CreateFinancesMutation, CreateFinancesMutationVariables>;
 export const DeleteSubscriberDocument = gql`
     mutation DeleteSubscriber($id: ID = "") {
   deleteSubscriber(where: {id: $id}) {

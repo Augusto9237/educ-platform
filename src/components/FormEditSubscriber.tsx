@@ -75,25 +75,25 @@ export function FormEditSubscriber({ subscriber, setIsOpen }: SubscriberProps) {
       <h1 className="mx-auto text-lg font-semibold">Editar Aluno(a)</h1>
       <div className="flex flex-col">
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">Nome Completo</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="name" onChange={handleChange} value={subscriberData.name!} />
+          <span className="text-textColor-600 font-semibold">Nome Completo</span>
+          <input required className="text-lg p-1 rounded" name="name" onChange={handleChange} value={subscriberData.name!} />
         </div>
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">E-mail</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="email" disabled value={subscriberData.email!} />
+          <span className="text-textColor-600 font-semibold">E-mail</span>
+          <input required className="text-lg p-1 rounded" name="email" disabled value={subscriberData.email!} />
         </div>
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">Telefone</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="phone" onChange={handleChange} value={subscriberData.phone!} placeholder="Digite o numero do seu telefone" />
+          <span className="text-textColor-600 font-semibold">Telefone</span>
+          <input required className="text-lg p-1 rounded" name="phone" onChange={handleChange} value={subscriberData.phone!} placeholder="Digite o numero do seu telefone" />
         </div>
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">Endereço</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="address" onChange={handleChange} value={subscriberData.address!} placeholder="Digite o seu endereço" />
+          <span className="text-textColor-600 font-semibold">Endereço</span>
+          <input required className="text-lg p-1 rounded" name="address" onChange={handleChange} value={subscriberData.address!} placeholder="Digite o seu endereço" />
         </div>
 
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">Turma</span>
-          <select required className="text-lg font-semibold p-1 rounded" name="class" value={subscriberData.class?.id!} onChange={handleChange}>
+          <span className="text-textColor-600 font-semibold">Turma</span>
+          <select required className="text-lg p-1 rounded" name="class" value={subscriberData.class?.id!} onChange={handleChange}>
             <option value=''>Selecione uma turma</option>
             {classes?.classes.map((classe) => (
               <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>

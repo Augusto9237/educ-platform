@@ -4,11 +4,11 @@ import * as Popover from '@radix-ui/react-popover';
 
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
+import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import { extractMonth } from '../../utils/getMonth';
 import { useContext, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
-import { useUpdateFinancePaymentMutation } from 'graphql/api';
+import { useCreateFinancesMutation, useUpdateFinancePaymentMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 export interface FinanceSubscriberProps {
     __typename?: "Finance" | undefined;
@@ -21,7 +21,10 @@ export interface FinanceSubscriberProps {
 export default function Financial() {
     const { subscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
-    const [updateFinance, publishFinance] = useUpdateFinancePaymentMutation()
+    const [updateFinance] = useUpdateFinancePaymentMutation();
+    const [createFinance] = useCreateFinancesMutation();
+
+    const [isOpen, setIsOpen] = useState(false);
 
     async function handleUpdatePayment(id: string, status: boolean) {
         try {
@@ -48,6 +51,15 @@ export default function Financial() {
         }
     }
 
+    async function createFinances() {
+        await createFinance({
+            variables: {
+        
+            }
+        })
+        
+    }
+
     async function handleSelectedFinance(finance: FinanceSubscriberProps[]) {
         setFinanceSubscriber(finance)
     }
@@ -55,15 +67,55 @@ export default function Financial() {
     return (
         <>
             {!loadingUser && (
-                <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+                <section className="relative flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
                     <h1 className="mx-auto text-lg font-bold">Mensalidades</h1>
+                    <Dialog.Root modal={isOpen}>
+                        <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex absolute top-4 right-4 items-center text-lg font-semibold rounded px-2 gap-2 justify-center text-textSecondaryColor-400 bg-textSecondaryColor-300/20'>
+                            <RiMoneyDollarCircleFill />
+                            <span>Adicionar Mensalidade</span>
+                        </Dialog.Trigger>
+                        <Dialog.Portal>
+                            <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                    <div className='flex flex-1 flex-col w-full text-textColor-600'>
+                                        <header className='flex flex-1 relative items-center'>
+                                            <h1 className="mx-auto text-lg font-semibold">Adicionar mensalidade</h1>
+                                            <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                <strong className='text-textColor-300'>X</strong>
+                                            </Dialog.Close>
+                                        </header>
+                                        <form  className='flex flex-col gap-2'>
+                                            <div className='flex flex-col'>
+                                                <label className="font-semibold">Data de Vencimento</label>
+                                                <input className="text-lg p-1 rounded" type='date' />
+                                            </div>
+                                            <div className='flex flex-col'>
+                                                <label className="font-semibold">Valor</label>
+                                                <input className="text-lg p-1 rounded" type='number' />
+                                            </div>
+
+                                            <div className="flex flex-1 gap-4 mt-4">
+                                                <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
+                                                    <strong>Salvar</strong>
+                                                </button>
+
+                                                <button type="reset" onClick={() => setIsOpen(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                                    <strong>Cancelar</strong>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </Dialog.Content>
+                            </Dialog.Overlay>
+                        </Dialog.Portal>
+                    </Dialog.Root>
                     <div className="flex flex-col gap-2">
                         <div className="grid grid-cols-3">
                             <strong className="flex justify-center">Aluno</strong>
                             <strong className="flex justify-center">Turma</strong>
                             <strong className="flex justify-center">Status</strong>
                         </div>
-                        <Dialog.Root>
+                        <Dialog.Root >
                             {subscribers?.subscribers.map((finance) => {
                                 const paids = finance.finances.filter((payment) => payment.payment === true)
                                 const late = finance.finances.filter((payment) => payment.payment === false)
