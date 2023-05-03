@@ -1365,7 +1365,7 @@ export type Finance = Node & {
   scheduledIn: Array<ScheduledOperation>;
   /** System stage field */
   stage: Stage;
-  subscriber?: Maybe<FinanceSubscriber>;
+  subscriber?: Maybe<Subscriber>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -1468,7 +1468,7 @@ export type FinanceCreateInput = {
   /** month input for default locale (en) */
   month?: InputMaybe<Scalars['Date']>;
   payment?: InputMaybe<Scalars['Boolean']>;
-  subscriber?: InputMaybe<FinanceSubscriberCreateOneInlineInput>;
+  subscriber?: InputMaybe<SubscriberCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   value?: InputMaybe<Scalars['Float']>;
 };
@@ -1583,10 +1583,7 @@ export type FinanceManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  /** All values in which the union is connected to the given models */
-  subscriber?: InputMaybe<FinanceSubscriberWhereInput>;
-  /** All values in which the union is empty */
-  subscriber_empty?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1637,93 +1634,13 @@ export enum FinanceOrderByInput {
   ValueDesc = 'value_DESC'
 }
 
-export type FinanceSubscriber = Subscriber;
-
-export type FinanceSubscriberConnectInput = {
-  Subscriber?: InputMaybe<SubscriberConnectInput>;
-};
-
-export type FinanceSubscriberCreateInput = {
-  Subscriber?: InputMaybe<SubscriberCreateInput>;
-};
-
-export type FinanceSubscriberCreateManyInlineInput = {
-  /** Connect multiple existing FinanceSubscriber documents */
-  connect?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
-  /** Create and connect multiple existing FinanceSubscriber documents */
-  create?: InputMaybe<Array<FinanceSubscriberCreateInput>>;
-};
-
-export type FinanceSubscriberCreateOneInlineInput = {
-  /** Connect one existing FinanceSubscriber document */
-  connect?: InputMaybe<FinanceSubscriberWhereUniqueInput>;
-  /** Create and connect one FinanceSubscriber document */
-  create?: InputMaybe<FinanceSubscriberCreateInput>;
-};
-
-export type FinanceSubscriberUpdateInput = {
-  Subscriber?: InputMaybe<SubscriberUpdateInput>;
-};
-
-export type FinanceSubscriberUpdateManyInlineInput = {
-  /** Connect multiple existing FinanceSubscriber documents */
-  connect?: InputMaybe<Array<FinanceSubscriberConnectInput>>;
-  /** Create and connect multiple FinanceSubscriber documents */
-  create?: InputMaybe<Array<FinanceSubscriberCreateInput>>;
-  /** Delete multiple FinanceSubscriber documents */
-  delete?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
-  /** Disconnect multiple FinanceSubscriber documents */
-  disconnect?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
-  /** Override currently-connected documents with multiple existing FinanceSubscriber documents */
-  set?: InputMaybe<Array<FinanceSubscriberWhereUniqueInput>>;
-  /** Update multiple FinanceSubscriber documents */
-  update?: InputMaybe<Array<FinanceSubscriberUpdateWithNestedWhereUniqueInput>>;
-  /** Upsert multiple FinanceSubscriber documents */
-  upsert?: InputMaybe<Array<FinanceSubscriberUpsertWithNestedWhereUniqueInput>>;
-};
-
-export type FinanceSubscriberUpdateManyWithNestedWhereInput = {
-  Subscriber?: InputMaybe<SubscriberUpdateManyWithNestedWhereInput>;
-};
-
-export type FinanceSubscriberUpdateOneInlineInput = {
-  /** Connect existing FinanceSubscriber document */
-  connect?: InputMaybe<FinanceSubscriberWhereUniqueInput>;
-  /** Create and connect one FinanceSubscriber document */
-  create?: InputMaybe<FinanceSubscriberCreateInput>;
-  /** Delete currently connected FinanceSubscriber document */
-  delete?: InputMaybe<Scalars['Boolean']>;
-  /** Disconnect currently connected FinanceSubscriber document */
-  disconnect?: InputMaybe<Scalars['Boolean']>;
-  /** Update single FinanceSubscriber document */
-  update?: InputMaybe<FinanceSubscriberUpdateWithNestedWhereUniqueInput>;
-  /** Upsert single FinanceSubscriber document */
-  upsert?: InputMaybe<FinanceSubscriberUpsertWithNestedWhereUniqueInput>;
-};
-
-export type FinanceSubscriberUpdateWithNestedWhereUniqueInput = {
-  Subscriber?: InputMaybe<SubscriberUpdateWithNestedWhereUniqueInput>;
-};
-
-export type FinanceSubscriberUpsertWithNestedWhereUniqueInput = {
-  Subscriber?: InputMaybe<SubscriberUpsertWithNestedWhereUniqueInput>;
-};
-
-export type FinanceSubscriberWhereInput = {
-  Subscriber?: InputMaybe<SubscriberWhereInput>;
-};
-
-export type FinanceSubscriberWhereUniqueInput = {
-  Subscriber?: InputMaybe<SubscriberWhereUniqueInput>;
-};
-
 export type FinanceUpdateInput = {
   /** Manage document localizations */
   localizations?: InputMaybe<FinanceUpdateLocalizationsInput>;
   /** month input for default locale (en) */
   month?: InputMaybe<Scalars['Date']>;
   payment?: InputMaybe<Scalars['Boolean']>;
-  subscriber?: InputMaybe<FinanceSubscriberUpdateOneInlineInput>;
+  subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
   value?: InputMaybe<Scalars['Float']>;
 };
 
@@ -1926,10 +1843,7 @@ export type FinanceWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  /** All values in which the union is connected to the given models */
-  subscriber?: InputMaybe<FinanceSubscriberWhereInput>;
-  /** All values in which the union is empty */
-  subscriber_empty?: InputMaybe<Scalars['Boolean']>;
+  subscriber?: InputMaybe<SubscriberWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -6950,6 +6864,7 @@ export type SubscriberFinancesArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FinanceOrderByInput>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<FinanceWhereInput>;
 };
@@ -9250,7 +9165,7 @@ export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber
 export const CreateFinancesDocument = gql`
     mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
-    data: {month: $month, value: $value, subscriber: {connect: {Subscriber: {id: $id}}}}
+    data: {month: $month, value: $value, subscriber: {connect: {id: $id}}}
   ) {
     id
     month

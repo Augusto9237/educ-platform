@@ -9670,8 +9670,8 @@
               }
             ],
             "type": {
-              "kind": "UNION",
-              "name": "FinanceSubscriber",
+              "kind": "OBJECT",
+              "name": "Subscriber",
               "ofType": null
             },
             "isDeprecated": false,
@@ -9944,7 +9944,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberCreateOneInlineInput",
+              "name": "SubscriberCreateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -10766,22 +10766,10 @@
           },
           {
             "name": "subscriber",
-            "description": "All values in which the union is connected to the given models",
+            "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "subscriber_empty",
-            "description": "All values in which the union is empty",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "SubscriberWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -11109,526 +11097,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "UNION",
-        "name": "FinanceSubscriber",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": [
-          {
-            "kind": "OBJECT",
-            "name": "Subscriber",
-            "ofType": null
-          }
-        ]
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberConnectInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberConnectInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberCreateInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberCreateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberCreateManyInlineInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "connect",
-            "description": "Connect multiple existing FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "create",
-            "description": "Create and connect multiple existing FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberCreateInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberCreateOneInlineInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "connect",
-            "description": "Connect one existing FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "create",
-            "description": "Create and connect one FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberCreateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpdateInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberUpdateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpdateManyInlineInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "connect",
-            "description": "Connect multiple existing FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberConnectInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "create",
-            "description": "Create and connect multiple FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberCreateInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "delete",
-            "description": "Delete multiple FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "disconnect",
-            "description": "Disconnect multiple FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "set",
-            "description": "Override currently-connected documents with multiple existing FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update",
-            "description": "Update multiple FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberUpdateWithNestedWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "upsert",
-            "description": "Upsert multiple FinanceSubscriber documents",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "FinanceSubscriberUpsertWithNestedWhereUniqueInput",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpdateManyWithNestedWhereInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberUpdateManyWithNestedWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpdateOneInlineInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "connect",
-            "description": "Connect existing FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "create",
-            "description": "Create and connect one FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberCreateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "delete",
-            "description": "Delete currently connected FinanceSubscriber document",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "disconnect",
-            "description": "Disconnect currently connected FinanceSubscriber document",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "update",
-            "description": "Update single FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberUpdateWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "upsert",
-            "description": "Upsert single FinanceSubscriber document",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberUpsertWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpdateWithNestedWhereUniqueInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberUpdateWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberUpsertWithNestedWhereUniqueInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberUpsertWithNestedWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberWhereInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "FinanceSubscriberWhereUniqueInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "Subscriber",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "SubscriberWhereUniqueInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "INPUT_OBJECT",
         "name": "FinanceUpdateInput",
         "description": null,
@@ -11675,7 +11143,7 @@
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberUpdateOneInlineInput",
+              "name": "SubscriberUpdateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13140,22 +12608,10 @@
           },
           {
             "name": "subscriber",
-            "description": "All values in which the union is connected to the given models",
+            "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FinanceSubscriberWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "subscriber_empty",
-            "description": "All values in which the union is empty",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "SubscriberWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -47754,7 +47210,7 @@
               },
               {
                 "name": "forceParentLocale",
-                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
+                "description": "Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.\n\nNote that `finances` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.\nThe first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -47778,7 +47234,7 @@
               },
               {
                 "name": "locales",
-                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `finances` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
+                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `finances` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.\nThe first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -47791,6 +47247,18 @@
                       "ofType": null
                     }
                   }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "FinanceOrderByInput",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,

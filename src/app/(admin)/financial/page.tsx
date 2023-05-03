@@ -18,9 +18,32 @@ export interface FinanceSubscriberProps {
     value?: number | null | undefined;
 }
 
+interface SubscriberProps {
+    __typename?: 'Subscriber';
+    id: string;
+    name: string;
+    email: string;
+    pictureUrl?: string | null;
+    phone?: string | null;
+    address?: string | null;
+    finances?: {
+        __typename?: "Finance" | undefined;
+        id: string;
+        month?: any;
+        payment?: boolean | null | undefined;
+        value?: number | null | undefined;
+    }[];
+}[];
+
+
 export default function Financial() {
     const { subscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
+    const [createFinanceData, setCreateFinanceData] = useState({
+        month: new Date(),
+        value: 0
+    })
+    console.log(createFinanceData);
     const [updateFinance] = useUpdateFinancePaymentMutation();
     const [createFinance] = useCreateFinancesMutation();
 
@@ -51,13 +74,36 @@ export default function Financial() {
         }
     }
 
-    async function createFinances() {
-        await createFinance({
-            variables: {
-        
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        setCreateFinanceData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
+
+
+    async function createFinances(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        try {
+            if (subscribers?.subscribers) {
+                await Promise.all(
+                    subscribers?.subscribers.map(async (subscriber: SubscriberProps) => {
+                        await createFinance({
+                            variables: {
+                                id: subscriber.id,
+                                month: createFinanceData.month,
+                                value: createFinanceData.value,
+                            },
+                        });
+                    })
+                );
             }
-        })
-        
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async function handleSelectedFinance(finance: FinanceSubscriberProps[]) {
@@ -84,14 +130,14 @@ export default function Financial() {
                                                 <strong className='text-textColor-300'>X</strong>
                                             </Dialog.Close>
                                         </header>
-                                        <form  className='flex flex-col gap-2'>
+                                        <form className='flex flex-col gap-2' onSubmit={createFinances}>
                                             <div className='flex flex-col'>
                                                 <label className="font-semibold">Data de Vencimento</label>
-                                                <input className="text-lg p-1 rounded" type='date' />
+                                                <input className="text-lg p-1 rounded" type='date' name='month' onChange={handleChange} />
                                             </div>
                                             <div className='flex flex-col'>
                                                 <label className="font-semibold">Valor</label>
-                                                <input className="text-lg p-1 rounded" type='number' />
+                                                <input className="text-lg p-1 rounded" type='number' name='value' onChange={handleChange} />
                                             </div>
 
                                             <div className="flex flex-1 gap-4 mt-4">

@@ -1,6 +1,6 @@
 mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
-    data: {month: $month, value: $value, subscriber: {connect: {Subscriber: {id: $id}}}}
+    data: {month: $month, value: $value, subscriber: {connect: {id: $id}}}
   ) {
     id
     month
