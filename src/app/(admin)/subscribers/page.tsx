@@ -3,10 +3,11 @@ import { Spinner } from '@/components/components/Spinner';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
-import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
-import { useDeleteSubscriberMutation} from 'graphql/api';
+import { RiEditBoxFill, RiDeleteBin2Fill, RiSearchLine } from "react-icons/ri";
+import { useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
+import { FaUserGraduate } from 'react-icons/fa';
 
 interface SubscriberProps {
     __typename?: 'Subscriber';
@@ -23,6 +24,7 @@ export default function Subscribers() {
     const [selectedSubscriber, setSelectedSubscriber] = useState<SubscriberProps>(null!);
     const [deleteSubscriber] = useDeleteSubscriberMutation()
     const [isOpen, setIsOpen] = useState(false);
+    const [isModalAddSubscriber, setIsmodalAddSubscriber] = useState(false)
 
     async function handleDeleteSubscriber(id: string) {
         try {
@@ -38,7 +40,7 @@ export default function Subscribers() {
         }
     }
 
-    function handleSelectedSubscriber(subscriber: SubscriberProps){
+    function handleSelectedSubscriber(subscriber: SubscriberProps) {
         setSelectedSubscriber(subscriber);
         setIsOpen(true);
     }
@@ -52,8 +54,59 @@ export default function Subscribers() {
             )}
 
             {!loadingUser && (
-                <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
-                    <h1 className="mx-auto text-lg font-bold">Alunos</h1>
+                <section className="flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+                    <header className='flex flex-1 justify-between items-center'>
+                        <div className='relative flex flex-1 max-w-[300px] rounded-md border-solid border border-textColor-200 overflow-hidden'>
+                            <button className='px-2'><RiSearchLine /></button>
+                            <input type='search' className='p-1 flex flex-1' placeholder='Pesquisar por aluno' />
+                        </div>
+                        <h1 className="mx-auto text-lg font-bold">Alunos</h1>
+                        <Dialog.Root modal={isModalAddSubscriber}>
+                            <Dialog.Trigger onClick={() => setIsmodalAddSubscriber(true)} className='flex flex-1 max-w-[300px] items-center font-semibold rounded-md p-2 gap-2 justify-center text-backgroundColor-500 bg-backgroundColor-400/25'>
+                                <FaUserGraduate />
+                                <span className='leading-none'>Adicionar Aluno</span>
+                            </Dialog.Trigger>
+                            <Dialog.Portal>
+                                <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+
+                                        <div className='flex flex-1 flex-col w-full text-textColor-600 gap-2'>
+                                            <header className='flex flex-1 relative items-center'>
+                                                <h1 className="mx-auto text-lg font-semibold">Adicionar mensalidade</h1>
+                                                <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                    <strong className='text-textColor-300'>X</strong>
+                                                </Dialog.Close>
+                                            </header>
+                                            <form className='flex flex-col gap-2'>
+                                                <div className='flex flex-col'>
+                                                    <label className="font-semibold">Data de Vencimento</label>
+                                                    <input className="text-lg p-1 rounded" required type='date' name='month' />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <label className="font-semibold">Valor</label>
+                                                    <input className="text-lg p-1 rounded" required type='number' name='value' />
+                                                </div>
+
+                                                <div className="flex flex-1 gap-4 mt-4">
+                                                    <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
+                                                        <strong>Salvar</strong>
+                                                    </button>
+
+                                                    <button type="reset" onClick={() => setIsmodalAddSubscriber(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                                        <strong>Cancelar</strong>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </Dialog.Content>
+
+                                </Dialog.Overlay>
+                            </Dialog.Portal>
+                        </Dialog.Root>
+                    </header>
+
+
                     <div className="flex flex-col gap-2">
                         <div className="grid grid-cols-5">
                             <strong className="flex justify-center">Nome</strong>
