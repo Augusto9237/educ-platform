@@ -1,4 +1,4 @@
-mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
+mutation CreateFinances($month: String = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
     data: {month: $month, value: $value, subscriber: {connect: {id: $id}}}
   ) {
@@ -6,12 +6,5 @@ mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
     month
     payment
     value
-    subscriber {
-      ... on Subscriber {
-        id
-        email
-        name
-      }
-    }
   }
 }

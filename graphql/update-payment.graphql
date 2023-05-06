@@ -1,12 +1,10 @@
 mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {
     id
-    locale
     month
     payment
   }
   publishFinance(where: {id: $id}) {
     id
-    stage
   }
 }

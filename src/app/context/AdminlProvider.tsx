@@ -17,11 +17,7 @@ export const AdminProvider = ({ children }: AuthProps) => {
         },
     });
     const { data: subscribers, loading: loadingSubscribers, refetch: reloadSubscribers } = useGetSubscribersDataQuery()
-    const { data: classes, loading: loadingClasses, refetch: reloadClasses } = useGetClassesQuery({
-        variables: {
-            id: user?.teacher?.id
-        }
-    })
+    const { data: classes, loading: loadingClasses, refetch: reloadClasses } = useGetClassesQuery()
 
     return (
         <AdminContext.Provider value={{

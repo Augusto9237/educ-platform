@@ -1352,11 +1352,7 @@ export type Finance = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  /** System Locale field */
-  locale: Locale;
-  /** Get the other localizations for this document */
-  localizations: Array<Finance>;
-  month?: Maybe<Scalars['Date']>;
+  month?: Maybe<Scalars['String']>;
   payment?: Maybe<Scalars['Boolean']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -1371,11 +1367,6 @@ export type Finance = Node & {
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
   value?: Maybe<Scalars['Float']>;
-};
-
-
-export type FinanceCreatedAtArgs = {
-  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -1396,17 +1387,6 @@ export type FinanceHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
-};
-
-
-export type FinanceLocalizationsArgs = {
-  includeCurrent?: Scalars['Boolean'];
-  locales?: Array<Locale>;
-};
-
-
-export type FinancePublishedAtArgs = {
-  variation?: SystemDateTimeFieldVariation;
 };
 
 
@@ -1434,11 +1414,6 @@ export type FinanceSubscriberArgs = {
 };
 
 
-export type FinanceUpdatedAtArgs = {
-  variation?: SystemDateTimeFieldVariation;
-};
-
-
 export type FinanceUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -1463,31 +1438,11 @@ export type FinanceConnection = {
 
 export type FinanceCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  /** Inline mutations for managing document localizations excluding the default locale */
-  localizations?: InputMaybe<FinanceCreateLocalizationsInput>;
-  /** month input for default locale (en) */
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   subscriber?: InputMaybe<SubscriberCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   value?: InputMaybe<Scalars['Float']>;
-};
-
-export type FinanceCreateLocalizationDataInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  month?: InputMaybe<Scalars['Date']>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type FinanceCreateLocalizationInput = {
-  /** Localization input */
-  data: FinanceCreateLocalizationDataInput;
-  locale: Locale;
-};
-
-export type FinanceCreateLocalizationsInput = {
-  /** Create localizations for the newly-created document */
-  create?: InputMaybe<Array<FinanceCreateLocalizationInput>>;
 };
 
 export type FinanceCreateManyInlineInput = {
@@ -1561,6 +1516,25 @@ export type FinanceManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  month?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  month_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  month_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  month_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  month_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  month_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  month_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  month_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  month_starts_with?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   /** Any other value that exists and is not equal to the given value. */
   payment_not?: InputMaybe<Scalars['Boolean']>;
@@ -1635,32 +1609,10 @@ export enum FinanceOrderByInput {
 }
 
 export type FinanceUpdateInput = {
-  /** Manage document localizations */
-  localizations?: InputMaybe<FinanceUpdateLocalizationsInput>;
-  /** month input for default locale (en) */
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
   value?: InputMaybe<Scalars['Float']>;
-};
-
-export type FinanceUpdateLocalizationDataInput = {
-  month?: InputMaybe<Scalars['Date']>;
-};
-
-export type FinanceUpdateLocalizationInput = {
-  data: FinanceUpdateLocalizationDataInput;
-  locale: Locale;
-};
-
-export type FinanceUpdateLocalizationsInput = {
-  /** Localizations to create */
-  create?: InputMaybe<Array<FinanceCreateLocalizationInput>>;
-  /** Localizations to delete */
-  delete?: InputMaybe<Array<Locale>>;
-  /** Localizations to update */
-  update?: InputMaybe<Array<FinanceUpdateLocalizationInput>>;
-  upsert?: InputMaybe<Array<FinanceUpsertLocalizationInput>>;
 };
 
 export type FinanceUpdateManyInlineInput = {
@@ -1681,26 +1633,9 @@ export type FinanceUpdateManyInlineInput = {
 };
 
 export type FinanceUpdateManyInput = {
-  /** Optional updates to localizations */
-  localizations?: InputMaybe<FinanceUpdateManyLocalizationsInput>;
-  /** month input for default locale (en) */
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   value?: InputMaybe<Scalars['Float']>;
-};
-
-export type FinanceUpdateManyLocalizationDataInput = {
-  month?: InputMaybe<Scalars['Date']>;
-};
-
-export type FinanceUpdateManyLocalizationInput = {
-  data: FinanceUpdateManyLocalizationDataInput;
-  locale: Locale;
-};
-
-export type FinanceUpdateManyLocalizationsInput = {
-  /** Localizations to update */
-  update?: InputMaybe<Array<FinanceUpdateManyLocalizationInput>>;
 };
 
 export type FinanceUpdateManyWithNestedWhereInput = {
@@ -1737,12 +1672,6 @@ export type FinanceUpsertInput = {
   create: FinanceCreateInput;
   /** Update document if it exists */
   update: FinanceUpdateInput;
-};
-
-export type FinanceUpsertLocalizationInput = {
-  create: FinanceCreateLocalizationDataInput;
-  locale: Locale;
-  update: FinanceUpdateLocalizationDataInput;
 };
 
 export type FinanceUpsertWithNestedWhereUniqueInput = {
@@ -1806,21 +1735,25 @@ export type FinanceWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  month?: InputMaybe<Scalars['Date']>;
-  /** All values greater than the given value. */
-  month_gt?: InputMaybe<Scalars['Date']>;
-  /** All values greater than or equal the given value. */
-  month_gte?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  month_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  month_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are contained in given list. */
-  month_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
-  /** All values less than the given value. */
-  month_lt?: InputMaybe<Scalars['Date']>;
-  /** All values less than or equal the given value. */
-  month_lte?: InputMaybe<Scalars['Date']>;
+  month_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Any other value that exists and is not equal to the given value. */
-  month_not?: InputMaybe<Scalars['Date']>;
+  month_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  month_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  month_not_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are not contained in given list. */
-  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  month_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  month_starts_with?: InputMaybe<Scalars['String']>;
   payment?: InputMaybe<Scalars['Boolean']>;
   /** Any other value that exists and is not equal to the given value. */
   payment_not?: InputMaybe<Scalars['Boolean']>;
@@ -2962,7 +2895,8 @@ export enum LessonType {
 /** Locale system enumeration */
 export enum Locale {
   /** System locale */
-  En = 'en'
+  En = 'en',
+  PtBr = 'pt_BR'
 }
 
 /** Representing a geolocation point with latitude and longitude */
@@ -3584,11 +3518,8 @@ export type MutationPublishClassArgs = {
 
 
 export type MutationPublishFinanceArgs = {
-  locales?: InputMaybe<Array<Locale>>;
-  publishBase?: InputMaybe<Scalars['Boolean']>;
   to?: Array<Stage>;
   where: FinanceWhereUniqueInput;
-  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -3647,11 +3578,8 @@ export type MutationPublishManyClassesConnectionArgs = {
 
 
 export type MutationPublishManyFinancesArgs = {
-  locales?: InputMaybe<Array<Locale>>;
-  publishBase?: InputMaybe<Scalars['Boolean']>;
   to?: Array<Stage>;
   where?: InputMaybe<FinanceManyWhereInput>;
-  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -3661,12 +3589,9 @@ export type MutationPublishManyFinancesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   from?: InputMaybe<Stage>;
   last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  publishBase?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   to?: Array<Stage>;
   where?: InputMaybe<FinanceManyWhereInput>;
-  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -3798,13 +3723,10 @@ export type MutationSchedulePublishClassArgs = {
 
 
 export type MutationSchedulePublishFinanceArgs = {
-  locales?: InputMaybe<Array<Locale>>;
-  publishBase?: InputMaybe<Scalars['Boolean']>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: FinanceWhereUniqueInput;
-  withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -3868,10 +3790,8 @@ export type MutationScheduleUnpublishClassArgs = {
 
 export type MutationScheduleUnpublishFinanceArgs = {
   from?: Array<Stage>;
-  locales?: InputMaybe<Array<Locale>>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
-  unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where: FinanceWhereUniqueInput;
 };
 
@@ -3932,8 +3852,6 @@ export type MutationUnpublishClassArgs = {
 
 export type MutationUnpublishFinanceArgs = {
   from?: Array<Stage>;
-  locales?: InputMaybe<Array<Locale>>;
-  unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where: FinanceWhereUniqueInput;
 };
 
@@ -3992,8 +3910,6 @@ export type MutationUnpublishManyClassesConnectionArgs = {
 
 export type MutationUnpublishManyFinancesArgs = {
   from?: Array<Stage>;
-  locales?: InputMaybe<Array<Locale>>;
-  unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<FinanceManyWhereInput>;
 };
 
@@ -4004,10 +3920,8 @@ export type MutationUnpublishManyFinancesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>;
   from?: Array<Stage>;
   last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']>;
   stage?: InputMaybe<Stage>;
-  unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<FinanceManyWhereInput>;
 };
 
@@ -9061,13 +8975,13 @@ export enum _SystemDateTimeFieldVariation {
 }
 
 export type CreateFinancesMutationVariables = Exact<{
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   value?: InputMaybe<Scalars['Float']>;
   id?: InputMaybe<Scalars['ID']>;
 }>;
 
 
-export type CreateFinancesMutation = { __typename?: 'Mutation', createFinance?: { __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null, subscriber?: { __typename?: 'Subscriber', id: string, email: string, name: string } | null } | null };
+export type CreateFinancesMutation = { __typename?: 'Mutation', createFinance?: { __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null } | null };
 
 export type DeleteSubscriberMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9076,26 +8990,24 @@ export type DeleteSubscriberMutationVariables = Exact<{
 
 export type DeleteSubscriberMutation = { __typename?: 'Mutation', deleteSubscriber?: { __typename?: 'Subscriber', id: string, name: string, updatedAt: any } | null };
 
-export type GetClassesQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-}>;
+export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetClassesQuery = { __typename?: 'Query', classes: Array<{ __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, pictureUrl?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> }> }> };
+export type GetClassesQuery = { __typename?: 'Query', classes: Array<{ __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, pictureUrl?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> }> };
 
 export type GetFrequenciesClassByMonthQueryVariables = Exact<{
-  code?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   monthStart?: InputMaybe<Scalars['DateTime']>;
   monthEnd?: InputMaybe<Scalars['DateTime']>;
+  idClass?: InputMaybe<Scalars['ID']>;
 }>;
 
 
 export type GetFrequenciesClassByMonthQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
 
 export type GetFrequenciesClassQueryVariables = Exact<{
-  code?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
+  idClass?: InputMaybe<Scalars['ID']>;
 }>;
 
 
@@ -9104,14 +9016,14 @@ export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Arra
 export type GetSubscribersDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
+export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
 
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: any | null, payment?: boolean | null, value?: number | null }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }> } | null };
 
 export type GetTeacherQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9138,7 +9050,7 @@ export type EditClassMutationVariables = Exact<{
 }>;
 
 
-export type EditClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', updatedAt: any } | null };
+export type EditClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
@@ -9146,7 +9058,7 @@ export type UpdateFinancePaymentMutationVariables = Exact<{
 }>;
 
 
-export type UpdateFinancePaymentMutation = { __typename?: 'Mutation', updateFinance?: { __typename?: 'Finance', id: string, locale: Locale, month?: any | null, payment?: boolean | null } | null, publishFinance?: { __typename?: 'Finance', id: string, stage: Stage } | null };
+export type UpdateFinancePaymentMutation = { __typename?: 'Mutation', updateFinance?: { __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null } | null, publishFinance?: { __typename?: 'Finance', id: string } | null };
 
 export type EditSubscriberMutationVariables = Exact<{
   address?: InputMaybe<Scalars['String']>;
@@ -9155,7 +9067,6 @@ export type EditSubscriberMutationVariables = Exact<{
   phone?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   id1?: InputMaybe<Scalars['ID']>;
-  disconnect?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
@@ -9163,7 +9074,7 @@ export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber
 
 
 export const CreateFinancesDocument = gql`
-    mutation CreateFinances($month: Date = "", $value: Float = 1.5, $id: ID = "") {
+    mutation CreateFinances($month: String = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
     data: {month: $month, value: $value, subscriber: {connect: {id: $id}}}
   ) {
@@ -9171,13 +9082,6 @@ export const CreateFinancesDocument = gql`
     month
     payment
     value
-    subscriber {
-      ... on Subscriber {
-        id
-        email
-        name
-      }
-    }
   }
 }
     `;
@@ -9245,8 +9149,8 @@ export type DeleteSubscriberMutationHookResult = ReturnType<typeof useDeleteSubs
 export type DeleteSubscriberMutationResult = Apollo.MutationResult<DeleteSubscriberMutation>;
 export type DeleteSubscriberMutationOptions = Apollo.BaseMutationOptions<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>;
 export const GetClassesDocument = gql`
-    query GetClasses($id: ID = "") {
-  classes(where: {teacher: {Teacher: {id: $id}}}) {
+    query GetClasses {
+  classes {
     code
     id
     name
@@ -9270,12 +9174,6 @@ export const GetClassesDocument = gql`
           }
         }
       }
-      finances {
-        id
-        month
-        payment
-        value
-      }
     }
   }
 }
@@ -9293,7 +9191,6 @@ export const GetClassesDocument = gql`
  * @example
  * const { data, loading, error } = useGetClassesQuery({
  *   variables: {
- *      id: // value for 'id'
  *   },
  * });
  */
@@ -9309,9 +9206,9 @@ export type GetClassesQueryHookResult = ReturnType<typeof useGetClassesQuery>;
 export type GetClassesLazyQueryHookResult = ReturnType<typeof useGetClassesLazyQuery>;
 export type GetClassesQueryResult = Apollo.QueryResult<GetClassesQuery, GetClassesQueryVariables>;
 export const GetFrequenciesClassByMonthDocument = gql`
-    query GetFrequenciesClassByMonth($code: String = "", $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime) {
+    query GetFrequenciesClassByMonth($id: ID = "", $monthStart: DateTime, $monthEnd: DateTime, $idClass: ID = "") {
   frequencies(
-    where: {turma: {code: $code}, AND: {turma: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
+    where: {turma: {id: $idClass}, AND: {turma: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
   ) {
     createdAt
     id
@@ -9341,10 +9238,10 @@ export const GetFrequenciesClassByMonthDocument = gql`
  * @example
  * const { data, loading, error } = useGetFrequenciesClassByMonthQuery({
  *   variables: {
- *      code: // value for 'code'
  *      id: // value for 'id'
  *      monthStart: // value for 'monthStart'
  *      monthEnd: // value for 'monthEnd'
+ *      idClass: // value for 'idClass'
  *   },
  * });
  */
@@ -9360,9 +9257,9 @@ export type GetFrequenciesClassByMonthQueryHookResult = ReturnType<typeof useGet
 export type GetFrequenciesClassByMonthLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthLazyQuery>;
 export type GetFrequenciesClassByMonthQueryResult = Apollo.QueryResult<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>;
 export const GetFrequenciesClassDocument = gql`
-    query GetFrequenciesClass($code: String = "", $id: ID = "") {
+    query GetFrequenciesClass($id: ID = "", $idClass: ID = "") {
   frequencies(
-    where: {turma: {code: $code}, AND: {turma: {subscribers_some: {id: $id}}}}
+    where: {turma: {id: $idClass}, AND: {turma: {subscribers_some: {id: $id}}}}
   ) {
     createdAt
     id
@@ -9392,8 +9289,8 @@ export const GetFrequenciesClassDocument = gql`
  * @example
  * const { data, loading, error } = useGetFrequenciesClassQuery({
  *   variables: {
- *      code: // value for 'code'
  *      id: // value for 'id'
+ *      idClass: // value for 'idClass'
  *   },
  * });
  */
@@ -9623,6 +9520,7 @@ export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<Regis
 export const EditClassDocument = gql`
     mutation EditClass($id: ID = "", $code: String = "", $name: String = "") {
   updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
+    id
     updatedAt
   }
 }
@@ -9659,13 +9557,11 @@ export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {
     id
-    locale
     month
     payment
   }
   publishFinance(where: {id: $id}) {
     id
-    stage
   }
 }
     `;
@@ -9697,9 +9593,9 @@ export type UpdateFinancePaymentMutationHookResult = ReturnType<typeof useUpdate
 export type UpdateFinancePaymentMutationResult = Apollo.MutationResult<UpdateFinancePaymentMutation>;
 export type UpdateFinancePaymentMutationOptions = Apollo.BaseMutationOptions<UpdateFinancePaymentMutation, UpdateFinancePaymentMutationVariables>;
 export const EditSubscriberDocument = gql`
-    mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "", $id1: ID = "", $disconnect: Boolean = false) {
+    mutation EditSubscriber($address: String = "", $email: String = "", $name: String = "", $phone: String = "", $id: ID = "", $id1: ID = "") {
   updateSubscriber(
-    data: {address: $address, email: $email, name: $name, phone: $phone, class: {connect: {id: $id1}, disconnect: $disconnect}}
+    data: {address: $address, email: $email, name: $name, phone: $phone, class: {connect: {id: $id1}}}
     where: {id: $id}
   ) {
     id
@@ -9728,7 +9624,6 @@ export type EditSubscriberMutationFn = Apollo.MutationFunction<EditSubscriberMut
  *      phone: // value for 'phone'
  *      id: // value for 'id'
  *      id1: // value for 'id1'
- *      disconnect: // value for 'disconnect'
  *   },
  * });
  */
@@ -9825,15 +9720,13 @@ export type DocumentVersionFieldPolicy = {
 	revision?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FinanceKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'locale' | 'localizations' | 'month' | 'payment' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'value' | FinanceKeySpecifier)[];
+export type FinanceKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'month' | 'payment' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'value' | FinanceKeySpecifier)[];
 export type FinanceFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	locale?: FieldPolicy<any> | FieldReadFunction<any>,
-	localizations?: FieldPolicy<any> | FieldReadFunction<any>,
 	month?: FieldPolicy<any> | FieldReadFunction<any>,
 	payment?: FieldPolicy<any> | FieldReadFunction<any>,
 	publishedAt?: FieldPolicy<any> | FieldReadFunction<any>,

@@ -10,6 +10,8 @@ import { useContext, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { useCreateFinancesMutation, useUpdateFinancePaymentMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
+import { stringify } from 'querystring';
+import { Spinner } from '@/components/components/Spinner';
 export interface FinanceSubscriberProps {
     __typename?: "Finance" | undefined;
     id: string;
@@ -37,17 +39,16 @@ interface SubscriberProps {
 
 
 export default function Financial() {
-    const { subscribers, loadingUser } = useContext(AdminContext);
+    const { subscribers, reloadSubscribers, loadingUser } = useContext(AdminContext);
     const [financeSubscriber, setFinanceSubscriber] = useState<FinanceSubscriberProps[]>([]);
     const [createFinanceData, setCreateFinanceData] = useState({
-        month: new Date(),
-        value: 0
+        month: '',
+        value: ''
     })
-    console.log(createFinanceData);
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [loadingCreatePayment, setLoadingCreatePayment] = useState(false);
     const [updateFinance] = useUpdateFinancePaymentMutation();
     const [createFinance] = useCreateFinancesMutation();
-
-    const [isOpenModal, setIsOpenModal] = useState(false);
 
     async function handleUpdatePayment(id: string, status: boolean) {
         try {
@@ -86,22 +87,27 @@ export default function Financial() {
 
     async function createFinances(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-
         try {
             if (subscribers?.subscribers) {
+                setLoadingCreatePayment(true)
                 await Promise.all(
                     subscribers?.subscribers.map(async (subscriber: SubscriberProps) => {
                         await createFinance({
                             variables: {
                                 id: subscriber.id,
                                 month: createFinanceData.month,
-                                value: createFinanceData.value,
+                                value: parseFloat(createFinanceData.value),
                             },
                         });
                     })
                 );
+                setLoadingCreatePayment(false);
+                toast.success('Pagamentos criados com sucesso!')
+                reloadSubscribers();
+                setIsOpenModal(false)
             }
         } catch (error) {
+            toast.error('Algo deu errado, tente novamente')
             console.log(error);
         }
     }
@@ -122,36 +128,43 @@ export default function Financial() {
                         </Dialog.Trigger>
                         <Dialog.Portal>
                             <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                                <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                                    <div className='flex flex-1 flex-col w-full text-textColor-600'>
-                                        <header className='flex flex-1 relative items-center'>
-                                            <h1 className="mx-auto text-lg font-semibold">Adicionar mensalidade</h1>
-                                            <Dialog.Close className='absolute right-0 text-textColor-700'>
-                                                <strong className='text-textColor-300'>X</strong>
-                                            </Dialog.Close>
-                                        </header>
-                                        <form className='flex flex-col gap-2' onSubmit={createFinances}>
-                                            <div className='flex flex-col'>
-                                                <label className="font-semibold">Data de Vencimento</label>
-                                                <input className="text-lg p-1 rounded" type='date' name='month' onChange={handleChange} />
-                                            </div>
-                                            <div className='flex flex-col'>
-                                                <label className="font-semibold">Valor</label>
-                                                <input className="text-lg p-1 rounded" type='number' name='value' onChange={handleChange} />
-                                            </div>
+                                {loadingCreatePayment && (
+                                    <Spinner />
+                                )}
+                                {!loadingCreatePayment && (
+                                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
 
-                                            <div className="flex flex-1 gap-4 mt-4">
-                                                <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
-                                                    <strong>Salvar</strong>
-                                                </button>
+                                        <div className='flex flex-1 flex-col w-full text-textColor-600'>
+                                            <header className='flex flex-1 relative items-center'>
+                                                <h1 className="mx-auto text-lg font-semibold">Adicionar mensalidade</h1>
+                                                <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                    <strong className='text-textColor-300'>X</strong>
+                                                </Dialog.Close>
+                                            </header>
+                                            <form className='flex flex-col gap-2' onSubmit={createFinances}>
+                                                <div className='flex flex-col'>
+                                                    <label className="font-semibold">Data de Vencimento</label>
+                                                    <input className="text-lg p-1 rounded" type='date' name='month' onChange={handleChange} />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <label className="font-semibold">Valor</label>
+                                                    <input className="text-lg p-1 rounded" type='number' name='value' onChange={handleChange} />
+                                                </div>
 
-                                                <button type="reset" onClick={() => setIsOpenModal(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
-                                                    <strong>Cancelar</strong>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </Dialog.Content>
+                                                <div className="flex flex-1 gap-4 mt-4">
+                                                    <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
+                                                        <strong>Salvar</strong>
+                                                    </button>
+
+                                                    <button type="reset" onClick={() => setIsOpenModal(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                                        <strong>Cancelar</strong>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </Dialog.Content>
+                                )}
                             </Dialog.Overlay>
                         </Dialog.Portal>
                     </Dialog.Root>
@@ -180,7 +193,7 @@ export default function Financial() {
                                                 })}>
                                                 {late.length === 0 && isOpen.length === 0 && (<>{paids.length} Pago{paids.length > 1 ? 's' : null}</>)}
                                                 {late.length > 0 && (<>{late.length} Atrasado{late.length > 1 ? 's' : null}</>)}
-                                                {late.length < 0 || isOpen.length > 0 && (<h1>{isOpen.length} Em aberto</h1>)}
+                                                {late.length === 0 && isOpen.length > 0 && (<h1>{isOpen.length} Em aberto</h1>)}
                                             </span>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

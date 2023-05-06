@@ -14,7 +14,7 @@ export interface GlobalContextProps {
     classes: GetClassesQuery | undefined;
     loadingClasses: boolean;
     reloadClasses: (variables?: Partial<Exact<{
-        id?: InputMaybe<string> | undefined;
+        [key: string]: never;
     }>> | undefined) => Promise<ApolloQueryResult<GetClassesQuery>>
 }
 

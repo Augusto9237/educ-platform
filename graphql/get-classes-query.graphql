@@ -1,5 +1,5 @@
-query GetClasses($id: ID = "") {
-  classes(where: {teacher: {Teacher: {id: $id}}}) {
+query GetClasses {
+  classes {
     code
     id
     name
@@ -22,12 +22,6 @@ query GetClasses($id: ID = "") {
             fourthReview
           }
         }
-      }
-      finances {
-        id
-        month
-        payment
-        value
       }
     }
   }
