@@ -53,10 +53,8 @@ export function FormUser({ session, setIsOpenAddSubscriber }: FormProps) {
         signOut({ callbackUrl: 'http://localhost:3000/' })
         toast.success('Cadastrado com sucesso! faça login novamente')
       }
-      if(!session) {
-        if(setIsOpenAddSubscriber){
-          setIsOpenAddSubscriber(false)
-        }
+      if (!session && setIsOpenAddSubscriber) {
+        setIsOpenAddSubscriber(false)
         toast.success('Aluno cadastrado com sucesso')
       }
 
