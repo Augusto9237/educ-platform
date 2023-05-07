@@ -2,8 +2,7 @@ import { SetStateAction, useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import { ClasseProps } from "../app/(admin)/classes/page";
 import { AdminContext } from "../app/context/AdminContext";
-import { useClassMutation } from "graphql/api";
-import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { useClassMutation, useCreateClassesMutation } from "graphql/api";
 interface ClassesProps {
   classe?: ClasseProps | null;
   setIsOpen: (value: SetStateAction<boolean>) => void
@@ -15,7 +14,8 @@ export function FormEditClasse({ classe, setIsOpen }: ClassesProps) {
     code: classe?.code,
     name: classe?.name,
   })
-  const [ updateClass, createClass] = useClassMutation()
+  const [updateClass] = useClassMutation()
+  const [createClass] = useCreateClassesMutation()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -52,7 +52,7 @@ export function FormEditClasse({ classe, setIsOpen }: ClassesProps) {
     event.preventDefault();
 
     try {
-      await updateClass({
+      await createClass({
         variables: {
           idTeacher: user?.teacher?.id,
           codeCreate: classeData.code,
@@ -71,7 +71,7 @@ export function FormEditClasse({ classe, setIsOpen }: ClassesProps) {
   }
 
   return (
-    <form className="flex flex-col flex-1 w-full h-full  max-sm:justify-center" onSubmit={classe? handleUpdate : handCreate}>
+    <form className="flex flex-col flex-1 w-full h-full  max-sm:justify-center" onSubmit={classe ? handleUpdate : handCreate}>
       <div className="flex flex-col gap-2">
         <div className="flex flex-col p-2 gap-2">
           <span className="text-textColor-600  font-semibold">Código</span>

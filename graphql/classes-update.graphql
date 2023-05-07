@@ -1,0 +1,7 @@
+mutation Class($id: ID = "", $code: String = "", $name: String = "") {
+  updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+ 
+}

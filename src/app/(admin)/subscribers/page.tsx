@@ -1,12 +1,14 @@
 "use client";
 import { Spinner } from '@/components/components/Spinner';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { RiEditBoxFill, RiDeleteBin2Fill, RiSearchLine } from "react-icons/ri";
 import { useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
+import { FormUser } from '@/components/components/FormUser';
+import { FaUserGraduate } from 'react-icons/fa';
 
 
 interface SubscriberProps {
@@ -24,7 +26,15 @@ export default function Subscribers() {
     const [selectedSubscriber, setSelectedSubscriber] = useState<SubscriberProps>(null!);
     const [deleteSubscriber] = useDeleteSubscriberMutation()
     const [isOpen, setIsOpen] = useState(false);
-   
+    const [isModalAddSubscriber, setIsmodalAddSubscriber] = useState(false);
+
+    useEffect(() => {
+
+        reloadSubscribers()
+
+    }, [isModalAddSubscriber, reloadSubscribers])
+
+
 
     async function handleDeleteSubscriber(id: string) {
         try {
@@ -63,7 +73,7 @@ export default function Subscribers() {
 
                         <h1 className="mx-auto text-lg font-bold">Alunos</h1>
 
-                        {/* <div className='flex justify-end'>
+                        <div className='flex justify-end'>
                             <Dialog.Root modal={isModalAddSubscriber}>
                                 <Dialog.Trigger onClick={() => setIsmodalAddSubscriber(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
                                     <FaUserGraduate />
@@ -72,13 +82,19 @@ export default function Subscribers() {
                                 <Dialog.Portal>
                                     <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
                                         <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                                            <FormUser/>
+                                            <header className='flex flex-1 relative items-center'>
+                                                <h1 className="mx-auto text-lg font-semibold">Novo aluno</h1>
+                                                <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                    <strong className='text-textColor-300'>X</strong>
+                                                </Dialog.Close>
+                                            </header>
+                                            <FormUser setIsOpenAddSubscriber={setIsmodalAddSubscriber} />
                                         </Dialog.Content>
 
                                     </Dialog.Overlay>
                                 </Dialog.Portal>
                             </Dialog.Root>
-                        </div> */}
+                        </div>
 
                     </header>
 

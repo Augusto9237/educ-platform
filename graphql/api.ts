@@ -1049,7 +1049,6 @@ export type ClassUpdateManyInlineInput = {
 };
 
 export type ClassUpdateManyInput = {
-  code?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -1248,6 +1247,7 @@ export type ClassWhereStageInput = {
 
 /** References Class record uniquely */
 export type ClassWhereUniqueInput = {
+  code?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
@@ -8978,13 +8978,19 @@ export type ClassMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   code?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
+
+export type CreateClassesMutationVariables = Exact<{
   codeCreate?: InputMaybe<Scalars['String']>;
   nameCreate?: InputMaybe<Scalars['String']>;
   idTeacher?: InputMaybe<Scalars['ID']>;
 }>;
 
 
-export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null, createClass?: { __typename?: 'Class', id: string, code?: string | null, name?: string | null, createdAt: any } | null };
+export type CreateClassesMutation = { __typename?: 'Mutation', createClass?: { __typename?: 'Class', id: string, code?: string | null, name?: string | null, createdAt: any } | null, publishClass?: { __typename?: 'Class', id: string, name?: string | null, code?: string | null, publishedAt?: any | null } | null };
 
 export type CreateFinancesMutationVariables = Exact<{
   month?: InputMaybe<Scalars['String']>;
@@ -8994,6 +9000,13 @@ export type CreateFinancesMutationVariables = Exact<{
 
 
 export type CreateFinancesMutation = { __typename?: 'Mutation', createFinance?: { __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null } | null };
+
+export type DeleteClassesMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type DeleteClassesMutation = { __typename?: 'Mutation', deleteClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
 export type DeleteSubscriberMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9077,18 +9090,10 @@ export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber
 
 
 export const ClassDocument = gql`
-    mutation Class($id: ID = "", $code: String = "", $name: String = "", $codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
+    mutation Class($id: ID = "", $code: String = "", $name: String = "") {
   updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
     id
     updatedAt
-  }
-  createClass(
-    data: {code: $codeCreate, name: $nameCreate, teacher: {connect: {Teacher: {id: $idTeacher}}}}
-  ) {
-    id
-    code
-    name
-    createdAt
   }
 }
     `;
@@ -9110,9 +9115,6 @@ export type ClassMutationFn = Apollo.MutationFunction<ClassMutation, ClassMutati
  *      id: // value for 'id'
  *      code: // value for 'code'
  *      name: // value for 'name'
- *      codeCreate: // value for 'codeCreate'
- *      nameCreate: // value for 'nameCreate'
- *      idTeacher: // value for 'idTeacher'
  *   },
  * });
  */
@@ -9123,6 +9125,52 @@ export function useClassMutation(baseOptions?: Apollo.MutationHookOptions<ClassM
 export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
+export const CreateClassesDocument = gql`
+    mutation CreateClasses($codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
+  createClass(
+    data: {code: $codeCreate, name: $nameCreate, teacher: {connect: {Teacher: {id: $idTeacher}}}}
+  ) {
+    id
+    code
+    name
+    createdAt
+  }
+  publishClass(to: PUBLISHED, where: {code: $codeCreate}) {
+    id
+    name
+    code
+    publishedAt
+  }
+}
+    `;
+export type CreateClassesMutationFn = Apollo.MutationFunction<CreateClassesMutation, CreateClassesMutationVariables>;
+
+/**
+ * __useCreateClassesMutation__
+ *
+ * To run a mutation, you first call `useCreateClassesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateClassesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createClassesMutation, { data, loading, error }] = useCreateClassesMutation({
+ *   variables: {
+ *      codeCreate: // value for 'codeCreate'
+ *      nameCreate: // value for 'nameCreate'
+ *      idTeacher: // value for 'idTeacher'
+ *   },
+ * });
+ */
+export function useCreateClassesMutation(baseOptions?: Apollo.MutationHookOptions<CreateClassesMutation, CreateClassesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateClassesMutation, CreateClassesMutationVariables>(CreateClassesDocument, options);
+      }
+export type CreateClassesMutationHookResult = ReturnType<typeof useCreateClassesMutation>;
+export type CreateClassesMutationResult = Apollo.MutationResult<CreateClassesMutation>;
+export type CreateClassesMutationOptions = Apollo.BaseMutationOptions<CreateClassesMutation, CreateClassesMutationVariables>;
 export const CreateFinancesDocument = gql`
     mutation CreateFinances($month: String = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
@@ -9163,6 +9211,40 @@ export function useCreateFinancesMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateFinancesMutationHookResult = ReturnType<typeof useCreateFinancesMutation>;
 export type CreateFinancesMutationResult = Apollo.MutationResult<CreateFinancesMutation>;
 export type CreateFinancesMutationOptions = Apollo.BaseMutationOptions<CreateFinancesMutation, CreateFinancesMutationVariables>;
+export const DeleteClassesDocument = gql`
+    mutation DeleteClasses($id: ID = "") {
+  deleteClass(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type DeleteClassesMutationFn = Apollo.MutationFunction<DeleteClassesMutation, DeleteClassesMutationVariables>;
+
+/**
+ * __useDeleteClassesMutation__
+ *
+ * To run a mutation, you first call `useDeleteClassesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteClassesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteClassesMutation, { data, loading, error }] = useDeleteClassesMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteClassesMutation(baseOptions?: Apollo.MutationHookOptions<DeleteClassesMutation, DeleteClassesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteClassesMutation, DeleteClassesMutationVariables>(DeleteClassesDocument, options);
+      }
+export type DeleteClassesMutationHookResult = ReturnType<typeof useDeleteClassesMutation>;
+export type DeleteClassesMutationResult = Apollo.MutationResult<DeleteClassesMutation>;
+export type DeleteClassesMutationOptions = Apollo.BaseMutationOptions<DeleteClassesMutation, DeleteClassesMutationVariables>;
 export const DeleteSubscriberDocument = gql`
     mutation DeleteSubscriber($id: ID = "") {
   deleteSubscriber(where: {id: $id}) {

@@ -2,11 +2,12 @@
 import { useRegisterSubscriberMutation } from "graphql/api";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { StudentAvatar } from "./StudentAvatar";
 import { toast } from 'react-toastify';
 interface FormProps {
   session?: Session | null
+  setIsOpenAddSubscriber?: (value: SetStateAction<boolean>) => void
 }
 
 interface SubscriberDataProps {
@@ -16,7 +17,7 @@ interface SubscriberDataProps {
   phone: string;
   address: string;
 }
-export function FormUser({ session }: FormProps) {
+export function FormUser({ session, setIsOpenAddSubscriber }: FormProps) {
   const [createSubscriber] = useRegisterSubscriberMutation()
   const [subscriberData, setSubscriberData] = useState<SubscriberDataProps>({
     name: session?.user?.name!,
@@ -48,7 +49,9 @@ export function FormUser({ session }: FormProps) {
           address: subscriberData?.address
         }
       })
-      signOut({ callbackUrl: 'http://localhost:3000/' })
+      if (session) {
+        signOut({ callbackUrl: 'http://localhost:3000/' })
+      }
       toast.success('Cadastrado com sucesso! faça login novamente')
 
     } catch (error) {
@@ -59,21 +62,22 @@ export function FormUser({ session }: FormProps) {
   }
 
   return (
-    <form className="flex flex-col flex-1 w-full h-full my-auto bg-backgroundColor-100 rounded-xl  max-sm:justify-center" onSubmit={handleRegister}>
-      <div className="flex flex-col items-center h-80 justify-center">
-        <StudentAvatar width="100px" height="100px" url={session?.user?.image} />
-        <strong className="text-textSecondaryColor-600 text-2xl">{session?.user?.name}</strong>
-      </div>
-
+    <form onSubmit={handleRegister}>
       <div className="flex flex-col p-3">
-        <h1 className="mx-auto text-lg font-semibold">Prossiga com o cadastro</h1>
+        {!session && (
+          <div className="flex flex-col p-2">
+            <span className="text-textColor-600">Foto de perfil</span>
+            <input required className="text-lg font-semibold p-1 rounded" name="image" onChange={handleChange} value={subscriberData.image} placeholder="Digite o seu nome completo" />
+          </div>
+        )}
+
         <div className="flex flex-col p-2">
-          <span className="text-textColor-600">Nome Completo</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="name" onChange={handleChange} value={subscriberData.name} />
+          <span className="text-textColor-600">Nome completo</span>
+          <input required className="text-lg font-semibold p-1 rounded" name="name" onChange={handleChange} value={subscriberData.name} placeholder="Digite o seu nome completo" />
         </div>
         <div className="flex flex-col p-2">
           <span className="text-textColor-600">E-mail</span>
-          <input required className="text-lg font-semibold p-1 rounded" name="email" disabled value={session?.user?.email!} />
+          <input required className="text-lg font-semibold p-1 rounded" name="email" disabled={session ? true : false} onChange={handleChange} value={session?.user?.email!} placeholder="Digite o seu e-mail" />
         </div>
         <div className="flex flex-col p-2">
           <span className="text-textColor-600">Telefone</span>
@@ -85,13 +89,22 @@ export function FormUser({ session }: FormProps) {
         </div>
 
         <div className="flex flex-1 gap-4 mt-4">
-          <button type="submit" className="flex w-full justify-center items-center rounded-2xl py-4 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
+          <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
             <strong>Salvar</strong>
           </button>
 
-          <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} className="flex w-full justify-center items-center rounded-2xl py-4 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
-            <strong>Cancelar</strong>
-          </button>
+          {session && (
+            <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+              <strong>Cancelar</strong>
+            </button>
+          )}
+
+          {!session && (
+            <button onClick={setIsOpenAddSubscriber ? () => setIsOpenAddSubscriber(false) : () => null} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+              <strong>Cancelar</strong>
+            </button>
+          )}
+
         </div>
       </div>
     </form>

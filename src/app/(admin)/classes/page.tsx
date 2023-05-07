@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
-import { useDeleteSubscriberMutation } from 'graphql/api';
+import { useDeleteClassesMutation, useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditClasse } from '@/components/components/FormEditClasse';
 import { HiUsers } from 'react-icons/hi';
@@ -35,17 +35,17 @@ export interface ClasseProps {
 export default function Classes() {
     const { classes, reloadClasses, loadingUser, loadingClasses } = useContext(AdminContext);
     const [isOpen, setIsOpen] = useState(false);
-    const [deleteSubscriber] = useDeleteSubscriberMutation();
+    const [deleteClass] = useDeleteClassesMutation()
     const [isModalAddClass, setIsmodalAddClasse] = useState(false)
 
     async function handleDeleteSubscriber(id: string) {
         try {
-            await deleteSubscriber({
+            await deleteClass({
                 variables: {
                     id: id
                 }
             })
-            toast.success('Aluno excluído com sucesso!')
+            toast.success('Turma excluída com sucesso!')
             reloadClasses()
         } catch (error) {
             toast.error('Erro! Tente novamente')

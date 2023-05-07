@@ -1,0 +1,16 @@
+mutation CreateClasses($codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
+    createClass(
+    data: {code: $codeCreate, name: $nameCreate, teacher: {connect: {Teacher: {id: $idTeacher}}}}
+  ) {
+    id
+    code
+    name
+    createdAt
+  }
+  publishClass(to: PUBLISHED, where: {code: $codeCreate}) {
+    id
+    name
+    code
+    publishedAt
+  }
+}

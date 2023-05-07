@@ -1,0 +1,6 @@
+mutation DeleteClasses($id: ID = "") {
+  deleteClass(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
