@@ -7,6 +7,7 @@ import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
 import { useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditClasse } from '@/components/components/FormEditClasse';
+import { HiUsers } from 'react-icons/hi';
 
 export interface ClasseProps {
     __typename?: "Class" | undefined;
@@ -35,6 +36,7 @@ export default function Classes() {
     const { classes, reloadClasses, loadingUser, loadingClasses } = useContext(AdminContext);
     const [isOpen, setIsOpen] = useState(false);
     const [deleteSubscriber] = useDeleteSubscriberMutation();
+    const [isModalAddClass, setIsmodalAddClasse] = useState(false)
 
     async function handleDeleteSubscriber(id: string) {
         try {
@@ -59,8 +61,36 @@ export default function Classes() {
             )}
 
             {!loadingUser && (
-                <section className="flex flex-col gap-2 flex-1 p-3 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
-                    <h1 className="mx-auto text-lg font-bold">Turmas</h1>
+                <section className="flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+                    <header className='grid grid-cols-3 items-center mb-2'>
+                        <div />
+
+                        <h1 className="mx-auto text-lg font-bold">Turmas</h1>
+
+                        <div className='flex justify-end'>
+                            <Dialog.Root modal={isModalAddClass}>
+                                <Dialog.Trigger onClick={() => setIsmodalAddClasse(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
+                                    <HiUsers />
+                                    <span className='leading-none'>Adicionar Turma</span>
+                                </Dialog.Trigger>
+                                <Dialog.Portal>
+                                    <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                        <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                            <header className='flex flex-1 relative items-center'>
+                                                <h1 className="mx-auto text-lg font-semibold">Nova turma</h1>
+                                                <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                    <strong className='text-textColor-300'>X</strong>
+                                                </Dialog.Close>
+                                            </header>
+                                            <FormEditClasse setIsOpen={setIsmodalAddClasse} />
+                                        </Dialog.Content>
+
+                                    </Dialog.Overlay>
+                                </Dialog.Portal>
+                            </Dialog.Root>
+                        </div>
+
+                    </header>
                     <div className="flex flex-col gap-2">
                         <div className="grid grid-cols-4">
                             <strong className="flex justify-center">Codigo</strong>
@@ -85,10 +115,13 @@ export default function Classes() {
                                                     <Dialog.Portal>
                                                         <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
                                                             <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                                                                <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
-                                                                    <strong className='text-textColor-200'>X</strong>
-                                                                </Dialog.Close>
-                                                                <FormEditClasse classe={classe} setIsOpen={setIsOpen}/>
+                                                                <header className='flex flex-1 relative items-center'>
+                                                                    <h1 className="mx-auto text-lg font-semibold">Editar turma</h1>
+                                                                    <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                                        <strong className='text-textColor-300'>X</strong>
+                                                                    </Dialog.Close>
+                                                                </header>
+                                                                <FormEditClasse classe={classe} setIsOpen={setIsOpen} />
                                                             </Dialog.Content>
                                                         </Dialog.Overlay>
                                                     </Dialog.Portal>

@@ -2,20 +2,20 @@ import { SetStateAction, useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import { ClasseProps } from "../app/(admin)/classes/page";
 import { AdminContext } from "../app/context/AdminContext";
-import { useEditClassMutation } from "graphql/api";
+import { useClassMutation } from "graphql/api";
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 interface ClassesProps {
-  classe: ClasseProps | null;
+  classe?: ClasseProps | null;
   setIsOpen: (value: SetStateAction<boolean>) => void
 }
 export function FormEditClasse({ classe, setIsOpen }: ClassesProps) {
-  const { reloadClasses } = useContext(AdminContext);
+  const { reloadClasses, user } = useContext(AdminContext);
   const [classeData, setClasseData] = useState<ClasseProps>({
     id: classe?.id!,
     code: classe?.code,
     name: classe?.name,
   })
-  const [updateClass] = useEditClassMutation()
+  const [ updateClass, createClass] = useClassMutation()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -48,9 +48,30 @@ export function FormEditClasse({ classe, setIsOpen }: ClassesProps) {
 
   }
 
+  async function handCreate(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+
+    try {
+      await updateClass({
+        variables: {
+          idTeacher: user?.teacher?.id,
+          codeCreate: classeData.code,
+          nameCreate: classeData.name,
+        }
+      })
+      toast.success('Nova turma criada com sucesso!');
+      reloadClasses();
+      setIsOpen(false)
+
+    } catch (error) {
+      console.log(error)
+      toast.error('Algo deu errado! tente novamente')
+    }
+
+  }
+
   return (
-    <form className="flex flex-col flex-1 w-full h-full  max-sm:justify-center" onSubmit={handleUpdate}>
-      <h1 className="mx-auto text-lg font-semibold">Editar Turma</h1>
+    <form className="flex flex-col flex-1 w-full h-full  max-sm:justify-center" onSubmit={classe? handleUpdate : handCreate}>
       <div className="flex flex-col gap-2">
         <div className="flex flex-col p-2 gap-2">
           <span className="text-textColor-600  font-semibold">Código</span>

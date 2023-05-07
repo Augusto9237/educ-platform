@@ -6,7 +6,7 @@ import { useState } from "react";
 import { StudentAvatar } from "./StudentAvatar";
 import { toast } from 'react-toastify';
 interface FormProps {
-  session: Session | null
+  session?: Session | null
 }
 
 interface SubscriberDataProps {

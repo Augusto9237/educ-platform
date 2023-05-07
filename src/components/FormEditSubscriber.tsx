@@ -20,7 +20,7 @@ interface SubscriberDataProps {
 }
 
 interface SubscriberProps {
-  subscriber: SubscriberDataProps | null;
+  subscriber?: SubscriberDataProps | null;
   setIsOpen: (value: SetStateAction<boolean>) => void
 }
 export function FormEditSubscriber({ subscriber, setIsOpen }: SubscriberProps) {

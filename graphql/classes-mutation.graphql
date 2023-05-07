@@ -1,0 +1,14 @@
+mutation Class($id: ID = "", $code: String = "", $name: String = "", $codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
+  updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+  createClass(
+    data: {code: $codeCreate, name: $nameCreate, teacher: {connect: {Teacher: {id: $idTeacher}}}}
+  ) {
+    id
+    code
+    name
+    createdAt
+  }
+}

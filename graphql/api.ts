@@ -8974,6 +8974,18 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type ClassMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  code?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  codeCreate?: InputMaybe<Scalars['String']>;
+  nameCreate?: InputMaybe<Scalars['String']>;
+  idTeacher?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null, createClass?: { __typename?: 'Class', id: string, code?: string | null, name?: string | null, createdAt: any } | null };
+
 export type CreateFinancesMutationVariables = Exact<{
   month?: InputMaybe<Scalars['String']>;
   value?: InputMaybe<Scalars['Float']>;
@@ -9043,15 +9055,6 @@ export type RegisterSubscriberMutationVariables = Exact<{
 
 export type RegisterSubscriberMutation = { __typename?: 'Mutation', createSubscriber?: { __typename?: 'Subscriber', id: string, name: string, phone?: string | null, pictureUrl?: string | null, email: string, stage: Stage } | null, publishSubscriber?: { __typename?: 'Subscriber', id: string } | null };
 
-export type EditClassMutationVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-  code?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type EditClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
-
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -9073,6 +9076,53 @@ export type EditSubscriberMutationVariables = Exact<{
 export type EditSubscriberMutation = { __typename?: 'Mutation', updateSubscriber?: { __typename?: 'Subscriber', id: string, updatedAt: any } | null };
 
 
+export const ClassDocument = gql`
+    mutation Class($id: ID = "", $code: String = "", $name: String = "", $codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
+  updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+  createClass(
+    data: {code: $codeCreate, name: $nameCreate, teacher: {connect: {Teacher: {id: $idTeacher}}}}
+  ) {
+    id
+    code
+    name
+    createdAt
+  }
+}
+    `;
+export type ClassMutationFn = Apollo.MutationFunction<ClassMutation, ClassMutationVariables>;
+
+/**
+ * __useClassMutation__
+ *
+ * To run a mutation, you first call `useClassMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useClassMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [classMutation, { data, loading, error }] = useClassMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      code: // value for 'code'
+ *      name: // value for 'name'
+ *      codeCreate: // value for 'codeCreate'
+ *      nameCreate: // value for 'nameCreate'
+ *      idTeacher: // value for 'idTeacher'
+ *   },
+ * });
+ */
+export function useClassMutation(baseOptions?: Apollo.MutationHookOptions<ClassMutation, ClassMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ClassMutation, ClassMutationVariables>(ClassDocument, options);
+      }
+export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
+export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
+export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
 export const CreateFinancesDocument = gql`
     mutation CreateFinances($month: String = "", $value: Float = 1.5, $id: ID = "") {
   createFinance(
@@ -9517,42 +9567,6 @@ export function useRegisterSubscriberMutation(baseOptions?: Apollo.MutationHookO
 export type RegisterSubscriberMutationHookResult = ReturnType<typeof useRegisterSubscriberMutation>;
 export type RegisterSubscriberMutationResult = Apollo.MutationResult<RegisterSubscriberMutation>;
 export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
-export const EditClassDocument = gql`
-    mutation EditClass($id: ID = "", $code: String = "", $name: String = "") {
-  updateClass(data: {code: $code, name: $name}, where: {id: $id}) {
-    id
-    updatedAt
-  }
-}
-    `;
-export type EditClassMutationFn = Apollo.MutationFunction<EditClassMutation, EditClassMutationVariables>;
-
-/**
- * __useEditClassMutation__
- *
- * To run a mutation, you first call `useEditClassMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditClassMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editClassMutation, { data, loading, error }] = useEditClassMutation({
- *   variables: {
- *      id: // value for 'id'
- *      code: // value for 'code'
- *      name: // value for 'name'
- *   },
- * });
- */
-export function useEditClassMutation(baseOptions?: Apollo.MutationHookOptions<EditClassMutation, EditClassMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditClassMutation, EditClassMutationVariables>(EditClassDocument, options);
-      }
-export type EditClassMutationHookResult = ReturnType<typeof useEditClassMutation>;
-export type EditClassMutationResult = Apollo.MutationResult<EditClassMutation>;
-export type EditClassMutationOptions = Apollo.BaseMutationOptions<EditClassMutation, EditClassMutationVariables>;
 export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {

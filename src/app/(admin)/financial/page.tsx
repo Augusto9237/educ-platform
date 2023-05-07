@@ -118,9 +118,9 @@ export default function Financial() {
     return (
         <>
             {!loadingUser && (
-                <section className="relative flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
-                    <header className='grid grid-cols-3 items-center'>
-                        <div className='flex rounded-md border-solid border border-textColor-200 overflow-hidden'>
+                <section className="flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+                    <header className='grid grid-cols-3 items-center mb-2'>
+                        <div className='flex flex-1 rounded-md border-solid border border-textColor-200 overflow-hidden'>
                             <button className='px-2'><RiSearchLine /></button>
                             <input type='search' className='p-1 flex flex-1' placeholder='Pesquisar por aluno' />
                         </div>
@@ -128,7 +128,7 @@ export default function Financial() {
                         <h1 className="text-lg font-bold mx-auto">Mensalidades</h1>
                         <div className='flex justify-end'>
                             <Dialog.Root modal={isOpenModal}>
-                                <Dialog.Trigger onClick={() => setIsOpenModal(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-backgroundColor-500 bg-backgroundColor-400/25'>
+                                <Dialog.Trigger onClick={() => setIsOpenModal(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80 hover:bg-buttonColor-600/90'>
                                     <RiMoneyDollarCircleFill />
                                     <span className='leading-none'>Adicionar Mensalidade</span>
                                 </Dialog.Trigger>
