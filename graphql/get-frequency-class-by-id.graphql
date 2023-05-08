@@ -1,0 +1,18 @@
+query GetFrequenciesClassById($idClass: ID = "") {
+  frequencies(
+    where: {turma: {id: $idClass}}
+  ) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
+        id
+        prensente
+        subscriber {
+          name
+          id
+        }
+      }
+    }
+  }
+}

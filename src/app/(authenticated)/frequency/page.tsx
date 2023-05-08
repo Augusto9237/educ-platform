@@ -36,7 +36,7 @@ export default function Frequency() {
 
     const { data, loading } = useGetFrequenciesClassQuery({
         variables: {
-            code: user?.values?.class?.code,
+            idClass: user?.values?.class?.id,
             id: user?.values?.id
         }
     });

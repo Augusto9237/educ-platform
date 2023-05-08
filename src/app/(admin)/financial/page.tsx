@@ -4,13 +4,14 @@ import * as Popover from '@radix-ui/react-popover';
 
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiMoneyDollarCircleFill, RiSearchLine } from "react-icons/ri";
+import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiSearchLine } from "react-icons/ri";
 import { extractMonth } from '../../utils/getMonth';
 import { useContext, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { useCreateFinancesMutation, useUpdateFinancePaymentMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { Spinner } from '@/components/components/Spinner';
+import { FaPlusCircle } from 'react-icons/fa';
 export interface FinanceSubscriberProps {
     __typename?: "Finance" | undefined;
     id: string;
@@ -129,7 +130,7 @@ export default function Financial() {
                         <div className='flex justify-end'>
                             <Dialog.Root modal={isOpenModal}>
                                 <Dialog.Trigger onClick={() => setIsOpenModal(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80 hover:bg-buttonColor-600/90'>
-                                    <RiMoneyDollarCircleFill />
+                                    <FaPlusCircle />
                                     <span className='leading-none'>Adicionar Mensalidade</span>
                                 </Dialog.Trigger>
                                 <Dialog.Portal>

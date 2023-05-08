@@ -7,7 +7,7 @@ import { HiUsers } from "react-icons/hi";
 import { AdminContext } from "../../context/AdminContext";
 
 export default function Dashboard() {
-    const { subscribers, classes, loadingUser } = useContext(AdminContext);
+    const { subscribers, classes } = useContext(AdminContext);
 
     return (
         <>
@@ -25,6 +25,13 @@ export default function Dashboard() {
                         <span>Turmas</span>
                     </div>
                     <h1 className="text-textSecondaryColor-600 text-2xl font-bold">{classes?.classes.length}</h1>
+                </CardBody>
+                <CardBody>
+                    <div className="flex items-center gap-2">
+                        <HiUsers />
+                        <span>Pagamentos</span>
+                    </div>
+                    <h1 className="text-textSecondaryColor-600 text-2xl font-bold"></h1>
                 </CardBody>
             </main>
 

@@ -8,7 +8,7 @@ import { useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
 import { FormUser } from '@/components/components/FormUser';
-import { FaUserGraduate } from 'react-icons/fa';
+import { FaPlusCircle} from 'react-icons/fa';
 
 
 interface SubscriberProps {
@@ -76,7 +76,7 @@ export default function Subscribers() {
                         <div className='flex justify-end'>
                             <Dialog.Root modal={isModalAddSubscriber}>
                                 <Dialog.Trigger onClick={() => setIsmodalAddSubscriber(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
-                                    <FaUserGraduate />
+                                    <FaPlusCircle />
                                     <span className='leading-none'>Adicionar Aluno</span>
                                 </Dialog.Trigger>
                                 <Dialog.Portal>

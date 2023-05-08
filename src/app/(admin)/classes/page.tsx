@@ -4,10 +4,10 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { RiEditBoxFill, RiDeleteBin2Fill } from "react-icons/ri";
-import { useDeleteClassesMutation, useDeleteSubscriberMutation } from 'graphql/api';
+import { useDeleteClassesMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditClasse } from '@/components/components/FormEditClasse';
-import { HiUsers } from 'react-icons/hi';
+import { FaPlusCircle } from 'react-icons/fa';
 
 export interface ClasseProps {
     __typename?: "Class" | undefined;
@@ -70,7 +70,7 @@ export default function Classes() {
                         <div className='flex justify-end'>
                             <Dialog.Root modal={isModalAddClass}>
                                 <Dialog.Trigger onClick={() => setIsmodalAddClasse(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
-                                    <HiUsers />
+                                <FaPlusCircle />
                                     <span className='leading-none'>Adicionar Turma</span>
                                 </Dialog.Trigger>
                                 <Dialog.Portal>

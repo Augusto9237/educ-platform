@@ -9030,6 +9030,13 @@ export type GetFrequenciesClassByMonthQueryVariables = Exact<{
 
 export type GetFrequenciesClassByMonthQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
 
+export type GetFrequenciesClassByIdQueryVariables = Exact<{
+  idClass?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type GetFrequenciesClassByIdQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
+
 export type GetFrequenciesClassQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   idClass?: InputMaybe<Scalars['ID']>;
@@ -9388,6 +9395,52 @@ export function useGetFrequenciesClassByMonthLazyQuery(baseOptions?: Apollo.Lazy
 export type GetFrequenciesClassByMonthQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthQuery>;
 export type GetFrequenciesClassByMonthLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthLazyQuery>;
 export type GetFrequenciesClassByMonthQueryResult = Apollo.QueryResult<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>;
+export const GetFrequenciesClassByIdDocument = gql`
+    query GetFrequenciesClassById($idClass: ID = "") {
+  frequencies(where: {turma: {id: $idClass}}) {
+    createdAt
+    id
+    subscribes {
+      ... on Presence {
+        id
+        prensente
+        subscriber {
+          name
+          id
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFrequenciesClassByIdQuery__
+ *
+ * To run a query within a React component, call `useGetFrequenciesClassByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFrequenciesClassByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFrequenciesClassByIdQuery({
+ *   variables: {
+ *      idClass: // value for 'idClass'
+ *   },
+ * });
+ */
+export function useGetFrequenciesClassByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>(GetFrequenciesClassByIdDocument, options);
+      }
+export function useGetFrequenciesClassByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>(GetFrequenciesClassByIdDocument, options);
+        }
+export type GetFrequenciesClassByIdQueryHookResult = ReturnType<typeof useGetFrequenciesClassByIdQuery>;
+export type GetFrequenciesClassByIdLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByIdLazyQuery>;
+export type GetFrequenciesClassByIdQueryResult = Apollo.QueryResult<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>;
 export const GetFrequenciesClassDocument = gql`
     query GetFrequenciesClass($id: ID = "", $idClass: ID = "") {
   frequencies(

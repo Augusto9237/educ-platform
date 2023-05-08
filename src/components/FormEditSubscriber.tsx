@@ -24,9 +24,8 @@ interface SubscriberProps {
   setIsOpen: (value: SetStateAction<boolean>) => void
 }
 export function FormEditSubscriber({ subscriber, setIsOpen }: SubscriberProps) {
-  const { classes, reloadSubscribers } = useContext(AdminContext);
+  const { classes, reloadSubscribers, reloadClasses } = useContext(AdminContext);
   const [updateSubscriber] = useEditSubscriberMutation()
-  const [selectedClassId, setSelectedClassId] = useState('');
   const [subscriberData, setSubscriberData] = useState<SubscriberDataProps>({
     id: subscriber?.id!,
     name: subscriber?.name!,
@@ -62,6 +61,7 @@ export function FormEditSubscriber({ subscriber, setIsOpen }: SubscriberProps) {
       toast.success('Cadastro do aluno atualizado com sucesso!')
       reloadSubscribers();
       setIsOpen(false);
+      reloadClasses();
 
     } catch (error) {
       console.log(error)
