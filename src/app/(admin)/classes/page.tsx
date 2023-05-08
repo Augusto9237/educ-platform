@@ -107,7 +107,7 @@ export default function Classes() {
                                             <span className="flex justify-center">{classe.subscribers.length}</span>
                                             <div className="flex gap-4">
                                                 <Dialog.Root modal={isOpen}>
-                                                    <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                                    <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                         <RiEditBoxFill />
                                                         <span>Editar</span>
                                                     </Dialog.Trigger>
@@ -127,7 +127,7 @@ export default function Classes() {
                                                     </Dialog.Portal>
                                                 </Dialog.Root>
 
-                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
+                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                     <RiDeleteBin2Fill />
                                                     <span>Excluir</span>
                                                 </button>
