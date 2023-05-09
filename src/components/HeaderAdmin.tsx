@@ -1,5 +1,3 @@
-'use client';
-
 import { extractMonth } from "../app/utils/getMonth";
 import { ProfileAdmin } from "./ProfileAdmin";
 

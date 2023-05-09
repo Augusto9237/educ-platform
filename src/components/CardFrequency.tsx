@@ -29,7 +29,7 @@ export function CardFrequency() {
   const [monthStart, monthEnd] = getMonthBounds(new Date());
   const { data, loading } = useGetFrequenciesClassByMonthQuery({
     variables: {
-      code: user?.values?.class?.code,
+      idClass: user?.values?.class?.id,
       id: user?.values?.id,
       monthStart,
       monthEnd,

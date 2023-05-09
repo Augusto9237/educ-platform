@@ -4,15 +4,17 @@ import { useContext, useEffect, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import * as Popover from '@radix-ui/react-popover';
 
 import { Spinner } from '@/components/components/Spinner';
-import { RxChevronDown, RxChevronUp, RxCross2, RxDropdownMenu } from "react-icons/rx";
+import { RxChevronDown, RxChevronUp } from "react-icons/rx";
 import { BsListCheck } from "react-icons/bs";
 import { AdminContext } from '../../context/AdminContext';
 import { extractMonth } from '../../utils/getMonth';
 import dayjs from 'dayjs';
-import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { RiDeleteBin2Fill, RiEditBoxFill, RiPlayListAddLine } from 'react-icons/ri';
+import { FaPlusCircle } from 'react-icons/fa';
+import { NewListCall } from '@/components/components/NewListCall';
+
 
 export interface FrequencyGroupedByMonth {
     month: number;
@@ -92,10 +94,10 @@ export default function Frequencies() {
 
     return (
         <>
-            <section className="flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+            <section className="flex flex-col gap-2 max-h-screen flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
                 <header className='grid grid-cols-3 items-center mb-2'>
                     <div className='flex flex-1'>
-                        <select required className="text-lg p-1 rounded" name="id" value={idClasses.id} onChange={handleChange}>
+                        <select required className="text-lg p-1 rounded-md" name="id" value={idClasses.id} onChange={handleChange}>
                             <option value=''>Selecione uma turma</option>
                             {classes?.classes.map((classe) => (
                                 <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>
@@ -106,7 +108,10 @@ export default function Frequencies() {
                     <h1 className="mx-auto text-lg font-bold">Frequencias</h1>
 
                     <div className='flex justify-end'>
-
+                        <button className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
+                            <FaPlusCircle />
+                            <span className='leading-none'>Adicionar Frequência</span>
+                        </button>
                     </div>
 
                 </header>
@@ -122,7 +127,7 @@ export default function Frequencies() {
                                 <>
                                     {
                                         frequencyGroup.map(({ frequencies, month }, i) => (
-                                            <div key={i} className="flex flex-1 flex-col p-2 shadow-md bg-[#fff] rounded">
+                                            <div key={i} className="flex flex-1 flex-col p-2 h-fit shadow-md bg-[#fff] rounded">
                                                 <Collapsible.Root open={open} onOpenChange={setOpen}>
                                                     <header className='flex flex-1 justify-center'>
                                                         <h1 className='text-lg font-semibold'>{extractMonth(month, true)}</h1>
@@ -132,9 +137,7 @@ export default function Frequencies() {
                                                         <div className="flex justify-center">Presenças</div>
                                                         <div className="flex justify-center">Faltas</div>
                                                         <div className='flex justify-center items-center'>
-                                                            <button>
-                                                                +
-                                                            </button>
+                                                           <NewListCall/>
                                                         </div>
                                                     </div>
                                                     <div className='flex flex-1 justify-center'>
@@ -150,11 +153,11 @@ export default function Frequencies() {
                                                                     <div className="flex justify-center">{dayjs(frequency.createdAt).format('DD/MM/YYYY')}</div>
                                                                     <div className="flex justify-center">{frequency.subscribes.filter((presence) => presence.prensente === true).length}</div>
                                                                     <div className="flex justify-center">{frequency.subscribes.filter((presence) => presence.prensente === false).length}</div>
-                                                                    <div className='flex gap-2'>
+                                                                    <div className='flex justify-center gap-2'>
                                                                         <Dialog.Root modal={openModalCallList}>
-                                                                            <Dialog.Trigger onClick={() => handleSelectedCallList(frequency.subscribes)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                                                            <Dialog.Trigger onClick={() => handleSelectedCallList(frequency.subscribes)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold bg-textColor-300/60 text-textSecondaryColor-600 hover:bg-textColor-200'>
                                                                                 <BsListCheck />
-                                                                                <span>Lista de chamada</span>
+                                                                                <span>Lista</span>
                                                                             </Dialog.Trigger>
                                                                             <Dialog.Portal>
                                                                                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
@@ -182,6 +185,10 @@ export default function Frequencies() {
                                                                                 </Dialog.Overlay>
                                                                             </Dialog.Portal>
                                                                         </Dialog.Root>
+                                                                        <button className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                                                            <RiEditBoxFill />
+                                                                            <span>Editar</span>
+                                                                        </button>
                                                                         <button className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
                                                                             <span>Excluir</span>

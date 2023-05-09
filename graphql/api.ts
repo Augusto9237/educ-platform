@@ -8983,6 +8983,14 @@ export type ClassMutationVariables = Exact<{
 
 export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
+export type CreatCallListMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  create?: InputMaybe<Array<FrequencysubscribesUnionCreateInput> | FrequencysubscribesUnionCreateInput>;
+}>;
+
+
+export type CreatCallListMutation = { __typename?: 'Mutation', createFrequency?: { __typename?: 'Frequency', id: string, createdAt: any } | null };
+
 export type CreateClassesMutationVariables = Exact<{
   codeCreate?: InputMaybe<Scalars['String']>;
   nameCreate?: InputMaybe<Scalars['String']>;
@@ -9132,6 +9140,43 @@ export function useClassMutation(baseOptions?: Apollo.MutationHookOptions<ClassM
 export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
+export const CreatCallListDocument = gql`
+    mutation CreatCallList($id: ID = "", $create: [FrequencysubscribesUnionCreateInput!] = {}) {
+  createFrequency(
+    data: {turma: {connect: {id: $id}}, subscribes: {create: $create}}
+  ) {
+    id
+    createdAt
+  }
+}
+    `;
+export type CreatCallListMutationFn = Apollo.MutationFunction<CreatCallListMutation, CreatCallListMutationVariables>;
+
+/**
+ * __useCreatCallListMutation__
+ *
+ * To run a mutation, you first call `useCreatCallListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatCallListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [creatCallListMutation, { data, loading, error }] = useCreatCallListMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      create: // value for 'create'
+ *   },
+ * });
+ */
+export function useCreatCallListMutation(baseOptions?: Apollo.MutationHookOptions<CreatCallListMutation, CreatCallListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatCallListMutation, CreatCallListMutationVariables>(CreatCallListDocument, options);
+      }
+export type CreatCallListMutationHookResult = ReturnType<typeof useCreatCallListMutation>;
+export type CreatCallListMutationResult = Apollo.MutationResult<CreatCallListMutation>;
+export type CreatCallListMutationOptions = Apollo.BaseMutationOptions<CreatCallListMutation, CreatCallListMutationVariables>;
 export const CreateClassesDocument = gql`
     mutation CreateClasses($codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
   createClass(

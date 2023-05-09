@@ -70,7 +70,7 @@ export default function Classes() {
                         <div className='flex justify-end'>
                             <Dialog.Root modal={isModalAddClass}>
                                 <Dialog.Trigger onClick={() => setIsmodalAddClasse(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
-                                <FaPlusCircle />
+                                    <FaPlusCircle />
                                     <span className='leading-none'>Adicionar Turma</span>
                                 </Dialog.Trigger>
                                 <Dialog.Portal>
@@ -100,39 +100,38 @@ export default function Classes() {
                         {!loadingClasses && (
                             <>
                                 {classes?.classes.map((classe) => (
-                                    <div key={classe.id} className='relative'>
-                                        <div className="grid grid-cols-4 overflow-hidden overflow-x-auto hover:bg-backgroundColor-300/60 mb-2">
-                                            <span className="flex justify-center">{classe.code}</span>
-                                            <span className="flex justify-center">{classe.name}</span>
-                                            <span className="flex justify-center">{classe.subscribers.length}</span>
-                                            <div className="flex gap-4">
-                                                <Dialog.Root modal={isOpen}>
-                                                    <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
-                                                        <RiEditBoxFill />
-                                                        <span>Editar</span>
-                                                    </Dialog.Trigger>
+                                    <div key={classe.id} className="relative grid grid-cols-4 py-2 hover:bg-textColor-200/30">
+                                        <span className="flex justify-center">{classe.code}</span>
+                                        <span className="flex justify-center">{classe.name}</span>
+                                        <span className="flex justify-center">{classe.subscribers.length}</span>
+                                        <div className="flex gap-4">
+                                            <Dialog.Root modal={isOpen}>
+                                                <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                                    <RiEditBoxFill />
+                                                    <span>Editar</span>
+                                                </Dialog.Trigger>
 
-                                                    <Dialog.Portal>
-                                                        <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                                                            <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                                                                <header className='flex flex-1 relative items-center'>
-                                                                    <h1 className="mx-auto text-lg font-semibold">Editar turma</h1>
-                                                                    <Dialog.Close className='absolute right-0 text-textColor-700'>
-                                                                        <strong className='text-textColor-300'>X</strong>
-                                                                    </Dialog.Close>
-                                                                </header>
-                                                                <FormEditClasse classe={classe} setIsOpen={setIsOpen} />
-                                                            </Dialog.Content>
-                                                        </Dialog.Overlay>
-                                                    </Dialog.Portal>
-                                                </Dialog.Root>
+                                                <Dialog.Portal>
+                                                    <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                                        <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                                            <header className='flex flex-1 relative items-center'>
+                                                                <h1 className="mx-auto text-lg font-semibold">Editar turma</h1>
+                                                                <Dialog.Close className='absolute right-0 text-textColor-700'>
+                                                                    <strong className='text-textColor-300'>X</strong>
+                                                                </Dialog.Close>
+                                                            </header>
+                                                            <FormEditClasse classe={classe} setIsOpen={setIsOpen} />
+                                                        </Dialog.Content>
+                                                    </Dialog.Overlay>
+                                                </Dialog.Portal>
+                                            </Dialog.Root>
 
-                                                <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
-                                                    <RiDeleteBin2Fill />
-                                                    <span>Excluir</span>
-                                                </button>
-                                            </div>
+                                            <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
+                                                <RiDeleteBin2Fill />
+                                                <span>Excluir</span>
+                                            </button>
                                         </div>
+
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                     </div>
                                 ))}

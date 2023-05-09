@@ -1,0 +1,8 @@
+mutation CreatCallList($id: ID = "", $create: [FrequencysubscribesUnionCreateInput!] = {}) {
+  createFrequency(
+    data: {turma: {connect: {id: $id}}, subscribes: {create: $create}}
+  ) {
+    id
+    createdAt
+  }
+}
