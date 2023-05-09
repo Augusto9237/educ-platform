@@ -1,8 +1,11 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import * as Checkbox from '@radix-ui/react-checkbox'
+
 import { useCreatCallListMutation } from 'graphql/api';
 import { useContext, useState } from 'react';
-import { RiCheckboxFill, RiPlayListAddLine } from 'react-icons/ri';
+import { RiPlayListAddLine, RiCheckFill, RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 import { AdminContext } from '../app/context/AdminContext';
+import DropDownMenu from './DropDownMenu';
 
 export function NewListCall() {
     const { subscribers } = useContext(AdminContext)
@@ -18,7 +21,7 @@ export function NewListCall() {
                 </Dialog.Trigger>
                 <Dialog.Portal>
                     <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                        <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                        <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl gap-2  max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                             <header className='flex flex-1 relative items-center'>
                                 <h1 className="mx-auto text-lg font-semibold">Nova lista de chamada</h1>
                                 <Dialog.Close className='absolute right-0 text-textColor-700'>
@@ -34,17 +37,37 @@ export function NewListCall() {
                                 <form key={subscriberList.id} className="flex flex-row">
                                     <span className="flex w-10 justify-center">{i + 1}</span>
                                     <span className="flex flex-1 pl-2">{subscriberList.name}</span>
-                                    <span className="flex w-28 justify-center">
-                                        <select name="present" id="">
-                                            <option>Presente?</option>
-                                            <option value='present' className="flex flex-1 gap-2 items-center justify-center font-medium  text-textSecondaryColor-400 bg-textSecondaryColor-300/20 rounded p-1">
-                                                ✅ Presente
-                                            </option>
-                                            <option value='abstence' className="flex flex-1 gap-2 items-center justify-center  text-textSecondaryColor-200 bg-textSecondaryColor-200/20 rounded p-1">
-                                                ⛔ Faltou
-                                            </option>
-                                        </select>
-                                    </span>
+                                    <div className="grid grid-cols-2 w-28">
+                                        <div className='flex flex-1 flex-row items-center justify-items-center  text-textSecondaryColor-400  px-2 gap-2'>
+                                            <Checkbox.Root
+                                                className="bg-backgroundColor-300 hover:bg-backgroundColor-100 flex w-[18px] h-[18px] appearance-none items-center justify-center rounded-sm shadow-md shadow-textColor-300 outline-none"
+                                                defaultChecked
+                                                id="c1"
+                                                name='present'
+                                            >
+                                                <Checkbox.Indicator className="text-lg">
+                                                    <RiCheckboxFill />
+                                                </Checkbox.Indicator>
+
+                                            </Checkbox.Root>
+                                            <strong>P</strong>
+                                        </div>
+
+                                        <div className='flex flex-1 flex-row items-center justify-items-center text-textSecondaryColor-200  px-2 gap-2'>
+                                            <Checkbox.Root
+                                                className="bg-backgroundColor-300 hover:bg-backgroundColor-100 flex w-[18px] h-[18px] appearance-none items-center justify-center rounded-sm shadow-md shadow-textColor-300 outline-none"
+                                                defaultChecked
+                                                id="c2"
+                                                name='absences'
+                                                value={"checked" || "unchecked" || "indeterminate"}
+                                            >
+                                                <Checkbox.Indicator className="text-lg ">
+                                                    <RiCheckboxIndeterminateFill />
+                                                </Checkbox.Indicator>
+                                            </Checkbox.Root>
+                                            <strong>F</strong>
+                                        </div>
+                                    </div>
                                 </form>
                             ))}
                         </Dialog.Content>
