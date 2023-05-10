@@ -57,7 +57,6 @@ export default function Frequencies() {
     const [open, setOpen] = useState(false);
     const [openModalCallList, setOpenModalCallList] = useState(false);
 
-    console.log(callList)
     useEffect(() => {
         if (frequencies?.frequencies) {
             const frequenciesGroupedByMonth: FrequencyGroupedByMonth[] = frequencies.frequencies.reduce((acc: FrequencyGroupedByMonth[], frequency: Frequency) => {
