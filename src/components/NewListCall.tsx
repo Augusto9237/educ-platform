@@ -1,28 +1,33 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import * as Checkbox from '@radix-ui/react-checkbox';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 
 import { useCreatCallListMutation } from 'graphql/api';
 import { useContext, useState } from 'react';
-import { RiPlayListAddLine, RiCheckFill, RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
+import { RiPlayListAddLine, RiCheckboxFill, RiCheckboxIndeterminateFill } from 'react-icons/ri';
 import { AdminContext } from '../app/context/AdminContext';
 
 
 export function NewListCall() {
     const { subscribers } = useContext(AdminContext)
-    const [isModalNewListCall, setIsmodalAddClasse] = useState(false);
+    const [isModalNewListCall, setIsModalNewListCall] = useState(false);
     const [createFrequency] = useCreatCallListMutation();
-    const [subscriberFrequency, setSubscriberFrequency] = useState({
-        id: "",
-        name: "",
-    })
-    console.log(subscriberFrequency)
-
+    const [subscriberFrequency, setSubscriberFrequency] = useState({});
+    console.log(subscriberFrequency);
+  
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = event.target;
+  
+      setSubscriberFrequency((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    };
+  
 
     return (
         <>
             <Dialog.Root modal={isModalNewListCall}>
-                <Dialog.Trigger onClick={() => setIsmodalAddClasse(true)} className='flex flex-1 max-w-fit items-center text-base font-semibold rounded-md p-2 gap-2 justify-centerfont-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                <Dialog.Trigger onClick={() => setIsModalNewListCall(true)} className='flex flex-1 max-w-fit items-center text-base font-semibold rounded-md p-2 gap-2 justify-centerfont-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                     <RiPlayListAddLine />
                     <span className='leading-none'>Nova lista</span>
                 </Dialog.Trigger>
@@ -38,19 +43,20 @@ export function NewListCall() {
                             <div className="flex flex-row">
                                 <span className="flex w-10 justify-center">#</span>
                                 <span className="flex flex-1 justify-center">Nome</span>
-                                <span className="flex w-28 justify-center">Status</span>
+                                <span className="flex w-28 justify-center">Presença</span>
                             </div>
-                            <form className='flex flex-col gap-2' >
+                            <form className='flex flex-col' >
                                 {subscribers?.subscribers.map((subscriberList, i) => (
-                                    <div key={subscriberList.id} className="flex flex-row hover:bg-backgroundColor-300">
+                                    <div key={subscriberList.id} className="relative py-1 flex flex-row hover:bg-backgroundColor-300/90">
                                         <span className="flex w-10 justify-center">{i + 1}</span>
-                                        <input className="hidden" disabled type='hidden' name='id' value={subscriberList.id} />
-                                        <input className="flex flex-1 pl-2" disabled name='name' value={subscriberList.name} />
+                                        <input className="hidden" disabled  type='hidden' name='id' onChange={handleChange} value={subscriberList.id} />
+                                        <input className="flex flex-1 pl-2" disabled name='name' onChange={handleChange} value={subscriberList.name} />
                                         <div className="flex w-28 justify-center">
-                                            <RadioGroup.Root
+                                            <RadioGroup.Root  onValueChange={(value) => setSubscriberFrequency({...subscriberFrequency, [subscriberList.id]: value})}
                                                 className="flex flex-row gap-4"
                                                 defaultValue="default"
                                                 aria-label="View density"
+                                                name='present'
                                             >
                                                 <div className="flex gap-2 text-lg text-textSecondaryColor-400 items-center">
                                                     <RadioGroup.Item
@@ -74,7 +80,7 @@ export function NewListCall() {
                                                         id="r2"
                                                     >
                                                         <RadioGroup.Indicator>
-                                                            <RiCheckboxIndeterminateFill size={18}/>
+                                                            <RiCheckboxIndeterminateFill size={18} />
                                                         </RadioGroup.Indicator>
                                                     </RadioGroup.Item>
                                                     <label className="text-white leading-none" htmlFor="r2">
@@ -82,37 +88,13 @@ export function NewListCall() {
                                                     </label>
                                                 </div>
                                             </RadioGroup.Root>
-
-                                            {/* <div className='flex flex-1 flex-row items-center justify-items-center    px-2 gap-2'>
-                                                <Checkbox.Root
-                                                    
-                                                    className="bg-backgroundColor-300 hover:bg-backgroundColor-100 flex w-[18px] h-[18px] appearance-none items-center justify-center rounded-sm shadow-md shadow-textColor-300 outline-none"
-                                                    id="c1"
-                                                    name='present'
-                                                >
-                                                    <Checkbox.Indicator className="text-lg">
-                                                        <RiCheckboxFill />
-                                                    </Checkbox.Indicator>
-                                                </Checkbox.Root>
-                                                <strong>P</strong>
-                                            </div>
-
-                                            <div className='flex flex-1 flex-row items-center justify-items-center   px-2 gap-2'>
-                                                <Checkbox.Root
-                                                    className="bg-backgroundColor-300 hover:bg-backgroundColor-100 flex w-[18px] h-[18px] appearance-none items-center justify-center rounded-sm shadow-md shadow-textColor-300 outline-none"
-                                                    id="c2"
-                                                    name='absences'
-                                                >
-                                                    <Checkbox.Indicator className="text-lg ">
-                                                        
-                                                    </Checkbox.Indicator>
-                                                </Checkbox.Root>
-                                                <strong>F</strong>
-                                            </div> */}
                                         </div>
+                                        <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                     </div>
                                 ))}
-                                <button type='submit'>Salvar</button>
+                                <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 mt-4 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
+                                    <strong>Salvar</strong>
+                                </button>
                             </form>
                         </Dialog.Content>
 
