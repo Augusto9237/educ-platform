@@ -177,9 +177,11 @@ export default function Financial() {
                             </Dialog.Root>
                         </div>
                     </header>
-                    <div className="flex flex-col gap-2">
-                        <div className="grid grid-cols-3">
+                    <div className="flex flex-col">
+                        <div className="grid grid-cols-5">
                             <strong className="flex justify-center">Aluno</strong>
+                            <strong className="flex justify-center">E-mail</strong>
+                            <strong className="flex justify-center">Telefone</strong>
                             <strong className="flex justify-center">Turma</strong>
                             <strong className="flex justify-center">Status</strong>
                         </div>
@@ -190,8 +192,10 @@ export default function Financial() {
                                 const isOpen = finance.finances.filter((payment) => payment.payment !== true && payment.payment !== false)
 
                                 return (
-                                    <Dialog.Trigger key={finance.id} className="relative grid grid-cols-3 pb-2 max-sm:overflow-x-auto" onClick={() => handleSelectedFinance(finance.finances)}>
+                                    <Dialog.Trigger key={finance.id} className="relative grid grid-cols-5 py-2 items-center hover:bg-textColor-200/30 max-sm:overflow-x-auto" onClick={() => handleSelectedFinance(finance.finances)}>
                                         <span className="flex justify-center">{finance.name}</span>
+                                        <span className="flex justify-center">{finance.email}</span>
+                                        <span className="flex justify-center">{`(${finance.phone!.slice(0, 2)}) ${finance.phone!.slice(2)}`}</span>
                                         <span className="flex justify-center">{finance.class?.code}</span>
                                         <div className="flex flex-1">
                                             <span className={clsx('flex flex-1 items-center justify-center max-sm:flex-1 gap-2 rounded',

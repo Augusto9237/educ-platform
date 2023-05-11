@@ -11,11 +11,12 @@ import { BsListCheck } from "react-icons/bs";
 import { AdminContext } from '../../context/AdminContext';
 import { extractMonth } from '../../utils/getMonth';
 import dayjs from 'dayjs';
-import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
+import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
 
 import { NewListCall } from '@/components/components/NewListCall';
 import { useDeleteFrequencyMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
+import clsx from 'clsx';
 
 export interface FrequencyGroupedByMonth {
     month: number;
@@ -130,7 +131,7 @@ export default function Frequencies() {
                         }
                         {/* <button className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
                             <FaPlusCircle />
-                            <span className='leading-none'>Adicionar Frequência</span>
+                            <
                         </button> */}
                     </div>
 
@@ -194,10 +195,15 @@ export default function Frequencies() {
                                                                                             <span className="flex w-28 justify-center">Status</span>
                                                                                         </div>
                                                                                         {callList.map((subscriberList, i) => (
-                                                                                            <div key={subscriberList.id} className="flex flex-row">
+                                                                                            <div key={subscriberList.id} className="relative flex flex-row py-2 hover:bg-backgroundColor-300/90">
                                                                                                 <span className="flex w-10 justify-center">{i + 1}</span>
                                                                                                 <span className="flex flex-1 pl-2">{subscriberList.subscriber?.name}</span>
-                                                                                                <span className="flex w-28 justify-center">{subscriberList.prensente === true ? 'Presente' : "Falta"}</span>
+                                                                                                <div  className={clsx("flex w-28 justify-center items-center gap-2",
+                                                                                                    {
+                                                                                                        "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": subscriberList.prensente === true,
+                                                                                                        "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": subscriberList.prensente === false,
+                                                                                                    })}>{subscriberList.prensente === true ? <> <RiCheckboxFill /> <span>P</span> </> : <><RiCheckboxIndeterminateFill /> <span>F</span></>}</div>
+                                                                                                <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                                                                             </div>
                                                                                         ))}
 
@@ -209,7 +215,7 @@ export default function Frequencies() {
                                                                             <RiEditBoxFill />
                                                                             <span>Editar</span>
                                                                         </button>
-                                                                        <button onClick={()=> handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
+                                                                        <button onClick={() => handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
                                                                             <span>Excluir</span>
                                                                         </button>
