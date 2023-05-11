@@ -1,0 +1,6 @@
+mutation DeleteFrequency($id: ID = "") {
+  deleteFrequency(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}

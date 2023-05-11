@@ -8983,13 +8983,13 @@ export type ClassMutationVariables = Exact<{
 
 export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
-export type CreatCallListMutationVariables = Exact<{
+export type CreateCallListMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   create?: InputMaybe<Array<FrequencysubscribesUnionCreateInput> | FrequencysubscribesUnionCreateInput>;
 }>;
 
 
-export type CreatCallListMutation = { __typename?: 'Mutation', createFrequency?: { __typename?: 'Frequency', id: string, createdAt: any } | null };
+export type CreateCallListMutation = { __typename?: 'Mutation', createFrequency?: { __typename?: 'Frequency', id: string, createdAt: any } | null };
 
 export type CreateClassesMutationVariables = Exact<{
   codeCreate?: InputMaybe<Scalars['String']>;
@@ -9015,6 +9015,13 @@ export type DeleteClassesMutationVariables = Exact<{
 
 
 export type DeleteClassesMutation = { __typename?: 'Mutation', deleteClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
+
+export type DeleteFrequencyMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type DeleteFrequencyMutation = { __typename?: 'Mutation', deleteFrequency?: { __typename?: 'Frequency', id: string, updatedAt: any } | null };
 
 export type DeleteSubscriberMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9071,6 +9078,13 @@ export type GetTeacherQueryVariables = Exact<{
 
 
 export type GetTeacherQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', email?: string | null, id: string, name: string, avatarURL: string, bio: string } | null };
+
+export type GetSubscriberByClassQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type GetSubscriberByClassQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string }> };
 
 export type RegisterSubscriberMutationVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9140,8 +9154,8 @@ export function useClassMutation(baseOptions?: Apollo.MutationHookOptions<ClassM
 export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
-export const CreatCallListDocument = gql`
-    mutation CreatCallList($id: ID = "", $create: [FrequencysubscribesUnionCreateInput!] = {}) {
+export const CreateCallListDocument = gql`
+    mutation CreateCallList($id: ID = "", $create: [FrequencysubscribesUnionCreateInput!] = {}) {
   createFrequency(
     data: {turma: {connect: {id: $id}}, subscribes: {create: $create}}
   ) {
@@ -9150,33 +9164,33 @@ export const CreatCallListDocument = gql`
   }
 }
     `;
-export type CreatCallListMutationFn = Apollo.MutationFunction<CreatCallListMutation, CreatCallListMutationVariables>;
+export type CreateCallListMutationFn = Apollo.MutationFunction<CreateCallListMutation, CreateCallListMutationVariables>;
 
 /**
- * __useCreatCallListMutation__
+ * __useCreateCallListMutation__
  *
- * To run a mutation, you first call `useCreatCallListMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatCallListMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateCallListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCallListMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [creatCallListMutation, { data, loading, error }] = useCreatCallListMutation({
+ * const [createCallListMutation, { data, loading, error }] = useCreateCallListMutation({
  *   variables: {
  *      id: // value for 'id'
  *      create: // value for 'create'
  *   },
  * });
  */
-export function useCreatCallListMutation(baseOptions?: Apollo.MutationHookOptions<CreatCallListMutation, CreatCallListMutationVariables>) {
+export function useCreateCallListMutation(baseOptions?: Apollo.MutationHookOptions<CreateCallListMutation, CreateCallListMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatCallListMutation, CreatCallListMutationVariables>(CreatCallListDocument, options);
+        return Apollo.useMutation<CreateCallListMutation, CreateCallListMutationVariables>(CreateCallListDocument, options);
       }
-export type CreatCallListMutationHookResult = ReturnType<typeof useCreatCallListMutation>;
-export type CreatCallListMutationResult = Apollo.MutationResult<CreatCallListMutation>;
-export type CreatCallListMutationOptions = Apollo.BaseMutationOptions<CreatCallListMutation, CreatCallListMutationVariables>;
+export type CreateCallListMutationHookResult = ReturnType<typeof useCreateCallListMutation>;
+export type CreateCallListMutationResult = Apollo.MutationResult<CreateCallListMutation>;
+export type CreateCallListMutationOptions = Apollo.BaseMutationOptions<CreateCallListMutation, CreateCallListMutationVariables>;
 export const CreateClassesDocument = gql`
     mutation CreateClasses($codeCreate: String = "", $nameCreate: String = "", $idTeacher: ID = "") {
   createClass(
@@ -9297,6 +9311,40 @@ export function useDeleteClassesMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteClassesMutationHookResult = ReturnType<typeof useDeleteClassesMutation>;
 export type DeleteClassesMutationResult = Apollo.MutationResult<DeleteClassesMutation>;
 export type DeleteClassesMutationOptions = Apollo.BaseMutationOptions<DeleteClassesMutation, DeleteClassesMutationVariables>;
+export const DeleteFrequencyDocument = gql`
+    mutation DeleteFrequency($id: ID = "") {
+  deleteFrequency(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type DeleteFrequencyMutationFn = Apollo.MutationFunction<DeleteFrequencyMutation, DeleteFrequencyMutationVariables>;
+
+/**
+ * __useDeleteFrequencyMutation__
+ *
+ * To run a mutation, you first call `useDeleteFrequencyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFrequencyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFrequencyMutation, { data, loading, error }] = useDeleteFrequencyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteFrequencyMutation(baseOptions?: Apollo.MutationHookOptions<DeleteFrequencyMutation, DeleteFrequencyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteFrequencyMutation, DeleteFrequencyMutationVariables>(DeleteFrequencyDocument, options);
+      }
+export type DeleteFrequencyMutationHookResult = ReturnType<typeof useDeleteFrequencyMutation>;
+export type DeleteFrequencyMutationResult = Apollo.MutationResult<DeleteFrequencyMutation>;
+export type DeleteFrequencyMutationOptions = Apollo.BaseMutationOptions<DeleteFrequencyMutation, DeleteFrequencyMutationVariables>;
 export const DeleteSubscriberDocument = gql`
     mutation DeleteSubscriber($id: ID = "") {
   deleteSubscriber(where: {id: $id}) {
@@ -9700,6 +9748,43 @@ export function useGetTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetTeacherQueryHookResult = ReturnType<typeof useGetTeacherQuery>;
 export type GetTeacherLazyQueryHookResult = ReturnType<typeof useGetTeacherLazyQuery>;
 export type GetTeacherQueryResult = Apollo.QueryResult<GetTeacherQuery, GetTeacherQueryVariables>;
+export const GetSubscriberByClassDocument = gql`
+    query GetSubscriberByClass($id: ID = "") {
+  subscribers(where: {class: {id: $id}}) {
+    id
+    name
+    email
+  }
+}
+    `;
+
+/**
+ * __useGetSubscriberByClassQuery__
+ *
+ * To run a query within a React component, call `useGetSubscriberByClassQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubscriberByClassQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubscriberByClassQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetSubscriberByClassQuery(baseOptions?: Apollo.QueryHookOptions<GetSubscriberByClassQuery, GetSubscriberByClassQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSubscriberByClassQuery, GetSubscriberByClassQueryVariables>(GetSubscriberByClassDocument, options);
+      }
+export function useGetSubscriberByClassLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubscriberByClassQuery, GetSubscriberByClassQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSubscriberByClassQuery, GetSubscriberByClassQueryVariables>(GetSubscriberByClassDocument, options);
+        }
+export type GetSubscriberByClassQueryHookResult = ReturnType<typeof useGetSubscriberByClassQuery>;
+export type GetSubscriberByClassLazyQueryHookResult = ReturnType<typeof useGetSubscriberByClassLazyQuery>;
+export type GetSubscriberByClassQueryResult = Apollo.QueryResult<GetSubscriberByClassQuery, GetSubscriberByClassQueryVariables>;
 export const RegisterSubscriberDocument = gql`
     mutation RegisterSubscriber($email: String = "", $name: String = "", $address: String = "", $phone: String = "", $pictureUrl: String = "") {
   createSubscriber(

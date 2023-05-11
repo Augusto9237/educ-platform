@@ -11,10 +11,11 @@ import { BsListCheck } from "react-icons/bs";
 import { AdminContext } from '../../context/AdminContext';
 import { extractMonth } from '../../utils/getMonth';
 import dayjs from 'dayjs';
-import { RiDeleteBin2Fill, RiEditBoxFill, RiPlayListAddLine } from 'react-icons/ri';
-import { FaPlusCircle } from 'react-icons/fa';
-import { NewListCall } from '@/components/components/NewListCall';
+import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
 
+import { NewListCall } from '@/components/components/NewListCall';
+import { useDeleteFrequencyMutation } from 'graphql/api';
+import { toast } from 'react-toastify';
 
 export interface FrequencyGroupedByMonth {
     month: number;
@@ -50,12 +51,12 @@ interface SubscriberSelected {
 
 
 export default function Frequencies() {
-    const [month, setMonth] = useState(0)
     const { frequencies, classes, idClasses, setIdClasses, loadingFequencies, reloadFrequencies } = useContext(AdminContext)
     const [frequencyGroup, setFrequencyGroup] = useState<FrequencyGroupedByMonth[]>([]);
     const [callList, setCallList] = useState<SubscriberSelected[]>([]);
     const [open, setOpen] = useState(false);
     const [openModalCallList, setOpenModalCallList] = useState(false);
+    const [deleteFrequency] = useDeleteFrequencyMutation()
 
     useEffect(() => {
         if (frequencies?.frequencies) {
@@ -78,7 +79,7 @@ export default function Frequencies() {
     }, [frequencies]);
 
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) => {
+    function handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) {
         const { name, value } = event.target;
         setIdClasses((prevFormData) => ({
             ...prevFormData,
@@ -89,6 +90,22 @@ export default function Frequencies() {
     async function handleSelectedCallList(frequncy: SubscriberSelected[]) {
         setCallList(frequncy);
         setOpenModalCallList(true);
+    }
+
+    async function handleDeleteFrequency(frequencyId: string) {
+        try {
+            await deleteFrequency({
+                variables: {
+                    id: frequencyId
+                }
+            })
+            toast.success("Lista de frequência excluida com sucesso");
+            reloadFrequencies();
+        } catch (error) {
+            console.log(error);
+            toast.error("Algo deu errado, tente novamente");
+        }
+
     }
 
     return (
@@ -107,15 +124,19 @@ export default function Frequencies() {
                     <h1 className="mx-auto text-lg font-bold">Frequencias</h1>
 
                     <div className='flex justify-end'>
-                        <button className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
+                        {idClasses.id && (
+                            <NewListCall />
+                        )
+                        }
+                        {/* <button className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
                             <FaPlusCircle />
                             <span className='leading-none'>Adicionar Frequência</span>
-                        </button>
+                        </button> */}
                     </div>
 
                 </header>
                 <div className='flex flex-1 justify-center'>
-                    {frequencies?.frequencies.length === 0 ? <h1>Nenhuma turma Selecionada</h1>
+                    {idClasses.id === '' ? <h1>Nenhuma turma Selecionada</h1>
                         :
                         <>
                             {loadingFequencies && (
@@ -131,12 +152,12 @@ export default function Frequencies() {
                                                     <header className='flex flex-1 justify-center'>
                                                         <h1 className='text-lg font-semibold'>{extractMonth(month, true)}</h1>
                                                     </header>
-                                                    <div className="grid grid-cols-4 py-2 text-lg font-semibold">
+                                                    <div className="grid grid-cols-4 text-lg font-semibold">
                                                         <div className="flex justify-center">Data</div>
                                                         <div className="flex justify-center">Presenças</div>
                                                         <div className="flex justify-center">Faltas</div>
                                                         <div className='flex justify-center items-center'>
-                                                           <NewListCall/>
+                                                            •••
                                                         </div>
                                                     </div>
                                                     <div className='flex flex-1 justify-center'>
@@ -188,7 +209,7 @@ export default function Frequencies() {
                                                                             <RiEditBoxFill />
                                                                             <span>Editar</span>
                                                                         </button>
-                                                                        <button className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
+                                                                        <button onClick={()=> handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
                                                                             <span>Excluir</span>
                                                                         </button>
