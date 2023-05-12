@@ -8,7 +8,7 @@ import { useDeleteSubscriberMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import { FormEditSubscriber } from '@/components/components/FormEditSubscriber';
 import { FormUser } from '@/components/components/FormUser';
-import { FaPlusCircle} from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 
 
 interface SubscriberProps {
@@ -99,45 +99,44 @@ export default function Subscribers() {
                     </header>
 
 
-                    <div className="flex flex-col gap-2">
-                        <div className="grid grid-cols-5">
+                    <div className="flex flex-col">
+                        <div className="relative grid grid-cols-5 py-2 bg-textColor-200/30">
                             <strong className="flex justify-center">Nome</strong>
                             <strong className="flex justify-center">Turma</strong>
                             <strong className="flex justify-center">E-mail</strong>
                             <strong className="flex justify-center">Telefone</strong>
+                            <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                         </div>
                         {!loadingSubscribers && (
                             <>
                                 {subscribers?.subscribers.map((subscriber) => (
-                                    <div key={subscriber.id} className='relative'>
-                                        <div className="grid grid-cols-5 overflow-hidden overflow-x-auto hover:bg-backgroundColor-300/60 mb-2">
-                                            <span className="flex justify-center">{subscriber.name}</span>
-                                            <span className="flex justify-center">{subscriber.class?.code}</span>
-                                            <span className="flex justify-center">{subscriber.email}</span>
-                                            <span className="flex justify-center">{`(${subscriber.phone!.slice(0, 2)}) ${subscriber.phone!.slice(2)}`}</span>
-                                            <div className='flex gap-4'>
-                                                <Dialog.Root modal={isOpen}>
-                                                    <Dialog.Trigger onClick={() => handleSelectedSubscriber(subscriber)} className='flex flex-1 items-center justify-center gap-2 rounded text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
-                                                        <RiEditBoxFill />
-                                                        <span>Editar</span>
-                                                    </Dialog.Trigger>
+                                    <div key={subscriber.id} className="relative grid grid-cols-5 py-2 overflow-hidden overflow-x-auto hover:bg-textColor-200/30">
+                                        <span className="flex justify-center">{subscriber.name}</span>
+                                        <span className="flex justify-center">{subscriber.class?.code}</span>
+                                        <span className="flex justify-center">{subscriber.email}</span>
+                                        <span className="flex justify-center">{`(${subscriber.phone!.slice(0, 2)}) ${subscriber.phone!.slice(2)}`}</span>
+                                        <div className='flex gap-4'>
+                                            <Dialog.Root modal={isOpen}>
+                                                <Dialog.Trigger onClick={() => handleSelectedSubscriber(subscriber)} className='flex flex-1 items-center justify-center gap-2 rounded text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                                    <RiEditBoxFill />
+                                                    <span>Editar</span>
+                                                </Dialog.Trigger>
 
-                                                    <Dialog.Portal>
-                                                        <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                                                            <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
-                                                                <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
-                                                                    <strong className='text-textColor-200'>X</strong>
-                                                                </Dialog.Close>
-                                                                <FormEditSubscriber subscriber={selectedSubscriber} setIsOpen={setIsOpen} />
-                                                            </Dialog.Content>
-                                                        </Dialog.Overlay>
-                                                    </Dialog.Portal>
-                                                </Dialog.Root>
-                                                <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2 hover:bg-textSecondaryColor-200/20'>
-                                                    <RiDeleteBin2Fill />
-                                                    <span>Excluir</span>
-                                                </button>
-                                            </div>
+                                                <Dialog.Portal>
+                                                    <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
+                                                        <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                                                            <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
+                                                                <strong className='text-textColor-200'>X</strong>
+                                                            </Dialog.Close>
+                                                            <FormEditSubscriber subscriber={selectedSubscriber} setIsOpen={setIsOpen} />
+                                                        </Dialog.Content>
+                                                    </Dialog.Overlay>
+                                                </Dialog.Portal>
+                                            </Dialog.Root>
+                                            <button onClick={() => handleDeleteSubscriber(subscriber.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 px-2 hover:bg-textSecondaryColor-200/20'>
+                                                <RiDeleteBin2Fill />
+                                                <span>Excluir</span>
+                                            </button>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                     </div>

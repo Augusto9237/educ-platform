@@ -39,7 +39,7 @@ interface Frequency {
     }>;
 }
 
-interface SubscriberSelected {
+export interface SubscriberSelected {
     __typename?: "Presence" | undefined;
     id: string;
     prensente?: boolean | null | undefined;
@@ -114,7 +114,7 @@ export default function Frequencies() {
             <section className="flex flex-col gap-2 max-h-screen flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
                 <header className='grid grid-cols-3 items-center mb-2'>
                     <div className='flex flex-1'>
-                        <select required className="text-lg p-1 rounded-md" name="id" value={idClasses.id} onChange={handleChange}>
+                        <select required className="text-lg p-1 rounded-md bg-textColor-200/20" name="id" value={idClasses.id} onChange={handleChange}>
                             <option value=''>Selecione uma turma</option>
                             {classes?.classes.map((classe) => (
                                 <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>
@@ -129,10 +129,6 @@ export default function Frequencies() {
                             <NewListCall />
                         )
                         }
-                        {/* <button className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
-                            <FaPlusCircle />
-                            <
-                        </button> */}
                     </div>
 
                 </header>
@@ -153,7 +149,7 @@ export default function Frequencies() {
                                                     <header className='flex flex-1 justify-center'>
                                                         <h1 className='text-lg font-semibold'>{extractMonth(month, true)}</h1>
                                                     </header>
-                                                    <div className="grid grid-cols-4 text-lg font-semibold">
+                                                    <div className="grid grid-cols-4 font-semibold py-2 bg-textColor-200/30">
                                                         <div className="flex justify-center">Data</div>
                                                         <div className="flex justify-center">Presenças</div>
                                                         <div className="flex justify-center">Faltas</div>
@@ -198,7 +194,7 @@ export default function Frequencies() {
                                                                                             <div key={subscriberList.id} className="relative flex flex-row py-2 hover:bg-backgroundColor-300/90">
                                                                                                 <span className="flex w-10 justify-center">{i + 1}</span>
                                                                                                 <span className="flex flex-1 pl-2">{subscriberList.subscriber?.name}</span>
-                                                                                                <div  className={clsx("flex w-28 justify-center items-center gap-2",
+                                                                                                <div className={clsx("flex w-28 justify-center items-center gap-2",
                                                                                                     {
                                                                                                         "text-textSecondaryColor-400 bg-textSecondaryColor-300/20": subscriberList.prensente === true,
                                                                                                         "text-textSecondaryColor-200 bg-textSecondaryColor-200/20": subscriberList.prensente === false,
@@ -211,10 +207,7 @@ export default function Frequencies() {
                                                                                 </Dialog.Overlay>
                                                                             </Dialog.Portal>
                                                                         </Dialog.Root>
-                                                                        <button className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
-                                                                            <RiEditBoxFill />
-                                                                            <span>Editar</span>
-                                                                        </button>
+                                                                        <NewListCall callList={frequency.subscribes} idFrequency={frequency.id} />
                                                                         <button onClick={() => handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
                                                                             <span>Excluir</span>

@@ -9097,6 +9097,14 @@ export type RegisterSubscriberMutationVariables = Exact<{
 
 export type RegisterSubscriberMutation = { __typename?: 'Mutation', createSubscriber?: { __typename?: 'Subscriber', id: string, name: string, phone?: string | null, pictureUrl?: string | null, email: string, stage: Stage } | null, publishSubscriber?: { __typename?: 'Subscriber', id: string } | null };
 
+export type UpdateCallListMutationVariables = Exact<{
+  update?: InputMaybe<Array<FrequencysubscribesUnionUpdateWithNestedWhereUniqueAndPositionInput> | FrequencysubscribesUnionUpdateWithNestedWhereUniqueAndPositionInput>;
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type UpdateCallListMutation = { __typename?: 'Mutation', updateFrequency?: { __typename?: 'Frequency', id: string, updatedAt: any } | null };
+
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -9832,6 +9840,41 @@ export function useRegisterSubscriberMutation(baseOptions?: Apollo.MutationHookO
 export type RegisterSubscriberMutationHookResult = ReturnType<typeof useRegisterSubscriberMutation>;
 export type RegisterSubscriberMutationResult = Apollo.MutationResult<RegisterSubscriberMutation>;
 export type RegisterSubscriberMutationOptions = Apollo.BaseMutationOptions<RegisterSubscriberMutation, RegisterSubscriberMutationVariables>;
+export const UpdateCallListDocument = gql`
+    mutation UpdateCallList($update: [FrequencysubscribesUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "") {
+  updateFrequency(data: {subscribes: {update: $update}}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type UpdateCallListMutationFn = Apollo.MutationFunction<UpdateCallListMutation, UpdateCallListMutationVariables>;
+
+/**
+ * __useUpdateCallListMutation__
+ *
+ * To run a mutation, you first call `useUpdateCallListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCallListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCallListMutation, { data, loading, error }] = useUpdateCallListMutation({
+ *   variables: {
+ *      update: // value for 'update'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateCallListMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCallListMutation, UpdateCallListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCallListMutation, UpdateCallListMutationVariables>(UpdateCallListDocument, options);
+      }
+export type UpdateCallListMutationHookResult = ReturnType<typeof useUpdateCallListMutation>;
+export type UpdateCallListMutationResult = Apollo.MutationResult<UpdateCallListMutation>;
+export type UpdateCallListMutationOptions = Apollo.BaseMutationOptions<UpdateCallListMutation, UpdateCallListMutationVariables>;
 export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {

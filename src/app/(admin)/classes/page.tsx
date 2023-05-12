@@ -91,11 +91,12 @@ export default function Classes() {
                         </div>
 
                     </header>
-                    <div className="flex flex-col gap-2">
-                        <div className="grid grid-cols-4">
+                    <div className="flex flex-col">
+                        <div className="relative grid grid-cols-4 py-2 bg-textColor-200/30">
                             <strong className="flex justify-center">Codigo</strong>
                             <strong className="flex justify-center">Nome</strong>
                             <strong className="flex justify-center">Quantidade de Alunos</strong>
+                            <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                         </div>
                         {!loadingClasses && (
                             <>
@@ -131,7 +132,6 @@ export default function Classes() {
                                                 <span>Excluir</span>
                                             </button>
                                         </div>
-
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                                     </div>
                                 ))}

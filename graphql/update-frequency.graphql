@@ -1,0 +1,6 @@
+mutation UpdateCallList($update: [FrequencysubscribesUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "") {
+  updateFrequency(data: {subscribes: {update: $update}}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+}

@@ -23,10 +23,11 @@ interface FrequencyEdit {
 }
 
 
-export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
+export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
     const { idClasses, reloadFrequencies } = useContext(AdminContext)
     const [isModalNewListCall, setIsModalNewListCall] = useState(false);
     const [subscriberFrequency, setSubscriberFrequency] = useState<SubscriberFrequency[]>([]);
+    const [editFrequency, setEditFrequency] = useState<SubscriberSelected[]>([]);
     const [createFrequency] = useCreateCallListMutation();
     const [updateFrequency] = useUpdateCallListMutation();
     const { data, loading } = useGetSubscriberByClassQuery({
@@ -34,7 +35,19 @@ export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
             id: idClasses.id
         }
     })
-   
+
+    useEffect(() => {
+        if (callList) {
+          setEditFrequency(
+            callList.map((list) => ({ 
+              id: list.id, 
+              value: list.prensente === true ? 'present' : 'absence' 
+            }))
+          );
+        }
+      }, [callList]);
+
+
     function handleRadioChange(value: string, subscriberId: string) {
         const updatedSubscriberFrequency = [...subscriberFrequency];
         const index = updatedSubscriberFrequency.findIndex(subscriber => subscriber.id === subscriberId);
@@ -48,32 +61,7 @@ export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
         setSubscriberFrequency(updatedSubscriberFrequency);
     };
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        try {
-            const presenceArray = subscriberFrequency.map(item => ({
-                Presence: {
-                    prensente: item.value === 'present' ? true : false,
-                    subscriber: { connect: { id: item.id } }
-                }
-            }));
-
-            await createFrequency({
-                variables: {
-                    id: idClasses.id,
-                    create: presenceArray
-                }
-            });
-
-            toast.success('Lista de frequência criada com sucesso!');
-            reloadFrequencies();
-            setIsModalNewListCall(false);
-        } catch (error) {
-            console.log(error);
-            toast.error('Algo deu errado, tente novamente');
-        }
-
-    };
+;
 
     async function handleSubmitUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -106,7 +94,6 @@ export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
 
     };
 
-
     return (
         <>
             <Dialog.Root modal={isModalNewListCall}>
@@ -133,7 +120,7 @@ export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
                                     <strong className='text-textColor-300'>X</strong>
                                 </Dialog.Close>
                             </header>
-                            <form className='flex flex-col' onSubmit={handleSubmit} >
+                            <form className='flex flex-col' onSubmit={handleSubmitUpdate} >
                                 <div className="flex flex-row">
                                     <span className="flex w-10 justify-center">#</span>
                                     <span className="flex flex-1 justify-center">Nome</span>
@@ -205,7 +192,7 @@ export function NewListCall({ callList, idFrequency }: FrequencyEdit) {
                                                             className="flex flex-row gap-4"
                                                             aria-label="View density"
                                                             name='present'
-                                                            value={subscriberList.prensente === true ? 'present' : 'abscence'}
+                                                            value={subscriberList.prensente === true ? 'present' : 'abscence' || "default"}
                                                             onValueChange={value => handleRadioChange(value as string, subscriberList.id)}
                                                         >
                                                             <div className="flex gap-2 text-lg text-textSecondaryColor-400 items-center">

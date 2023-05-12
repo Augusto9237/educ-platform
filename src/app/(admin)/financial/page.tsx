@@ -121,9 +121,9 @@ export default function Financial() {
             {!loadingUser && (
                 <section className="flex flex-col gap-2 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
                     <header className='grid grid-cols-3 items-center mb-2'>
-                        <div className='flex flex-1 rounded-md border-solid border border-textColor-200 overflow-hidden'>
+                        <div className='flex flex-1 rounded-md border-solid border border-textColor-200 bg-textColor-200/20 overflow-hidden'>
                             <button className='px-2'><RiSearchLine /></button>
-                            <input type='search' className='p-1 flex flex-1' placeholder='Pesquisar por aluno' />
+                            <input type='search' className='p-1 flex flex-1 bg-backgroundColor-300/0' placeholder='Pesquisar por aluno' />
                         </div>
 
                         <h1 className="text-lg font-bold mx-auto">Mensalidades</h1>
@@ -178,12 +178,13 @@ export default function Financial() {
                         </div>
                     </header>
                     <div className="flex flex-col">
-                        <div className="grid grid-cols-5">
+                        <div className="relative grid grid-cols-5 py-2 bg-textColor-200/30">
                             <strong className="flex justify-center">Aluno</strong>
                             <strong className="flex justify-center">E-mail</strong>
                             <strong className="flex justify-center">Telefone</strong>
                             <strong className="flex justify-center">Turma</strong>
                             <strong className="flex justify-center">Status</strong>
+                            <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
                         </div>
                         <Dialog.Root >
                             {subscribers?.subscribers.map((finance) => {
