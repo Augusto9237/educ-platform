@@ -36,16 +36,9 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
         }
     })
 
-    useEffect(() => {
-        if (callList) {
-          setEditFrequency(
-            callList.map((list) => ({ 
-              id: list.id, 
-              value: list.prensente === true ? 'present' : 'absence' 
-            }))
-          );
-        }
-      }, [callList]);
+    // useEffect(() => {
+    //    setEditFrequency(callList)
+    //   }, [callList]);
 
 
     function handleRadioChange(value: string, subscriberId: string) {

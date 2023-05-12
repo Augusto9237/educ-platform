@@ -17,13 +17,13 @@ export interface GradesProps {
 
 
 export default function Grades() {
-    const { user, loadingUser } = useContext(GlobalContext)
+    
     const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([])
     return (
         <>
-            {!loadingUser && (
+            
                 <section className="fl:grid grid-cols-2 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14">
-                    <Dialog.Root>
+                    {/* <Dialog.Root>
                         {user?.values?.gradeses.map((grades) => (
                             <Dialog.Trigger key={grades.id} onClick={() => setGradesSelected(grades.weeklyAssessments)}>
                                 <CardGrades gradeses={grades} month={grades.month} />
@@ -39,9 +39,9 @@ export default function Grades() {
                                 </Dialog.Content>
                             </Dialog.Overlay>
                         </Dialog.Portal>
-                    </Dialog.Root>
+                    </Dialog.Root> */}
                 </section>
-            )}
+           
         </>
     )
 }
