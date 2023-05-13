@@ -1,5 +1,5 @@
 "use client";
-import { useGetTeacherQuery, useGetSubscribersDataQuery, useGetClassesQuery, useGetFrequenciesClassQuery, useGetFrequenciesClassByIdQuery } from "graphql/api";
+import { useGetTeacherQuery, useGetSubscribersDataQuery, useGetClassesQuery, useGetFrequenciesClassQuery, useGetFrequenciesClassByIdQuery, useGetAssessmentsByClassQuery } from "graphql/api";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -23,8 +23,12 @@ export const AdminProvider = ({ children }: AuthProps) => {
         variables: {
             idClass: idClasses.id
         }
+    });
+    const {data: assessmentsByClass, loading: assessmentsLodingByClass} = useGetAssessmentsByClassQuery({
+        variables: {
+            id: idClasses.id
+        }
     })
-
 
     return (
         <AdminContext.Provider value={{
@@ -41,6 +45,7 @@ export const AdminProvider = ({ children }: AuthProps) => {
             frequencies,
             loadingFequencies,
             reloadFrequencies,
+            assessmentsByClass
         }}>
             {children}
         </AdminContext.Provider>

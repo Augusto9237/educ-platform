@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 import { SubscriberSelected } from '../app/(admin)/frequencies/page';
 import { AdminContext } from '../app/context/AdminContext';
 
-
-
 interface SubscriberFrequency {
     id: string;
     value: string;
@@ -21,7 +19,6 @@ interface FrequencyEdit {
     callList?: SubscriberSelected[];
     idFrequency?: string;
 }
-
 
 export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
     const { idClasses, reloadFrequencies } = useContext(AdminContext)
@@ -35,10 +32,6 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
             id: idClasses.id
         }
     })
-
-    // useEffect(() => {
-    //    setEditFrequency(callList)
-    //   }, [callList]);
 
 
     function handleRadioChange(value: string, subscriberId: string) {
@@ -54,7 +47,7 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
         setSubscriberFrequency(updatedSubscriberFrequency);
     };
 
-;
+    ;
 
     async function handleSubmitUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();

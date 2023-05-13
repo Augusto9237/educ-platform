@@ -9030,6 +9030,13 @@ export type DeleteSubscriberMutationVariables = Exact<{
 
 export type DeleteSubscriberMutation = { __typename?: 'Mutation', deleteSubscriber?: { __typename?: 'Subscriber', id: string, name: string, updatedAt: any } | null };
 
+export type GetAssessmentsByClassQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type GetAssessmentsByClassQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
+
 export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -9388,6 +9395,58 @@ export function useDeleteSubscriberMutation(baseOptions?: Apollo.MutationHookOpt
 export type DeleteSubscriberMutationHookResult = ReturnType<typeof useDeleteSubscriberMutation>;
 export type DeleteSubscriberMutationResult = Apollo.MutationResult<DeleteSubscriberMutation>;
 export type DeleteSubscriberMutationOptions = Apollo.BaseMutationOptions<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>;
+export const GetAssessmentsByClassDocument = gql`
+    query GetAssessmentsByClass($id: ID = "") {
+  gradeses(where: {subscriber: {class: {id: $id}}}) {
+    id
+    month
+    subscriber {
+      id
+      name
+      email
+      phone
+      pictureUrl
+    }
+    weeklyAssessments {
+      ... on Week {
+        id
+        primaryReview
+        secondReview
+        thirdReview
+        fourthReview
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAssessmentsByClassQuery__
+ *
+ * To run a query within a React component, call `useGetAssessmentsByClassQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAssessmentsByClassQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAssessmentsByClassQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetAssessmentsByClassQuery(baseOptions?: Apollo.QueryHookOptions<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>(GetAssessmentsByClassDocument, options);
+      }
+export function useGetAssessmentsByClassLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>(GetAssessmentsByClassDocument, options);
+        }
+export type GetAssessmentsByClassQueryHookResult = ReturnType<typeof useGetAssessmentsByClassQuery>;
+export type GetAssessmentsByClassLazyQueryHookResult = ReturnType<typeof useGetAssessmentsByClassLazyQuery>;
+export type GetAssessmentsByClassQueryResult = Apollo.QueryResult<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>;
 export const GetClassesDocument = gql`
     query GetClasses {
   classes {

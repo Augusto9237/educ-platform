@@ -1,10 +1,10 @@
 'use client';
-import { CardGrades } from '@/components/components/CardGrades';
+import { CardGradesSubscriber } from '@/components/components/CardGradesSubscriber';
 import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { AdminContext } from '../../context/AdminContext';
 
 export interface GradesProps {
     __typename?: "Week" | undefined;
@@ -12,21 +12,48 @@ export interface GradesProps {
     fourthReview?: number | null | undefined;
     primaryReview?: number | null | undefined;
     secondReview?: number | null | undefined;
-    thirdReview?: number | null| undefined;
+    thirdReview?: number | null | undefined;
 }[]
 
 
 export default function Grades() {
-    
-    const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([])
+    const {idClasses, classes, setIdClasses, assessmentsByClass} = useContext(AdminContext);
+    const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([]);
+
+    function handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) {
+        const { name, value } = event.target;
+        setIdClasses((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
     return (
         <>
-            
-                <section className="fl:grid grid-cols-2 flex flex-col flex-1 gap-6 justify-start max-sm:pb-14">
-                    {/* <Dialog.Root>
-                        {user?.values?.gradeses.map((grades) => (
+            <section className="flex flex-col gap-4 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
+                <header className='grid grid-cols-3 items-center mb-1'>
+                    <div className='flex flex-1'>
+                        <select required className="text-lg p-1 rounded-md bg-textColor-200/20" name="id" value={idClasses.id} onChange={handleChange}>
+                            <option value=''>Selecione uma turma</option>
+                            {classes?.classes.map((classe) => (
+                                <option key={classe.id} value={classe.id}>{classe.code} - {classe.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <h1 className="mx-auto text-lg font-bold">Avaliações</h1>
+
+                    <div className='flex justify-end'>
+
+                    </div>
+
+                </header>
+
+
+
+                <Dialog.Root>
+                        {assessmentsByClass?.gradeses.map((grades) => (
                             <Dialog.Trigger key={grades.id} onClick={() => setGradesSelected(grades.weeklyAssessments)}>
-                                <CardGrades gradeses={grades} month={grades.month} />
+                                <CardGradesSubscriber gradeses={grades} month={grades.month} />
                             </Dialog.Trigger>
                         ))} 
                         <Dialog.Portal>
@@ -39,9 +66,9 @@ export default function Grades() {
                                 </Dialog.Content>
                             </Dialog.Overlay>
                         </Dialog.Portal>
-                    </Dialog.Root> */}
-                </section>
-           
+                    </Dialog.Root> 
+            </section>
+
         </>
     )
 }

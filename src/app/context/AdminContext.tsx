@@ -1,6 +1,6 @@
 'use client';
 import { ApolloQueryResult } from "@apollo/client";
-import { Exact, GetClassesQuery, GetFrequenciesClassByIdQuery, GetSubscribersDataQuery, GetTeacherQuery, InputMaybe } from "graphql/api";
+import { Exact, GetAssessmentsByClassQuery, GetClassesQuery, GetFrequenciesClassByIdQuery, GetSubscribersDataQuery, GetTeacherQuery, InputMaybe } from "graphql/api";
 import { createContext, Dispatch, SetStateAction } from "react";
 
 export interface GlobalContextProps {
@@ -22,7 +22,8 @@ export interface GlobalContextProps {
     loadingFequencies: boolean;
     reloadFrequencies: (variables?: Partial<Exact<{
         idClass?: InputMaybe<string> | undefined;
-    }>> | undefined) => Promise<ApolloQueryResult<GetFrequenciesClassByIdQuery>>
+    }>> | undefined) => Promise<ApolloQueryResult<GetFrequenciesClassByIdQuery>>;
+    assessmentsByClass: GetAssessmentsByClassQuery | undefined
 }
 
 export const AdminContext = createContext<GlobalContextProps>(null!);
