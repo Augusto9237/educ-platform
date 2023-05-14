@@ -30,11 +30,10 @@ export function WeekGrades({ grades }: WeekGradesProps) {
 
     return (
         <div className="flex flex-col gap-2 text-textSecondaryColor-600">
-            <header><h1 className="text-lg font-bold">Avaliação semanal</h1></header>
             {grades.map((weeks, index) => (
                 <div className="flex flex-col" key={weeks.id}>
-                    <strong >{index + 1}ª semana</strong>
-                    <div>
+                    <strong className="flex gap-2 text-textColor-500/70">{index + 1}ª semana</strong>
+                    <div className="relative flex flex-1 py-2 justify-between">
                         <span className="text-sm">1ª Av: {weeks.primaryReview}</span>
                         <span className="text-sm"> + </span>
                         <span className="text-sm">2ª Av: {weeks.secondReview}</span>
@@ -44,8 +43,9 @@ export function WeekGrades({ grades }: WeekGradesProps) {
                         <span className="text-sm">4ª Av: {weeks.fourthReview}</span>
                         <span className="text-sm"> / 4 = </span>
                         <strong className="text-sm">{(weeks.primaryReview! + weeks.secondReview! + weeks.thirdReview! + weeks.fourthReview!) / 4} pts</strong>
+                        <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
                     </div>
-                    <div className="bg-textColor-200 h-[1px] my-2" />
+
                 </div>
             ))}
 

@@ -23,7 +23,11 @@ export interface GlobalContextProps {
     reloadFrequencies: (variables?: Partial<Exact<{
         idClass?: InputMaybe<string> | undefined;
     }>> | undefined) => Promise<ApolloQueryResult<GetFrequenciesClassByIdQuery>>;
-    assessmentsByClass: GetAssessmentsByClassQuery | undefined
+    assessmentsByClass: GetAssessmentsByClassQuery | undefined;
+    assessmentsLodingByClass: boolean;
+    reloadAssesments: (variables?: Partial<Exact<{
+        id?: InputMaybe<string> | undefined;
+    }>> | undefined) => Promise<ApolloQueryResult<GetAssessmentsByClassQuery>>
 }
 
 export const AdminContext = createContext<GlobalContextProps>(null!);

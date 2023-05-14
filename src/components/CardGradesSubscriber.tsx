@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
 import { extractMonth } from "../app/utils/getMonth";
 import * as Progress from '@radix-ui/react-progress';
+import { calculateAverage } from "../app/utils/calculateAverage";
 
 interface Week {
     __typename: string;
@@ -45,15 +46,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
     const newMonth = dayjs(month).month() + 1;
 
     const assessments = gradeses.weeklyAssessments;
-
-    function calculateAverage(assessments: Week[]) {
-        const sum = assessments.reduce((total, week) => {
-            return total + week.fourthReview + week.primaryReview + week.secondReview + week.thirdReview;
-        }, 0);
-        const count = assessments.length * 4;
-        return sum / count;
-    }
-
+    
     const average = calculateAverage(assessments);
     const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
 
@@ -61,7 +54,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-50 hover:bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
             <div className="flex flex-row flex-1 items-center gap-4">
-                <div className="w-16 rounded-full overflow-hidden">
+                <div className="w-16 h-16 rounded-full overflow-hidden">
                     <img className="w-full h-full" src={gradeses.subscriber.pictureUrl} alt="foto do aluno" />
                 </div>
                 <div className="flex flex-col w-full">

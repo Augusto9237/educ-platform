@@ -1,0 +1,6 @@
+mutation DeleteGrades($id: ID = "") {
+  deleteGrades(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}

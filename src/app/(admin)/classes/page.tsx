@@ -92,11 +92,11 @@ export default function Classes() {
 
                     </header>
                     <div className="flex flex-col">
-                        <div className="relative grid grid-cols-4 py-2 bg-textColor-200/30">
+                        <div className="relative grid grid-cols-4 py-2 text-textColor-500/60">
                             <strong className="flex justify-center">Codigo</strong>
                             <strong className="flex justify-center">Nome</strong>
                             <strong className="flex justify-center">Quantidade de Alunos</strong>
-                            <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
+                            <div className="absolute bottom-0 h-[2px] w-full bg-textColor-200" />
                         </div>
                         {!loadingClasses && (
                             <>

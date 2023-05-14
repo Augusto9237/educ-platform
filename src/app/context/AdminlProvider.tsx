@@ -24,7 +24,7 @@ export const AdminProvider = ({ children }: AuthProps) => {
             idClass: idClasses.id
         }
     });
-    const {data: assessmentsByClass, loading: assessmentsLodingByClass} = useGetAssessmentsByClassQuery({
+    const {data: assessmentsByClass, loading: assessmentsLodingByClass, refetch: reloadAssesments} = useGetAssessmentsByClassQuery({
         variables: {
             id: idClasses.id
         }
@@ -45,7 +45,9 @@ export const AdminProvider = ({ children }: AuthProps) => {
             frequencies,
             loadingFequencies,
             reloadFrequencies,
-            assessmentsByClass
+            assessmentsByClass,
+            assessmentsLodingByClass,
+            reloadAssesments
         }}>
             {children}
         </AdminContext.Provider>

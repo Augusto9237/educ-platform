@@ -9023,6 +9023,13 @@ export type DeleteFrequencyMutationVariables = Exact<{
 
 export type DeleteFrequencyMutation = { __typename?: 'Mutation', deleteFrequency?: { __typename?: 'Frequency', id: string, updatedAt: any } | null };
 
+export type DeleteGradesMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type DeleteGradesMutation = { __typename?: 'Mutation', deleteGrades?: { __typename?: 'Grades', id: string, updatedAt: any } | null };
+
 export type DeleteSubscriberMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
@@ -9360,6 +9367,40 @@ export function useDeleteFrequencyMutation(baseOptions?: Apollo.MutationHookOpti
 export type DeleteFrequencyMutationHookResult = ReturnType<typeof useDeleteFrequencyMutation>;
 export type DeleteFrequencyMutationResult = Apollo.MutationResult<DeleteFrequencyMutation>;
 export type DeleteFrequencyMutationOptions = Apollo.BaseMutationOptions<DeleteFrequencyMutation, DeleteFrequencyMutationVariables>;
+export const DeleteGradesDocument = gql`
+    mutation DeleteGrades($id: ID = "") {
+  deleteGrades(where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type DeleteGradesMutationFn = Apollo.MutationFunction<DeleteGradesMutation, DeleteGradesMutationVariables>;
+
+/**
+ * __useDeleteGradesMutation__
+ *
+ * To run a mutation, you first call `useDeleteGradesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteGradesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteGradesMutation, { data, loading, error }] = useDeleteGradesMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteGradesMutation(baseOptions?: Apollo.MutationHookOptions<DeleteGradesMutation, DeleteGradesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteGradesMutation, DeleteGradesMutationVariables>(DeleteGradesDocument, options);
+      }
+export type DeleteGradesMutationHookResult = ReturnType<typeof useDeleteGradesMutation>;
+export type DeleteGradesMutationResult = Apollo.MutationResult<DeleteGradesMutation>;
+export type DeleteGradesMutationOptions = Apollo.BaseMutationOptions<DeleteGradesMutation, DeleteGradesMutationVariables>;
 export const DeleteSubscriberDocument = gql`
     mutation DeleteSubscriber($id: ID = "") {
   deleteSubscriber(where: {id: $id}) {

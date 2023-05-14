@@ -1,5 +1,4 @@
 "use client";
-
 import { useContext, useEffect, useState } from 'react';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -11,7 +10,7 @@ import { BsListCheck } from "react-icons/bs";
 import { AdminContext } from '../../context/AdminContext';
 import { extractMonth } from '../../utils/getMonth';
 import dayjs from 'dayjs';
-import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
+import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiDeleteBin2Fill} from 'react-icons/ri';
 
 import { NewListCall } from '@/components/components/NewListCall';
 import { useDeleteFrequencyMutation } from 'graphql/api';
@@ -144,16 +143,16 @@ export default function Frequencies() {
                                 <>
                                     {
                                         frequencyGroup.map(({ frequencies, month }, i) => (
-                                            <div key={i} className="flex flex-1 flex-col p-2 h-fit shadow-md bg-[#fff] rounded">
+                                            <div key={i} className="flex flex-1 flex-col p-2 h-fit shadow-md bg-backgroundColor-50 rounded">
                                                 <Collapsible.Root open={open} onOpenChange={setOpen}>
                                                     <header className='flex flex-1 justify-center'>
                                                         <h1 className='text-lg font-semibold'>{extractMonth(month, true)}</h1>
                                                     </header>
-                                                    <div className="grid grid-cols-4 font-semibold py-2 bg-textColor-200/30">
+                                                    <div className="grid grid-cols-4 font-semibold text-textColor-500/60">
                                                         <div className="flex justify-center">Data</div>
                                                         <div className="flex justify-center">Presenças</div>
                                                         <div className="flex justify-center">Faltas</div>
-                                                        <div className='flex justify-center items-center'>
+                                                        <div className='flex justify-center'>
                                                             •••
                                                         </div>
                                                     </div>
