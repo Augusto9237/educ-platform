@@ -1,4 +1,5 @@
 'use client';
+import { FormAssessments } from '@/components/components/FormAssessments';
 import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Progress from '@radix-ui/react-progress';
@@ -22,7 +23,7 @@ export interface GradesProps {
 }[];
 
 export default function Grades() {
-    const { idClasses, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
+    const { idClasses, classById, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
     const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([]);
     const [deleteGrades] = useDeleteGradesMutation()
 
@@ -64,13 +65,14 @@ export default function Grades() {
                     <h1 className="mx-auto text-lg font-bold">Avaliações</h1>
 
                     <div className='flex justify-end'>
-
+                        <FormAssessments subscribers={classById?.class?.subscribers}/>
                     </div>
 
                 </header>
                 <div className='flex flex-1 justify-center'>
                     {idClasses.id === '' ? <h1>Nenhuma turma Selecionada</h1>
                         :
+
                         <div className="flex flex-col flex-1">
                             <div className="relative grid grid-cols-7 py-2 text-textColor-500/60">
                                 <div className="flex font-semibold justify-center">Nº</div>
@@ -80,6 +82,10 @@ export default function Grades() {
                                 <div className="flex font-semibold justify-center col-span-2">•••</div>
                                 <div className="absolute bottom-0 h-[2px] w-full bg-textColor-200" />
                             </div>
+                            {assessmentsByClass?.gradeses.length! <= 0 && (
+                                <>
+                                    <h1 className='mx-auto'>Não possui nenhuma avaliação</h1>
+                             </>)}
                             {!assessmentsLodingByClass && (
                                 <>
                                     {assessmentsByClass?.gradeses.map((grades, i) => {
@@ -153,6 +159,7 @@ export default function Grades() {
                                     })}
                                 </>
                             )}
+
                             {assessmentsLodingByClass && (
                                 <div className='flex flex-1 py-2 justify-center'>
                                     <div
@@ -166,6 +173,7 @@ export default function Grades() {
                             )}
                         </div>
                     }
+
                 </div>
             </section>
 

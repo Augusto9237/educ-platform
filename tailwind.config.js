@@ -29,7 +29,7 @@ module.exports = {
       },
       buttonColor: {
         500: "#FBAC0F",
-        600: '#d9af07',
+        600: '#db9302',
       },
       buttonSecondaryColor: {
         500: "",

@@ -9044,6 +9044,13 @@ export type GetAssessmentsByClassQueryVariables = Exact<{
 
 export type GetAssessmentsByClassQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
 
+export type GetClassByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> } | null };
+
 export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -9488,6 +9495,63 @@ export function useGetAssessmentsByClassLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetAssessmentsByClassQueryHookResult = ReturnType<typeof useGetAssessmentsByClassQuery>;
 export type GetAssessmentsByClassLazyQueryHookResult = ReturnType<typeof useGetAssessmentsByClassLazyQuery>;
 export type GetAssessmentsByClassQueryResult = Apollo.QueryResult<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>;
+export const GetClassByIdDocument = gql`
+    query GetClassById($id: ID = "") {
+  class(where: {id: $id}) {
+    code
+    id
+    name
+    subscribers {
+      id
+      name
+      email
+      phone
+      address
+      gradeses {
+        id
+        month
+        weeklyAssessments {
+          ... on Week {
+            id
+            primaryReview
+            secondReview
+            thirdReview
+            fourthReview
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetClassByIdQuery__
+ *
+ * To run a query within a React component, call `useGetClassByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetClassByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetClassByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetClassByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetClassByIdQuery, GetClassByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetClassByIdQuery, GetClassByIdQueryVariables>(GetClassByIdDocument, options);
+      }
+export function useGetClassByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetClassByIdQuery, GetClassByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetClassByIdQuery, GetClassByIdQueryVariables>(GetClassByIdDocument, options);
+        }
+export type GetClassByIdQueryHookResult = ReturnType<typeof useGetClassByIdQuery>;
+export type GetClassByIdLazyQueryHookResult = ReturnType<typeof useGetClassByIdLazyQuery>;
+export type GetClassByIdQueryResult = Apollo.QueryResult<GetClassByIdQuery, GetClassByIdQueryVariables>;
 export const GetClassesDocument = gql`
     query GetClasses {
   classes {

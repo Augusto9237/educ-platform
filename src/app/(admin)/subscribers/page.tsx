@@ -97,8 +97,6 @@ export default function Subscribers() {
                         </div>
 
                     </header>
-
-
                     <div className="flex flex-col">
                         <div className="relative grid grid-cols-5 py-2 text-textColor-500/60">
                             <strong className="flex justify-center">Nome</strong>

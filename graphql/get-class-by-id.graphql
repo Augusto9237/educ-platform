@@ -1,0 +1,27 @@
+query GetClassById($id: ID = "") {
+  class(where: {id: $id}) {
+    code
+    id
+    name
+    subscribers {
+      id
+      name
+      email
+      phone
+      address
+      gradeses {
+        id
+        month
+        weeklyAssessments {
+          ... on Week {
+            id
+            primaryReview
+            secondReview
+            thirdReview
+            fourthReview
+          }
+        }
+      }
+    }
+  }
+}
