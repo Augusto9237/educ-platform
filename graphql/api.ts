@@ -745,6 +745,7 @@ export type Class = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<Class>;
+  frequencies: Array<Frequency>;
   /** List of Class versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -776,6 +777,19 @@ export type ClassDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
+};
+
+
+export type ClassFrequenciesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FrequencyOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FrequencyWhereInput>;
 };
 
 
@@ -846,9 +860,9 @@ export type ClassConnection = {
 };
 
 export type ClassCreateInput = {
-  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyCreateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  frequencies?: InputMaybe<FrequencyCreateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
   subscribers?: InputMaybe<SubscriberCreateManyInlineInput>;
   teacher?: InputMaybe<TurmaTeacherCreateOneInlineInput>;
@@ -926,6 +940,9 @@ export type ClassManyWhereInput = {
   documentInStages_every?: InputMaybe<ClassWhereStageInput>;
   documentInStages_none?: InputMaybe<ClassWhereStageInput>;
   documentInStages_some?: InputMaybe<ClassWhereStageInput>;
+  frequencies_every?: InputMaybe<FrequencyWhereInput>;
+  frequencies_none?: InputMaybe<FrequencyWhereInput>;
+  frequencies_some?: InputMaybe<FrequencyWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1024,8 +1041,8 @@ export enum ClassOrderByInput {
 }
 
 export type ClassUpdateInput = {
-  clf0gwu6z1vv601td9118gvz8?: InputMaybe<FrequencyUpdateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
+  frequencies?: InputMaybe<FrequencyUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
   subscribers?: InputMaybe<SubscriberUpdateManyInlineInput>;
   teacher?: InputMaybe<TurmaTeacherUpdateOneInlineInput>;
@@ -1149,6 +1166,9 @@ export type ClassWhereInput = {
   documentInStages_every?: InputMaybe<ClassWhereStageInput>;
   documentInStages_none?: InputMaybe<ClassWhereStageInput>;
   documentInStages_some?: InputMaybe<ClassWhereStageInput>;
+  frequencies_every?: InputMaybe<FrequencyWhereInput>;
+  frequencies_none?: InputMaybe<FrequencyWhereInput>;
+  frequencies_some?: InputMaybe<FrequencyWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1831,6 +1851,7 @@ export type FinanceWhereUniqueInput = {
 
 export type Frequency = Node & {
   __typename?: 'Frequency';
+  class?: Maybe<Class>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -1849,11 +1870,16 @@ export type Frequency = Node & {
   /** System stage field */
   stage: Stage;
   subscribes: Array<FrequencysubscribesUnion>;
-  turma?: Maybe<Class>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+};
+
+
+export type FrequencyClassArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -1906,12 +1932,6 @@ export type FrequencySubscribesArgs = {
 };
 
 
-export type FrequencyTurmaArgs = {
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  locales?: InputMaybe<Array<Locale>>;
-};
-
-
 export type FrequencyUpdatedByArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -1935,9 +1955,9 @@ export type FrequencyConnection = {
 };
 
 export type FrequencyCreateInput = {
+  class?: InputMaybe<ClassCreateOneInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   subscribes?: InputMaybe<FrequencysubscribesUnionCreateManyInlineInput>;
-  turma?: InputMaybe<ClassCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1974,6 +1994,7 @@ export type FrequencyManyWhereInput = {
   OR?: InputMaybe<Array<FrequencyWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2035,7 +2056,6 @@ export type FrequencyManyWhereInput = {
   subscribes_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
   subscribes_some?: InputMaybe<FrequencysubscribesUnionWhereInput>;
-  turma?: InputMaybe<ClassWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2066,8 +2086,8 @@ export enum FrequencyOrderByInput {
 }
 
 export type FrequencyUpdateInput = {
+  class?: InputMaybe<ClassUpdateOneInlineInput>;
   subscribes?: InputMaybe<FrequencysubscribesUnionUpdateManyInlineInput>;
-  turma?: InputMaybe<ClassUpdateOneInlineInput>;
 };
 
 export type FrequencyUpdateManyInlineInput = {
@@ -2151,6 +2171,7 @@ export type FrequencyWhereInput = {
   OR?: InputMaybe<Array<FrequencyWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2212,7 +2233,6 @@ export type FrequencyWhereInput = {
   subscribes_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
   subscribes_some?: InputMaybe<FrequencysubscribesUnionWhereInput>;
-  turma?: InputMaybe<ClassWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -8983,6 +9003,15 @@ export type ClassMutationVariables = Exact<{
 
 export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
+export type CreateAssessmentsMutationVariables = Exact<{
+  month?: InputMaybe<Scalars['Date']>;
+  id?: InputMaybe<Scalars['ID']>;
+  Week?: InputMaybe<WeekCreateInput>;
+}>;
+
+
+export type CreateAssessmentsMutation = { __typename?: 'Mutation', createGrades?: { __typename?: 'Grades', id: string, createdAt: any } | null };
+
 export type CreateCallListMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   create?: InputMaybe<Array<FrequencysubscribesUnionCreateInput> | FrequencysubscribesUnionCreateInput>;
@@ -9049,7 +9078,7 @@ export type GetClassByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> } | null };
+export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }>, frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> } | null };
 
 export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9065,13 +9094,6 @@ export type GetFrequenciesClassByMonthQueryVariables = Exact<{
 
 
 export type GetFrequenciesClassByMonthQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
-
-export type GetFrequenciesClassByIdQueryVariables = Exact<{
-  idClass?: InputMaybe<Scalars['ID']>;
-}>;
-
-
-export type GetFrequenciesClassByIdQuery = { __typename?: 'Query', frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> };
 
 export type GetFrequenciesClassQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9183,10 +9205,48 @@ export function useClassMutation(baseOptions?: Apollo.MutationHookOptions<ClassM
 export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
+export const CreateAssessmentsDocument = gql`
+    mutation CreateAssessments($month: Date = "", $id: ID = "", $Week: WeekCreateInput = {}) {
+  createGrades(
+    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: {Week: $Week}}}
+  ) {
+    id
+    createdAt
+  }
+}
+    `;
+export type CreateAssessmentsMutationFn = Apollo.MutationFunction<CreateAssessmentsMutation, CreateAssessmentsMutationVariables>;
+
+/**
+ * __useCreateAssessmentsMutation__
+ *
+ * To run a mutation, you first call `useCreateAssessmentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAssessmentsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAssessmentsMutation, { data, loading, error }] = useCreateAssessmentsMutation({
+ *   variables: {
+ *      month: // value for 'month'
+ *      id: // value for 'id'
+ *      Week: // value for 'Week'
+ *   },
+ * });
+ */
+export function useCreateAssessmentsMutation(baseOptions?: Apollo.MutationHookOptions<CreateAssessmentsMutation, CreateAssessmentsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAssessmentsMutation, CreateAssessmentsMutationVariables>(CreateAssessmentsDocument, options);
+      }
+export type CreateAssessmentsMutationHookResult = ReturnType<typeof useCreateAssessmentsMutation>;
+export type CreateAssessmentsMutationResult = Apollo.MutationResult<CreateAssessmentsMutation>;
+export type CreateAssessmentsMutationOptions = Apollo.BaseMutationOptions<CreateAssessmentsMutation, CreateAssessmentsMutationVariables>;
 export const CreateCallListDocument = gql`
     mutation CreateCallList($id: ID = "", $create: [FrequencysubscribesUnionCreateInput!] = {}) {
   createFrequency(
-    data: {turma: {connect: {id: $id}}, subscribes: {create: $create}}
+    data: {class: {connect: {id: $id}}, subscribes: {create: $create}}
   ) {
     id
     createdAt
@@ -9521,6 +9581,20 @@ export const GetClassByIdDocument = gql`
         }
       }
     }
+    frequencies {
+      createdAt
+      id
+      subscribes {
+        ... on Presence {
+          id
+          prensente
+          subscriber {
+            name
+            id
+          }
+        }
+      }
+    }
   }
 }
     `;
@@ -9612,7 +9686,7 @@ export type GetClassesQueryResult = Apollo.QueryResult<GetClassesQuery, GetClass
 export const GetFrequenciesClassByMonthDocument = gql`
     query GetFrequenciesClassByMonth($id: ID = "", $monthStart: DateTime, $monthEnd: DateTime, $idClass: ID = "") {
   frequencies(
-    where: {turma: {id: $idClass}, AND: {turma: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
+    where: {class: {id: $idClass}, AND: {class: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
   ) {
     createdAt
     id
@@ -9660,56 +9734,10 @@ export function useGetFrequenciesClassByMonthLazyQuery(baseOptions?: Apollo.Lazy
 export type GetFrequenciesClassByMonthQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthQuery>;
 export type GetFrequenciesClassByMonthLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByMonthLazyQuery>;
 export type GetFrequenciesClassByMonthQueryResult = Apollo.QueryResult<GetFrequenciesClassByMonthQuery, GetFrequenciesClassByMonthQueryVariables>;
-export const GetFrequenciesClassByIdDocument = gql`
-    query GetFrequenciesClassById($idClass: ID = "") {
-  frequencies(where: {turma: {id: $idClass}}) {
-    createdAt
-    id
-    subscribes {
-      ... on Presence {
-        id
-        prensente
-        subscriber {
-          name
-          id
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetFrequenciesClassByIdQuery__
- *
- * To run a query within a React component, call `useGetFrequenciesClassByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetFrequenciesClassByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetFrequenciesClassByIdQuery({
- *   variables: {
- *      idClass: // value for 'idClass'
- *   },
- * });
- */
-export function useGetFrequenciesClassByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>(GetFrequenciesClassByIdDocument, options);
-      }
-export function useGetFrequenciesClassByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>(GetFrequenciesClassByIdDocument, options);
-        }
-export type GetFrequenciesClassByIdQueryHookResult = ReturnType<typeof useGetFrequenciesClassByIdQuery>;
-export type GetFrequenciesClassByIdLazyQueryHookResult = ReturnType<typeof useGetFrequenciesClassByIdLazyQuery>;
-export type GetFrequenciesClassByIdQueryResult = Apollo.QueryResult<GetFrequenciesClassByIdQuery, GetFrequenciesClassByIdQueryVariables>;
 export const GetFrequenciesClassDocument = gql`
     query GetFrequenciesClass($id: ID = "", $idClass: ID = "") {
   frequencies(
-    where: {turma: {id: $idClass}, AND: {turma: {subscribers_some: {id: $id}}}}
+    where: {class: {id: $idClass}, AND: {class: {subscribers_some: {id: $id}}}}
   ) {
     createdAt
     id
@@ -10163,12 +10191,13 @@ export type BatchPayloadKeySpecifier = ('count' | BatchPayloadKeySpecifier)[];
 export type BatchPayloadFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ClassKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'teacher' | 'updatedAt' | 'updatedBy' | ClassKeySpecifier)[];
+export type ClassKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'frequencies' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'teacher' | 'updatedAt' | 'updatedBy' | ClassKeySpecifier)[];
 export type ClassFieldPolicy = {
 	code?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
+	frequencies?: FieldPolicy<any> | FieldReadFunction<any>,
 	history?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -10235,8 +10264,9 @@ export type FinanceEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FrequencyKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribes' | 'turma' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
+export type FrequencyKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribes' | 'updatedAt' | 'updatedBy' | FrequencyKeySpecifier)[];
 export type FrequencyFieldPolicy = {
+	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -10247,7 +10277,6 @@ export type FrequencyFieldPolicy = {
 	scheduledIn?: FieldPolicy<any> | FieldReadFunction<any>,
 	stage?: FieldPolicy<any> | FieldReadFunction<any>,
 	subscribes?: FieldPolicy<any> | FieldReadFunction<any>,
-	turma?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedBy?: FieldPolicy<any> | FieldReadFunction<any>
 };

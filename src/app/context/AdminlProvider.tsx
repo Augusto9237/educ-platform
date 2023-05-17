@@ -1,5 +1,5 @@
 "use client";
-import { useGetTeacherQuery, useGetSubscribersDataQuery, useGetClassesQuery, useGetFrequenciesClassQuery, useGetFrequenciesClassByIdQuery, useGetAssessmentsByClassQuery, useGetClassByIdQuery } from "graphql/api";
+import { useGetTeacherQuery, useGetSubscribersDataQuery, useGetClassesQuery, useGetFrequenciesClassQuery, useGetAssessmentsByClassQuery, useGetClassByIdQuery } from "graphql/api";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -19,17 +19,12 @@ export const AdminProvider = ({ children }: AuthProps) => {
     const { data: subscribers, loading: loadingSubscribers, refetch: reloadSubscribers } = useGetSubscribersDataQuery();
     const { data: classes, loading: loadingClasses, refetch: reloadClasses } = useGetClassesQuery();
     const [idClasses, setIdClasses] = useState({ id: '' })
-    const { data: frequencies, loading: loadingFequencies, refetch: reloadFrequencies } = useGetFrequenciesClassByIdQuery({
-        variables: {
-            idClass: idClasses.id
-        }
-    });
     const { data: assessmentsByClass, loading: assessmentsLodingByClass, refetch: reloadAssesments } = useGetAssessmentsByClassQuery({
         variables: {
             id: idClasses.id
         }
     });
-    const { data: classById, loading: loadingClassesById } = useGetClassByIdQuery({
+    const { data: classById, loading: loadingClassesById, refetch: reloadClassById } = useGetClassByIdQuery({
         variables: {
             id: idClasses.id
         }
@@ -47,13 +42,12 @@ export const AdminProvider = ({ children }: AuthProps) => {
             reloadClasses,
             idClasses,
             setIdClasses,
-            frequencies,
-            loadingFequencies,
-            reloadFrequencies,
             assessmentsByClass,
             assessmentsLodingByClass,
             reloadAssesments,
             classById,
+            loadingClassesById,
+            reloadClassById 
         }}>
             {children}
         </AdminContext.Provider>

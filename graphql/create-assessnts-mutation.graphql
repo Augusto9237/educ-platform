@@ -1,0 +1,8 @@
+mutation CreateAssessments($month: Date = "", $id: ID = "", $Week: WeekCreateInput = {}) {
+  createGrades(
+    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: {Week: $Week}}}
+  ) {
+    id
+    createdAt
+  }
+}

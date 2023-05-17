@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import { useCreateAssessmentsMutation } from 'graphql/api';
 import { useContext, useState } from 'react';
 import { AdminContext } from '../app/context/AdminContext';
 interface FormAssessmentsPros {
@@ -25,9 +26,29 @@ interface FormAssessmentsPros {
     }[] | undefined;
 }
 
+interface WeeksProps {
+    __typename?: "Week" | undefined;
+    id: string;
+    fourthReview?: number | null | undefined;
+    primaryReview?: number | null | undefined;
+    secondReview?: number | null | undefined;
+    thirdReview?: number | null | undefined;
+}[];
+
 export function FormAssessments({ subscribers }: FormAssessmentsPros) {
     const { idClasses, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
+    const [weeksData, setWeeksData] = useState<WeeksProps[]| null>([]);
+    const [createGrades] = useCreateAssessmentsMutation();
+
+    // async function handleSubmit() {
+    //     await createGrades({
+    //         variables: {
+    //             id: idClasses
+    //         }
+    //     })
+    // }
+
     return (
         <Dialog.Root modal={modalForm}>
             <Dialog.Trigger onClick={() => setModalForm(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold bg-textColor-300/60 text-textSecondaryColor-600 hover:bg-textColor-200'>
@@ -48,7 +69,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 <select required name="subscriberSelect" id="" className='p-1 w-full bg-backgroundColor-300 rounded-md'>
                                     <option value="">Selecione um aluno</option>
                                     {subscribers?.map((subscriber, i) => (
-                                        <option key={subscriber.id} value={subscriber.id}>{i+1} - {subscriber.name}</option>
+                                        <option key={subscriber.id} value={subscriber.id}>{i + 1} - {subscriber.name}</option>
                                     ))}
                                 </select>
                                 <div className='flex gap-2 max-w-fit items-center'>
@@ -82,12 +103,12 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="">4ª Av</label>
                                         <input max={1000} min={0} type='number' className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        
+
                                     </div>
                                     <div className='relative flex gap-2 items-center justify-center'>
-                                    <span className='absolute left-1'>/4</span>
-                                    <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>900pts</h1>  
+                                        <span className='absolute left-1'>/4</span>
+                                        <span className='absolute left-6'>=</span>
+                                        <h1 className='font-semibold'>900pts</h1>
                                     </div>
                                 </div>
                                 <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />

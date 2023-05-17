@@ -1,6 +1,6 @@
 query GetFrequenciesClassByMonth( $id: ID = "", $monthStart: DateTime, $monthEnd: DateTime, $idClass: ID = "") {
   frequencies(
-    where: {turma: {id: $idClass}, AND: {turma: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
+    where: {class: {id: $idClass}, AND: {class: {subscribers_some: {id: $id}}, createdAt_gte: $monthStart, createdAt_lt: $monthEnd}}
   ) {
     createdAt
     id

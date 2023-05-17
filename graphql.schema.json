@@ -5129,6 +5129,147 @@
             "deprecationReason": null
           },
           {
+            "name": "frequencies",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "forceParentLocale",
+                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `frequencies` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "locales",
+                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `frequencies` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "Locale",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "FrequencyOrderByInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "where",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "FrequencyWhereInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Frequency",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "history",
             "description": "List of Class versions",
             "args": [
@@ -5799,18 +5940,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "clf0gwu6z1vv601td9118gvz8",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FrequencyCreateManyInlineInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "code",
             "description": null,
             "type": {
@@ -5828,6 +5957,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyCreateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -6368,6 +6509,42 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "ClassWhereStageInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_every",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_none",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_some",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7053,11 +7230,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "clf0gwu6z1vv601td9118gvz8",
+            "name": "code",
             "description": null,
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FrequencyUpdateManyInlineInput",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -7065,11 +7242,11 @@
             "deprecationReason": null
           },
           {
-            "name": "code",
+            "name": "frequencies",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyUpdateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -7921,6 +8098,42 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "ClassWhereStageInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_every",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_none",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencies_some",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "FrequencyWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12527,6 +12740,51 @@
         "description": null,
         "fields": [
           {
+            "name": "class",
+            "description": null,
+            "args": [
+              {
+                "name": "forceParentLocale",
+                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `class` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "locales",
+                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `class` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "Locale",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Class",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": "The time the document was created",
             "args": [],
@@ -13073,51 +13331,6 @@
             "deprecationReason": null
           },
           {
-            "name": "turma",
-            "description": null,
-            "args": [
-              {
-                "name": "forceParentLocale",
-                "description": "Sets the locale of the resolved parent document as the only locale in the query's subtree.\n\nNote that `turma` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will affect any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "locales",
-                "description": "Allows to optionally override locale filtering behaviour in the query's subtree.\n\nNote that `turma` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.\nFor related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.\n\nThis argument will overwrite any existing locale filtering defined in the query's tree for the subtree.",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "Locale",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Class",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "updatedAt",
             "description": "The time the document was updated",
             "args": [],
@@ -13303,6 +13516,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "class",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClassCreateOneInlineInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "type": {
@@ -13320,18 +13545,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "FrequencysubscribesUnionCreateManyInlineInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "turma",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ClassCreateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13556,6 +13769,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "class",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClassWhereInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14019,18 +14244,6 @@
             "deprecationReason": null
           },
           {
-            "name": "turma",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ClassWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "updatedAt",
             "description": null,
             "type": {
@@ -14217,11 +14430,11 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "subscribes",
+            "name": "class",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "FrequencysubscribesUnionUpdateManyInlineInput",
+              "name": "ClassUpdateOneInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14229,11 +14442,11 @@
             "deprecationReason": null
           },
           {
-            "name": "turma",
+            "name": "subscribes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ClassUpdateOneInlineInput",
+              "name": "FrequencysubscribesUnionUpdateManyInlineInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14776,6 +14989,18 @@
             "deprecationReason": null
           },
           {
+            "name": "class",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClassWhereInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "type": {
@@ -15225,18 +15450,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "FrequencysubscribesUnionWhereInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "turma",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "ClassWhereInput",
               "ofType": null
             },
             "defaultValue": null,

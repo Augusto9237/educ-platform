@@ -51,7 +51,7 @@ export interface SubscriberSelected {
 
 
 export default function Frequencies() {
-    const { frequencies, classes, idClasses, setIdClasses, loadingFequencies, reloadFrequencies } = useContext(AdminContext)
+    const { classes, idClasses, setIdClasses, classById, loadingClassesById, reloadClassById } = useContext(AdminContext)
     const [frequencyGroup, setFrequencyGroup] = useState<FrequencyGroupedByMonth[]>([]);
     const [callList, setCallList] = useState<SubscriberSelected[]>([]);
     const [open, setOpen] = useState(false);
@@ -59,8 +59,8 @@ export default function Frequencies() {
     const [deleteFrequency] = useDeleteFrequencyMutation()
 
     useEffect(() => {
-        if (frequencies?.frequencies) {
-            const frequenciesGroupedByMonth: FrequencyGroupedByMonth[] = frequencies.frequencies.reduce((acc: FrequencyGroupedByMonth[], frequency: Frequency) => {
+        if (classById?.class?.frequencies) {
+            const frequenciesGroupedByMonth: FrequencyGroupedByMonth[] = classById.class.frequencies.reduce((acc: FrequencyGroupedByMonth[], frequency: Frequency) => {
 
                 const createdAt = new Date(frequency.createdAt);
                 const month = createdAt.getMonth() + 1;
@@ -76,7 +76,7 @@ export default function Frequencies() {
             }, []);
             setFrequencyGroup(frequenciesGroupedByMonth);
         }
-    }, [frequencies]);
+    }, [classById]);
 
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) {
@@ -100,7 +100,7 @@ export default function Frequencies() {
                 }
             })
             toast.success("Lista de frequência excluida com sucesso");
-            reloadFrequencies();
+            reloadClassById();
         } catch (error) {
             console.log(error);
             toast.error("Algo deu errado, tente novamente");
@@ -135,11 +135,11 @@ export default function Frequencies() {
                     {idClasses.id === '' ? <h1>Nenhuma turma Selecionada</h1>
                         :
                         <>
-                            {loadingFequencies && (
+                            {loadingClassesById && (
                                 <Spinner />
                             )}
 
-                            {!loadingFequencies && (
+                            {!loadingClassesById && (
                                 <>
                                     {
                                         frequencyGroup.map(({ frequencies, month }, i) => (
