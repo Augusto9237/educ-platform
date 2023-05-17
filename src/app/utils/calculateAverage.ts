@@ -1,13 +1,13 @@
-export interface WeekProps {
+export interface  weeklyAssessments {
     __typename?: "Week" | undefined;
     id: string;
-    fourthReview?: number | null | undefined;
     primaryReview?: number | null | undefined;
     secondReview?: number | null | undefined;
     thirdReview?: number | null | undefined;
-}[];
+    fourthReview?: number |null | undefined;
+}[]
 
-export function calculateAverage(assessments: WeekProps[]): number {
+export function calculateAverage(assessments: weeklyAssessments[]): number {
     const validAssessments = assessments.filter((week) => {
         return week.fourthReview !== undefined && week.primaryReview !== undefined && week.secondReview !== undefined && week.thirdReview !== undefined;
     });
