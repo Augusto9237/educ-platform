@@ -3,7 +3,7 @@ query GetClassById($id: ID = "") {
     code
     id
     name
-    subscribers {
+    subscribers(orderBy: name_ASC) {
       id
       name
       email
@@ -23,19 +23,19 @@ query GetClassById($id: ID = "") {
         }
       }
     }
-    frequencies  {
-    createdAt
-    id
-    subscribes {
-      ... on Presence {
-        id
-        prensente
-        subscriber {
-          name
+    frequencies {
+      createdAt
+      id
+      subscribes {
+        ... on Presence {
           id
+          prensente
+          subscriber {
+            name
+            id
+          }
         }
       }
     }
   }
- }
 }

@@ -9561,7 +9561,7 @@ export const GetClassByIdDocument = gql`
     code
     id
     name
-    subscribers {
+    subscribers(orderBy: name_ASC) {
       id
       name
       email
