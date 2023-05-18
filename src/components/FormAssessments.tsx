@@ -1,7 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useCreateAssessmentsMutation } from 'graphql/api';
+import { stringify } from 'querystring';
 import { useContext, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import { AdminContext } from '../app/context/AdminContext';
 interface FormAssessmentsPros {
     subscribers?: {
@@ -27,16 +29,7 @@ interface FormAssessmentsPros {
     }[] | undefined;
 }
 
-// interface WeeksProps {
-//     __typename?: "Week" | undefined;
-//     id: string;
-//     fourthReview?: number | null | undefined;
-//     primaryReview?: number | null | undefined;
-//     secondReview?: number | null | undefined;
-//     thirdReview?: number | null | undefined;
-// }[];
-
-interface  FormValues {
+interface FormValues {
     IdSubsriber: string;
     primaryReview1Week: number;
     secondReview1Week: number;
@@ -55,15 +48,36 @@ interface  FormValues {
     thirdReview4Week: number;
     fourthReview4Week: number;
     month: string;
-  }[];
+};
+
+const initFormValues = {
+    IdSubsriber: '',
+    primaryReview1Week: 0,
+    secondReview1Week: 0,
+    thirdReview1Week: 0,
+    fourthReview1Week: 0,
+    primaryReview2Week: 0,
+    secondReview2Week: 0,
+    thirdReview2Week: 0,
+    fourthReview2Week: 0,
+    primaryReview3Week: 0,
+    secondReview3Week: 0,
+    thirdReview3Week: 0,
+    fourthReview3Week: 0,
+    primaryReview4Week: 0,
+    secondReview4Week: 0,
+    thirdReview4Week: 0,
+    fourthReview4Week: 0,
+    month: ''
+};
 
 export function FormAssessments({ subscribers }: FormAssessmentsPros) {
-    const { idClasses, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
+    const { reloadAssesments } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
-    const [formValues, setFormValues] = useState<FormValues[]>([]);
+    const [formValues, setFormValues] = useState<FormValues>(initFormValues);
     const [createGrades] = useCreateAssessmentsMutation();
-    console.log(formValues)
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
+    function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = event.target;
         setFormValues((prevFormValues) => ({
             ...prevFormValues,
@@ -71,6 +85,52 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
         }));
     };
 
+    async function handleSubmitCreateGrades(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+        const Weeks = [{
+            Week: {
+                primaryReview: Number(formValues.primaryReview1Week),
+                secondReview: Number(formValues.secondReview1Week),
+                thirdReview: Number(formValues.thirdReview1Week),
+                fourthReview: Number(formValues.fourthReview1Week),
+            },
+        },
+        {
+            Week: {
+                primaryReview: Number(formValues.primaryReview2Week),
+                secondReview: Number(formValues.secondReview2Week),
+                thirdReview: Number(formValues.thirdReview2Week),
+                fourthReview: Number(formValues.fourthReview2Week),
+            },
+        },
+        {
+            Week: {
+                primaryReview: Number(formValues.primaryReview3Week),
+                secondReview: Number(formValues.secondReview3Week),
+                thirdReview: Number(formValues.thirdReview3Week),
+                fourthReview: Number(formValues.fourthReview3Week),
+            },
+        },
+        {
+            Week: {
+                primaryReview: Number(formValues.primaryReview4Week),
+                secondReview: Number(formValues.secondReview4Week),
+                thirdReview: Number(formValues.thirdReview4Week),
+                fourthReview: Number(formValues.fourthReview4Week),
+            },
+        }
+        ]
+        await createGrades({
+            variables: {
+                id: formValues.IdSubsriber,
+                month: formValues.month,
+                create: Weeks
+            }
+        })
+        reloadAssesments();
+        toast.success('Frequência criada com sucesso');
+        setModalForm(false);
+    }
     return (
         <Dialog.Root modal={modalForm}>
             <Dialog.Trigger onClick={() => setModalForm(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
@@ -87,7 +147,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 <strong className='text-textColor-200'>X</strong>
                             </Dialog.Close>
                         </header>
-                        <form className='flex flex-col'>
+                        <form onSubmit={handleSubmitCreateGrades} className='flex flex-col'>
                             <div className='relative flex flex-1 w-full gap-4 py-2'>
                                 <select required name="IdSubsriber" id="subSelect" onChange={handleChange} className='p-1 w-full bg-backgroundColor-300 rounded-md'>
                                     <option value="">Selecione um aluno</option>
@@ -107,7 +167,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 <div className='grid grid-cols-5'>
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="primaryReview">1ª Av</label>
-                                        <input max={1000} min={0} type='number' name='primaryReview1Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input max={1000} min={0} type='number' name="primaryReview1Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
@@ -131,7 +191,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <span className='absolute left-1'>/4</span>
                                         <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>{formValues.length > 0 ? formValues[0].primaryReview1Week + formValues[0].secondReview1Week + formValues[0].thirdReview1Week + formValues[0].fourthReview1Week / 4 : 0} pts</h1>
+                                        <h1 className='font-semibold'>pts</h1>
                                     </div>
                                 </div>
                                 <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />

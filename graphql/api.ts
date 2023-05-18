@@ -2360,7 +2360,7 @@ export type Grades = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  month?: Maybe<Scalars['Date']>;
+  month?: Maybe<Scalars['String']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -2456,7 +2456,7 @@ export type GradesConnection = {
 
 export type GradesCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   subscriber?: InputMaybe<SubscriberCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   weeklyAssessments?: InputMaybe<GradesweeklyAssessmentsUnionCreateManyInlineInput>;
@@ -2533,21 +2533,25 @@ export type GradesManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  month?: InputMaybe<Scalars['Date']>;
-  /** All values greater than the given value. */
-  month_gt?: InputMaybe<Scalars['Date']>;
-  /** All values greater than or equal the given value. */
-  month_gte?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  month_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  month_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are contained in given list. */
-  month_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
-  /** All values less than the given value. */
-  month_lt?: InputMaybe<Scalars['Date']>;
-  /** All values less than or equal the given value. */
-  month_lte?: InputMaybe<Scalars['Date']>;
+  month_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Any other value that exists and is not equal to the given value. */
-  month_not?: InputMaybe<Scalars['Date']>;
+  month_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  month_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  month_not_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are not contained in given list. */
-  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  month_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  month_starts_with?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2604,7 +2608,7 @@ export enum GradesOrderByInput {
 }
 
 export type GradesUpdateInput = {
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
   weeklyAssessments?: InputMaybe<GradesweeklyAssessmentsUnionUpdateManyInlineInput>;
 };
@@ -2627,7 +2631,7 @@ export type GradesUpdateManyInlineInput = {
 };
 
 export type GradesUpdateManyInput = {
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
 };
 
 export type GradesUpdateManyWithNestedWhereInput = {
@@ -2727,21 +2731,25 @@ export type GradesWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  month?: InputMaybe<Scalars['Date']>;
-  /** All values greater than the given value. */
-  month_gt?: InputMaybe<Scalars['Date']>;
-  /** All values greater than or equal the given value. */
-  month_gte?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  month_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  month_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are contained in given list. */
-  month_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
-  /** All values less than the given value. */
-  month_lt?: InputMaybe<Scalars['Date']>;
-  /** All values less than or equal the given value. */
-  month_lte?: InputMaybe<Scalars['Date']>;
+  month_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Any other value that exists and is not equal to the given value. */
-  month_not?: InputMaybe<Scalars['Date']>;
+  month_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  month_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  month_not_ends_with?: InputMaybe<Scalars['String']>;
   /** All values that are not contained in given list. */
-  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  month_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  month_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  month_starts_with?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -9004,9 +9012,9 @@ export type ClassMutationVariables = Exact<{
 export type ClassMutation = { __typename?: 'Mutation', updateClass?: { __typename?: 'Class', id: string, updatedAt: any } | null };
 
 export type CreateAssessmentsMutationVariables = Exact<{
-  month?: InputMaybe<Scalars['Date']>;
+  month?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
-  Week?: InputMaybe<WeekCreateInput>;
+  create?: InputMaybe<Array<GradesweeklyAssessmentsUnionCreateInput> | GradesweeklyAssessmentsUnionCreateInput>;
 }>;
 
 
@@ -9071,19 +9079,19 @@ export type GetAssessmentsByClassQueryVariables = Exact<{
 }>;
 
 
-export type GetAssessmentsByClassQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
+export type GetAssessmentsByClassQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
 
 export type GetClassByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
 
 
-export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }>, frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> } | null };
+export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }>, frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }> } | null };
 
 export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetClassesQuery = { __typename?: 'Query', classes: Array<{ __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, pictureUrl?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> }> };
+export type GetClassesQuery = { __typename?: 'Query', classes: Array<{ __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, pictureUrl?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> }> };
 
 export type GetFrequenciesClassByMonthQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9106,14 +9114,14 @@ export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Arra
 export type GetSubscribersDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
+export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
 
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: any | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }> } | null };
+export type GetSubscriberLoginQuery = { __typename?: 'Query', values?: { __typename?: 'Subscriber', email: string, id: string, name: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', id: string, code?: string | null } | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, fourthReview?: number | null, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null }> }>, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }> } | null };
 
 export type GetTeacherQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9206,9 +9214,9 @@ export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
 export const CreateAssessmentsDocument = gql`
-    mutation CreateAssessments($month: Date = "", $id: ID = "", $Week: WeekCreateInput = {}) {
+    mutation CreateAssessments($month: String = "", $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateInput!] = {}) {
   createGrades(
-    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: {Week: $Week}}}
+    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: $create}}
   ) {
     id
     createdAt
@@ -9232,7 +9240,7 @@ export type CreateAssessmentsMutationFn = Apollo.MutationFunction<CreateAssessme
  *   variables: {
  *      month: // value for 'month'
  *      id: // value for 'id'
- *      Week: // value for 'Week'
+ *      create: // value for 'create'
  *   },
  * });
  */

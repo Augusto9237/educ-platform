@@ -21,7 +21,7 @@ interface FrequencyEdit {
 }
 
 export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
-    const { idClasses, reloadFrequencies } = useContext(AdminContext)
+    const { idClasses, reloadClassById } = useContext(AdminContext)
     const [isModalNewListCall, setIsModalNewListCall] = useState(false);
     const [subscriberFrequency, setSubscriberFrequency] = useState<SubscriberFrequency[]>([]);
     const [editFrequency, setEditFrequency] = useState<SubscriberSelected[]>([]);
@@ -71,7 +71,7 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
             });
 
             toast.success('Lista de frequência atualizada com sucesso!');
-            reloadFrequencies();
+            reloadClassById();
             setIsModalNewListCall(false);
         } catch (error) {
             console.log(error);
