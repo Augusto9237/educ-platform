@@ -113,7 +113,7 @@ export default function Grades() {
                                                                 'text-textSecondaryColor-200 bg-textSecondaryColor-200/30': percentage >= 0 && percentage < 20,
                                                                 'text-buttonColor-500/90 bg-buttonColor-500/80': percentage >= 20 && percentage < 40,
                                                                 'text-backgroundColor-500 bg-backgroundColor-400/80': percentage >= 40 && percentage < 80,
-                                                                'text-textSecondaryColor-400 bg-textSecondaryColor-300/20': percentage >= 80,
+                                                                'text-textSecondaryColor-400 bg-textSecondaryColor-300/75': percentage >= 80,
                                                             })}
 
                                                             style={{ transform: `translateX(-${100 - percentage}%)` }}
