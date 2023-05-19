@@ -1,10 +1,11 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useCreateAssessmentsMutation } from 'graphql/api';
-import { stringify } from 'querystring';
+import { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../app/context/AdminContext';
+import { getWeeksInCurrentMonth } from '../app/utils/getWeekCurrentMonth';
 interface FormAssessmentsPros {
     subscribers?: {
         __typename?: "Subscriber" | undefined;
@@ -31,100 +32,104 @@ interface FormAssessmentsPros {
 
 interface FormValues {
     IdSubsriber: string;
-    primaryReview1Week: number;
-    secondReview1Week: number;
-    thirdReview1Week: number;
-    fourthReview1Week: number;
-    primaryReview2Week: number;
-    secondReview2Week: number;
-    thirdReview2Week: number;
-    fourthReview2Week: number;
-    primaryReview3Week: number;
-    secondReview3Week: number;
-    thirdReview3Week: number;
-    fourthReview3Week: number;
-    primaryReview4Week: number;
-    secondReview4Week: number;
-    thirdReview4Week: number;
-    fourthReview4Week: number;
+    weeks: {
+        Week: {
+            primaryReview: number;
+            secondReview: number;
+            thirdReview: number;
+            fourthReview: number;
+        },
+    }[];
     month: string;
-};
-
-const initFormValues = {
-    IdSubsriber: '',
-    primaryReview1Week: 0,
-    secondReview1Week: 0,
-    thirdReview1Week: 0,
-    fourthReview1Week: 0,
-    primaryReview2Week: 0,
-    secondReview2Week: 0,
-    thirdReview2Week: 0,
-    fourthReview2Week: 0,
-    primaryReview3Week: 0,
-    secondReview3Week: 0,
-    thirdReview3Week: 0,
-    fourthReview3Week: 0,
-    primaryReview4Week: 0,
-    secondReview4Week: 0,
-    thirdReview4Week: 0,
-    fourthReview4Week: 0,
-    month: ''
 };
 
 export function FormAssessments({ subscribers }: FormAssessmentsPros) {
     const { reloadAssesments } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
-    const [formValues, setFormValues] = useState<FormValues>(initFormValues);
     const [createGrades] = useCreateAssessmentsMutation();
+    const [countInput, setCountInput] = useState(0)
+    const [formValues, setFormValues] = useState<FormValues>({
+        IdSubsriber: '',
+        weeks: [],
+        month: ''
+    });
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-        const { name, value } = event.target;
-        setFormValues((prevFormValues) => ({
-            ...prevFormValues,
-            [name]: value,
-        }));
+
+
+    useEffect(() => {
+        const weeksInMonth = getWeeksInCurrentMonth();
+        setCountInput(weeksInMonth);
+    }, [])
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value, id } = event.target;
+        const weekRegex = /(\d+)Week/; // Regex para extrair o número da semana do ID do input
+
+        setFormValues((prevFormValues) => {
+            if (name === 'IdSubsriber' || name === 'month') {
+                return {
+                    ...prevFormValues,
+                    [name]: value
+                };
+            }
+
+            const match = id.match(weekRegex);
+            const weekNumber = match ? parseInt(match[1]) : -1;
+
+            if (weekNumber > 0) {
+                const updatedWeeks = [...prevFormValues.weeks];
+
+                // Verifica se a semana já existe no estado
+                if (weekNumber <= updatedWeeks.length) {
+                    const updatedWeek = {
+                        ...updatedWeeks[weekNumber - 1],
+                        Week: {
+                            ...updatedWeeks[weekNumber - 1].Week,
+                            [name]: parseInt(value)
+                        }
+                    };
+
+                    updatedWeeks[weekNumber - 1] = updatedWeek;
+                } else {
+                    const newWeek = {
+                        Week: {
+                            primaryReview: 0,
+                            secondReview: 0,
+                            thirdReview: 0,
+                            fourthReview: 0
+                        }
+                    };
+
+                    const updatedWeek = {
+                        ...newWeek,
+                        Week: {
+                            ...newWeek.Week,
+                            [name]: parseInt(value)
+                        }
+                    };
+
+                    updatedWeeks.push(updatedWeek);
+                }
+
+                return {
+                    ...prevFormValues,
+                    weeks: updatedWeeks
+                };
+            }
+
+            return prevFormValues;
+        });
     };
+
 
     async function handleSubmitCreateGrades(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
-        const Weeks = [{
-            Week: {
-                primaryReview: Number(formValues.primaryReview1Week),
-                secondReview: Number(formValues.secondReview1Week),
-                thirdReview: Number(formValues.thirdReview1Week),
-                fourthReview: Number(formValues.fourthReview1Week),
-            },
-        },
-        {
-            Week: {
-                primaryReview: Number(formValues.primaryReview2Week),
-                secondReview: Number(formValues.secondReview2Week),
-                thirdReview: Number(formValues.thirdReview2Week),
-                fourthReview: Number(formValues.fourthReview2Week),
-            },
-        },
-        {
-            Week: {
-                primaryReview: Number(formValues.primaryReview3Week),
-                secondReview: Number(formValues.secondReview3Week),
-                thirdReview: Number(formValues.thirdReview3Week),
-                fourthReview: Number(formValues.fourthReview3Week),
-            },
-        },
-        {
-            Week: {
-                primaryReview: Number(formValues.primaryReview4Week),
-                secondReview: Number(formValues.secondReview4Week),
-                thirdReview: Number(formValues.thirdReview4Week),
-                fourthReview: Number(formValues.fourthReview4Week),
-            },
-        }
-        ]
+
         await createGrades({
             variables: {
                 id: formValues.IdSubsriber,
                 month: formValues.month,
-                create: Weeks
+                create: formValues.weeks
             }
         })
         reloadAssesments();
@@ -161,66 +166,66 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 </div>
                                 <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
                             </div>
+                            {Array.from(Array(countInput)).map((_, index) => (
+                                <div key={index} className='relative flex flex-col gap-2 py-2'>
+                                    <strong className="flex gap-2 text-textColor-500/70">{index + 1}ª semana</strong>
+                                    <div className='grid grid-cols-5'>
+                                        <div className='relative flex gap-2 items-center justify-center'>
+                                            <label htmlFor="primaryReview">1ª Av</label>
+                                            <input id={`primaryReview${index + 1}Week`} max={1000} min={0} type='number' name="primaryReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                            <span className='absolute right-0'>+</span>
+                                        </div>
 
-                            <div id='primaryWeek' className='relative flex flex-col gap-2 py-2'>
-                                <strong className="flex gap-2 text-textColor-500/70">1ª semana</strong>
-                                <div className='grid grid-cols-5'>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="primaryReview">1ª Av</label>
-                                        <input max={1000} min={0} type='number' name="primaryReview1Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
+                                        <div className='relative flex gap-2 items-center justify-center'>
+                                            <label htmlFor="secondReview">2ª Av</label>
+                                            <input id={`secondReview${index + 1}Week`} max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                            <span className='absolute right-0'>+</span>
+                                        </div>
 
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="secondReview">2ª Av</label>
-                                        <input max={1000} min={0} type='number' name="secondReview1Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
+                                        <div className='relative flex gap-2 items-center justify-center'>
+                                            <label htmlFor="thirdReview">3ª Av</label>
+                                            <input id={`thirdReview${index + 1}Week`} max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                            <span className='absolute right-0'>+</span>
+                                        </div>
 
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="thirdReview">3ª Av</label>
-                                        <input max={1000} min={0} type='number' name='thirdReview1Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
+                                        <div className='relative flex gap-2 items-center justify-center'>
+                                            <label htmlFor="fourthReview">4ª Av</label>
+                                            <input id={`fourthReview${index + 1}Week`} max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="fourthReview">4ª Av</label>
-                                        <input max={1000} min={0} type='number' name='fourthReview1Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-
+                                        </div>
+                                        <div className='relative flex gap-2 items-center justify-center'>
+                                            <span className='absolute left-1'>/4</span>
+                                            <span className='absolute left-6'>=</span>
+                                            <h1 className='font-semibold'>pts</h1>
+                                        </div>
                                     </div>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <span className='absolute left-1'>/4</span>
-                                        <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>pts</h1>
-                                    </div>
+                                    <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
                                 </div>
-                                <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                            </div>
-
-                            <div id='secondWeek' className='relative flex flex-col gap-2 py-2'>
+                            ))}
+                            {/* <div id='secondWeek' className='relative flex flex-col gap-2 py-2'>
                                 <strong className="flex gap-2 text-textColor-500/70">2ª semana</strong>
                                 <div className='grid grid-cols-5'>
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="primaryReview">1ª Av</label>
-                                        <input max={1000} min={0} type='number' name='primaryReview2Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='primaryReview2Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="secondReview">2ª Av</label>
-                                        <input max={1000} min={0} type='number' name="secondReview2Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='secondReview2Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="thirdReview">3ª Av</label>
-                                        <input max={1000} min={0} type='number' name='thirdReview2Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='thirdReview2Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="fourthReview">4ª Av</label>
-                                        <input max={1000} min={0} type='number' name='fourthReview2Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='fourthReview2Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
                                     </div>
                                     <div className='relative flex gap-2 items-center justify-center'>
@@ -237,25 +242,25 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 <div className='grid grid-cols-5'>
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="primaryReview">1ª Av</label>
-                                        <input max={1000} min={0} type='number' name='primaryReview3Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='primaryReview3Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="secondReview">2ª Av</label>
-                                        <input max={1000} min={0} type='number' name="secondReview3Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='secondReview3Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="thirdReview">3ª Av</label>
-                                        <input max={1000} min={0} type='number' name='thirdReview3Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='thirdReview3Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="fourthReview">4ª Av</label>
-                                        <input max={1000} min={0} type='number' name='fourthReview3Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='fourthReview3Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
                                     </div>
                                     <div className='relative flex gap-2 items-center justify-center'>
@@ -272,25 +277,25 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 <div className='grid grid-cols-5'>
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="primaryReview">1ª Av</label>
-                                        <input max={1000} min={0} type='number' name='primaryReview4Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='primaryReview4Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="secondReview">2ª Av</label>
-                                        <input max={1000} min={0} type='number' name="secondReview4Week" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='secondReview4Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="thirdReview">3ª Av</label>
-                                        <input max={1000} min={0} type='number' name='thirdReview4Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='thirdReview4Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                         <span className='absolute right-0'>+</span>
                                     </div>
 
                                     <div className='relative flex gap-2 items-center justify-center'>
                                         <label htmlFor="fourthReview">4ª Av</label>
-                                        <input max={1000} min={0} type='number' name='fourthReview4Week' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                        <input id='fourthReview4Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
                                     </div>
                                     <div className='relative flex gap-2 items-center justify-center'>
@@ -300,7 +305,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     </div>
                                 </div>
                                 <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                            </div>
+                            </div> */}
                             <div className="flex flex-1 gap-4 mt-6">
                                 <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
                                     <strong>Salvar</strong>
