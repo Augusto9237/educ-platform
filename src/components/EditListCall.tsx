@@ -1,8 +1,9 @@
+'use-client'
 import * as Dialog from '@radix-ui/react-dialog';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 
 import { useCreateCallListMutation, useGetSubscriberByClassQuery, useUpdateCallListMutation } from 'graphql/api';
-import { useEffect } from 'preact/hooks';
+import { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { RiCheckboxFill, RiCheckboxIndeterminateFill, RiEditBoxFill } from 'react-icons/ri';
@@ -11,29 +12,35 @@ import { SubscriberSelected } from '../app/(admin)/frequencies/page';
 import { AdminContext } from '../app/context/AdminContext';
 
 interface SubscriberFrequency {
+    __typename?: "Presence" | undefined;
     id: string;
     value: string;
-}
+    name?: string;
+    idSubscriber?: string;  
+}[]
 
 interface FrequencyEdit {
-    callList?: SubscriberSelected[];
+    callList: SubscriberSelected[];
     idFrequency?: string;
 }
 
 export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
-    const { idClasses, reloadClassById } = useContext(AdminContext)
+    const { classById, reloadClassById } = useContext(AdminContext)
     const [isModalNewListCall, setIsModalNewListCall] = useState(false);
     const [subscriberFrequency, setSubscriberFrequency] = useState<SubscriberFrequency[]>([]);
-    const [editFrequency, setEditFrequency] = useState<SubscriberSelected[]>([]);
-    const [createFrequency] = useCreateCallListMutation();
+    const [editFrequency, setEditFrequency] = useState<SubscriberFrequency[]>([]);
     const [updateFrequency] = useUpdateCallListMutation();
-    const { data, loading } = useGetSubscriberByClassQuery({
-        variables: {
-            id: idClasses.id
-        }
-    })
 
-
+    useEffect(() => {
+        setEditFrequency(
+            callList.map(item => ({
+                id: item.id,
+                value: item.prensente === true ? 'present' : 'abscence',
+                name: item.subscriber?.name,
+                idSubscriber: item.subscriber?.id
+            }))
+        )
+    }, [isModalNewListCall]);
     function handleRadioChange(value: string, subscriberId: string) {
         const updatedSubscriberFrequency = [...subscriberFrequency];
         const index = updatedSubscriberFrequency.findIndex(subscriber => subscriber.id === subscriberId);
@@ -100,7 +107,7 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
                     <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
                         <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-sm:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                             <header className='flex flex-1 relative items-center mb-2'>
-                                <h1 className="mx-auto text-lg font-semibold">Nova lista de frequência
+                                <h1 className="mx-auto text-lg font-semibold">Editar lista de frequência
                                 </h1>
                                 <Dialog.Close onClick={() => setSubscriberFrequency([])} className='absolute right-0 text-textColor-700'>
                                     <strong className='text-textColor-300'>X</strong>
@@ -113,9 +120,9 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
                                     <span className="flex w-28 justify-center">Presença</span>
                                 </div>
 
-                                {!callList && (
+                                {callList && (
                                     <>
-                                        {data?.subscribers.map((subscriberList, i) => {
+                                        {editFrequency?.map((subscriberList, i) => {
                                             return (
                                                 <div key={subscriberList.id} className="relative py-2 flex flex-row hover:bg-backgroundColor-300/90">
                                                     <span className="flex w-10 justify-center">{i + 1}</span>
@@ -123,62 +130,9 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
                                                     <div className="flex w-28 justify-center">
                                                         <RadioGroup.Root
                                                             className="flex flex-row gap-4"
-                                                            defaultValue="default"
                                                             aria-label="View density"
                                                             name='present'
-                                                            onValueChange={value => handleRadioChange(value as string, subscriberList.id)}
-                                                        >
-                                                            <div className="flex gap-2 text-lg text-textSecondaryColor-400 items-center">
-                                                                <RadioGroup.Item
-                                                                    className="bg-backgroundColor-100 shadow-sm shadow-textColor-700 w-[18px] h-[18px] rounded-sm text-textSecondaryColor-400"
-                                                                    value="present"
-                                                                    id="r1"
-                                                                >
-                                                                    <RadioGroup.Indicator>
-                                                                        <RiCheckboxFill size={18} />
-                                                                    </RadioGroup.Indicator>
-                                                                </RadioGroup.Item>
-                                                                <label className="text-white leading-none" htmlFor="r1">
-                                                                    P
-                                                                </label>
-                                                            </div>
-
-                                                            <div className="flex items-center gap-2 text-lg text-textSecondaryColor-200">
-                                                                <RadioGroup.Item
-                                                                    className="bg-backgroundColor-100 shadow-sm shadow-textColor-700 w-[18px] h-[18px] rounded-sm "
-                                                                    value="abscence"
-                                                                    id="r2"
-                                                                >
-                                                                    <RadioGroup.Indicator>
-                                                                        <RiCheckboxIndeterminateFill size={18} />
-                                                                    </RadioGroup.Indicator>
-                                                                </RadioGroup.Item>
-                                                                <label className="text-white leading-none" htmlFor="r2">
-                                                                    F
-                                                                </label>
-                                                            </div>
-                                                        </RadioGroup.Root>
-                                                    </div>
-                                                    <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />
-                                                </div>
-                                            )
-                                        })}
-                                    </>
-                                )}
-
-                                {callList && (
-                                    <>
-                                        {callList?.map((subscriberList, i) => {
-                                            return (
-                                                <div key={subscriberList.subscriber?.id} className="relative py-2 flex flex-row hover:bg-backgroundColor-300/90">
-                                                    <span className="flex w-10 justify-center">{i + 1}</span>
-                                                    <span className="flex flex-1 pl-2">{subscriberList.subscriber?.name}</span>
-                                                    <div className="flex w-28 justify-center">
-                                                        <RadioGroup.Root
-                                                            className="flex flex-row gap-4"
-                                                            aria-label="View density"
-                                                            name='present'
-                                                            value={subscriberList.prensente === true ? 'present' : 'abscence' || "default"}
+                                                            defaultValue={editFrequency[i].value}
                                                             onValueChange={value => handleRadioChange(value as string, subscriberList.id)}
                                                         >
                                                             <div className="flex gap-2 text-lg text-textSecondaryColor-400 items-center">

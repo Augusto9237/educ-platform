@@ -67,7 +67,6 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
         })
     }, [grades]);
 
-
     function handleChangeUpdate(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value, id } = event.target;
         const weekRegex = /(\d+)Week/; // Regex para extrair o número da semana do ID do input

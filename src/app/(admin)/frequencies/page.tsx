@@ -16,6 +16,7 @@ import { NewListCall } from '@/components/components/NewListCall';
 import { useDeleteFrequencyMutation } from 'graphql/api';
 import { toast } from 'react-toastify';
 import clsx from 'clsx';
+import { EditListCall } from '@/components/components/EditListCall';
 
 export interface FrequencyGroupedByMonth {
     month: number;
@@ -206,7 +207,9 @@ export default function Frequencies() {
                                                                                 </Dialog.Overlay>
                                                                             </Dialog.Portal>
                                                                         </Dialog.Root>
-                                                                        <NewListCall callList={frequency.subscribes} idFrequency={frequency.id} />
+
+                                                                        <EditListCall callList={frequency.subscribes} idFrequency={frequency.id} />
+                                                                        
                                                                         <button onClick={() => handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
                                                                             <span>Excluir</span>
