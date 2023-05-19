@@ -9156,6 +9156,23 @@ export type UpdateCallListMutationVariables = Exact<{
 
 export type UpdateCallListMutation = { __typename?: 'Mutation', updateFrequency?: { __typename?: 'Frequency', id: string, updatedAt: any } | null };
 
+export type UpdateandCreateGradesMutationVariables = Exact<{
+  update?: InputMaybe<Array<GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput> | GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  create?: InputMaybe<Array<GradesweeklyAssessmentsUnionCreateWithPositionInput> | GradesweeklyAssessmentsUnionCreateWithPositionInput>;
+}>;
+
+
+export type UpdateandCreateGradesMutation = { __typename?: 'Mutation', updateGrades?: { __typename?: 'Grades', id: string, updatedAt: any } | null };
+
+export type UpdateGradesMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  update?: InputMaybe<Array<GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput> | GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput>;
+}>;
+
+
+export type UpdateGradesMutation = { __typename?: 'Mutation', updateGrades?: { __typename?: 'Grades', id: string, updatedAt: any } | null };
+
 export type UpdateFinancePaymentMutationVariables = Exact<{
   payment?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['ID']>;
@@ -10075,6 +10092,80 @@ export function useUpdateCallListMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCallListMutationHookResult = ReturnType<typeof useUpdateCallListMutation>;
 export type UpdateCallListMutationResult = Apollo.MutationResult<UpdateCallListMutation>;
 export type UpdateCallListMutationOptions = Apollo.BaseMutationOptions<UpdateCallListMutation, UpdateCallListMutationVariables>;
+export const UpdateandCreateGradesDocument = gql`
+    mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}) {
+  updateGrades(
+    data: {weeklyAssessments: {update: $update, create: $create}}
+    where: {id: $id}
+  ) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type UpdateandCreateGradesMutationFn = Apollo.MutationFunction<UpdateandCreateGradesMutation, UpdateandCreateGradesMutationVariables>;
+
+/**
+ * __useUpdateandCreateGradesMutation__
+ *
+ * To run a mutation, you first call `useUpdateandCreateGradesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateandCreateGradesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateandCreateGradesMutation, { data, loading, error }] = useUpdateandCreateGradesMutation({
+ *   variables: {
+ *      update: // value for 'update'
+ *      id: // value for 'id'
+ *      create: // value for 'create'
+ *   },
+ * });
+ */
+export function useUpdateandCreateGradesMutation(baseOptions?: Apollo.MutationHookOptions<UpdateandCreateGradesMutation, UpdateandCreateGradesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateandCreateGradesMutation, UpdateandCreateGradesMutationVariables>(UpdateandCreateGradesDocument, options);
+      }
+export type UpdateandCreateGradesMutationHookResult = ReturnType<typeof useUpdateandCreateGradesMutation>;
+export type UpdateandCreateGradesMutationResult = Apollo.MutationResult<UpdateandCreateGradesMutation>;
+export type UpdateandCreateGradesMutationOptions = Apollo.BaseMutationOptions<UpdateandCreateGradesMutation, UpdateandCreateGradesMutationVariables>;
+export const UpdateGradesDocument = gql`
+    mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}) {
+  updateGrades(data: {weeklyAssessments: {update: $update}}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
+    `;
+export type UpdateGradesMutationFn = Apollo.MutationFunction<UpdateGradesMutation, UpdateGradesMutationVariables>;
+
+/**
+ * __useUpdateGradesMutation__
+ *
+ * To run a mutation, you first call `useUpdateGradesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGradesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGradesMutation, { data, loading, error }] = useUpdateGradesMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      update: // value for 'update'
+ *   },
+ * });
+ */
+export function useUpdateGradesMutation(baseOptions?: Apollo.MutationHookOptions<UpdateGradesMutation, UpdateGradesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateGradesMutation, UpdateGradesMutationVariables>(UpdateGradesDocument, options);
+      }
+export type UpdateGradesMutationHookResult = ReturnType<typeof useUpdateGradesMutation>;
+export type UpdateGradesMutationResult = Apollo.MutationResult<UpdateGradesMutation>;
+export type UpdateGradesMutationOptions = Apollo.BaseMutationOptions<UpdateGradesMutation, UpdateGradesMutationVariables>;
 export const UpdateFinancePaymentDocument = gql`
     mutation UpdateFinancePayment($payment: Boolean = false, $id: ID = "") {
   updateFinance(data: {payment: $payment}, where: {id: $id}) {

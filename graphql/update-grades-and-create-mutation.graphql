@@ -1,0 +1,9 @@
+mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}) {
+  updateGrades(
+    data: {weeklyAssessments: {update: $update, create: $create}}
+    where: {id: $id}
+  ) {
+    id
+    updatedAt
+  }
+}

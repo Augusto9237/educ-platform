@@ -47,7 +47,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
     const { reloadAssesments } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
     const [createGrades] = useCreateAssessmentsMutation();
-    const [countInput, setCountInput] = useState(0)
+    const [countInput, setCountInput] = useState(0);
     const [formValues, setFormValues] = useState<FormValues>({
         IdSubsriber: '',
         weeks: [],
@@ -202,110 +202,6 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
                                 </div>
                             ))}
-                            {/* <div id='secondWeek' className='relative flex flex-col gap-2 py-2'>
-                                <strong className="flex gap-2 text-textColor-500/70">2ª semana</strong>
-                                <div className='grid grid-cols-5'>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="primaryReview">1ª Av</label>
-                                        <input id='primaryReview2Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="secondReview">2ª Av</label>
-                                        <input id='secondReview2Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="thirdReview">3ª Av</label>
-                                        <input id='thirdReview2Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="fourthReview">4ª Av</label>
-                                        <input id='fourthReview2Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-
-                                    </div>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <span className='absolute left-1'>/4</span>
-                                        <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>900pts</h1>
-                                    </div>
-                                </div>
-                                <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                            </div>
-
-                            <div id='thirdWeek' className='relative flex flex-col gap-2 py-2'>
-                                <strong className="flex gap-2 text-textColor-500/70">3ª semana</strong>
-                                <div className='grid grid-cols-5'>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="primaryReview">1ª Av</label>
-                                        <input id='primaryReview3Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="secondReview">2ª Av</label>
-                                        <input id='secondReview3Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="thirdReview">3ª Av</label>
-                                        <input id='thirdReview3Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="fourthReview">4ª Av</label>
-                                        <input id='fourthReview3Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-
-                                    </div>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <span className='absolute left-1'>/4</span>
-                                        <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>900pts</h1>
-                                    </div>
-                                </div>
-                                <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                            </div>
-
-                            <div id='fourthWeek' className='relative flex flex-col gap-2 py-2'>
-                                <strong className="flex gap-2 text-textColor-500/70">4ª semana</strong>
-                                <div className='grid grid-cols-5'>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="primaryReview">1ª Av</label>
-                                        <input id='primaryReview4Week' max={1000} min={0} type='number' name='primaryReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="secondReview">2ª Av</label>
-                                        <input id='secondReview4Week' max={1000} min={0} type='number' name="secondReview" onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="thirdReview">3ª Av</label>
-                                        <input id='thirdReview4Week' max={1000} min={0} type='number' name='thirdReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                        <span className='absolute right-0'>+</span>
-                                    </div>
-
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <label htmlFor="fourthReview">4ª Av</label>
-                                        <input id='fourthReview4Week' max={1000} min={0} type='number' name='fourthReview' onChange={handleChange} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-
-                                    </div>
-                                    <div className='relative flex gap-2 items-center justify-center'>
-                                        <span className='absolute left-1'>/4</span>
-                                        <span className='absolute left-6'>=</span>
-                                        <h1 className='font-semibold'>900pts</h1>
-                                    </div>
-                                </div>
-                                <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                            </div> */}
                             <div className="flex flex-1 gap-4 mt-6">
                                 <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
                                     <strong>Salvar</strong>
@@ -316,7 +212,6 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                 </button>
                             </div>
                         </form>
-
                     </Dialog.Content>
                 </Dialog.Overlay>
             </Dialog.Portal>

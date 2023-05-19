@@ -5,7 +5,7 @@ import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Progress from '@radix-ui/react-progress';
 import clsx from 'clsx';
-import { useDeleteFrequencyMutation, useDeleteGradesMutation } from 'graphql/api';
+import { useDeleteGradesMutation } from 'graphql/api';
 
 import { useContext, useState } from 'react';
 import { HiChartSquareBar } from 'react-icons/hi';
@@ -145,7 +145,7 @@ export default function Grades() {
                                                             </Dialog.Overlay>
                                                         </Dialog.Portal>
                                                     </Dialog.Root>
-                                                    <FormEditAssessments month={grades.month} idSubsriber={grades.subscriber?.id} nameSubsriber={grades.subscriber?.name} grades={grades.weeklyAssessments}/>
+                                                    <FormEditAssessments month={grades.month} idSubsriber={grades.subscriber?.id} nameSubsriber={grades.subscriber?.name} IdGrades={grades.id} grades={grades.weeklyAssessments}/>
                                                     <button onClick={() => handleDeleteReviews(grades.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                         <RiDeleteBin2Fill />
                                                         <span>Excluir</span>

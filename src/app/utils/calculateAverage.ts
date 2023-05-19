@@ -1,10 +1,10 @@
 export interface  weeklyAssessments {
     __typename?: "Week" | undefined;
-    id: string;
+    id?: string;
     primaryReview?: number | null | undefined;
     secondReview?: number | null | undefined;
     thirdReview?: number | null | undefined;
-    fourthReview?: number |null | undefined;
+    fourthReview?: number | null | undefined;
 }[]
 
 export function calculateAverage(assessments: weeklyAssessments[]): number {

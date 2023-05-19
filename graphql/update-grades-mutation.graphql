@@ -1,0 +1,6 @@
+mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}) {
+  updateGrades(data: {weeklyAssessments: {update: $update}}, where: {id: $id}) {
+    id
+    updatedAt
+  }
+}
