@@ -47,19 +47,22 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
     const { reloadAssesments } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
     const [createGrades] = useCreateAssessmentsMutation();
-    const [countInput, setCountInput] = useState(0);
+    const [countInput, setCountInput] = useState(1);
     const [formValues, setFormValues] = useState<FormValues>({
         IdSubsriber: '',
         weeks: [],
         month: ''
     });
 
+    const countWeeks = getWeeksInCurrentMonth()
 
+    function handleAddInput() {
 
-    useEffect(() => {
-        const weeksInMonth = getWeeksInCurrentMonth();
-        setCountInput(weeksInMonth);
-    }, [])
+        if (countInput < countWeeks) {
+            setCountInput(countInput + 1);
+        }
+
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, id } = event.target;
@@ -202,6 +205,13 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
                                 </div>
                             ))}
+
+                            {countInput < countWeeks ? <>
+                                <button onClick={() => handleAddInput()} className='flex max-w-fit mx-auto p-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                    <FaPlusCircle />
+                                    <span className='leading-snug'>Semana</span>
+                                </button>
+                            </> : null}
                             <div className="flex flex-1 gap-4 mt-6">
                                 <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
                                     <strong>Salvar</strong>
