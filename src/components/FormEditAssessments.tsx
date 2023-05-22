@@ -66,7 +66,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
             })),
             month: month!,
         })
-    }, [grades]);
+    }, [IdGrades, grades, month]);
 
     function handleAddInput() {
         const diff = (countWeeks - grades.length);
