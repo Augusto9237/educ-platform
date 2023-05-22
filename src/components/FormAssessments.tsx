@@ -139,6 +139,17 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
         toast.success('Frequência criada com sucesso');
         setModalForm(false);
     }
+
+    function calculateAverageWeeks(i: number): number {
+        if (formValues.weeks.length > 0 && formValues.weeks[i]?.Week) {
+            const { primaryReview, secondReview, thirdReview, fourthReview } = formValues.weeks[i].Week;
+            const weekSum = primaryReview + secondReview + thirdReview + fourthReview;
+            return weekSum / 4;
+        } else {
+            return 0;
+        }
+    }
+
     return (
         <Dialog.Root modal={modalForm}>
             <Dialog.Trigger onClick={() => setModalForm(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
@@ -148,7 +159,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
 
             <Dialog.Portal>
                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl xl:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl md:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                         <header className='flex flex-1 mb-2'>
                             <h1 className="mx-auto text-lg font-bold">Nova avaliação</h1>
                             <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
@@ -199,7 +210,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                         <div className='relative flex gap-2 items-center justify-center'>
                                             <span className='absolute left-1'>/4</span>
                                             <span className='absolute left-6'>=</span>
-                                            <h1 className='font-semibold'>pts</h1>
+                                            <h1 className='font-semibold'>{calculateAverageWeeks(index)} pts</h1>
                                         </div>
                                     </div>
                                     <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
@@ -207,7 +218,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                             ))}
 
                             {countInput < countWeeks ? <>
-                                <button onClick={() => handleAddInput()} className='flex max-w-fit mx-auto p-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                <button onClick={() => handleAddInput()} className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                     <FaPlusCircle />
                                     <span className='leading-snug'>Semana</span>
                                 </button>
