@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 import { SubscriberSelected } from '../app/(admin)/frequencies/page';
 import { AdminContext } from '../app/context/AdminContext';
 
-
-
 interface SubscriberFrequency {
     id: string;
     value: string;

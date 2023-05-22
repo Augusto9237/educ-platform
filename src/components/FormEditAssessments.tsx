@@ -1,3 +1,4 @@
+'use client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useUpdateandCreateGradesMutation, useUpdateGradesMutation } from 'graphql/api';
 import { useContext, useEffect, useState } from 'react';
@@ -29,7 +30,7 @@ interface FormValues {
 };
 
 export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber, IdGrades }: FormAssessmentsPros) {
-    const { reloadAssesments } = useContext(AdminContext);
+    const { reloadAssesments, assessmentsLodingByClass } = useContext(AdminContext);
     const [modalEditForm, setModalEditForm] = useState(false);
     const [updateGrades] = useUpdateGradesMutation()
     const [updateandCreateGrades] = useUpdateandCreateGradesMutation()
@@ -44,12 +45,30 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
         weeks: [],
         month: ''
     });
-    const [countInput, setCountInput] = useState(0);
+    const [countInput, setCountInput] = useState<number[]>([]);
+    console.log(formValuesUpinsert);
     useEffect(() => {
         const weeksInMonth = getWeeksInCurrentMonth();
-        setCountInput(weeksInMonth - grades.length);
-        setOrderInput(grades.length);
-    }, [grades])
+
+        if (grades.length < weeksInMonth) {
+            const diff = weeksInMonth - grades.length;
+            if (diff == 1) {
+                setCountInput([0]);
+                setOrderInput(1);
+            } else {
+                const weeksInMonth = getWeeksInCurrentMonth();
+                let countOrderInput = [];
+
+                for (let i = 0; i < weeksInMonth - grades.length; i++) {
+                    countOrderInput.push(i + grades.length);
+                }
+                setCountInput(countOrderInput);
+            }
+        } else {
+            setCountInput([]);
+            setOrderInput(0);
+        }
+    }, [modalEditForm]);
 
     useEffect(() => {
         setFormValues({
@@ -69,7 +88,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
 
     function handleChangeUpdate(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value, id } = event.target;
-        const weekRegex = /(\d+)Week/; // Regex para extrair o número da semana do ID do input
+        const weekNumber = Number(id)
 
         setFormValues((prevFormValues) => {
             if (name === 'IdSubsriber' || name === 'month') {
@@ -78,9 +97,6 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                     [name]: value
                 };
             }
-
-            const match = id.match(weekRegex);
-            const weekNumber = match ? parseInt(match[1]) : -1;
 
             if (weekNumber > 0) {
                 const updatedWeeks = [...prevFormValues.weeks];
@@ -130,7 +146,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
 
     function handleChangeUpInsert(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value, id } = event.target;
-        const weekRegex = /(\d+)Week/; // Regex para extrair o número da semana do ID do input
+        const weekNumber = parseInt(id)
 
         setFormValuesUpinsert((prevFormValues) => {
             if (name === 'IdSubsriber' || name === 'month') {
@@ -139,9 +155,6 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                     [name]: value
                 };
             }
-
-            const match = id.match(weekRegex);
-            const weekNumber = match ? parseInt(match[1]) : -1;
 
             if (weekNumber > 0) {
                 const updatedWeeks = [...prevFormValues.weeks];
@@ -187,7 +200,17 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
 
             return prevFormValues;
         });
-    };
+    }
+
+    function isWeekComplete(week: any) {
+        return (
+            week.Week.primaryReview !== 0 &&
+            week.Week.secondReview !== 0 &&
+            week.Week.thirdReview !== 0 &&
+            week.Week.fourthReview !== 0
+        );
+    }
+
 
 
     async function handleSubmitUpdateGrades(event: React.FormEvent<HTMLFormElement>): Promise<void> {
@@ -238,10 +261,27 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
             reloadAssesments();
             toast.success('Frequência atualizada com sucesso');
             setModalEditForm(false);
+            setCountInput([]);
+
+            setFormValuesUpinsert({
+                IdGrades: '',
+                weeks: [],
+                month: ''
+            });
         } catch (error) {
             console.log(error);
             toast.error('Algo deu errado, tente novamente!');
         }
+    }
+
+    function onClose() {
+        setModalEditForm(false);
+        setCountInput([]);
+        setFormValuesUpinsert({
+            IdGrades: '',
+            weeks: [],
+            month: ''
+        });
     }
     return (
         <Dialog.Root modal={modalEditForm}>
@@ -255,7 +295,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                     <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl xl:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                         <header className='flex flex-1 mb-2'>
                             <h1 className="mx-auto text-lg font-bold">Editar avaliação</h1>
-                            <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
+                            <Dialog.Close onClick={() => onClose()} className='absolute right-4 top-4 text-textColor-700'>
                                 <strong className='text-textColor-200'>X</strong>
                             </Dialog.Close>
                         </header>
@@ -277,25 +317,25 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                                         <div className='grid grid-cols-5'>
                                             <div className='relative flex gap-2 items-center justify-center'>
                                                 <label htmlFor="primaryReview">1ª Av</label>
-                                                <input id={`primaryReview${i + 1}Week`} max={1000} min={0} type='number' value={formValues.weeks[i].Week.primaryReview} name="primaryReview" onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                <input id={String(i + 1)} max={1000} min={0} type='number' value={formValues.weeks[i].Week.primaryReview} name="primaryReview" onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                                 <span className='absolute right-0'>+</span>
                                             </div>
 
                                             <div className='relative flex gap-2 items-center justify-center'>
                                                 <label htmlFor="secondReview">2ª Av</label>
-                                                <input id={`secondReview${i + 1}Week`} max={1000} min={0} type='number' value={formValues.weeks[i].Week.secondReview} name="secondReview" onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                <input id={String(i + 1)} max={1000} min={0} type='number' value={formValues.weeks[i].Week.secondReview} name="secondReview" onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                                 <span className='absolute right-0'>+</span>
                                             </div>
 
                                             <div className='relative flex gap-2 items-center justify-center'>
                                                 <label htmlFor="thirdReview">3ª Av</label>
-                                                <input id={`thirdReview${i + 1}Week`} max={1000} min={0} type='number' value={formValues.weeks[i].Week.thirdReview} name='thirdReview' onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                <input id={String(i + 1)} max={1000} min={0} type='number' value={formValues.weeks[i].Week.thirdReview} name='thirdReview' onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
                                                 <span className='absolute right-0'>+</span>
                                             </div>
 
                                             <div className='relative flex gap-2 items-center justify-center'>
                                                 <label htmlFor="fourthReview">4ª Av</label>
-                                                <input id={`fouthReview${i + 1}Week`} max={1000} min={0} type='number' name='fourthReview' value={formValues.weeks[i].Week.fourthReview} onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                <input id={String(i + 1)} max={1000} min={0} type='number' name='fourthReview' value={formValues.weeks[i].Week.fourthReview} onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
                                             </div>
                                             <div className='relative flex gap-2 items-center justify-center'>
@@ -308,50 +348,55 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                                     </div>
                                 )
                             })}
-                            {Array.from(Array(countInput)).map((_, index) => {
-                                return (
-                                    <div key={index} className='relative flex flex-col gap-2 py-2'>
-                                        <strong className="flex gap-2 text-textColor-500/70">{index + orderInput + 1}ª semana</strong>
-                                        <div className='grid grid-cols-5'>
-                                            <div className='relative flex gap-2 items-center justify-center'>
-                                                <label htmlFor="primaryReview">1ª Av</label>
-                                                <input id={`primaryReview${index + grades.length}Week`} max={1000} min={0} type='number' name="primaryReview" onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                                <span className='absolute right-0'>+</span>
-                                            </div>
+                            {countInput.length > 0 ?
+                                <>
+                                    {countInput.map((input, i) => {
+                                        console.log(input)
+                                        return (
+                                            <div key={input} className='relative flex flex-col gap-2 py-2'>
+                                                <strong className="flex gap-2 text-textColor-500/70">{input + 1}ª semana</strong>
+                                                <div className='grid grid-cols-5'>
+                                                    <div className='relative flex gap-2 items-center justify-center'>
+                                                        <label htmlFor={`primaryReview-${input}`}>1ª Av</label>
+                                                        <input id={String(input)} max={1000} min={0} type='number' name="primaryReview" onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                        <span className='absolute right-0'>+</span>
+                                                    </div>
 
-                                            <div className='relative flex gap-2 items-center justify-center'>
-                                                <label htmlFor="secondReview">2ª Av</label>
-                                                <input id={`secondReview${index + grades.length}Week`} max={1000} min={0} type='number' name="secondReview" onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                                <span className='absolute right-0'>+</span>
-                                            </div>
+                                                    <div className='relative flex gap-2 items-center justify-center'>
+                                                        <label htmlFor={`secondReview-${input}`}>2ª Av</label>
+                                                        <input id={String(input)} max={1000} min={0} type='number' name="secondReview" onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                        <span className='absolute right-0'>+</span>
+                                                    </div>
 
-                                            <div className='relative flex gap-2 items-center justify-center'>
-                                                <label htmlFor="thirdReview">3ª Av</label>
-                                                <input id={`thirdReview${index + grades.length}Week`} max={1000} min={0} type='number' name='thirdReview' onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
-                                                <span className='absolute right-0'>+</span>
-                                            </div>
+                                                    <div className='relative flex gap-2 items-center justify-center'>
+                                                        <label htmlFor={`thirdReview-${input}`}>3ª Av</label>
+                                                        <input id={String(input)} max={1000} min={0} type='number' name='thirdReview' onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                        <span className='absolute right-0'>+</span>
+                                                    </div>
 
-                                            <div className='relative flex gap-2 items-center justify-center'>
-                                                <label htmlFor="fourthReview">4ª Av</label>
-                                                <input id={`fourthReview${index + grades.length}Week`} max={1000} min={0} type='number' name='fourthReview' onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                    <div className='relative flex gap-2 items-center justify-center'>
+                                                        <label htmlFor={`fourthReview-${input}`}>4ª Av</label>
+                                                        <input id={String(input)} max={1000} min={0} type='number' name='fourthReview' onChange={handleChangeUpInsert} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
+                                                    </div>
+                                                    <div className='relative flex gap-2 items-center justify-center'>
+                                                        <span className='absolute left-1'>/4</span>
+                                                        <span className='absolute left-6'>=</span>
+                                                        <h1 className='font-semibold'>pts</h1>
+                                                    </div>
+                                                </div>
+                                                <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
+                                            </div>
+                                        )
+                                    })}
 
-                                            </div>
-                                            <div className='relative flex gap-2 items-center justify-center'>
-                                                <span className='absolute left-1'>/4</span>
-                                                <span className='absolute left-6'>=</span>
-                                                <h1 className='font-semibold'>pts</h1>
-                                            </div>
-                                        </div>
-                                        <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
-                                    </div>
-                                )
-                            })}
+                                </>
+                                : null}
                             <div className="flex flex-1 gap-4 mt-6">
                                 <button type="submit" className="flex w-full justify-center items-center rounded-lg py-2 bg-buttonColor-500 text-textSecondaryColor-600 hover:bg-buttonColor-600">
                                     <strong>Salvar</strong>
                                 </button>
 
-                                <button type="reset" onClick={() => setModalEditForm(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                <button type="reset" onClick={() => onClose()} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
                                     <strong>Cancelar</strong>
                                 </button>
                             </div>
