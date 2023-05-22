@@ -150,6 +150,16 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
         }
     }
 
+    function onClose() {
+        setModalForm(false);
+        setCountInput(1);
+        setFormValues({
+            IdSubsriber: '',
+            weeks: [],
+            month: ''
+        });
+    }
+
     return (
         <Dialog.Root modal={modalForm}>
             <Dialog.Trigger onClick={() => setModalForm(true)} className='flex flex-1 max-w-fit items-center font-semibold rounded-md p-2 gap-2 justify-center text-textColor-500 bg-buttonColor-500/80'>
@@ -162,7 +172,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                     <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl md:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                         <header className='flex flex-1 mb-2'>
                             <h1 className="mx-auto text-lg font-bold">Nova avaliação</h1>
-                            <Dialog.Close className='absolute right-4 top-4 text-textColor-700'>
+                            <Dialog.Close onClick={() => onClose()} className='absolute right-4 top-4 text-textColor-700'>
                                 <strong className='text-textColor-200'>X</strong>
                             </Dialog.Close>
                         </header>
@@ -218,7 +228,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                             ))}
 
                             {countInput < countWeeks ? <>
-                                <button onClick={() => handleAddInput()} className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                <button onClick={() => handleAddInput()} type='button' className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                     <FaPlusCircle />
                                     <span className='leading-snug'>Semana</span>
                                 </button>
@@ -228,7 +238,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
                                     <strong>Salvar</strong>
                                 </button>
 
-                                <button type="reset" onClick={() => setModalForm(false)} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
+                                <button type="reset" onClick={() => onClose()} className="flex w-full justify-center items-center rounded-lg py-2 bg-backgroundColor-300 text-textSecondaryColor-600 hover:bg-textColor-200">
                                     <strong>Cancelar</strong>
                                 </button>
                             </div>
