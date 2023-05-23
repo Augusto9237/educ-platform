@@ -9114,7 +9114,7 @@ export type GetFrequenciesClassQuery = { __typename?: 'Query', frequencies: Arra
 export type GetSubscribersDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
+export type GetSubscribersDataQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, pictureUrl?: string | null, phone?: string | null, address?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null, finances: Array<{ __typename?: 'Finance', id: string, month?: string | null, payment?: boolean | null, value?: number | null }>, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }> };
 
 export type GetSubscriberLoginQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -9831,6 +9831,13 @@ export const GetSubscribersDataDocument = gql`
     gradeses {
       id
       month
+      subscriber {
+        id
+        name
+        email
+        phone
+        pictureUrl
+      }
       weeklyAssessments {
         ... on Week {
           id

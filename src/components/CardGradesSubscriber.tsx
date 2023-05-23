@@ -83,17 +83,17 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                             value={percentage}
                         >
                             <Progress.Indicator
-                                className={clsx("flex justify-end w-full h-full transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]", {
-                                    'text-textSecondaryColor-200 bg-textSecondaryColor-200/40': percentage === 0,
-                                    'text-textSecondaryColor-200 bg-textSecondaryColor-200/30': percentage >= 0 && percentage < 20,
-                                    'text-buttonColor-500/90 bg-buttonColor-500/30': percentage >= 20 && percentage < 40,
-                                    'text-backgroundColor-500 bg-backgroundColor-500/40': percentage >= 40 && percentage < 80,
-                                    'text-textSecondaryColor-400 bg-textSecondaryColor-300/20': percentage >= 80,
+                                className={clsx("flex justify-end w-full h-full text-backgroundColor-50 transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]", {
+                                    'bg-textSecondaryColor-200/40': percentage === 0,
+                                    'bg-textSecondaryColor-200/50': percentage >= 0 && percentage < 20,
+                                    'bg-buttonColor-500/70': percentage >= 20 && percentage < 40,
+                                    'bg-backgroundColor-500/50': percentage >= 40 && percentage < 80,
+                                    'bg-textSecondaryColor-300/20': percentage >= 80,
                                 })}
 
                                 style={{ transform: `translateX(-${100 - percentage}%)` }}
                             >
-                                <span className=" text-xs leading-none">{percentage}%</span>
+                                <span className="mr-1 text-xs leading-none">{percentage}%</span>
                             </Progress.Indicator>
                         </Progress.Root>
                     </div>

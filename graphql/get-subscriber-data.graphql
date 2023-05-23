@@ -20,6 +20,13 @@ query GetSubscribersData {
     gradeses {
       id
       month
+      subscriber {
+      id
+      name
+      email
+      phone
+      pictureUrl
+    }
       weeklyAssessments {
         ... on Week {
           id
