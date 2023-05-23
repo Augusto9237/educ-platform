@@ -8,6 +8,7 @@ export interface  weeklyAssessments {
 }[]
 
 export function calculateAverage(assessments: weeklyAssessments[]): number {
+    
     const validAssessments = assessments.filter((week) => {
         return week.fourthReview !== undefined && week.primaryReview !== undefined && week.secondReview !== undefined && week.thirdReview !== undefined;
     });

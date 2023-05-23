@@ -59,7 +59,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex justify-between mb-2">
-                        <strong>Aluno: {gradeses.subscriber.name}</strong>
+                        <strong>{gradeses.subscriber.name}</strong>
                         <span>{extractMonth(newMonth, true)}</span>
                     </div>
 
@@ -78,8 +78,6 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                         <Progress.Root
                             className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"
                             style={{
-                                // Fix overflow clipping in Safari
-                                // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0
                                 transform: 'translateZ(0)',
                             }}
                             value={percentage}
