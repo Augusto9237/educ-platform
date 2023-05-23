@@ -1,6 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useCreateAssessmentsMutation } from 'graphql/api';
-import { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify';

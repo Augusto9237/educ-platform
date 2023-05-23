@@ -1,4 +1,3 @@
-'use client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useUpdateandCreateGradesMutation, useUpdateGradesMutation } from 'graphql/api';
 import { useContext, useEffect, useState } from 'react';
