@@ -43,7 +43,7 @@ interface GradesProps {
 }
 
 export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
-    const newMonth = dayjs(month).month() + 1;
+    
 
     const assessments = gradeses.weeklyAssessments;
     
@@ -60,7 +60,6 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                 <div className="flex flex-col w-full">
                     <div className="flex justify-between mb-2">
                         <strong>{gradeses.subscriber.name}</strong>
-                        <span>{extractMonth(newMonth, true)}</span>
                     </div>
 
                     <div>
@@ -73,7 +72,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                                 'text-textSecondaryColor-400': percentage >= 80,
                             })}
                         >
-                            <RiCheckboxFill /> {`Media do aluno: ${average}pts /`}<span className="text-sm mt-1">1000pts</span>
+                            <RiCheckboxFill /> {`Média do aluno: ${average}pts /`}<span className="text-sm mt-1">1000pts</span>
                         </span>
                         <Progress.Root
                             className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"

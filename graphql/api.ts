@@ -738,6 +738,7 @@ export type BatchPayload = {
 
 export type Class = Node & {
   __typename?: 'Class';
+  assessments: Array<Grades>;
   code?: Maybe<Scalars['String']>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -764,6 +765,19 @@ export type Class = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+};
+
+
+export type ClassAssessmentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<GradesOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<GradesWhereInput>;
 };
 
 
@@ -860,6 +874,7 @@ export type ClassConnection = {
 };
 
 export type ClassCreateInput = {
+  assessments?: InputMaybe<GradesCreateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   frequencies?: InputMaybe<FrequencyCreateManyInlineInput>;
@@ -902,6 +917,9 @@ export type ClassManyWhereInput = {
   OR?: InputMaybe<Array<ClassWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  assessments_every?: InputMaybe<GradesWhereInput>;
+  assessments_none?: InputMaybe<GradesWhereInput>;
+  assessments_some?: InputMaybe<GradesWhereInput>;
   code?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   code_contains?: InputMaybe<Scalars['String']>;
@@ -1041,6 +1059,7 @@ export enum ClassOrderByInput {
 }
 
 export type ClassUpdateInput = {
+  assessments?: InputMaybe<GradesUpdateManyInlineInput>;
   code?: InputMaybe<Scalars['String']>;
   frequencies?: InputMaybe<FrequencyUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
@@ -1128,6 +1147,9 @@ export type ClassWhereInput = {
   OR?: InputMaybe<Array<ClassWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  assessments_every?: InputMaybe<GradesWhereInput>;
+  assessments_none?: InputMaybe<GradesWhereInput>;
+  assessments_some?: InputMaybe<GradesWhereInput>;
   code?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   code_contains?: InputMaybe<Scalars['String']>;
@@ -2350,6 +2372,7 @@ export type FrequencysubscribesUnionWhereUniqueInput = {
 
 export type Grades = Node & {
   __typename?: 'Grades';
+  class?: Maybe<Class>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -2374,6 +2397,12 @@ export type Grades = Node & {
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
   weeklyAssessments: Array<GradesweeklyAssessmentsUnion>;
+};
+
+
+export type GradesClassArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -2455,6 +2484,7 @@ export type GradesConnection = {
 };
 
 export type GradesCreateInput = {
+  class?: InputMaybe<ClassCreateOneInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   month?: InputMaybe<Scalars['String']>;
   subscriber?: InputMaybe<SubscriberCreateOneInlineInput>;
@@ -2495,6 +2525,7 @@ export type GradesManyWhereInput = {
   OR?: InputMaybe<Array<GradesWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2608,6 +2639,7 @@ export enum GradesOrderByInput {
 }
 
 export type GradesUpdateInput = {
+  class?: InputMaybe<ClassUpdateOneInlineInput>;
   month?: InputMaybe<Scalars['String']>;
   subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
   weeklyAssessments?: InputMaybe<GradesweeklyAssessmentsUnionUpdateManyInlineInput>;
@@ -2693,6 +2725,7 @@ export type GradesWhereInput = {
   OR?: InputMaybe<Array<GradesWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -10297,8 +10330,9 @@ export type BatchPayloadKeySpecifier = ('count' | BatchPayloadKeySpecifier)[];
 export type BatchPayloadFieldPolicy = {
 	count?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ClassKeySpecifier = ('code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'frequencies' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'teacher' | 'updatedAt' | 'updatedBy' | ClassKeySpecifier)[];
+export type ClassKeySpecifier = ('assessments' | 'code' | 'createdAt' | 'createdBy' | 'documentInStages' | 'frequencies' | 'history' | 'id' | 'name' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscribers' | 'teacher' | 'updatedAt' | 'updatedBy' | ClassKeySpecifier)[];
 export type ClassFieldPolicy = {
+	assessments?: FieldPolicy<any> | FieldReadFunction<any>,
 	code?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -10397,8 +10431,9 @@ export type FrequencyEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GradesKeySpecifier = ('createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'month' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'weeklyAssessments' | GradesKeySpecifier)[];
+export type GradesKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'month' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'weeklyAssessments' | GradesKeySpecifier)[];
 export type GradesFieldPolicy = {
+	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	documentInStages?: FieldPolicy<any> | FieldReadFunction<any>,

@@ -378,7 +378,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                             ))}
 
                             {countInput < (countWeeks - grades.length) ? <>
-                                <button onClick={() => handleAddInput()} type='button' className='flex max-w-fit mx-auto p-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
+                                <button onClick={() => handleAddInput()} type='button'  className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-textColor-700 bg-textColor-300 hover:bg-textColor-300/80'>
                                     <FaPlusCircle />
                                     <span className='leading-snug'>Semana</span>
                                 </button>

@@ -9,7 +9,7 @@ import { useDeleteGradesMutation } from 'graphql/api';
 
 import { useContext, useState } from 'react';
 import { HiChartSquareBar } from 'react-icons/hi';
-import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
+import { RiDeleteBin2Fill} from 'react-icons/ri';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../../context/AdminContext';
 import { calculateAverage } from '../../utils/calculateAverage';
@@ -26,7 +26,7 @@ export interface GradesProps {
 export default function Grades() {
     const { idClasses, classById, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
     const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([]);
-    const [deleteGrades] = useDeleteGradesMutation()
+    const [deleteGrades] = useDeleteGradesMutation();
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | any) {
         const { name, value } = event.target;
