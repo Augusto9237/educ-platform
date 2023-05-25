@@ -1,8 +1,6 @@
 
 import clsx from "clsx";
-import dayjs from "dayjs";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
-import { extractMonth } from "../app/utils/getMonth";
 import * as Progress from '@radix-ui/react-progress';
 import { calculateAverage } from "../app/utils/calculateAverage";
 
