@@ -36,8 +36,6 @@ export function TopListSubscriber() {
     });
 
 
-    console.log(gradesList)
-
     return (
         <section className="bg-backgroundColor-100 rounded-lg p-4 gap-2">
             <header className="flex justify-between items-center mb-2">
