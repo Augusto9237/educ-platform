@@ -9,7 +9,7 @@ import { useDeleteGradesMutation } from 'graphql/api';
 
 import { useContext, useState } from 'react';
 import { HiChartSquareBar } from 'react-icons/hi';
-import { RiDeleteBin2Fill} from 'react-icons/ri';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../../context/AdminContext';
 import { calculateAverage } from '../../utils/calculateAverage';
@@ -50,6 +50,7 @@ export default function Grades() {
         }
 
     }
+
     return (
         <>
             <section className="flex flex-col gap-4 flex-1 p-4 justify-start rounded-xl text-textSecondaryColor-600 bg-backgroundColor-100 overflow-hidden">
@@ -66,14 +67,15 @@ export default function Grades() {
                     <h1 className="mx-auto text-lg font-bold">Avaliações</h1>
 
                     <div className='flex justify-end'>
-                        <FormAssessments subscribers={classById?.class?.subscribers}/>
+                        {idClasses.id === '' ? null :
+                            <FormAssessments subscribers={classById?.class?.subscribers} />
+                        }
                     </div>
 
                 </header>
                 <div className='flex flex-1 justify-center'>
                     {idClasses.id === '' ? <h1>Nenhuma turma Selecionada</h1>
                         :
-
                         <div className="flex flex-col flex-1">
                             <div className="relative grid grid-cols-7 py-2 text-textColor-500/60">
                                 <div className="flex font-semibold justify-center">Nº</div>
@@ -86,7 +88,7 @@ export default function Grades() {
                             {assessmentsByClass?.gradeses.length! <= 0 && (
                                 <>
                                     <h1 className='mx-auto'>Não possui nenhuma avaliação</h1>
-                             </>)}
+                                </>)}
                             {!assessmentsLodingByClass && (
                                 <>
                                     {assessmentsByClass?.gradeses.map((grades, i) => {
@@ -99,7 +101,7 @@ export default function Grades() {
                                             <div key={grades.id} className="relative grid grid-cols-7 py-2 gap-2 overflow-hidden overflow-x-auto hover:bg-textColor-200/30">
                                                 <div className="flex justify-center">{i + 1}</div>
                                                 <div className="flex col-span-2">{grades.subscriber?.name}</div>
-                                                <div className="flex justify-center">{average} pts</div>
+                                                <div className="flex justify-center">{(average).toFixed(2)} pts</div>
                                                 <div className="flex justify-center">
                                                     <Progress.Root
                                                         className="relative overflow-hidden bg-backgroundColor-300 rounded-md w-full"
@@ -145,7 +147,7 @@ export default function Grades() {
                                                             </Dialog.Overlay>
                                                         </Dialog.Portal>
                                                     </Dialog.Root>
-                                                    <FormEditAssessments month={grades.month} idSubsriber={grades.subscriber?.id} nameSubsriber={grades.subscriber?.name} IdGrades={grades.id} grades={grades.weeklyAssessments}/>
+                                                    <FormEditAssessments month={grades.month} idSubsriber={grades.subscriber?.id} nameSubsriber={grades.subscriber?.name} IdGrades={grades.id} grades={grades.weeklyAssessments} />
                                                     <button onClick={() => handleDeleteReviews(grades.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                         <RiDeleteBin2Fill />
                                                         <span>Excluir</span>

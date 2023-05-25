@@ -1,0 +1,29 @@
+query GetAssessments($month_start: DateTime, $month_end: DateTime) {
+  gradeses(
+    where: {createdAt_gte: $month_start, createdAt_lt: $month_end}
+  ) {
+    id
+    month
+    subscriber {
+      email
+      id
+      name
+      phone
+      pictureUrl
+      class {
+        code
+        id
+        name
+      }
+    }
+    weeklyAssessments {
+      ... on Week {
+        id
+        primaryReview
+        secondReview
+        thirdReview
+        fourthReview
+      }
+    }
+  }
+}

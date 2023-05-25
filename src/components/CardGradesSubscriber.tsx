@@ -43,8 +43,7 @@ interface GradesProps {
 }
 
 export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
-    
-
+ 
     const assessments = gradeses.weeklyAssessments;
     
     const average = calculateAverage(assessments);
@@ -72,7 +71,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                                 'text-textSecondaryColor-400': percentage >= 80,
                             })}
                         >
-                            <RiCheckboxFill /> {`Média do aluno: ${average}pts /`}<span className="text-sm mt-1">1000pts</span>
+                            <RiCheckboxFill /> {`Média do aluno: ${(average).toFixed(2)}pts /`}<span className="text-sm mt-1">1000pts</span>
                         </span>
                         <Progress.Root
                             className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"

@@ -9114,6 +9114,14 @@ export type GetAssessmentsByClassQueryVariables = Exact<{
 
 export type GetAssessmentsByClassQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
 
+export type GetAssessmentsQueryVariables = Exact<{
+  month_start?: InputMaybe<Scalars['DateTime']>;
+  month_end?: InputMaybe<Scalars['DateTime']>;
+}>;
+
+
+export type GetAssessmentsQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
+
 export type GetClassByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
@@ -9613,6 +9621,64 @@ export function useGetAssessmentsByClassLazyQuery(baseOptions?: Apollo.LazyQuery
 export type GetAssessmentsByClassQueryHookResult = ReturnType<typeof useGetAssessmentsByClassQuery>;
 export type GetAssessmentsByClassLazyQueryHookResult = ReturnType<typeof useGetAssessmentsByClassLazyQuery>;
 export type GetAssessmentsByClassQueryResult = Apollo.QueryResult<GetAssessmentsByClassQuery, GetAssessmentsByClassQueryVariables>;
+export const GetAssessmentsDocument = gql`
+    query GetAssessments($month_start: DateTime, $month_end: DateTime) {
+  gradeses(where: {createdAt_gte: $month_start, createdAt_lt: $month_end}) {
+    id
+    month
+    subscriber {
+      email
+      id
+      name
+      phone
+      pictureUrl
+      class {
+        code
+        id
+        name
+      }
+    }
+    weeklyAssessments {
+      ... on Week {
+        id
+        primaryReview
+        secondReview
+        thirdReview
+        fourthReview
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAssessmentsQuery__
+ *
+ * To run a query within a React component, call `useGetAssessmentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAssessmentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAssessmentsQuery({
+ *   variables: {
+ *      month_start: // value for 'month_start'
+ *      month_end: // value for 'month_end'
+ *   },
+ * });
+ */
+export function useGetAssessmentsQuery(baseOptions?: Apollo.QueryHookOptions<GetAssessmentsQuery, GetAssessmentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAssessmentsQuery, GetAssessmentsQueryVariables>(GetAssessmentsDocument, options);
+      }
+export function useGetAssessmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAssessmentsQuery, GetAssessmentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAssessmentsQuery, GetAssessmentsQueryVariables>(GetAssessmentsDocument, options);
+        }
+export type GetAssessmentsQueryHookResult = ReturnType<typeof useGetAssessmentsQuery>;
+export type GetAssessmentsLazyQueryHookResult = ReturnType<typeof useGetAssessmentsLazyQuery>;
+export type GetAssessmentsQueryResult = Apollo.QueryResult<GetAssessmentsQuery, GetAssessmentsQueryVariables>;
 export const GetClassByIdDocument = gql`
     query GetClassById($id: ID = "") {
   class(where: {id: $id}) {
