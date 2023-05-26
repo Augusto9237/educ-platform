@@ -1,6 +1,5 @@
 'use client';
 import { CardBody } from "@/components/components/CardBody";
-import { TopListClasses } from "@/components/components/TopListClasses";
 import { TopListSubscriber } from "@/components/components/TopListSubsciber";
 import { useContext } from "react";
 import { FaUserGraduate } from "react-icons/fa";
@@ -37,7 +36,6 @@ export default function Dashboard() {
                         <h1 className="text-textSecondaryColor-600 text-2xl font-bold"></h1>
                     </CardBody>
                 </section>
-                <TopListClasses/>
                 <TopListSubscriber />
             </main>
 

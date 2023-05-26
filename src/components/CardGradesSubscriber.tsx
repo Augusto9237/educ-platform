@@ -50,12 +50,12 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-50 hover:bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
             <div className="flex flex-row flex-1 items-center gap-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden">
-                    <img className="w-full h-full" src={gradeses.subscriber.pictureUrl} alt="foto do aluno" />
+                <div className="w-16 h-14 rounded-full overflow-hidden">
+                    <img className="h-full w-full" src={gradeses.subscriber.pictureUrl} alt="foto do aluno" />
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex justify-between">
-                        <strong>{gradeses.subscriber.name}</strong>
+                        <span className="leading-tight font-medium">{gradeses.subscriber.name}</span>
                     </div>
 
                     <div>

@@ -1,8 +1,44 @@
 import dayjs from "dayjs";
+import * as Progress from '@radix-ui/react-progress';
 import { useGetAssessmentsQuery } from "graphql/api";
+import { calculateAverage } from "../app/utils/calculateAverage";
 import { extractMonth } from "../app/utils/getMonth";
 import { CardGradesSubscriber } from "./CardGradesSubscriber";
 import { Spinner } from "./Spinner";
+import clsx from "clsx";
+
+interface gradeses {
+    __typename?: "Grades" | undefined;
+    id: string;
+    month?: string | null | undefined;
+    subscriber?: {
+        __typename?: "Subscriber" | undefined;
+        email: string;
+        id: string;
+        name: string;
+        phone?: string | null | undefined;
+        pictureUrl?: string | null | undefined;
+    } | null | undefined;
+    weeklyAssessments: {
+        __typename?: "Week" | undefined;
+        fourthReview?: number | null | undefined;
+        primaryReview?: number | null | undefined;
+        secondReview?: number | null | undefined;
+        thirdReview?: number | null | undefined;
+    }[];
+    class?: {
+        __typename?: 'Class';
+        code?: string | null;
+        id: string;
+        name?: string | null;
+        teacher?: {
+            __typename?: 'Teacher';
+            id: string;
+            email?: string | null;
+            name: string;
+        } | null | undefined;
+    } | null | undefined;
+}[]
 
 export function TopListSubscriber() {
     const newMonth = dayjs().month() + 1;
@@ -23,7 +59,22 @@ export function TopListSubscriber() {
         return [monthStart, monthEnd];
     }
 
-    const gradesList = data?.gradeses.slice().sort((a, b) => {
+    const gradesListClasses = data?.gradeses.slice().reduce((result: gradeses[], grade) => {
+        const existingGrade = result.find(g => g.class?.id === grade.class?.id);
+        if (existingGrade) {
+            existingGrade.weeklyAssessments = existingGrade.weeklyAssessments.map((week, index) => {
+                return {
+                    primaryReview: week.primaryReview! + grade.weeklyAssessments[index].primaryReview! / 4,
+                    secondReview: week.secondReview! + grade.weeklyAssessments[index].secondReview! / 4,
+                    thirdReview: week.thirdReview! + grade.weeklyAssessments[index].thirdReview! / 4,
+                    fourthReview: week.fourthReview! + grade.weeklyAssessments[index].fourthReview! / 4,
+                };
+            });
+        } else {
+            result.push({ ...grade });
+        }
+        return result;
+    }, []).sort((a, b) => {
         const sumA = a.weeklyAssessments.reduce((sum, week) => {
             return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
         }, 0);
@@ -35,26 +86,90 @@ export function TopListSubscriber() {
         return sumB - sumA; // Ordenar em ordem decrescente
     });
 
+    const gradesList = data?.gradeses.slice().sort((a, b) => {
+        const sumA = a.weeklyAssessments.reduce((sum, week) => {
+            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
+        }, 0);
+
+        const sumB = b.weeklyAssessments.reduce((sum, week) => {
+            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
+        }, 0);
+
+        return sumB - sumA;
+    });
+
 
     return (
-        <section className="bg-backgroundColor-100 rounded-lg p-4 gap-2">
-            <header className="flex justify-between items-center mb-2">
-                <h1 className="text-lg font-medium">Top 10 alunos</h1>
-                <span>{extractMonth(newMonth, true)}</span>
-            </header>
-            <div className="flex flex-col gap-4">
-                {loading && (
-                    <Spinner />
-                )}
+        <main className="grid lg:grid-cols-2 gap-4">
+            {loading && <Spinner />}
+            {!loading && (
+                <>
+                 <div className="bg-backgroundColor-100 rounded-lg p-4 gap-2 flex-1">
+                        <header className="flex justify-between items-center mb-2">
+                            <h1 className="text-lg font-medium">Top 10 alunos</h1>
+                            <span>{extractMonth(newMonth, true)}</span>
+                        </header>
+                        <div className="flex flex-col gap-4">
 
-                {!loading && (
-                    <>
-                        {gradesList?.map((grades) => (
-                            <CardGradesSubscriber key={grades.id} gradeses={grades} month={grades.month} />
-                        ))}
-                    </>
-                )}
-            </div>
-        </section>
+                            {gradesList?.map((grades) => (
+                                <CardGradesSubscriber key={grades.id} gradeses={grades} month={grades.month} />
+                            ))}
+
+                        </div>
+                    </div>
+                    <div className="bg-backgroundColor-100 rounded-lg p-4 gap-2 flex-1">
+                        <header className="flex justify-between items-center mb-2">
+                            <h1 className="text-lg font-medium">Ranking das turmas</h1>
+                            <span>{extractMonth(newMonth, true)}</span>
+                        </header>
+                        <div className="flex flex-col gap-4">
+
+                            {gradesListClasses?.map((grades) => {
+                                const assessments = grades.weeklyAssessments;
+
+                                const average = calculateAverage(assessments);
+                                const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+
+                                return (
+
+                                    <div key={grades.id} className="flex flex-1 items-center gap-2 bg-backgroundColor-50 p-2 rounded-lg shadow-md">
+                                        <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-backgroundColor-400/20 text-textSecondaryColor-600 text-lg font-bold">
+                                            {grades.class?.code}
+                                        </div>
+                                        <div className="flex flex-col flex-1 justify-center gap-2">
+                                            <span className="leading-tight font-medium">{grades.class?.name}</span>
+
+                                            <Progress.Root
+                                                className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"
+                                                style={{
+                                                    transform: 'translateZ(0)',
+                                                }}
+                                                value={percentage}
+                                            >
+                                                <Progress.Indicator
+                                                    className={clsx("flex justify-end w-full h-full text-backgroundColor-50 transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]", {
+                                                        'bg-textSecondaryColor-200/40': percentage === 0,
+                                                        'bg-textSecondaryColor-200/50': percentage >= 0 && percentage < 20,
+                                                        'bg-buttonColor-500/70': percentage >= 20 && percentage < 40,
+                                                        'bg-backgroundColor-500/50': percentage >= 40 && percentage < 80,
+                                                        'bg-textSecondaryColor-300/60': percentage >= 80,
+                                                    })}
+
+                                                    style={{ transform: `translateX(-${100 - percentage}%)` }}
+                                                >
+                                                    <span className="mr-1 text-xs leading-none">{percentage}%</span>
+                                                </Progress.Indicator>
+                                            </Progress.Root>
+
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                   
+                </>
+            )}
+        </main>
     )
 }

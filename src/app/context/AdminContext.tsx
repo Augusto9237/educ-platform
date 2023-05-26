@@ -28,6 +28,7 @@ export interface GlobalContextProps {
     reloadClassById: (variables?: Partial<Exact<{
         id?: InputMaybe<string> | undefined;
     }>> | undefined) => Promise<ApolloQueryResult<GetClassByIdQuery>>
+     
 }
 
 export const AdminContext = createContext<GlobalContextProps>(null!);

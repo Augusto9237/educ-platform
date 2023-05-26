@@ -28,7 +28,8 @@ export const AdminProvider = ({ children }: AuthProps) => {
         variables: {
             id: idClasses.id
         }
-    })
+    });
+    
 
     return (
         <AdminContext.Provider value={{
