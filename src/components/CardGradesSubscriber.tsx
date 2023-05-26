@@ -47,7 +47,6 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
     const average = calculateAverage(assessments);
     const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
 
-
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-50 hover:bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
             <div className="flex flex-row flex-1 items-center gap-4">
@@ -55,7 +54,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                     <img className="w-full h-full" src={gradeses.subscriber.pictureUrl} alt="foto do aluno" />
                 </div>
                 <div className="flex flex-col w-full">
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between">
                         <strong>{gradeses.subscriber.name}</strong>
                     </div>
 
@@ -84,34 +83,12 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                                     'bg-textSecondaryColor-200/50': percentage >= 0 && percentage < 20,
                                     'bg-buttonColor-500/70': percentage >= 20 && percentage < 40,
                                     'bg-backgroundColor-500/50': percentage >= 40 && percentage < 80,
-                                    'bg-textSecondaryColor-300/20': percentage >= 80,
+                                    'bg-textSecondaryColor-300/60': percentage >= 80,
                                 })}
 
                                 style={{ transform: `translateX(-${100 - percentage}%)` }}
                             >
                                 <span className="mr-1 text-xs leading-none">{percentage}%</span>
-                            </Progress.Indicator>
-                        </Progress.Root>
-                    </div>
-
-                    <div>
-                        <span className="flex flex-1 gap-2 flex-row items-center text-textColor-300">
-                            <RiCheckboxIndeterminateFill /> Média da turma: 900pts / <span className="text-xs">1000pts</span>
-                        </span>
-                        <Progress.Root
-                            className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"
-                            style={{
-                                // Fix overflow clipping in Safari
-                                // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0
-                                transform: 'translateZ(0)',
-                            }}
-                            value={90}
-                        >
-                            <Progress.Indicator
-                                className="flex justify-end bg-textColor-300 w-full h-full items-center transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]"
-                                style={{ transform: `translateX(-${100 - 90}%)` }}
-                            >
-                                <span className="text-textColor-100 text-xs leading-none">90%</span>
                             </Progress.Indicator>
                         </Progress.Root>
                     </div>

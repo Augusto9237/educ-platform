@@ -6,7 +6,8 @@ interface WeekGradesProps {
 }
 
 export function WeekGrades({ grades }: WeekGradesProps) {
-    const [totalMedia, setTotalMedia] = useState(0)
+    const [totalMedia, setTotalMedia] = useState(0);
+   
 
     useEffect(() => {
         if (grades) {

@@ -1,5 +1,6 @@
 'use client';
 import { CardBody } from "@/components/components/CardBody";
+import { TopListClasses } from "@/components/components/TopListClasses";
 import { TopListSubscriber } from "@/components/components/TopListSubsciber";
 import { useContext } from "react";
 import { FaUserGraduate } from "react-icons/fa";
@@ -13,7 +14,7 @@ export default function Dashboard() {
     return (
         <>
             <main className="flex flex-col w-full gap-4">
-                <section className="w-full gap-4 max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid  grid-cols-3  max-sm:justify-start  max-sm:pb-14">
+                <section className="w-full gap-4 max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid  grid-cols-3  max-sm:justify-start">
                     <CardBody>
                         <div className="flex items-center gap-2">
                             <FaUserGraduate />
@@ -36,6 +37,7 @@ export default function Dashboard() {
                         <h1 className="text-textSecondaryColor-600 text-2xl font-bold"></h1>
                     </CardBody>
                 </section>
+                <TopListClasses/>
                 <TopListSubscriber />
             </main>
 

@@ -1,7 +1,5 @@
 query GetAssessments($month_start: DateTime, $month_end: DateTime) {
-  gradeses(
-    where: {createdAt_gte: $month_start, createdAt_lt: $month_end}
-  ) {
+  gradeses(where: {createdAt_gte: $month_start, createdAt_lt: $month_end}) {
     id
     month
     subscriber {
@@ -10,11 +8,6 @@ query GetAssessments($month_start: DateTime, $month_end: DateTime) {
       name
       phone
       pictureUrl
-      class {
-        code
-        id
-        name
-      }
     }
     weeklyAssessments {
       ... on Week {
@@ -23,6 +16,18 @@ query GetAssessments($month_start: DateTime, $month_end: DateTime) {
         secondReview
         thirdReview
         fourthReview
+      }
+    }
+    class {
+      code
+      id
+      name
+      teacher {
+        ... on Teacher {
+          id
+          email
+          name
+        }
       }
     }
   }

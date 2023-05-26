@@ -9120,7 +9120,7 @@ export type GetAssessmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAssessmentsQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null } | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> };
+export type GetAssessmentsQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }>, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, teacher?: { __typename?: 'Teacher', id: string, email?: string | null, name: string } | null } | null }> };
 
 export type GetClassByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -9632,11 +9632,6 @@ export const GetAssessmentsDocument = gql`
       name
       phone
       pictureUrl
-      class {
-        code
-        id
-        name
-      }
     }
     weeklyAssessments {
       ... on Week {
@@ -9645,6 +9640,18 @@ export const GetAssessmentsDocument = gql`
         secondReview
         thirdReview
         fourthReview
+      }
+    }
+    class {
+      code
+      id
+      name
+      teacher {
+        ... on Teacher {
+          id
+          email
+          name
+        }
       }
     }
   }
