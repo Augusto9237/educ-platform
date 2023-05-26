@@ -43,7 +43,7 @@ interface FormValues {
 };
 
 export function FormAssessments({ subscribers }: FormAssessmentsPros) {
-    const { reloadAssesments } = useContext(AdminContext);
+    const { reloadAssesments, idClasses } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
     const [createGrades] = useCreateAssessmentsMutation();
     const [countInput, setCountInput] = useState(1);
@@ -131,7 +131,8 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
             variables: {
                 id: formValues.IdSubsriber,
                 month: formValues.month,
-                create: formValues.weeks
+                create: formValues.weeks,
+                idClass: idClasses.id
             }
         })
         reloadAssesments();

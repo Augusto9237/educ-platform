@@ -24,7 +24,7 @@ export interface GradesProps {
 }[];
 
 export default function Grades() {
-    const { idClasses, classById, classes, setIdClasses, assessmentsByClass, assessmentsLodingByClass, reloadAssesments } = useContext(AdminContext);
+    const { idClasses, classById, loadingClassesById, classes, setIdClasses, reloadClassById} = useContext(AdminContext);
     const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([]);
     const [deleteGrades] = useDeleteGradesMutation();
 
@@ -44,7 +44,7 @@ export default function Grades() {
                 }
             })
             toast.success('Avaliação excluída com sucesso!');
-            reloadAssesments();
+            reloadClassById();
         } catch (error) {
             console.log(error)
         }
@@ -85,13 +85,13 @@ export default function Grades() {
                                 <div className="flex font-semibold justify-center col-span-2">•••</div>
                                 <div className="absolute bottom-0 h-[2px] w-full bg-textColor-200" />
                             </div>
-                            {assessmentsByClass?.gradeses.length! <= 0 && (
+                            {classById?.class?.assessments.length! <= 0 && (
                                 <>
                                     <h1 className='mx-auto'>Não possui nenhuma avaliação</h1>
                                 </>)}
-                            {!assessmentsLodingByClass && (
+                            {!loadingClassesById && (
                                 <>
-                                    {assessmentsByClass?.gradeses.map((grades, i) => {
+                                    {classById?.class?.assessments.map((grades, i) => {
                                         const assessments = grades.weeklyAssessments;
 
                                         const average = calculateAverage(assessments);
@@ -160,7 +160,7 @@ export default function Grades() {
                                 </>
                             )}
 
-                            {assessmentsLodingByClass && (
+                            {loadingClassesById && (
                                 <div className='flex flex-1 py-2 justify-center'>
                                     <div
                                         className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-backgroundColor-300 align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"

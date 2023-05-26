@@ -1,6 +1,6 @@
 'use client';
 import { ApolloQueryResult } from "@apollo/client";
-import { Exact, GetAssessmentsByClassQuery, GetClassByIdQuery, GetClassesQuery, GetSubscribersDataQuery, GetTeacherQuery, InputMaybe } from "graphql/api";
+import { Exact, GetClassByIdQuery, GetClassesQuery, GetSubscribersDataQuery, GetTeacherQuery, InputMaybe } from "graphql/api";
 import { createContext, Dispatch, SetStateAction } from "react";
 
 export interface GlobalContextProps {
@@ -17,12 +17,7 @@ export interface GlobalContextProps {
         [key: string]: never;
     }>> | undefined) => Promise<ApolloQueryResult<GetClassesQuery>>;
     idClasses: { id: string; };
-    setIdClasses: Dispatch<SetStateAction<{ id: string; }>>
-    assessmentsByClass: GetAssessmentsByClassQuery | undefined;
-    assessmentsLodingByClass: boolean;
-    reloadAssesments: (variables?: Partial<Exact<{
-        id?: InputMaybe<string> | undefined;
-    }>> | undefined) => Promise<ApolloQueryResult<GetAssessmentsByClassQuery>>;
+    setIdClasses: Dispatch<SetStateAction<{ id: string; }>>;
     classById: GetClassByIdQuery | undefined;
     loadingClassesById: boolean;
     reloadClassById: (variables?: Partial<Exact<{

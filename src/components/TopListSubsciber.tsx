@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import dayjs from "dayjs";
 import * as Progress from '@radix-ui/react-progress';
 import { useGetAssessmentsQuery } from "graphql/api";
@@ -6,6 +7,8 @@ import { extractMonth } from "../app/utils/getMonth";
 import { CardGradesSubscriber } from "./CardGradesSubscriber";
 import { Spinner } from "./Spinner";
 import clsx from "clsx";
+import { AdminContext } from "../app/context/AdminContext";
+
 
 interface gradeses {
     __typename?: "Grades" | undefined;
@@ -41,14 +44,20 @@ interface gradeses {
 }[]
 
 export function TopListSubscriber() {
+    const { loadingClassesById } = useContext(AdminContext)
     const newMonth = dayjs().month() + 1;
     const [monthStart, monthEnd] = getMonthBounds(new Date());
-    const { data, loading } = useGetAssessmentsQuery({
+    const { data, loading, refetch } = useGetAssessmentsQuery({
         variables: {
             month_start: monthStart,
             month_end: monthEnd
         }
     });
+
+    useEffect(() => {
+        refetch()
+    }, [loadingClassesById])
+
 
     function getMonthBounds(date: Date): [Date, Date] {
         const year = date.getFullYear();
@@ -104,7 +113,7 @@ export function TopListSubscriber() {
             {loading && <Spinner />}
             {!loading && (
                 <>
-                 <div className="bg-backgroundColor-100 rounded-lg p-4 gap-2 flex-1">
+                    <div className="bg-backgroundColor-100 rounded-lg p-4 gap-2 flex-1">
                         <header className="flex justify-between items-center mb-2">
                             <h1 className="text-lg font-medium">Top 10 alunos</h1>
                             <span>{extractMonth(newMonth, true)}</span>
@@ -167,7 +176,7 @@ export function TopListSubscriber() {
                             })}
                         </div>
                     </div>
-                   
+
                 </>
             )}
         </main>
