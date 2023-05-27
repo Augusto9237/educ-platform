@@ -1,4 +1,3 @@
-
 interface BottomBarProps {
     children: React.ReactNode
 }
