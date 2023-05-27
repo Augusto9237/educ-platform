@@ -13,6 +13,7 @@ import { AdminProvider } from '../context/AdminlProvider';
 import '../globals.css';
 import { client } from '../lib/apollo';
 import ProvidersWrapper from '../ProvidersWrapper';
+import { ActiveLink } from '@/components/components/ActiveLink';
 
 interface RootLayoutProps {
     children: ReactNode
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
                                 <Link href='/subscribers' className="flex  text-textSecondaryColor-600 hover:text-backgroundColor-500 group-hover:items-start pl-7">
                                     <button className="flex  text-xl items-center gap-2">
-                                        <FaUserGraduate className="mx-[2px]"/><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600"> Alunos</span>
+                                        <FaUserGraduate className="mx-[2px]" /><span className="hidden leading-none text-xl group-hover:flex delay-150 duration-600"> Alunos</span>
                                     </button>
                                 </Link>
 
@@ -67,11 +68,42 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             <Container>
                                 {children}
                             </Container>
-                            <BottomBar />
+                            <BottomBar>
+                                <ActiveLink href='/dashboard'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiHome3Fill />
+                                    </button>
+                                </ActiveLink>
+                                <ActiveLink href='/subscribers'>
+                                    <button className="flex text-xl items-center">
+                                        <FaUserGraduate />
+                                    </button>
+                                </ActiveLink>
+                                <ActiveLink href='/classes'>
+                                    <button className="flex  text-2xl items-center">
+                                        <HiUsers />
+                                    </button>
+                                </ActiveLink>
+                                <ActiveLink href='/frequencies'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiCalendarCheckFill />
+                                    </button>
+                                </ActiveLink>
+                                <ActiveLink href='/grades'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiBarChartBoxFill />
+                                    </button>
+                                </ActiveLink>
+                                <ActiveLink href='/financial'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiMoneyDollarCircleFill />
+                                    </button>
+                                </ActiveLink>
+                            </BottomBar>
                         </AdminProvider>
                     </ApolloProvider>
                 </ProvidersWrapper>
             </body>
-        </html>
+        </html >
     )
 }

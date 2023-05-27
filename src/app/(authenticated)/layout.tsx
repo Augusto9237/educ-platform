@@ -1,4 +1,5 @@
 "use client";
+import { ActiveLink } from '@/components/components/ActiveLink';
 import { BottomBar } from '@/components/components/BottomBar';
 import { Container } from '@/components/components/Container';
 import { Header } from '@/components/components/Header';
@@ -54,7 +55,31 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             <Container>
                                 {children}
                             </Container>
-                            <BottomBar />
+                            <BottomBar>
+                                <ActiveLink href='/home'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiHome3Fill />
+                                    </button>
+                                </ActiveLink>
+
+                                <ActiveLink href='/frequency'>
+                                    <button className="flex text-2xl items-center">
+                                        <RiCalendarCheckFill />
+                                    </button>
+                                </ActiveLink>
+
+                                <ActiveLink href='/assessments' >
+                                    <button className="flex  text-2xl items-center">
+                                        <RiBarChartBoxFill />
+                                    </button>
+                                </ActiveLink>
+
+                                <ActiveLink href='/payments'>
+                                    <button className="flex  text-2xl items-center">
+                                        <RiMoneyDollarCircleFill />
+                                    </button>
+                                </ActiveLink>
+                            </BottomBar>
                         </GlobalProvider>
                     </ApolloProvider>
                 </ProvidersWrapper>

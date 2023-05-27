@@ -122,7 +122,7 @@ export default function Frequencies() {
                         </select>
                     </div>
 
-                    <h1 className="mx-auto text-lg font-bold">Frequencias</h1>
+                    <h1 className="mx-auto text-lg font-bold">Frequências</h1>
 
                     <div className='flex justify-end'>
                         {idClasses.id && (

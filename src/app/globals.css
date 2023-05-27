@@ -11,3 +11,9 @@
   vertical-align: baseline;
 }
 
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
