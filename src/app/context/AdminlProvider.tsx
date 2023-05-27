@@ -1,7 +1,6 @@
 "use client";
 import { useGetTeacherQuery, useGetSubscribersDataQuery, useGetClassesQuery, useGetClassByIdQuery } from "graphql/api";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { AdminContext } from "./AdminContext";
 

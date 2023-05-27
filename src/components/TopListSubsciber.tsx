@@ -141,7 +141,7 @@ export function TopListSubscriber() {
 
                                 return (
 
-                                    <div key={grades.id} className="flex flex-1 items-center gap-2 bg-backgroundColor-50 p-2 rounded-lg shadow-md">
+                                    <div key={grades.id} className="flex flex-1 items-center gap-4 bg-backgroundColor-50 p-2 rounded-lg shadow-md">
                                         <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-backgroundColor-400/20 text-textSecondaryColor-600 text-lg font-bold">
                                             {grades.class?.code}
                                         </div>
