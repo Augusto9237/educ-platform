@@ -31,7 +31,7 @@ interface FormValues {
 };
 
 export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber, IdGrades }: FormAssessmentsPros) {
-    const { reloadAssesments, assessmentsLodingByClass } = useContext(AdminContext);
+    const {reloadClassById, loadingClassesById } = useContext(AdminContext);
     const [modalEditForm, setModalEditForm] = useState(false);
     const [updateGrades] = useUpdateGradesMutation()
     const [updateandCreateGrades] = useUpdateandCreateGradesMutation()
@@ -240,7 +240,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                     }
                 });
             }
-            reloadAssesments();
+            reloadClassById();
             toast.success('Frequência atualizada com sucesso');
             setModalEditForm(false);
             setCountInput(0);
