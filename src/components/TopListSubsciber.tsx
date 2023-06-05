@@ -111,10 +111,9 @@ export function TopListSubscriber() {
     }
 
     const classStats = calculateClassStats(data?.gradeses!);
-    console.log(classStats);
 
     return (
-        <main className="grid lg:grid-cols-2 gap-4">
+        <main className="grid lg:grid-cols-2 gap-4 h-full">
             {loading && <Spinner />}
             {!loading && (
                 <>

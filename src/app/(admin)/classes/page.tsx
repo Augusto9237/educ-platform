@@ -109,7 +109,7 @@ export default function Classes() {
                                             <Dialog.Root modal={isOpen}>
                                                 <Dialog.Trigger onClick={() => setIsOpen(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                                                     <RiEditBoxFill />
-                                                    <span>Editar</span>
+                                                    <span className='max-md:hidden'>Editar</span>
                                                 </Dialog.Trigger>
 
                                                 <Dialog.Portal>
@@ -129,7 +129,7 @@ export default function Classes() {
 
                                             <button onClick={() => handleDeleteSubscriber(classe.id)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                 <RiDeleteBin2Fill />
-                                                <span>Excluir</span>
+                                                <span className='max-md:hidden'>Excluir</span>
                                             </button>
                                         </div>
                                         <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

@@ -12,8 +12,8 @@ export default function Dashboard() {
 
     return (
         <>
-            <main className="flex flex-col w-full gap-4">
-                <section className="w-full gap-4 max-sm:flex max-sm:flex-1 max-sm:flex-col md:grid  grid-cols-3  max-sm:justify-start">
+            <main className="flex flex-col w-full gap-4 min-h-[87vh]  max-md:pb-10">
+                <section className="w-full gap-4 max-sm:flex max-sm:flex-1 max-sm:flex-col mpMini:grid  grid-cols-3  max-sm:justify-start">
                     <CardBody>
                         <div className="flex items-center gap-2">
                             <FaUserGraduate />
