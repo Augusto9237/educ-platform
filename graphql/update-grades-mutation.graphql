@@ -1,5 +1,8 @@
-mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}) {
-  updateGrades(data: {weeklyAssessments: {update: $update}}, where: {id: $id}) {
+mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $average: Int = 0) {
+  updateGrades(
+    data: {weeklyAssessments: {update: $update}, average: $average}
+    where: {id: $id}
+  ) {
     id
     updatedAt
   }

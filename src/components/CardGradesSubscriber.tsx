@@ -41,11 +41,7 @@ interface GradesProps {
 }
 
 export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
- 
-    const assessments = gradeses.weeklyAssessments;
-    
-    const average = calculateAverage(assessments);
-    const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+    const percentage = gradeses.average > 0 ? (gradeses.average / 1000) * 100 : 0;
 
     return (
         <div className="relative flex flex-col text-textSecondaryColor-600 bg-backgroundColor-50 hover:bg-backgroundColor-100 p-2 lg:p-3  rounded-xl shadow-md">
@@ -68,7 +64,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
                                 'text-textSecondaryColor-400': percentage >= 80,
                             })}
                         >
-                            <RiCheckboxFill /> {`Média do aluno: ${(average).toFixed(2)}pts /`}<span className="text-sm mt-1">1000pts</span>
+                            <RiCheckboxFill /> {`Média do aluno: ${gradeses.average} pts /`}<span className="text-sm mt-1">1000pts</span>
                         </span>
                         <Progress.Root
                             className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"
@@ -88,7 +84,7 @@ export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
 
                                 style={{ transform: `translateX(-${100 - percentage}%)` }}
                             >
-                                <span className="mr-1 text-xs leading-none">{percentage}%</span>
+                                <span className="mr-1 text-xs leading-none">{(percentage).toFixed(0)}%</span>
                             </Progress.Indicator>
                         </Progress.Root>
                     </div>

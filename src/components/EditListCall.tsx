@@ -100,7 +100,7 @@ export function EditListCall({ callList, idFrequency }: FrequencyEdit) {
                 {callList && (
                     <Dialog.Trigger onClick={() => setIsModalNewListCall(true)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                         <RiEditBoxFill />
-                        <span>Editar</span>
+                        <span className='max-md:hidden'>Editar</span>
                     </Dialog.Trigger>
                 )}
                 <Dialog.Portal>

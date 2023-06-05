@@ -50,7 +50,7 @@ export function WeekGrades({ grades }: WeekGradesProps) {
             ))}
 
             <footer className="flex">
-                <h1 className="mx-auto text-lg font-bold">{`Média mensal: ${totalMedia} pts`}</h1>
+                <h1 className="mx-auto text-lg font-bold">Média mensal: {Math.ceil(totalMedia)} pts</h1>
             </footer>
         </div>
     )

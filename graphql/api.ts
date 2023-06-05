@@ -2372,6 +2372,7 @@ export type FrequencysubscribesUnionWhereUniqueInput = {
 
 export type Grades = Node & {
   __typename?: 'Grades';
+  average?: Maybe<Scalars['Int']>;
   class?: Maybe<Class>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -2484,6 +2485,7 @@ export type GradesConnection = {
 };
 
 export type GradesCreateInput = {
+  average?: InputMaybe<Scalars['Int']>;
   class?: InputMaybe<ClassCreateOneInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   month?: InputMaybe<Scalars['String']>;
@@ -2525,6 +2527,21 @@ export type GradesManyWhereInput = {
   OR?: InputMaybe<Array<GradesWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  average?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  average_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  average_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  average_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  average_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  average_lte?: InputMaybe<Scalars['Int']>;
+  /** Any other value that exists and is not equal to the given value. */
+  average_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  average_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
@@ -2626,6 +2643,8 @@ export type GradesManyWhereInput = {
 };
 
 export enum GradesOrderByInput {
+  AverageAsc = 'average_ASC',
+  AverageDesc = 'average_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   IdAsc = 'id_ASC',
@@ -2639,6 +2658,7 @@ export enum GradesOrderByInput {
 }
 
 export type GradesUpdateInput = {
+  average?: InputMaybe<Scalars['Int']>;
   class?: InputMaybe<ClassUpdateOneInlineInput>;
   month?: InputMaybe<Scalars['String']>;
   subscriber?: InputMaybe<SubscriberUpdateOneInlineInput>;
@@ -2663,6 +2683,7 @@ export type GradesUpdateManyInlineInput = {
 };
 
 export type GradesUpdateManyInput = {
+  average?: InputMaybe<Scalars['Int']>;
   month?: InputMaybe<Scalars['String']>;
 };
 
@@ -2725,6 +2746,21 @@ export type GradesWhereInput = {
   OR?: InputMaybe<Array<GradesWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  average?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  average_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  average_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  average_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  average_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  average_lte?: InputMaybe<Scalars['Int']>;
+  /** Any other value that exists and is not equal to the given value. */
+  average_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  average_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   class?: InputMaybe<ClassWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
@@ -9049,6 +9085,7 @@ export type CreateAssessmentsMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   create?: InputMaybe<Array<GradesweeklyAssessmentsUnionCreateInput> | GradesweeklyAssessmentsUnionCreateInput>;
   idClass?: InputMaybe<Scalars['ID']>;
+  average?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -9114,14 +9151,14 @@ export type GetAssessmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetAssessmentsQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }>, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, teacher?: { __typename?: 'Teacher', id: string, email?: string | null, name: string } | null } | null }> };
+export type GetAssessmentsQuery = { __typename?: 'Query', gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, average?: number | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }>, class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, teacher?: { __typename?: 'Teacher', id: string, email?: string | null, name: string } | null } | null }> };
 
 export type GetClassByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
 
 
-export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }>, frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }>, assessments: Array<{ __typename?: 'Grades', id: string, month?: string | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null, address?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> } | null };
+export type GetClassByIdQuery = { __typename?: 'Query', class?: { __typename?: 'Class', code?: string | null, id: string, name?: string | null, subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, email: string, phone?: string | null, address?: string | null, gradeses: Array<{ __typename?: 'Grades', id: string, month?: string | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> }>, frequencies: Array<{ __typename?: 'Frequency', createdAt: any, id: string, subscribes: Array<{ __typename?: 'Presence', id: string, prensente?: boolean | null, subscriber?: { __typename?: 'Subscriber', name: string, id: string } | null }> }>, assessments: Array<{ __typename?: 'Grades', id: string, month?: string | null, average?: number | null, subscriber?: { __typename?: 'Subscriber', email: string, id: string, name: string, phone?: string | null, pictureUrl?: string | null, address?: string | null } | null, weeklyAssessments: Array<{ __typename?: 'Week', id: string, primaryReview?: number | null, secondReview?: number | null, thirdReview?: number | null, fourthReview?: number | null }> }> } | null };
 
 export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9195,6 +9232,7 @@ export type UpdateandCreateGradesMutationVariables = Exact<{
   update?: InputMaybe<Array<GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput> | GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput>;
   id?: InputMaybe<Scalars['ID']>;
   create?: InputMaybe<Array<GradesweeklyAssessmentsUnionCreateWithPositionInput> | GradesweeklyAssessmentsUnionCreateWithPositionInput>;
+  average?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -9203,6 +9241,7 @@ export type UpdateandCreateGradesMutation = { __typename?: 'Mutation', updateGra
 export type UpdateGradesMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
   update?: InputMaybe<Array<GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput> | GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput>;
+  average?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -9266,9 +9305,9 @@ export type ClassMutationHookResult = ReturnType<typeof useClassMutation>;
 export type ClassMutationResult = Apollo.MutationResult<ClassMutation>;
 export type ClassMutationOptions = Apollo.BaseMutationOptions<ClassMutation, ClassMutationVariables>;
 export const CreateAssessmentsDocument = gql`
-    mutation CreateAssessments($month: String = "", $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateInput!] = {}, $idClass: ID = "") {
+    mutation CreateAssessments($month: String = "", $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateInput!] = {}, $idClass: ID = "", $average: Int = 10) {
   createGrades(
-    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: $create}, class: {connect: {id: $idClass}}}
+    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: $create}, class: {connect: {id: $idClass}}, average: $average}
   ) {
     id
     createdAt
@@ -9294,6 +9333,7 @@ export type CreateAssessmentsMutationFn = Apollo.MutationFunction<CreateAssessme
  *      id: // value for 'id'
  *      create: // value for 'create'
  *      idClass: // value for 'idClass'
+ *      average: // value for 'average'
  *   },
  * });
  */
@@ -9566,7 +9606,11 @@ export type DeleteSubscriberMutationResult = Apollo.MutationResult<DeleteSubscri
 export type DeleteSubscriberMutationOptions = Apollo.BaseMutationOptions<DeleteSubscriberMutation, DeleteSubscriberMutationVariables>;
 export const GetAssessmentsDocument = gql`
     query GetAssessments($month_start: DateTime, $month_end: DateTime) {
-  gradeses(where: {createdAt_gte: $month_start, createdAt_lt: $month_end}) {
+  gradeses(
+    where: {createdAt_gte: $month_start, createdAt_lt: $month_end}
+    first: 10
+    orderBy: average_DESC
+  ) {
     id
     month
     subscriber {
@@ -9597,6 +9641,7 @@ export const GetAssessmentsDocument = gql`
         }
       }
     }
+    average
   }
 }
     `;
@@ -9672,6 +9717,7 @@ export const GetClassByIdDocument = gql`
     assessments {
       id
       month
+      average
       subscriber {
         email
         id
@@ -10170,9 +10216,9 @@ export type UpdateCallListMutationHookResult = ReturnType<typeof useUpdateCallLi
 export type UpdateCallListMutationResult = Apollo.MutationResult<UpdateCallListMutation>;
 export type UpdateCallListMutationOptions = Apollo.BaseMutationOptions<UpdateCallListMutation, UpdateCallListMutationVariables>;
 export const UpdateandCreateGradesDocument = gql`
-    mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}) {
+    mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}, $average: Int = 10) {
   updateGrades(
-    data: {weeklyAssessments: {update: $update, create: $create}}
+    data: {weeklyAssessments: {update: $update, create: $create}, average: $average}
     where: {id: $id}
   ) {
     id
@@ -10198,6 +10244,7 @@ export type UpdateandCreateGradesMutationFn = Apollo.MutationFunction<UpdateandC
  *      update: // value for 'update'
  *      id: // value for 'id'
  *      create: // value for 'create'
+ *      average: // value for 'average'
  *   },
  * });
  */
@@ -10209,8 +10256,11 @@ export type UpdateandCreateGradesMutationHookResult = ReturnType<typeof useUpdat
 export type UpdateandCreateGradesMutationResult = Apollo.MutationResult<UpdateandCreateGradesMutation>;
 export type UpdateandCreateGradesMutationOptions = Apollo.BaseMutationOptions<UpdateandCreateGradesMutation, UpdateandCreateGradesMutationVariables>;
 export const UpdateGradesDocument = gql`
-    mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}) {
-  updateGrades(data: {weeklyAssessments: {update: $update}}, where: {id: $id}) {
+    mutation UpdateGrades($id: ID = "", $update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $average: Int = 0) {
+  updateGrades(
+    data: {weeklyAssessments: {update: $update}, average: $average}
+    where: {id: $id}
+  ) {
     id
     updatedAt
   }
@@ -10233,6 +10283,7 @@ export type UpdateGradesMutationFn = Apollo.MutationFunction<UpdateGradesMutatio
  *   variables: {
  *      id: // value for 'id'
  *      update: // value for 'update'
+ *      average: // value for 'average'
  *   },
  * });
  */
@@ -10468,8 +10519,9 @@ export type FrequencyEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GradesKeySpecifier = ('class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'month' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'weeklyAssessments' | GradesKeySpecifier)[];
+export type GradesKeySpecifier = ('average' | 'class' | 'createdAt' | 'createdBy' | 'documentInStages' | 'history' | 'id' | 'month' | 'publishedAt' | 'publishedBy' | 'scheduledIn' | 'stage' | 'subscriber' | 'updatedAt' | 'updatedBy' | 'weeklyAssessments' | GradesKeySpecifier)[];
 export type GradesFieldPolicy = {
+	average?: FieldPolicy<any> | FieldReadFunction<any>,
 	class?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdBy?: FieldPolicy<any> | FieldReadFunction<any>,

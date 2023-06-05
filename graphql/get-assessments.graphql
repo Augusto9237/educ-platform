@@ -1,5 +1,9 @@
 query GetAssessments($month_start: DateTime, $month_end: DateTime) {
-  gradeses(where: {createdAt_gte: $month_start, createdAt_lt: $month_end}) {
+  gradeses(
+    where: {createdAt_gte: $month_start, createdAt_lt: $month_end}
+    first: 10
+    orderBy: average_DESC
+  ) {
     id
     month
     subscriber {
@@ -30,5 +34,6 @@ query GetAssessments($month_start: DateTime, $month_end: DateTime) {
         }
       }
     }
+    average
   }
 }

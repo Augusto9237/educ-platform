@@ -1,6 +1,6 @@
-mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}) {
+mutation UpdateandCreateGrades($update: [GradesweeklyAssessmentsUnionUpdateWithNestedWhereUniqueAndPositionInput!] = {}, $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateWithPositionInput!] = {}, $average: Int = 10) {
   updateGrades(
-    data: {weeklyAssessments: {update: $update, create: $create}}
+    data: {weeklyAssessments: {update: $update, create: $create}, average: $average}
     where: {id: $id}
   ) {
     id

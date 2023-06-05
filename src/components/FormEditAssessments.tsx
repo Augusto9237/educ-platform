@@ -6,6 +6,7 @@ import { RiEditBoxFill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 import { GradesProps } from '../app/(authenticated)/assessments/page';
 import { AdminContext } from '../app/context/AdminContext';
+import { calculateAverageTotal } from '../app/utils/calculateAverageTotal';
 import { getWeeksInCurrentMonth } from '../app/utils/getWeekCurrentMonth';
 
 interface FormAssessmentsPros {
@@ -31,11 +32,10 @@ interface FormValues {
 };
 
 export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber, IdGrades }: FormAssessmentsPros) {
-    const {reloadClassById, loadingClassesById } = useContext(AdminContext);
+    const { reloadClassById, loadingClassesById } = useContext(AdminContext);
     const [modalEditForm, setModalEditForm] = useState(false);
     const [updateGrades] = useUpdateGradesMutation()
     const [updateandCreateGrades] = useUpdateandCreateGradesMutation()
-    const [orderInput, setOrderInput] = useState(0)
     const [formValues, setFormValues] = useState<FormValues>({
         IdGrades: '',
         weeks: [],
@@ -46,7 +46,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
         weeks: [],
         month: ''
     });
-  
+
     const [countInput, setCountInput] = useState(0);
 
     const countWeeks = getWeeksInCurrentMonth();
@@ -132,6 +132,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
             return prevFormValues;
         });
     };
+
 
     const handleChangeCreate = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, id } = event.target;
@@ -223,11 +224,13 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                     }
                 }
             }));
-
+            const averageCreateandUpdate = [...formValues.weeks, ...formValuesUpinsert.weeks]
+    
             if (formValuesUpinsert.weeks.length > 0) {
                 await updateandCreateGrades({
                     variables: {
                         id: formValues.IdGrades,
+                        average: calculateAverageTotal(averageCreateandUpdate),
                         update: weeksArray,
                         create: weeksArrayCreate,
                     }
@@ -236,7 +239,8 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                 await updateGrades({
                     variables: {
                         id: formValues.IdGrades,
-                        update: weeksArray
+                        update: weeksArray,
+                        average: calculateAverageTotal(formValues.weeks),
                     }
                 });
             }
@@ -278,7 +282,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
         <Dialog.Root modal={modalEditForm}>
             <Dialog.Trigger onClick={() => setModalEditForm(true)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold text-backgroundColor-500 bg-backgroundColor-400/30 hover:bg-backgroundColor-400/25 hover:text-backgroundColor-400'>
                 <RiEditBoxFill />
-                <span>Editar</span>
+                <span className='max-md:hidden'>Editar</span>
             </Dialog.Trigger>
 
             <Dialog.Portal>
@@ -378,7 +382,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                             ))}
 
                             {countInput < (countWeeks - grades.length) ? <>
-                                <button onClick={() => handleAddInput()} type='button'  className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-textColor-700 bg-textColor-300 hover:bg-textColor-300/80'>
+                                <button onClick={() => handleAddInput()} type='button' className='flex max-w-fit mx-auto py-1 px-2 mt-2 items-center justify-center gap-2 rounded font-semibold text-textColor-700 bg-textColor-300 hover:bg-textColor-300/80'>
                                     <FaPlusCircle />
                                     <span className='leading-snug'>Semana</span>
                                 </button>

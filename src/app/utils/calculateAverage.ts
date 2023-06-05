@@ -1,3 +1,5 @@
+import { getWeeksInCurrentMonth } from "./getWeekCurrentMonth";
+
 export interface  weeklyAssessments {
     __typename?: "Week" | undefined;
     id?: string;
@@ -8,6 +10,7 @@ export interface  weeklyAssessments {
 }[]
 
 export function calculateAverage(assessments: weeklyAssessments[]): number {
+    const countWeeks = getWeeksInCurrentMonth();
     
     const validAssessments = assessments.filter((week) => {
         return week.fourthReview !== undefined && week.primaryReview !== undefined && week.secondReview !== undefined && week.thirdReview !== undefined;

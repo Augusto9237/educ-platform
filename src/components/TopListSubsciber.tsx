@@ -14,6 +14,7 @@ interface gradeses {
     __typename?: "Grades" | undefined;
     id: string;
     month?: string | null | undefined;
+    average?: number | null | undefined;
     subscriber?: {
         __typename?: "Subscriber" | undefined;
         email: string;
@@ -43,6 +44,15 @@ interface gradeses {
     } | null | undefined;
 }[]
 
+
+interface ClassStats {
+    classId: string;
+    classCode: string;
+    classeName: string;
+    totalAverage: number;
+    average: number;
+}
+
 export function TopListSubscriber() {
     const { loadingClassesById } = useContext(AdminContext)
     const newMonth = dayjs().month() + 1;
@@ -56,8 +66,7 @@ export function TopListSubscriber() {
 
     useEffect(() => {
         refetch()
-    }, [loadingClassesById])
-
+    }, [loadingClassesById]);
 
     function getMonthBounds(date: Date): [Date, Date] {
         const year = date.getFullYear();
@@ -68,45 +77,41 @@ export function TopListSubscriber() {
         return [monthStart, monthEnd];
     }
 
-    const gradesListClasses = data?.gradeses.slice().reduce((result: gradeses[], grade) => {
-        const existingGrade = result.find(g => g.class?.id === grade.class?.id);
-        if (existingGrade) {
-            existingGrade.weeklyAssessments = existingGrade.weeklyAssessments.map((week, index) => {
-                return {
-                    primaryReview: week.primaryReview! + grade.weeklyAssessments[index].primaryReview! / 4,
-                    secondReview: week.secondReview! + grade.weeklyAssessments[index].secondReview! / 4,
-                    thirdReview: week.thirdReview! + grade.weeklyAssessments[index].thirdReview! / 4,
-                    fourthReview: week.fourthReview! + grade.weeklyAssessments[index].fourthReview! / 4,
-                };
-            });
-        } else {
-            result.push({ ...grade });
+    function calculateClassStats(grades: gradeses[]): ClassStats[] {
+        const classMap: { [code: string]: ClassStats } = {};
+        if (data?.gradeses) {
+            for (const grade of grades) {
+                const classId = grade.class?.id!;
+                const classCode = grade.class?.code!;
+                const classeName = grade.class?.name!;
+
+                if (!classMap[classId]) {
+                    classMap[classId] = {
+                        classId,
+                        classCode,
+                        classeName,
+                        totalAverage: 0,
+                        average: 0,
+                    };
+                }
+
+                const classStats = classMap[classId];
+                classStats.totalAverage += grade.average!;
+                classStats.average += 1;
+            }
         }
-        return result;
-    }, []).sort((a, b) => {
-        const sumA = a.weeklyAssessments.reduce((sum, week) => {
-            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
-        }, 0);
 
-        const sumB = b.weeklyAssessments.reduce((sum, week) => {
-            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
-        }, 0);
+        const classStatsArray = Object.values(classMap);
 
-        return sumB - sumA; // Ordenar em ordem decrescente
-    });
+        for (const classStats of classStatsArray) {
+            classStats.average = classStats.totalAverage / classStats.average;
+        }
 
-    const gradesList = data?.gradeses.slice().sort((a, b) => {
-        const sumA = a.weeklyAssessments.reduce((sum, week) => {
-            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
-        }, 0);
+        return classStatsArray;
+    }
 
-        const sumB = b.weeklyAssessments.reduce((sum, week) => {
-            return sum + week.primaryReview! + week.secondReview! + week.thirdReview! + week.fourthReview!;
-        }, 0);
-
-        return sumB - sumA;
-    });
-
+    const classStats = calculateClassStats(data?.gradeses!);
+    console.log(classStats);
 
     return (
         <main className="grid lg:grid-cols-2 gap-4">
@@ -120,7 +125,7 @@ export function TopListSubscriber() {
                         </header>
                         <div className="flex flex-col gap-4">
 
-                            {gradesList?.map((grades) => (
+                            {data?.gradeses.map((grades) => (
                                 <CardGradesSubscriber key={grades.id} gradeses={grades} month={grades.month} />
                             ))}
 
@@ -133,20 +138,16 @@ export function TopListSubscriber() {
                         </header>
                         <div className="flex flex-col gap-4">
 
-                            {gradesListClasses?.map((grades) => {
-                                const assessments = grades.weeklyAssessments;
-
-                                const average = calculateAverage(assessments);
-                                const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
-
+                            {classStats?.map((classStat) => {
+                                const percentage = classStat.average > 0 ?  (classStat.average / 1000) * 100 : 0;
                                 return (
 
-                                    <div key={grades.id} className="flex flex-1 items-center gap-4 bg-backgroundColor-50 p-2 rounded-lg shadow-md">
+                                    <div key={classStat.classId} className="flex flex-1 items-center gap-4 bg-backgroundColor-50 p-2 rounded-lg shadow-md">
                                         <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-backgroundColor-400/20 text-textSecondaryColor-600 text-lg font-bold">
-                                            {grades.class?.code}
+                                            {classStat.classCode}
                                         </div>
                                         <div className="flex flex-col flex-1 justify-center gap-2">
-                                            <span className="leading-tight font-medium">{grades.class?.name}</span>
+                                            <span className="leading-tight font-medium">{classStat.classeName}</span>
 
                                             <Progress.Root
                                                 className="relative overflow-hidden bg-backgroundColor-300 rounded-full w-full h-3"
@@ -166,7 +167,7 @@ export function TopListSubscriber() {
 
                                                     style={{ transform: `translateX(-${100 - percentage}%)` }}
                                                 >
-                                                    <span className="mr-1 text-xs leading-none">{percentage}%</span>
+                                                    <span className="mr-1 text-xs leading-none">{(percentage).toFixed(0)}%</span>
                                                 </Progress.Indicator>
                                             </Progress.Root>
 

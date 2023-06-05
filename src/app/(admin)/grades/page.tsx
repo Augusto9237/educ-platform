@@ -5,6 +5,7 @@ import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Progress from '@radix-ui/react-progress';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import { useDeleteGradesMutation } from 'graphql/api';
 
 import { useContext, useState } from 'react';
@@ -24,7 +25,7 @@ export interface GradesProps {
 }[];
 
 export default function Grades() {
-    const { idClasses, classById, loadingClassesById, classes, setIdClasses, reloadClassById} = useContext(AdminContext);
+    const { idClasses, classById, loadingClassesById, classes, setIdClasses, reloadClassById } = useContext(AdminContext);
     const [gradesSelected, setGradesSelected] = useState<GradesProps[]>([]);
     const [deleteGrades] = useDeleteGradesMutation();
 
@@ -76,8 +77,9 @@ export default function Grades() {
                 <div className='flex flex-1 justify-center'>
                     {idClasses.id === '' ? <h1>Nenhuma turma Selecionada</h1>
                         :
-                        <div className="flex flex-col flex-1">
-                            <div className="relative grid grid-cols-7 py-2 text-textColor-500/60">
+                        <div className="flex flex-col flex-1 overflow-hidden overflow-x-auto">
+                            <div className="relative grid grid-cols-8 py-2 text-textColor-500/60 w-full">
+                                <div className="flex font-semibold justify-center">Data</div>
                                 <div className="flex font-semibold justify-center">Nº</div>
                                 <div className="flex font-semibold col-span-2">Aluno</div>
                                 <div className="flex font-semibold justify-center">Média</div>
@@ -92,16 +94,14 @@ export default function Grades() {
                             {!loadingClassesById && (
                                 <>
                                     {classById?.class?.assessments.map((grades, i) => {
-                                        const assessments = grades.weeklyAssessments;
-
-                                        const average = calculateAverage(assessments);
-                                        const percentage = average > 0 ? Math.round((average / 1000) * 100) : 0;
+                                        const percentage = grades.average! > 0 ? (grades.average! / 1000) * 100 : 0;
 
                                         return (
-                                            <div key={grades.id} className="relative grid grid-cols-7 py-2 gap-2 overflow-hidden overflow-x-auto hover:bg-textColor-200/30">
+                                            <div key={grades.id} className="relative grid grid-cols-8 py-2 gap-2  hover:bg-textColor-200/30 w-full">
+                                                <div className="flex justify-center">{dayjs(grades.month).format('DD/MM/YYYY')}</div>
                                                 <div className="flex justify-center">{i + 1}</div>
                                                 <div className="flex col-span-2">{grades.subscriber?.name}</div>
-                                                <div className="flex justify-center">{(average).toFixed(2)} pts</div>
+                                                <div className="flex justify-center">{grades.average} pts</div>
                                                 <div className="flex justify-center">
                                                     <Progress.Root
                                                         className="relative overflow-hidden bg-backgroundColor-300 rounded-md w-full"
@@ -121,7 +121,7 @@ export default function Grades() {
 
                                                             style={{ transform: `translateX(-${100 - percentage}%)` }}
                                                         >
-                                                            <span className="text-backgroundColor-50 text-xs leading-none">{percentage}%</span>
+                                                            <span className="text-backgroundColor-50 text-xs leading-none">{(percentage).toFixed(0)}%</span>
                                                         </Progress.Indicator>
                                                     </Progress.Root>
                                                 </div>
@@ -129,7 +129,7 @@ export default function Grades() {
                                                     <Dialog.Root>
                                                         <Dialog.Trigger onClick={() => setGradesSelected(grades.weeklyAssessments)} className='flex flex-1 items-center justify-center gap-2 rounded font-semibold bg-textColor-300/60 text-textSecondaryColor-600 hover:bg-textColor-200'>
                                                             <HiChartSquareBar />
-                                                            <span>Notas</span>
+                                                            <span className='max-md:hidden'>Notas</span>
                                                         </Dialog.Trigger>
 
                                                         <Dialog.Portal>
@@ -150,7 +150,7 @@ export default function Grades() {
                                                     <FormEditAssessments month={grades.month} idSubsriber={grades.subscriber?.id} nameSubsriber={grades.subscriber?.name} IdGrades={grades.id} grades={grades.weeklyAssessments} />
                                                     <button onClick={() => handleDeleteReviews(grades.id)} className='flex flex-1 items-center justify-center gap-2 rounded text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                         <RiDeleteBin2Fill />
-                                                        <span>Excluir</span>
+                                                        <span className='max-md:hidden'>Excluir</span>
                                                     </button>
                                                 </div>
                                                 <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

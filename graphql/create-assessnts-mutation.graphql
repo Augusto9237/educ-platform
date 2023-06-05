@@ -1,8 +1,9 @@
-mutation CreateAssessments($month: String = "", $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateInput!] = {}, $idClass: ID = "") {
+mutation CreateAssessments($month: String = "", $id: ID = "", $create: [GradesweeklyAssessmentsUnionCreateInput!] = {}, $idClass: ID = "", $average: Int = 10) {
   createGrades(
-    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: $create}, class: {connect: {id: $idClass}}}
+    data: {month: $month, subscriber: {connect: {id: $id}}, weeklyAssessments: {create: $create}, class: {connect: {id: $idClass}}, average: $average}
   ) {
     id
     createdAt
   }
 }
+

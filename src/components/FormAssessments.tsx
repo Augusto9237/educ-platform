@@ -4,6 +4,8 @@ import { useContext, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../app/context/AdminContext';
+import { calculateAverage } from '../app/utils/calculateAverage';
+import { calculateAverageTotal } from '../app/utils/calculateAverageTotal';
 import { getWeeksInCurrentMonth } from '../app/utils/getWeekCurrentMonth';
 interface FormAssessmentsPros {
     subscribers?: {
@@ -43,7 +45,7 @@ interface FormValues {
 };
 
 export function FormAssessments({ subscribers }: FormAssessmentsPros) {
-    const { reloadAssesments, idClasses } = useContext(AdminContext);
+    const { reloadClassById, idClasses } = useContext(AdminContext);
     const [modalForm, setModalForm] = useState(false);
     const [createGrades] = useCreateAssessmentsMutation();
     const [countInput, setCountInput] = useState(1);
@@ -53,7 +55,8 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
         month: ''
     });
 
-    const countWeeks = getWeeksInCurrentMonth()
+    const countWeeks = getWeeksInCurrentMonth();
+  
 
     function handleAddInput() {
 
@@ -126,17 +129,17 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
 
     async function handleSubmitCreateGrades(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
-
         await createGrades({
             variables: {
                 id: formValues.IdSubsriber,
                 month: formValues.month,
                 create: formValues.weeks,
-                idClass: idClasses.id
+                idClass: idClasses.id,
+                average: calculateAverageTotal(formValues.weeks)
             }
         })
-        reloadAssesments();
-        toast.success('Frequência criada com sucesso');
+        reloadClassById();
+        toast.success('Avaliação criada com sucesso');
         setModalForm(false);
     }
 

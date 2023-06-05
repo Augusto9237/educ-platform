@@ -174,7 +174,7 @@ export default function Frequencies() {
                                                                         <Dialog.Root modal={openModalCallList}>
                                                                             <Dialog.Trigger onClick={() => handleSelectedCallList(frequency.subscribes)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold bg-textColor-300/60 text-textSecondaryColor-600 hover:bg-textColor-200'>
                                                                                 <BsListCheck />
-                                                                                <span>Lista</span>
+                                                                                <span className='max-md:hidden'>Lista</span>
                                                                             </Dialog.Trigger>
                                                                             <Dialog.Portal>
                                                                                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
@@ -212,7 +212,7 @@ export default function Frequencies() {
                                                                         
                                                                         <button onClick={() => handleDeleteFrequency(frequency.id)} className='flex px-2 items-center justify-center gap-2 rounded font-semibold text-textSecondaryColor-200 bg-textSecondaryColor-200/25 hover:bg-textSecondaryColor-200/20'>
                                                                             <RiDeleteBin2Fill />
-                                                                            <span>Excluir</span>
+                                                                            <span className='max-md:hidden'>Excluir</span>
                                                                         </button>
                                                                     </div>
                                                                     <div className="absolute bottom-0 h-[1px] w-full bg-textColor-200" />

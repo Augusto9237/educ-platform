@@ -37,9 +37,10 @@ query GetClassById($id: ID = "") {
         }
       }
     }
-        assessments {
+    assessments {
       id
       month
+      average
       subscriber {
         email
         id
