@@ -287,7 +287,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
 
             <Dialog.Portal>
                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl md:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-w-[700px] max-md:w-11/12 w-full  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                         <header className='flex flex-1 mb-2'>
                             <h1 className="mx-auto text-lg font-bold">Editar avaliação</h1>
                             <Dialog.Close onClick={() => onClose()} className='absolute right-4 top-4 text-textColor-700'>
@@ -333,10 +333,10 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                                                 <input id={String(i + 1)} max={1000} min={0} type='number' name='fourthReview' value={formValues.weeks[i].Week.fourthReview} onChange={handleChangeUpdate} className='bg-backgroundColor-300 rounded-md p-1 max-w-[55px]' />
 
                                             </div>
-                                            <div className='relative flex gap-2 items-center justify-end pr-2'>
+                                            <div className='relative flex gap-2 items-center justify-center'>
                                                 <span className='absolute left-1'>/4</span>
                                                 <span className='absolute left-6'>=</span>
-                                                <h1 className='font-semibold'>{(formValues.weeks[i].Week.primaryReview + formValues.weeks[i].Week.secondReview + formValues.weeks[i].Week.thirdReview + formValues.weeks[i].Week.fourthReview) / 4}pts</h1>
+                                                <h1 className='font-semibold pl-2'>{(formValues.weeks[i].Week.primaryReview + formValues.weeks[i].Week.secondReview + formValues.weeks[i].Week.thirdReview + formValues.weeks[i].Week.fourthReview) / 4}pts</h1>
                                             </div>
                                         </div>
                                         <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />
@@ -374,7 +374,7 @@ export function FormEditAssessments({ idSubsriber, month, grades, nameSubsriber,
                                         <div className='relative flex gap-2 items-center justify-center'>
                                             <span className='absolute left-1'>/4</span>
                                             <span className='absolute left-6'>=</span>
-                                            <h1 className='font-semibold'>{calculateAverageWeeks(index)}pts</h1>
+                                            <h1 className='font-semibold pl-2'>{calculateAverageWeeks(index)}pts</h1>
                                         </div>
                                     </div>
                                     <div className="absolute bottom-0 w-full bg-textColor-200 h-[1px]" />

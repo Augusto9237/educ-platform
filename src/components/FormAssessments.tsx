@@ -172,7 +172,7 @@ export function FormAssessments({ subscribers }: FormAssessmentsPros) {
 
             <Dialog.Portal>
                 <Dialog.Overlay className='w-screen z-20 h-sreen bg-textColor-900/80 fixed inset-0 backdrop-blur-md'>
-                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl md:max-w-[700px] max-md:w-11/12 w-full  max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
+                    <Dialog.Content className='absolute p-4 bg-backgroundColor-100 rounded-2xl max-w-[700px] max-md:w-11/12 w-full  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden'>
                         <header className='flex flex-1 mb-2'>
                             <h1 className="mx-auto text-lg font-bold">Nova avaliação</h1>
                             <Dialog.Close onClick={() => onClose()} className='absolute right-4 top-4 text-textColor-700'>
