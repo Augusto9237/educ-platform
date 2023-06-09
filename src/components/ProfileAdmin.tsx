@@ -44,7 +44,7 @@ export function ProfileAdmin() {
                         </Link>
                     )}
                     <div className="flex flex-col px-2">
-                        <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })} className="flex  items-center gap-2">
+                        <button onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })} className="flex  items-center gap-2">
                             <RiLogoutBoxRFill /><strong>Sair</strong>
                         </button>
                     </div>

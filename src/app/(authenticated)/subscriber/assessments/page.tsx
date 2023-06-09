@@ -1,11 +1,12 @@
 'use client';
+import { GlobalContext } from '@/components/app/context/GlobalContext';
 import { CardGrades } from '@/components/components/CardGrades';
 import { WeekGrades } from '@/components/components/WeekGrades';
 import * as Dialog from '@radix-ui/react-dialog';
 
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+
 
 export interface GradesProps {
     __typename?: "Week" | undefined;
@@ -27,8 +28,7 @@ export default function Assesments() {
                     <Dialog.Root>
                         {user?.values?.gradeses.map((grades) => (
                             <Dialog.Trigger key={grades.id} onClick={() => setGradesSelected(grades.weeklyAssessments)}>
-                                <CardGrades gradeses={grades} month={grades.month} />
-                                
+                                <CardGrades gradeses={grades} month={grades.month} />    
                             </Dialog.Trigger>
                         ))}
                         <Dialog.Portal>

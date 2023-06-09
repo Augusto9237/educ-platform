@@ -46,17 +46,16 @@ export default async function Login() {
     });
 
 
-    if (subscribers.subscriber?.email === session.user.email) {
-      redirect('/home');
-    }
+     if (subscribers.subscriber?.email === session.user.email) {
+       redirect('/subscriber/home');
+     }
 
-    if (teachers.teacher?.email === session.user.email) {
+     if (teachers.teacher?.email === session.user.email) {
       redirect('/dashboard');
     }
 
-    redirect('/register');
+     redirect('/register');
   }
-
 
   return (
     <>

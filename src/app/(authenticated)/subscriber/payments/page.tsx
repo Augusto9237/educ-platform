@@ -1,17 +1,18 @@
 'use client';
+import { GlobalContext } from '@/components/app/context/GlobalContext';
+import { formatReal } from '@/components/app/utils/formatReal';
+import { extractMonth } from '@/components/app/utils/getMonth';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import clsx from "clsx";
 import dayjs from "dayjs";
 import { useContext, useState } from "react";
 import { RiCheckboxFill, RiCheckboxIndeterminateFill } from "react-icons/ri";
-import { GlobalContext } from '../../context/GlobalContext';
-import { extractMonth } from '../../utils/getMonth';
-
 
 export default function Payments() {
     const { user, loadingUser } = useContext(GlobalContext)
     const [paymentStatus, setPaymentStatus] = useState<boolean | null | undefined>(false);
+
 
     return (
         <>
@@ -29,7 +30,7 @@ export default function Payments() {
 
                                 <Dialog.Trigger key={tuition.id} className="relative grid grid-cols-3 pb-2 " disabled={tuition.payment!} onClick={() => setPaymentStatus(tuition.payment)}>
                                     <span className="flex justify-center">{extractMonth(dayjs(tuition.month).month() + 1, true)}</span>
-                                    <span className="flex justify-center">R$ {tuition.value}</span>
+                                    <span className="flex justify-center">{formatReal(Number(tuition.value))}</span>
 
                                     <span className={clsx('flex items-center justify-center max-sm:flex-1 gap-2 rounded',
                                         {

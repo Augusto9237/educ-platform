@@ -1,15 +1,14 @@
 'use client';
+import { AdminContext } from "@/components/app/context/AdminContext";
 import { CardBody } from "@/components/components/CardBody";
 import { TopListSubscriber } from "@/components/components/TopListSubsciber";
 import { useContext } from "react";
 import { FaUserGraduate } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
-import { AdminContext } from "../../context/AdminContext";
 
 export default function Dashboard() {
     const { subscribers, classes } = useContext(AdminContext);
     
-
     return (
         <>
             <main className="flex flex-col w-full gap-4 min-h-[87vh]  max-md:pb-10">

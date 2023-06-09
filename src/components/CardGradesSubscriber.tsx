@@ -40,7 +40,7 @@ interface GradesProps {
 
 }
 
-export function CardGradesSubscriber({ gradeses, month }: GradesProps) {
+export function CardGradesSubscriber({ gradeses}: GradesProps) {
     const percentage = gradeses.average > 0 ? (gradeses.average / 1000) * 100 : 0;
 
     return (

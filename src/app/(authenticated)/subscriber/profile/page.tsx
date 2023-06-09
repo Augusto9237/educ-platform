@@ -1,8 +1,9 @@
 "use client";
+import { GlobalContext } from "@/components/app/context/GlobalContext";
 import { Spinner } from "@/components/components/Spinner";
 import { StudentAvatar } from "@/components/components/StudentAvatar";
 import { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+
 
 export default function Profile() {
     const { user, loadingUser } = useContext(GlobalContext);

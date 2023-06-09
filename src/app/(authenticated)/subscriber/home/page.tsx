@@ -1,11 +1,12 @@
 'use client';
 
+import { GlobalContext } from "@/components/app/context/GlobalContext";
 import { CardAssessment } from "@/components/components/CardAssessment";
 import { CardFrequency } from "@/components/components/CardFrequency";
 import { CardPayments } from "@/components/components/CardPayments";
 import { Spinner } from "@/components/components/Spinner";
 import { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+
 
 
 export default function Home() {
